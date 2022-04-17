@@ -11,7 +11,7 @@
   import $ from 'jquery'
 
   export default {
-    name: 'showHome',
+    name: 'ShowHome',
     data () {
       return {
         testApiParam: {
@@ -25,8 +25,10 @@
         const { $message } = this
         getArticle(this.testApiParam).then(res => {
           this.info = res
-          $('#preview').html(res.content)
-          $('#summernote').summernote('code', res.content)
+          if (res != null && res.data != null) {
+            $('#preview').html(res.data.article.content)
+            $('#summernote').summernote('code', res.data.article.content)
+          }
         }).catch(err => {
           $message.error(`load user err: ${err.message}`)
         })

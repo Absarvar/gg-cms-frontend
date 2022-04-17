@@ -13,6 +13,5 @@ Vue.use(Router)
 
 export default new Router({
   mode: 'hash',
-  routes: constantRouterMap,
-  base: process.env.BASE_URL,
+  routes: constantRouterMap
 })

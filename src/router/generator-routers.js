@@ -19,7 +19,8 @@ const constantRouterComponents = {
   Workplace: () => import('@/views/dashboard/Workplace'),
   Analysis: () => import('@/views/dashboard/Analysis'),
 
-  // art
+  // article
+  ArticleList: () => import('@/views/article/basicArticle/list'),
   ArticleIndex: () => import('@/views/article/basicArticle/index'),
   StandardArticle: () => import('@/views/article/BasicArticle'),
 

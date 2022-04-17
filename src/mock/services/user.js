@@ -871,6 +871,16 @@ const userNav = options => {
         show: true
       },
       component: 'ArticleIndex'
+    },
+    {
+      name: 'article-list',
+      parentId: 0,
+      id: 10036,
+      meta: {
+        title: '文章列表',
+        show: true
+      },
+      component: 'ArticleList'
     }
   ]
   const json = builder(nav)
