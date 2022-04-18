@@ -1,138 +1,59 @@
 <template>
-  <!-- hidden PageHeaderWrapper title demo -->
-  <page-header-wrapper :title="false" :content="$t('form.basic-form.basic.description')">
-    <a-card :body-style="{padding: '24px 32px'}" :bordered="false">
-      <a-form @submit="handleSubmit" :form="form">
-        <a-form-item
-          :label="$t('form.basic-form.title.label')"
-          :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-          :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
-          <a-input
-            v-decorator="[
-              'name',
-              {rules: [{ required: true, message: $t('form.basic-form.title.required') }]}
-            ]"
-            name="name"
-            :placeholder="$t('form.basic-form.title.placeholder')" />
-        </a-form-item>
-        <a-form-item
-          :label="$t('form.basic-form.date.label')"
-          :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-          :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
-          <a-range-picker
-            name="buildTime"
-            style="width: 100%"
-            v-decorator="[
-              'buildTime',
-              {rules: [{ required: true, message: $t('form.basic-form.date.required') }]}
-            ]" />
-        </a-form-item>
-        <a-form-item
-          :label="$t('form.basic-form.goal.label')"
-          :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-          :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
-          <a-textarea
-            rows="4"
-            :placeholder="$t('form.basic-form.goal.placeholder')"
-            v-decorator="[
-              'description',
-              {rules: [{ required: true, message: $t('form.basic-form.goal.required') }]}
-            ]" />
-        </a-form-item>
-        <a-form-item
-          :label="$t('form.basic-form.standard.label')"
-          :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-          :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
-          <a-textarea
-            rows="4"
-            :placeholder="$t('form.basic-form.standard.placeholder')"
-            v-decorator="[
-              'type',
-              {rules: [{ required: true, message: $t('form.basic-form.standard.required') }]}
-            ]" />
-        </a-form-item>
-        <a-form-item
-          :label="$t('form.basic-form.client.label')"
-          :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-          :wrapperCol="{lg: {span: 10}, sm: {span: 17} }">
-          <a-input
-            :placeholder="$t('form.basic-form.client.placeholder')"
-            v-decorator="[
-              'customer',
-              {rules: [{ required: true, message: $t('form.basic-form.client.required') }]}
-            ]" />
-        </a-form-item>
-        <a-form-item
-          :label="$t('form.basic-form.invites.label')"
-          :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-          :wrapperCol="{lg: {span: 10}, sm: {span: 17} }"
-          :required="false"
-        >
-          <a-input :placeholder="$t('form.basic-form.invites.placeholder')" />
-        </a-form-item>
-        <a-form-item
-          :label="$t('form.basic-form.weight.label')"
-          :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-          :wrapperCol="{lg: {span: 10}, sm: {span: 17} }"
-          :required="false"
-        >
-          <a-input-number :min="0" :max="100" />
-          <span> %</span>
-        </a-form-item>
-        <a-form-item
-          :label="$t('form.basic-form.public.label')"
-          :labelCol="{lg: {span: 7}, sm: {span: 7}}"
-          :wrapperCol="{lg: {span: 10}, sm: {span: 17} }"
-          :required="false"
-          :help="$t('form.basic-form.label.help')"
-        >
-          <div id="summernote" >noooooooooote</div>
+  <div>
 
-          <div id="showZone" >showZoneshowZoneshowZone</div>
-          <a-radio-group v-decorator="['target', { initialValue: 1 }]">
-            <a-radio :value="1">{{ $t('form.basic-form.radio.public') }}</a-radio>
-            <a-radio :value="2">{{ $t('form.basic-form.radio.partially-public') }}</a-radio>
-            <a-radio :value="3">{{ $t('form.basic-form.radio.private') }}</a-radio>
-          </a-radio-group>
-          <a-form-item v-show="form.getFieldValue('target') === 2">
-            <a-select mode="multiple">
-              <a-select-option value="4">{{ $t('form.basic-form.option.A') }}</a-select-option>
-              <a-select-option value="5">{{ $t('form.basic-form.option.B') }}</a-select-option>
-              <a-select-option value="6">{{ $t('form.basic-form.option.C') }}</a-select-option>
-            </a-select>
-          </a-form-item>
-        </a-form-item>
-        <a-form-item
-          :wrapperCol="{ span: 24 }"
-          style="text-align: center"
-        >
-          <a-button htmlType="submit" type="primary">{{ $t('form.basic-form.form.submit') }}</a-button>
-          <a-button style="margin-left: 8px" id="saveBut2">{{ $t('form.basic-form.form.save') }}</a-button>
-          <button id="saveBut">224</button>
-        </a-form-item>
-      </a-form>
-    </a-card>
-  </page-header-wrapper>
+    <div class="text-center">
+      <table align="center" class="mx-auto table table-bordered table-hover heavy_border t2print" style="width:700px;vertical-align:middle">
+        <tbody>
+          <tr>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" colspan="8">
+              <h2>供广深圳肉类智能交易市场产品检测报告</h2>
+              <div>购货单位</div>
+              <div>
+                <div>NO</div>
+                <div>出证日期</div>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">商品名称</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">生成单位</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">原检疫证号</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">上级供应商</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">分销凭证号</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">规格</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">数量</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">重量（千克）</td>
+          </tr>
+          <tr>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">生成单位</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">原检疫证号</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">上级供应商</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">分销凭证号</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">规格</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">数量</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">重量（千克）</td>
+          </tr>
+
+          <tr>
+            <td scope="col" style="text-align:left;border-width:2px;border-color:#000000;" colspan="7">合计：</td>
+            <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" colspan="1"></td>
+          </tr>
+        </tbody>
+
+        <div>
+          <div>供货单位</div>
+          <div>出证单位：供广深圳肉类智能交易市场</div>
+        </div>
+        <div>出证人</div>
+
+      </table>
+    </div>
+
+  </div>
 </template>
 
 <script>
-import $ from 'jquery'
-
-$(document).ready(function () {
-  $('#summernote').text('文本编辑器')
-  $('#summernote').summernote({
-    height: 300
-  })
-  // alert('111')
-
-  $('#saveBut').click(function () {
-    var txt = $('#summernote').summernote('code')
-    // alert('txt')
-    console.log(txt)
-    $('#showZone').html(txt)
-  })
-})
-
 export default {
   name: 'BaseForm',
   data () {
