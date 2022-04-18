@@ -881,6 +881,27 @@ const userNav = options => {
         show: true
       },
       component: 'ArticleList'
+    },
+
+    {
+      name: 'member-manage',
+      parentId: 0,
+      id: 20001,
+      meta: {
+        title: '会员管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'member-list',
+      parentId: 20001,
+      id: 20010,
+      meta: {
+        title: '会员列表',
+        show: true
+      },
+      component: 'MemberList'
     }
   ]
   const json = builder(nav)

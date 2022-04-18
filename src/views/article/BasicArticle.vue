@@ -6,9 +6,9 @@
       <div style="float:left;">
         <div> &nbsp;</div>
         购货单位：</div>
-      <div style="float:right;">
-        <div>NO：11111</div>
-        <div>出证日期：</div>
+      <div style="float:right;font-size:5px;margin-bottom:-11px;">
+        <div>NO：&nbsp;&nbsp;&nbsp;&nbsp;</div>
+        <div>出证日期：&nbsp;&nbsp;&nbsp;&nbsp;</div>
       </div>
       <table
         class="table table-bordered table-hover heavy_border t2print"
@@ -47,7 +47,7 @@
         <div>供货单位：</div>
         <div>出证单位：供广深圳肉类智能交易市场</div>
       </div>
-      <div style="float:right;">出证人：</div>
+      <div style="float:right;">出证人：&nbsp;&nbsp;&nbsp;&nbsp;</div>
     </div>
 
   </div>

@@ -24,6 +24,9 @@ const constantRouterComponents = {
   ArticleIndex: () => import('@/views/article/basicArticle/index'),
   StandardArticle: () => import('@/views/article/BasicArticle'),
 
+  // member
+  MemberList: () => import('@/views/member/memberList'),
+
   // form
   BasicForm: () => import('@/views/form/basicForm'),
   StepForm: () => import('@/views/form/stepForm/StepForm'),
