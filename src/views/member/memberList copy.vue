@@ -62,7 +62,7 @@
     </div>
 
     <div class="table-operator">
-      <a-button type="primary" icon="plus" @click="add()">新建</a-button>
+      <a-button type="primary" icon="plus" @click="handleEdit()">新建</a-button>
       <a-button type="dashed" @click="tableOption">{{ optionAlertShow && '关闭' || '开启' }} alert</a-button>
       <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
         <a-menu slot="overlay">
@@ -81,7 +81,6 @@
       size="default"
       rowKey="key"
       class="ant-table-striped"
-      bordered
       @resizeColumn="handleResizeColumn"
       :scroll="{ x: 2000, y: 600 }"
       :columns="columns"
@@ -90,20 +89,13 @@
       :rowSelection="options.rowSelection"
       :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
     >
-      <template #headerCell="{ column }">
-        <template v-if="column.key === 'companyName'">
-          <span>
-            <a-divider type="vertical" />
-          </span>
-        </template>
-      </template>
 
       <span slot="serial" slot-scope="text, record, index">
         {{ index + 1 }}
       </span>
       <span slot="action" slot-scope="text, record">
         <template>
-          <a @click="edit(record)">编辑</a>
+          <a @click="handleEdit(record)">编辑</a>
           <a-divider type="vertical" />
         </template>
         <a-dropdown>
@@ -131,7 +123,6 @@
 import moment from 'moment'
 import { STable } from '@/components'
 import { memberList } from '@/api/member'
-import TaskForm from './modules/TaskForm'
 
 export default {
   name: 'TableList',
@@ -149,13 +140,11 @@ export default {
       // 表头
       columns: [
         {
-          key: 'serial',
           title: '#',
           scopedSlots: { customRender: 'serial' },
           width: 60,
           fixed: 'left',
-          resizable: 'true',
-          divider: 'vertical'
+          resizable: true
         },
         {
           key: 'companyName',
@@ -163,72 +152,60 @@ export default {
           dataIndex: 'companyName',
           fixed: 'left',
           width: 200,
-          resizable: 'true'
+          resizable: true
         },
         {
-          key: 'terminalCode',
           title: '终端代码',
           dataIndex: 'terminalCode',
-          width: 100,
-          resizable: 'true'
+          width: 100
         },
         {
-          key: 'name',
           title: '姓名',
           dataIndex: 'name',
           width: 100,
-          resizable: 'true'
+          resizable: true
         },
         {
-          key: 'mobile',
           title: '联系电话',
           dataIndex: 'mobile',
           width: 150,
-          resizable: 'true'
+          resizable: true
         },
         {
-          key: 'amount',
           title: '账户余额',
           dataIndex: 'amount',
           width: 100
         },
         {
-          key: 'frozenAmount',
           title: '冻结余额',
           dataIndex: 'frozenAmount',
           width: 100
         },
         {
-          key: 'creditcode',
           title: '信用代码',
           dataIndex: 'creditcode'
         },
         {
-          key: 'legalName',
           title: '法人',
           dataIndex: 'legalName',
           width: 100
         },
         {
-          key: 'area',
           title: '区域',
           dataIndex: 'area',
           width: 100
         },
         {
-          key: 'address',
           title: '地址',
           dataIndex: 'address',
           ellipsis: 'true'
         },
         {
-          key: 'createTime',
           title: '注册时间',
           dataIndex: 'createTime',
           sorter: true
         },
         {
-          key: 'action',
           title: '操作',
           dataIndex: 'action',
           width: '150px',
@@ -272,57 +249,6 @@ export default {
     })
   },
   methods: {
-    add () {
-      this.$dialog(TaskForm,
-        // component props
-        {
-          record: {},
-          on: {
-            ok () {
-              console.log('ok 回调')
-            },
-            cancel () {
-              console.log('cancel 回调')
-            },
-            close () {
-              console.log('modal close 回调')
-            }
-          }
-        },
-        // modal props
-        {
-          title: '新增',
-          width: 700,
-          centered: true,
-          maskClosable: false
-        })
-    },
-    edit (record) {
-      console.log('record', record)
-      this.$dialog(TaskForm,
-        // component props
-        {
-          record,
-          on: {
-            ok () {
-              console.log('ok 回调')
-            },
-            cancel () {
-              console.log('cancel 回调')
-            },
-            close () {
-              console.log('modal close 回调')
-            }
-          }
-        },
-        // modal props
-        {
-          title: '编辑1',
-          width: 700,
-          centered: true,
-          maskClosable: false
-        })
-    },
     tableOption () {
       if (!this.optionAlertShow) {
         this.options = {
@@ -342,6 +268,9 @@ export default {
       }
     },
 
+    handleEdit (record) {
+      this.$emit('onEdit', record)
+    },
     handleOk () {
 
     },

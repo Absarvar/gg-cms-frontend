@@ -1,12 +1,12 @@
 import request from '@/utils/request'
-import gg from '@/config/common.config'
+import { GG_URL_PREFIX } from '@/config/common.config'
 
 const memberApi = {
-  newMember: gg.URL + '/member/newMember',
-  memberList: gg.URL + '/member/list',
-  getMember: gg.URL + '/member/get',
-  deleteMember: gg.URL + '/member/delete',
-  editMember: gg.URL + '/member/edit'
+  newMember: GG_URL_PREFIX + '/member/newMember',
+  memberList: GG_URL_PREFIX + '/member/list',
+  getMember: GG_URL_PREFIX + '/member/get',
+  deleteMember: GG_URL_PREFIX + '/member/delete',
+  editMember: GG_URL_PREFIX + '/member/edit'
 }
 
 export function newMember (parameter) {
