@@ -1,11 +1,40 @@
 <template>
   <a-form @submit="handleSubmit" :form="form">
     <a-form-item
-      label="姓名"
+      label="id"
+      hidden
       :labelCol="labelCol"
       :wrapperCol="wrapperCol"
     >
-      <a-input v-decorator="['name', {rules:[{required: true, message: '请输入姓名'}]}]" />
+      <a-input v-decorator="['id', {rules:[{required: false, message: ''}]}]" />
+    </a-form-item>
+    <a-form-item
+      label="商品名称"
+      :labelCol="labelCol"
+      :wrapperCol="wrapperCol"
+    >
+      <a-input v-decorator="['name', {rules:[{required: true, message: '请输入商品名称'}]}]" />
+    </a-form-item>
+    <a-form-item
+      label="物种"
+      :labelCol="labelCol"
+      :wrapperCol="wrapperCol"
+    >
+      <a-space>
+        <a-select
+          ref="select"
+          style="width: 120px"
+          v-decorator="['species', {initialValue:this.record.species}, {rules:[{required: true, message: '请输入物种'}]}]"
+          :options="options1"
+        ></a-select>
+      </a-space>
+    </a-form-item>
+    <a-form-item
+      label="单位"
+      :labelCol="labelCol"
+      :wrapperCol="wrapperCol"
+    >
+      <a-input v-decorator="['unit', {rules:[{required: true, message: '请输入单位'}]}]" />
     </a-form-item>
 
     <!-- <a-form-item
@@ -42,8 +71,9 @@
 
 <script>
 import pick from 'lodash.pick'
+import { editGoods, newGoods } from '@/api/goodsApi'
 
-const fields = ['name']
+const fields = ['name', 'species', 'unit', 'id']
 
 export default {
   name: 'TaskForm',
@@ -63,7 +93,18 @@ export default {
         xs: { span: 24 },
         sm: { span: 13 }
       },
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
+      options1: [{
+        value: 1,
+        label: '猪',
+        selected: true
+      }, {
+        value: 2,
+        label: '牛'
+      }, {
+        value: 3,
+        label: '羊'
+      }]
     }
   },
   mounted () {
@@ -72,6 +113,21 @@ export default {
   methods: {
     onOk () {
       console.log('监听了 modal ok 事件')
+      if (this.form.getFieldsValue()['id'] > 0) {
+        editGoods(this.form.getFieldsValue()).then(res => {
+          this.info = res.data
+        }).catch(err => {
+        const { $message } = this
+          $message.error(`load user err: ${err.message}`)
+        })
+      } else {
+        newGoods(this.form.getFieldsValue()).then(res => {
+          this.info = res.data
+        }).catch(err => {
+        const { $message } = this
+          $message.error(`load user err: ${err.message}`)
+        })
+      }
       return new Promise(resolve => {
         resolve(true)
       })

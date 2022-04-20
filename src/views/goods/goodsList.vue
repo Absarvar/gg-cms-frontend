@@ -83,20 +83,24 @@
       class="ant-table-striped"
       bordered
       @resizeColumn="handleResizeColumn"
-      :scroll="{ x: 2000, y: 600 }"
+      :scroll="{ x: 1000, y: 600 }"
       :columns="columns"
       :data="loadData"
       :alert="options.alert"
       :rowSelection="options.rowSelection"
       :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
     >
-      <template #headerCell="{ column }">
-        <template v-if="column.key === 'companyName'">
+      <template #bodyCell="{ column }">
+        <template v-if="column.key === 'species'">
           <span>
+            asf
             <a-divider type="vertical" />
           </span>
         </template>
       </template>
+      <span slot="species" slot-scope="text, record, index">
+        {{ index + 2 }}
+      </span>
 
       <span slot="serial" slot-scope="text, record, index">
         {{ index + 1 }}
@@ -112,7 +116,7 @@
           </a>
           <a-menu slot="overlay">
             <a-menu-item>
-              <a href="javascript:;">详122情</a>
+              <a href="javascript:;">详情</a>
             </a-menu-item>
             <a-menu-item v-if="$auth('table.disable')">
               <a href="javascript:;">禁用</a>
@@ -152,52 +156,35 @@ export default {
           key: 'serial',
           title: '#',
           scopedSlots: { customRender: 'serial' },
-          width: 60,
-          fixed: 'left',
-          resizable: 'true',
-          divider: 'vertical'
+          width: 60
         },
                 {
           title: 'id',
-          dataIndex: 'id',
-          width: 100,
-          resizable: 'true'
+          dataIndex: 'id'
         },
         {
           title: '商品名',
-          dataIndex: 'name',
-          width: 100,
-          resizable: 'true'
+          dataIndex: 'name'
         },
         {
           title: '单位',
-          dataIndex: 'unit',
-          width: 100,
-          resizable: 'true'
+          dataIndex: 'unit'
         },
         {
           title: '物种',
-          dataIndex: 'species',
-          width: 100,
-          resizable: 'true'
+          dataIndex: 'species'
         },
         {
           title: '状态',
-          dataIndex: 'status',
-          width: 100,
-          resizable: 'true'
+          dataIndex: 'status'
         },
         {
           title: '创建时间',
-          dataIndex: 'createTime',
-          width: 100,
-          resizable: 'true'
+          dataIndex: 'createTime'
         },
         {
           title: 'sku列表',
-          dataIndex: 'skuList',
-          width: 100,
-          resizable: 'true'
+          dataIndex: 'skuList'
         },
 
         {
