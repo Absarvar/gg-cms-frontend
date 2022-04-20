@@ -26,6 +26,8 @@ const constantRouterComponents = {
 
   // member
   MemberList: () => import('@/views/member/memberList'),
+  // goods
+  GoodsList: () => import('@/views/goods/goodsList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),
