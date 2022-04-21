@@ -31,7 +31,7 @@
             <a-select
               ref="select"
               style="width: 120px"
-              v-decorator="['species', {rules:[{required: true, message: '请输入物种'}]}]"
+              v-decorator="['species', {rules:[{required: true, message: '请选择物种'}]}]"
               :options="options1"
             ></a-select>
           </a-space>
@@ -40,6 +40,19 @@
           label="单位"
         >
           <a-input v-decorator="['unit', {rules:[{required: true, message: '请输入单位'}]}]" />
+        </a-form-item>
+
+        <a-form-item
+          label="状态"
+        >
+          <a-space>
+            <a-select
+              ref="select"
+              style="width: 120px"
+              v-decorator="['status', {rules:[{required: true, message: '请选择状态'}]}]"
+              :options="options2"
+            ></a-select>
+          </a-space>
         </a-form-item>
       </a-form>
     </a-spin>
@@ -50,7 +63,7 @@
 import pick from 'lodash.pick'
 
 // 表单字段
-const fields = ['id', 'name', 'species', 'unit']
+const fields = ['id', 'name', 'species', 'unit', 'status']
 
 export default {
   props: {
@@ -90,6 +103,13 @@ export default {
       }, {
         value: 3,
         label: '羊'
+      }],
+      options2: [{
+        value: 0,
+        label: '禁用'
+      }, {
+        value: 1,
+        label: '启用'
       }]
     }
   },

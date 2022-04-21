@@ -93,7 +93,7 @@
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
         <span slot="createTime" slot-scope="text">
-          <ellipsis :length="4" tooltip>{{ text }}</ellipsis>
+          {{ text | formateDate }}
         </span>
 
         <span slot="action" slot-scope="text, record">
@@ -125,6 +125,7 @@ import { newGoods, editGoods, goodsList } from '@/api/goodsApi'
 
 import StepByStepModal from './modules/StepByStepModal'
 import CreateForm from './modules/CreateForm'
+import { formateDate } from '@/utils/dateUtil'
 
 const statusMap = {
   0: {
@@ -218,6 +219,7 @@ export default {
         },
         {
           title: '创建时间',
+          scopedSlots: { customRender: 'createTime' },
           dataIndex: 'createTime'
         },
         {
@@ -245,6 +247,10 @@ export default {
     },
     speciesFilter (type) {
       return speciesMap[type].text
+    },
+    formateDate (time) {
+      const date = new Date(time)
+      return formateDate(date, 'yyyy-MM-dd hh:mm')
     }
   },
   created () {
