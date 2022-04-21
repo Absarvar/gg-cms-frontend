@@ -90,7 +90,7 @@
           {{ index + 1 }}
         </span>
         <span slot="status" slot-scope="text">
-          <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
+          <a-badge :status="text | statusTypeFilter" />
         </span>
         <span slot="description" slot-scope="text">
           <ellipsis :length="4" tooltip>{{ text }}</ellipsis>

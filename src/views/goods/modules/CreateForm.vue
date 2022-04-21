@@ -10,11 +10,36 @@
     <a-spin :spinning="loading">
       <a-form :form="form" v-bind="formLayout">
         <!-- 检查是否有 id 并且大于0，大于0是修改。其他是新增，新增不显示主键ID -->
-        <a-form-item v-show="model && model.id > 0" label="主键ID">
+        <!-- <a-form-item v-show="model && model.id > 0" label="主键ID">
           <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
+        </a-form-item> -->
+        <a-form-item
+          label="id"
+          hidden
+        >
+          <a-input v-decorator="['id', {rules:[{required: false, message: ''}]}]" />
         </a-form-item>
-        <a-form-item label="描述">
-          <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+        <a-form-item
+          label="商品名称"
+        >
+          <a-input v-decorator="['name', {rules:[{required: true, message: '请输入商品名称'}]}]" />
+        </a-form-item>
+        <a-form-item
+          label="物种"
+        >
+          <a-space>
+            <a-select
+              ref="select"
+              style="width: 120px"
+              v-decorator="['species', {rules:[{required: true, message: '请输入物种'}]}]"
+              :options="options1"
+            ></a-select>
+          </a-space>
+        </a-form-item>
+        <a-form-item
+          label="单位"
+        >
+          <a-input v-decorator="['unit', {rules:[{required: true, message: '请输入单位'}]}]" />
         </a-form-item>
       </a-form>
     </a-spin>
@@ -25,7 +50,7 @@
 import pick from 'lodash.pick'
 
 // 表单字段
-const fields = ['description', 'id']
+const fields = ['id', 'name', 'species', 'unit']
 
 export default {
   props: {
@@ -54,7 +79,18 @@ export default {
       }
     }
     return {
-      form: this.$form.createForm(this)
+      form: this.$form.createForm(this),
+      options1: [{
+        value: 1,
+        label: '猪',
+        selected: true
+      }, {
+        value: 2,
+        label: '牛'
+      }, {
+        value: 3,
+        label: '羊'
+      }]
     }
   },
   created () {
