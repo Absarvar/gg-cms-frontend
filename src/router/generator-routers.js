@@ -28,6 +28,8 @@ const constantRouterComponents = {
   MemberList: () => import('@/views/member/memberList'),
   // goods
   GoodsList: () => import('@/views/goods/goodsList'),
+  // stream
+  StreamList: () => import('@/views/stream/streamList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

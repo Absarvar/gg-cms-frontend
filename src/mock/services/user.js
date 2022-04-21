@@ -923,6 +923,27 @@ const userNav = options => {
         show: true
       },
       component: 'GoodsList'
+    },
+
+    {
+      name: 'stream-manage',
+      parentId: 0,
+      id: 20008,
+      meta: {
+        title: '流向管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'stream-list',
+      parentId: 20008,
+      id: 20080,
+      meta: {
+        title: '流向列表',
+        show: true
+      },
+      component: 'StreamList'
     }
   ]
   const json = builder(nav)
