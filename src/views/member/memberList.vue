@@ -1,164 +1,190 @@
 <template>
-  <div>
-    <div class="table-page-search-wrapper">
-      <a-form layout="inline">
-        <a-row :gutter="48">
-          <a-col :md="8" :sm="24">
-            <a-form-item label="规则编号">
-              <a-input v-model="queryParam.id" placeholder=""/>
-            </a-form-item>
-          </a-col>
-          <a-col :md="8" :sm="24">
-            <a-form-item label="使用状态">
-              <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                <a-select-option value="0">全部</a-select-option>
-                <a-select-option value="1">关闭</a-select-option>
-                <a-select-option value="2">运行中</a-select-option>
-              </a-select>
-            </a-form-item>
-          </a-col>
-          <template v-if="advanced">
+  <page-header-wrapper>
+    <a-card :bordered="false">
+      <div class="table-page-search-wrapper">
+        <a-form layout="inline">
+          <a-row :gutter="48">
             <a-col :md="8" :sm="24">
-              <a-form-item label="调用次数">
-                <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
-              <a-form-item label="更新日期">
-                <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入更新日期"/>
+              <a-form-item label="规则编号">
+                <a-input v-model="queryParam.id" placeholder=""/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
               <a-form-item label="使用状态">
-                <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
+                <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
                   <a-select-option value="0">全部</a-select-option>
                   <a-select-option value="1">关闭</a-select-option>
                   <a-select-option value="2">运行中</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="24">
-              <a-form-item label="使用状态">
-                <a-select placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
-                </a-select>
-              </a-form-item>
+            <template v-if="advanced">
+              <a-col :md="8" :sm="24">
+                <a-form-item label="调用次数">
+                  <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
+                </a-form-item>
+              </a-col>
+              <a-col :md="8" :sm="24">
+                <a-form-item label="更新日期">
+                  <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入更新日期"/>
+                </a-form-item>
+              </a-col>
+              <a-col :md="8" :sm="24">
+                <a-form-item label="使用状态">
+                  <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
+                    <a-select-option value="0">全部</a-select-option>
+                    <a-select-option value="1">关闭</a-select-option>
+                    <a-select-option value="2">运行中</a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :md="8" :sm="24">
+                <a-form-item label="使用状态">
+                  <a-select placeholder="请选择" default-value="0">
+                    <a-select-option value="0">全部</a-select-option>
+                    <a-select-option value="1">关闭</a-select-option>
+                    <a-select-option value="2">运行中</a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+            </template>
+            <a-col :md="!advanced && 8 || 24" :sm="24">
+              <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
+                <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
+                <a-button style="margin-left: 8px" @click="() => this.queryParam = {}">重置</a-button>
+                <a @click="toggleAdvanced" style="margin-left: 8px">
+                  {{ advanced ? '收起' : '展开' }}
+                  <a-icon :type="advanced ? 'up' : 'down'"/>
+                </a>
+              </span>
             </a-col>
-          </template>
-          <a-col :md="!advanced && 8 || 24" :sm="24">
-            <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
-              <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-              <a-button style="margin-left: 8px" @click="() => queryParam = {}">重置</a-button>
-              <a @click="toggleAdvanced" style="margin-left: 8px">
-                {{ advanced ? '收起' : '展开' }}
-                <a-icon :type="advanced ? 'up' : 'down'"/>
-              </a>
-            </span>
-          </a-col>
-        </a-row>
-      </a-form>
-    </div>
+          </a-row>
+        </a-form>
+      </div>
 
-    <div class="table-operator">
-      <a-button type="primary" icon="plus" @click="add()">新建</a-button>
-      <a-button type="dashed" @click="tableOption">{{ optionAlertShow && '关闭' || '开启' }} alert</a-button>
-      <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
-        <a-menu slot="overlay">
-          <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-          <!-- lock | unlock -->
-          <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
-        </a-menu>
-        <a-button style="margin-left: 8px">
-          批量操作 <a-icon type="down" />
-        </a-button>
-      </a-dropdown>
-    </div>
-
-    <s-table
-      ref="table"
-      size="default"
-      rowKey="key"
-      class="ant-table-striped"
-      bordered
-      @resizeColumn="handleResizeColumn"
-      :scroll="{ x: 2000, y: 600 }"
-      :columns="columns"
-      :data="loadData"
-      :alert="options.alert"
-      :rowSelection="options.rowSelection"
-      :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
-    >
-      <template #headerCell="{ column }">
-        <template v-if="column.key === 'companyName'">
-          <span>
-            <a-divider type="vertical" />
-          </span>
-        </template>
-      </template>
-
-      <span slot="serial" slot-scope="text, record, index">
-        {{ index + 1 }}
-      </span>
-      <span slot="action" slot-scope="text, record">
-        <template>
-          <a @click="edit(record)">编辑</a>
-          <a-divider type="vertical" />
-        </template>
-        <a-dropdown>
-          <a class="ant-dropdown-link">
-            更多 <a-icon type="down" />
-          </a>
+      <div class="table-operator">
+        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
-            <a-menu-item>
-              <a href="javascript:;">详情</a>
-            </a-menu-item>
-            <a-menu-item v-if="$auth('table.disable')">
-              <a href="javascript:;">禁用</a>
-            </a-menu-item>
-            <a-menu-item v-if="$auth('table.delete')">
-              <a href="javascript:;">删除</a>
-            </a-menu-item>
+            <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
+            <!-- lock | unlock -->
+            <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
+          <a-button style="margin-left: 8px">
+            批量操作 <a-icon type="down" />
+          </a-button>
         </a-dropdown>
-      </span>
-    </s-table>
-  </div>
-</template>
+      </div>
 
+      <s-table
+        ref="table"
+        size="default"
+        rowKey="key"
+        :columns="columns"
+        :data="loadData"
+        :alert="true"
+        :rowSelection="rowSelection"
+        showPagination="auto"
+        :scroll="{ x: 2000, y: 600 }"
+      >
+        <span slot="serial" slot-scope="text, record, index">
+          {{ index + 1 }}
+        </span>
+        <span slot="status" slot-scope="text">
+          <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
+        </span>
+        <span slot="creditcode" slot-scope="text">
+          <ellipsis :length="6" tooltip>{{ text }}</ellipsis>
+        </span>
+        <span slot="address" slot-scope="text">
+          <ellipsis :length="12" tooltip>{{ text }}</ellipsis>
+        </span>
+        <span slot="createTime" slot-scope="text">
+          {{ text | formateDate }}
+        </span>
+
+        <span slot="action" slot-scope="text, record">
+          <template>
+            <a @click="handleEdit(record)">编辑</a>
+            <!-- <a-divider type="vertical" />
+            <a @click="handleSub(record)">订阅报警</a> -->
+          </template>
+        </span>
+      </s-table>
+
+      <create-form
+        ref="createModal"
+        :visible="visible"
+        :loading="confirmLoading"
+        :model="mdl"
+        @cancel="handleCancel"
+        @ok="handleOk"
+      />
+    </a-card>
+  </page-header-wrapper>
+</template>
 <script>
 import moment from 'moment'
-import { STable } from '@/components'
-import { memberList } from '@/api/member'
-import TaskForm from './modules/TaskForm'
+import { STable, Ellipsis } from '@/components'
+import { newMember, editMember, memberList } from '@/api/member'
+
+import CreateForm from './modules/CreateForm'
+import { formateDate } from '@/utils/dateUtil'
+
+const statusMap = {
+  0: {
+    status: 'default',
+    text: '禁用中'
+  },
+  1: {
+    status: 'processing',
+    text: '启用中'
+  }
+}
 
 export default {
   name: 'TableList',
   components: {
-    STable
+    STable,
+    Ellipsis,
+    CreateForm
   },
   data () {
     return {
-      mdl: {},
+      // create model
+      visible: false,
+      confirmLoading: false,
+      mdl: null,
       // 高级搜索 展开/关闭
       advanced: false,
       // 查询参数
-      queryParam: {
+      queryParam: {},
+      // 加载数据方法 必须为 Promise 对象
+      loadData: parameter => {
+        const requestParameters = Object.assign({}, parameter, this.queryParam)
+        console.log('loadData request parameters:', requestParameters)
+        return memberList(requestParameters)
+          .then(res => {
+            return res.data
+          })
       },
-      // 表头
+      selectedRowKeys: [],
+      selectedRows: [],
       columns: [
         {
           key: 'serial',
           title: '#',
           scopedSlots: { customRender: 'serial' },
           width: 60,
-          fixed: 'left',
-          resizable: 'true',
-          divider: 'vertical'
+          fixed: 'left'
         },
         {
-          key: 'companyName',
+          title: '终端代码',
+          dataIndex: 'terminalCode',
+          width: 100,
+          fixed: 'left'
+        },
+        {
           title: '公司名称',
           dataIndex: 'companyName',
           fixed: 'left',
@@ -166,66 +192,71 @@ export default {
           resizable: 'true'
         },
         {
-          key: 'terminalCode',
-          title: '终端代码',
-          dataIndex: 'terminalCode',
+          title: 'id',
+          dataIndex: 'id',
+          width: 60
+        },
+        {
+          title: '法人姓名',
+          dataIndex: 'legalName',
           width: 100,
           resizable: 'true'
         },
         {
-          key: 'name',
-          title: '姓名',
+          title: '信用代码',
+          dataIndex: 'creditcode',
+          scopedSlots: { customRender: 'creditcode' },
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '经营地址',
+          dataIndex: 'address',
+          scopedSlots: { customRender: 'address' },
+          width: 200,
+          resizable: 'true'
+        },
+        {
+          title: '会员名称',
           dataIndex: 'name',
           width: 100,
           resizable: 'true'
         },
         {
-          key: 'mobile',
-          title: '联系电话',
+          title: '会员手机',
           dataIndex: 'mobile',
-          width: 150,
+          width: 100,
           resizable: 'true'
         },
         {
-          key: 'amount',
-          title: '账户余额',
-          dataIndex: 'amount',
-          width: 100
+          title: '类型',
+          dataIndex: 'type',
+          width: 100,
+          resizable: 'true'
         },
         {
-          key: 'frozenAmount',
+          title: '余额',
+          dataIndex: 'amount',
+          width: 100,
+          resizable: 'true'
+        },
+        {
           title: '冻结余额',
           dataIndex: 'frozenAmount',
-          width: 100
+          width: 100,
+          resizable: 'true'
+        },
+
+        {
+          title: '状态',
+          scopedSlots: { customRender: 'status' },
+          width: 100,
+          dataIndex: 'status'
         },
         {
-          key: 'creditcode',
-          title: '信用代码',
-          dataIndex: 'creditcode'
-        },
-        {
-          key: 'legalName',
-          title: '法人',
-          dataIndex: 'legalName',
-          width: 100
-        },
-        {
-          key: 'area',
-          title: '区域',
-          dataIndex: 'area',
-          width: 100
-        },
-        {
-          key: 'address',
-          title: '地址',
-          dataIndex: 'address',
-          ellipsis: 'true'
-        },
-        {
-          key: 'createTime',
-          title: '注册时间',
-          dataIndex: 'createTime',
-          sorter: true
+          title: '创建时间',
+          scopedSlots: { customRender: 'createTime' },
+          dataIndex: 'createTime'
         },
         {
           key: 'action',
@@ -235,117 +266,91 @@ export default {
           scopedSlots: { customRender: 'action' },
           fixed: 'right'
         }
-      ],
-      handleResizeColumn: (w, col) => {
-        col.width = w
-      },
-      // 加载数据方法 必须为 Promise 对象
-      loadData: parameter => {
-        return memberList(Object.assign(parameter, this.queryParam))
-          .then(res => {
-      console.log(res)
-            return res.data
-          })
-      },
-      selectedRowKeys: [],
-      selectedRows: [],
-
-      // custom table alert & rowSelection
-      options: {
-        alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
-        rowSelection: {
-          selectedRowKeys: this.selectedRowKeys,
-          onChange: this.onSelectChange
-        }
-      },
-      optionAlertShow: false
+      ]
+    }
+  },
+  filters: {
+    statusFilter (type) {
+      return statusMap[type].text
+    },
+    statusTypeFilter (type) {
+      return statusMap[type].status
+    },
+    formateDate (time) {
+      const date = new Date(time)
+      return formateDate(date, 'yyyy-MM-dd hh:mm')
     }
   },
   created () {
-    this.tableOption()
-    // getRoleList({ t: new Date() })
-    memberList(this.queryParam).then(res => {
-      console.log(res)
-    }).catch(err => {
-      const { $message } = this
-      $message.error(`load user err: ${err.message}`)
-    })
+
+  },
+  computed: {
+    rowSelection () {
+      return {
+        selectedRowKeys: this.selectedRowKeys,
+        onChange: this.onSelectChange
+      }
+    }
   },
   methods: {
-    add () {
-      this.$dialog(TaskForm,
-        // component props
-        {
-          record: {},
-          on: {
-            ok () {
-              console.log('ok 回调')
-            },
-            cancel () {
-              console.log('cancel 回调')
-            },
-            close () {
-              console.log('modal close 回调')
-            }
-          }
-        },
-        // modal props
-        {
-          title: '新增',
-          width: 700,
-          centered: true,
-          maskClosable: false
-        })
+    handleAdd () {
+      this.mdl = null
+      this.visible = true
     },
-    edit (record) {
-      console.log('record', record)
-      this.$dialog(TaskForm,
-        // component props
-        {
-          record,
-          on: {
-            ok () {
-              console.log('ok 回调')
-            },
-            cancel () {
-              console.log('cancel 回调')
-            },
-            close () {
-              console.log('modal close 回调')
-            }
-          }
-        },
-        // modal props
-        {
-          title: '编辑1',
-          width: 700,
-          centered: true,
-          maskClosable: false
-        })
+    handleEdit (record) {
+      this.visible = true
+      this.mdl = { ...record }
     },
-    tableOption () {
-      if (!this.optionAlertShow) {
-        this.options = {
-          alert: { show: true, clear: () => { this.selectedRowKeys = [] } },
-          rowSelection: {
-            selectedRowKeys: this.selectedRowKeys,
-            onChange: this.onSelectChange
+    handleOk () {
+      const form = this.$refs.createModal.form
+      this.confirmLoading = true
+      form.validateFields((errors, values) => {
+        if (!errors) {
+          if (values.id > 0) {
+            // 修改 e.g.
+            editMember(values)
+            .then(res => {
+              this.visible = false
+              this.confirmLoading = false
+              // 重置表单数据
+              form.resetFields()
+              // 刷新表格
+              this.$refs.table.refresh()
+
+              this.$message.info('修改成功')
+            })
+          } else {
+            // 新增
+            newMember(values)
+            .then(res => {
+              this.visible = false
+              this.confirmLoading = false
+              // 重置表单数据
+              form.resetFields()
+              // 刷新表格
+              this.$refs.table.refresh()
+
+              this.$message.info('新增成功')
+            })
           }
+        } else {
+          this.confirmLoading = false
         }
-        this.optionAlertShow = true
+      })
+    },
+    handleCancel () {
+      this.visible = false
+
+      const form = this.$refs.createModal.form
+      form.resetFields() // 清理表单数据（可不做）
+    },
+    handleSub (record) {
+      if (record.status !== 0) {
+        this.$message.info(`${record.no} 订阅成功`)
       } else {
-        this.options = {
-          alert: false,
-          rowSelection: null
-        }
-        this.optionAlertShow = false
+        this.$message.error(`${record.no} 订阅失败，规则已关闭`)
       }
     },
-
-    handleOk () {
-
-    },
-
     onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
       this.selectedRows = selectedRows
@@ -353,7 +358,6 @@ export default {
     toggleAdvanced () {
       this.advanced = !this.advanced
     },
-
     resetSearchForm () {
       this.queryParam = {
         date: moment(new Date())
@@ -362,6 +366,7 @@ export default {
   }
 }
 </script>
+
 <style >
 .table-striped {
   background-color: #fafafa;

@@ -857,7 +857,7 @@ const userNav = options => {
       parentId: 0,
       id: 10035,
       meta: {
-        title: '标准文章',
+        title: '分销凭证',
         show: true
       },
       component: 'StandardArticle'
