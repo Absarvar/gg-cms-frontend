@@ -944,7 +944,50 @@ const userNav = options => {
         show: true
       },
       component: 'StreamList'
+    },
+
+    {
+      name: 'preorder-manage',
+      parentId: 0,
+      id: 20004,
+      meta: {
+        title: '预定订单管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'preorder-list',
+      parentId: 20004,
+      id: 20040,
+      meta: {
+        title: '预定订单列表',
+        show: true
+      },
+      component: 'PreorderList'
+    },
+
+    {
+      name: 'product-manage',
+      parentId: 0,
+      id: 20005,
+      meta: {
+        title: '产品管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'product-list',
+      parentId: 20005,
+      id: 20050,
+      meta: {
+        title: '产品列表',
+        show: true
+      },
+      component: 'ProductList'
     }
+
   ]
   const json = builder(nav)
   console.log('json', json)

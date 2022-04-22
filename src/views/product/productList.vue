@@ -5,48 +5,36 @@
         <a-form layout="inline">
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
-              <a-form-item label="规则编号">
-                <a-input v-model="queryParam.id" placeholder=""/>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
               <a-form-item label="使用状态">
                 <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
+                  <a-select-option value="0">禁用</a-select-option>
+                  <a-select-option value="1">启用</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
-            <template v-if="advanced">
-              <a-col :md="8" :sm="24">
-                <a-form-item label="调用次数">
-                  <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
-                </a-form-item>
-              </a-col>
               <a-col :md="8" :sm="24">
                 <a-form-item label="创建日期">
                   <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入创建日期"/>
                 </a-form-item>
               </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="使用状态">
-                  <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
-                    <a-select-option value="0">全部</a-select-option>
-                    <a-select-option value="1">关闭</a-select-option>
-                    <a-select-option value="2">运行中</a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="使用状态">
-                  <a-select placeholder="请选择" default-value="0">
-                    <a-select-option value="0">全部</a-select-option>
-                    <a-select-option value="1">关闭</a-select-option>
-                    <a-select-option value="2">运行中</a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
+            <template v-if="advanced">
+            <a-col :md="8" :sm="24"> <a-form-item label="名称"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="轨道编号"> <a-input v-model="queryParam.orbitCode" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="skuID"> <a-input v-model="queryParam.skuId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="订单id"> <a-input v-model="queryParam.orderId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="会员id"> <a-input v-model="queryParam.memberId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="地址id"> <a-input v-model="queryParam.addressId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="入场申请id"> <a-input v-model="queryParam.applyId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="来源id"> <a-input v-model="queryParam.sourceId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="终端id"> <a-input v-model="queryParam.terminalId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="等级"> <a-input v-model="queryParam.level" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="重量"> <a-input v-model="queryParam.weight" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="实际价格"> <a-input v-model="queryParam.price" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="预定价格"> <a-input v-model="queryParam.priceT" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="入库时间"> <a-input v-model="queryParam.instockTime" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="出库时间"> <a-input v-model="queryParam.outstockTime" placeholder=""/> </a-form-item> </a-col>
+
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
               <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
@@ -120,7 +108,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newStream, editStream, streamList } from '@/api/stream'
+import { newProduct, editProduct, productList } from '@/api/product'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -157,7 +145,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return streamList(requestParameters)
+        return productList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -174,8 +162,7 @@ export default {
         {
           title: 'id',
           dataIndex: 'id',
-          width: 100,
-          resizable: 'true'
+          width: 60
         },
         {
           title: '名称',
@@ -184,16 +171,101 @@ export default {
           resizable: 'true'
         },
         {
-          title: '所属会员',
+          title: '轨道编号',
+          dataIndex: 'orbitCode',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '商品id',
+          dataIndex: 'goodsId',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: 'skuID',
+          dataIndex: 'skuId',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '订单id',
+          dataIndex: 'orderId',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '会员id',
           dataIndex: 'memberId',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '地址',
-          dataIndex: 'address',
+          title: '地址id',
+          dataIndex: 'addressId',
           width: 100,
           resizable: 'true'
+        },
+        {
+          title: '入场申请id',
+          dataIndex: 'applyId',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '来源id',
+          dataIndex: 'sourceId',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '终端id',
+          dataIndex: 'terminalId',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '等级',
+          dataIndex: 'level',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '重量',
+          dataIndex: 'weight',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '实际价格',
+          dataIndex: 'price',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '预定价格',
+          dataIndex: 'priceT',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '入库时间',
+          dataIndex: 'instockTime',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '出库时间',
+          dataIndex: 'outstockTime',
+          width: 100,
+          resizable: 'true'
+        },
+
+        {
+          title: '状态',
+          scopedSlots: { customRender: 'status' },
+          width: 100,
+          dataIndex: 'status'
         },
         {
           title: '创建时间',
@@ -250,7 +322,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editStream(values)
+            editProduct(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -263,7 +335,7 @@ export default {
             })
           } else {
             // 新增
-            newStream(values)
+            newProduct(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false

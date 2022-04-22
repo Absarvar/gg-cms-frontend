@@ -30,6 +30,10 @@ const constantRouterComponents = {
   GoodsList: () => import('@/views/goods/goodsList'),
   // stream
   StreamList: () => import('@/views/stream/streamList'),
+  // preorder
+  PreorderList: () => import('@/views/preorder/preorderList'),
+  // product
+  ProductList: () => import('@/views/product/productList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

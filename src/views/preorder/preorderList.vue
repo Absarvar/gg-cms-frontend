@@ -4,47 +4,30 @@
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
           <a-row :gutter="48">
-            <a-col :md="8" :sm="24">
-              <a-form-item label="规则编号">
-                <a-input v-model="queryParam.id" placeholder=""/>
-              </a-form-item>
-            </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="预定单号"> <a-input v-model="queryParam.preorderCode" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="用户id"> <a-input v-model="queryParam.memberId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="手机号"> <a-input v-model="queryParam.mobile" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="规格"> <a-input v-model="queryParam.skuId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="确认规格"> <a-input v-model="queryParam.confirmSku" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="确认数量"> <a-input v-model="queryParam.confirmNum" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="确认价格"> <a-input v-model="queryParam.confirmPrice" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="合计总额"> <a-input v-model="queryParam.amount" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="预计到货时间"> <a-input v-model="queryParam.arriveTime" placeholder=""/> </a-form-item> </a-col>
+
             <a-col :md="8" :sm="24">
               <a-form-item label="使用状态">
                 <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
+                  <a-select-option value="0">禁用</a-select-option>
+                  <a-select-option value="1">启用</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
             <template v-if="advanced">
               <a-col :md="8" :sm="24">
-                <a-form-item label="调用次数">
-                  <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
                 <a-form-item label="创建日期">
                   <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入创建日期"/>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="使用状态">
-                  <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
-                    <a-select-option value="0">全部</a-select-option>
-                    <a-select-option value="1">关闭</a-select-option>
-                    <a-select-option value="2">运行中</a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="使用状态">
-                  <a-select placeholder="请选择" default-value="0">
-                    <a-select-option value="0">全部</a-select-option>
-                    <a-select-option value="1">关闭</a-select-option>
-                    <a-select-option value="2">运行中</a-select-option>
-                  </a-select>
                 </a-form-item>
               </a-col>
             </template>
@@ -85,6 +68,7 @@
         :alert="true"
         :rowSelection="rowSelection"
         showPagination="auto"
+        :scroll="{ x: 1800, y: 600 }"
       >
         <span slot="serial" slot-scope="text, record, index">
           {{ index + 1 }}
@@ -120,7 +104,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newStream, editStream, streamList } from '@/api/stream'
+import { newPreorder, editPreorder, preorderList } from '@/api/preorder'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -157,7 +141,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return streamList(requestParameters)
+        return preorderList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -173,31 +157,86 @@ export default {
         },
         {
           title: 'id',
-          dataIndex: 'id',
+          width: 60,
+          dataIndex: 'id'
+        },
+        {
+          title: '预定单号',
+          dataIndex: 'preorderCode',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '名称',
-          dataIndex: 'name',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '所属会员',
+          title: '用户id',
           dataIndex: 'memberId',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '地址',
-          dataIndex: 'address',
+          title: '手机号',
+          dataIndex: 'mobile',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '商品id',
+          dataIndex: 'goodsId',
           width: 100,
           resizable: 'true'
         },
         {
+          title: '规格',
+          dataIndex: 'skuId',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '数量',
+          dataIndex: 'num',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '确认规格',
+          dataIndex: 'confirmSku',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '确认数量',
+          dataIndex: 'confirmNum',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '确认价格',
+          dataIndex: 'confirmPrice',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '合计总额',
+          dataIndex: 'amount',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '预计到货时间',
+          dataIndex: 'arriveTime',
+          width: 100,
+          resizable: 'true'
+        },
+
+        {
+          title: '状态',
+          scopedSlots: { customRender: 'status' },
+          width: 100,
+          dataIndex: 'status'
+        },
+        {
           title: '创建时间',
           scopedSlots: { customRender: 'createTime' },
+          width: 200,
           dataIndex: 'createTime'
         },
         {
@@ -250,7 +289,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editStream(values)
+            editPreorder(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -263,7 +302,7 @@ export default {
             })
           } else {
             // 新增
-            newStream(values)
+            newPreorder(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
