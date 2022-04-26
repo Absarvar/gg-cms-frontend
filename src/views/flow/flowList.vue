@@ -5,48 +5,27 @@
         <a-form layout="inline">
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
-              <a-form-item label="规则编号">
-                <a-input v-model="queryParam.id" placeholder=""/>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
               <a-form-item label="使用状态">
                 <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">全部</a-select-option>
-                  <a-select-option value="1">关闭</a-select-option>
-                  <a-select-option value="2">运行中</a-select-option>
+                  <a-select-option value="0">禁用</a-select-option>
+                  <a-select-option value="1">启用</a-select-option>
                 </a-select>
               </a-form-item>
             </a-col>
+              <a-col :md="8" :sm="24">
+                <a-form-item label="创建日期">
+                  <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入创建日期"/>
+                </a-form-item>
+              </a-col>
             <template v-if="advanced">
-              <a-col :md="8" :sm="24">
-                <a-form-item label="调用次数">
-                  <a-input-number v-model="queryParam.callNo" style="width: 100%"/>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="更新日期">
-                  <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入更新日期"/>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="使用状态">
-                  <a-select v-model="queryParam.useStatus" placeholder="请选择" default-value="0">
-                    <a-select-option value="0">全部</a-select-option>
-                    <a-select-option value="1">关闭</a-select-option>
-                    <a-select-option value="2">运行中</a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="使用状态">
-                  <a-select placeholder="请选择" default-value="0">
-                    <a-select-option value="0">全部</a-select-option>
-                    <a-select-option value="1">关闭</a-select-option>
-                    <a-select-option value="2">运行中</a-select-option>
-                  </a-select>
-                </a-form-item>
-              </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="一级批发商"> <a-input v-model="queryParam.firstSellerId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="二级批发商"> <a-input v-model="queryParam.secondSellerId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="终端"> <a-input v-model="queryParam.terminalId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="动物类型"> <a-input v-model="queryParam.species" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="产品种类"> <a-input v-model="queryParam.categoryType" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="关联订单"> <a-input v-model="queryParam.orderId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.ps" placeholder=""/> </a-form-item> </a-col>
+
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
               <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
@@ -80,13 +59,11 @@
         ref="table"
         size="default"
         rowKey="key"
-        bordered
         :columns="columns"
         :data="loadData"
         :alert="true"
         :rowSelection="rowSelection"
         showPagination="auto"
-        :scroll="{ x: 2000, y: 600 }"
         :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
       >
         <span slot="serial" slot-scope="text, record, index">
@@ -94,12 +71,6 @@
         </span>
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
-        </span>
-        <span slot="creditcode" slot-scope="text">
-          <ellipsis :length="6" tooltip>{{ text }}</ellipsis>
-        </span>
-        <span slot="address" slot-scope="text">
-          <ellipsis :length="12" tooltip>{{ text }}</ellipsis>
         </span>
         <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
@@ -125,10 +96,11 @@
     </a-card>
   </page-header-wrapper>
 </template>
+
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newMember, editMember, memberList } from '@/api/member'
+import { newFlow, editFlow, flowList } from '@/api/flow'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -165,7 +137,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return memberList(requestParameters)
+        return flowList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -177,21 +149,7 @@ export default {
           key: 'serial',
           title: '#',
           scopedSlots: { customRender: 'serial' },
-          width: 60,
-          fixed: 'left'
-        },
-        {
-          title: '终端代码',
-          dataIndex: 'terminalCode',
-          width: 100,
-          fixed: 'left'
-        },
-        {
-          title: '公司名称',
-          dataIndex: 'companyName',
-          fixed: 'left',
-          width: 220,
-          resizable: 'true'
+          width: 60
         },
         {
           title: 'id',
@@ -199,52 +157,44 @@ export default {
           width: 60
         },
         {
-          title: '法人姓名',
-          dataIndex: 'legalName',
+          title: '一级批发商',
+          dataIndex: 'firstSellerId',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '信用代码',
-          dataIndex: 'creditcode',
-          scopedSlots: { customRender: 'creditcode' },
+          title: '二级批发商',
+          dataIndex: 'secondSellerId',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '经营地址',
-          dataIndex: 'address',
-          scopedSlots: { customRender: 'address' },
-          width: 200,
-          resizable: 'true'
-        },
-        {
-          title: '会员名称',
-          dataIndex: 'name',
+          title: '终端',
+          dataIndex: 'terminalId',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '会员手机',
-          dataIndex: 'mobile',
-          width: 150,
-          resizable: 'true'
-        },
-        {
-          title: '类型',
-          dataIndex: 'type',
+          title: '动物类型',
+          dataIndex: 'species',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '余额',
-          dataIndex: 'amount',
+          title: '产品种类',
+          dataIndex: 'categoryType',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '冻结余额',
-          dataIndex: 'frozenAmount',
+          title: '关联订单',
+          dataIndex: 'orderId',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '备注',
+          dataIndex: 'ps',
           width: 100,
           resizable: 'true'
         },
@@ -258,6 +208,7 @@ export default {
         {
           title: '创建时间',
           scopedSlots: { customRender: 'createTime' },
+          width: 200,
           dataIndex: 'createTime'
         },
         {
@@ -265,8 +216,7 @@ export default {
           title: '操作',
           dataIndex: 'action',
           width: '150px',
-          scopedSlots: { customRender: 'action' },
-          fixed: 'right'
+          scopedSlots: { customRender: 'action' }
         }
       ]
     }
@@ -310,7 +260,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editMember(values)
+            editFlow(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -323,7 +273,7 @@ export default {
             })
           } else {
             // 新增
-            newMember(values)
+            newFlow(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -368,7 +318,6 @@ export default {
   }
 }
 </script>
-
 <style >
 .table-striped {
   background-color: #fafafa;

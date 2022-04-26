@@ -986,6 +986,90 @@ const userNav = options => {
         show: true
       },
       component: 'ProductList'
+    },
+
+    {
+      name: 'enterApply-manage',
+      parentId: 0,
+      id: 20006,
+      meta: {
+        title: '入场申请管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'enterApply-list',
+      parentId: 20006,
+      id: 20060,
+      meta: {
+        title: '入场申请列表',
+        show: true
+      },
+      component: 'EnterApplyList'
+    },
+
+    {
+      name: 'purchase-manage',
+      parentId: 0,
+      id: 30001,
+      meta: {
+        title: '采购制单管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'purchase-list',
+      parentId: 30001,
+      id: 30010,
+      meta: {
+        title: '采购制单列表',
+        show: true
+      },
+      component: 'PurchaseList'
+    },
+
+    {
+      name: 'sampleTest-manage',
+      parentId: 0,
+      id: 20006,
+      meta: {
+        title: '抽样检测管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'sampleTest-list',
+      parentId: 20006,
+      id: 20060,
+      meta: {
+        title: '抽样检测列表',
+        show: true
+      },
+      component: 'SampleTestList'
+    },
+
+    {
+      name: 'flow-manage',
+      parentId: 0,
+      id: 20006,
+      meta: {
+        title: '流向统计管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'flow-list',
+      parentId: 20006,
+      id: 20061,
+      meta: {
+        title: '流向统计列表',
+        show: true
+      },
+      component: 'FlowList'
     }
 
   ]
