@@ -1070,6 +1070,27 @@ const userNav = options => {
         show: true
       },
       component: 'FlowList'
+    },
+
+    {
+      name: 'order-manage',
+      parentId: 0,
+      id: 30001,
+      meta: {
+        title: '用户订单管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'order-list',
+      parentId: 30001,
+      id: 30010,
+      meta: {
+        title: '用户订单列表',
+        show: true
+      },
+      component: 'OrderList'
     }
 
   ]
