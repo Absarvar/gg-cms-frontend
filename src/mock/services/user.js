@@ -1054,7 +1054,7 @@ const userNav = options => {
     {
       name: 'flow-manage',
       parentId: 0,
-      id: 20006,
+      id: 30006,
       meta: {
         title: '流向统计管理',
         show: true
@@ -1063,8 +1063,8 @@ const userNav = options => {
     },
     {
       name: 'flow-list',
-      parentId: 20006,
-      id: 20061,
+      parentId: 30006,
+      id: 30060,
       meta: {
         title: '流向统计列表',
         show: true

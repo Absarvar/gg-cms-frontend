@@ -1,7 +1,8 @@
 import request from '@/utils/request'
+import { GG_URL_PREFIX } from '@/config/common.config'
 
 const userApi = {
-  Login: 'http://localhost:8080/user/login',
+  Login: GG_URL_PREFIX + '/user/login',
   Logout: '/auth/logout',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',

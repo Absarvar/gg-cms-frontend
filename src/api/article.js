@@ -1,26 +1,12 @@
 import request from '@/utils/request'
+import { GG_URL_PREFIX } from '@/config/common.config'
 
 const articleApi = {
-  newArticle: 'http://localhost:8080/article/newArticle',
-  articleList: 'http://localhost:8080/article/list',
-  getArticle: 'http://localhost:8080/article/get',
-  deleteArticle: 'http://localhost:8080/article/delete',
-  editArticle: 'http://localhost:8080/article/edit',
-  testApi: 'https://capi.tianyancha.com/cloud-tempest/search/suggest/v2'
-}
-
-export function testApi (parameter) {
-  return request({
-    url: articleApi.testApi,
-    method: 'post',
-    data: parameter,
-    headers: {
-      'X-AUTH-TOKEN': 'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxMzY3MDE3MTAzNyIsImlhdCI6MTY0NTU4MzQwNywiZXhwIjoxNjQ4MTc1NDA3fQ.QERvfJNL_hP0-fL2O3akBjgXxchHaCtitieExOAVv8EEdyYfJhb2BToI9ce29FJQ8RMslT-4DZi0Cj2jh99IgA',
-      'version': ' TYC-Web',
-      'Content-Type': 'application/json;charset=UTF-8',
-      'Access-Control-Allow-Origin': '*'
-    }
-  })
+  newArticle: GG_URL_PREFIX + '/article/newArticle',
+  articleList: GG_URL_PREFIX + '/article/list',
+  getArticle: GG_URL_PREFIX + '/article/get',
+  deleteArticle: GG_URL_PREFIX + '/article/delete',
+  editArticle: GG_URL_PREFIX + '/article/edit'
 }
 
 export function newArticle (parameter) {

@@ -18,12 +18,13 @@
                 </a-form-item>
               </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="一级批发商"> <a-input v-model="queryParam.firstSellerId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="二级批发商"> <a-input v-model="queryParam.secondSellerId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="终端"> <a-input v-model="queryParam.terminalId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="一级批发商"> <a-input v-model="queryParam.firstSeller" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="二级批发商"> <a-input v-model="queryParam.secondSeller" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="终端"> <a-input v-model="queryParam.terminal" placeholder=""/> </a-form-item> </a-col>
             <a-col :md="8" :sm="24"> <a-form-item label="动物类型"> <a-input v-model="queryParam.species" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="产品种类"> <a-input v-model="queryParam.categoryType" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="关联订单"> <a-input v-model="queryParam.orderId" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="产品种类"> <a-input v-model="queryParam.bodyType" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="关联订单"> <a-input v-model="queryParam.orderCode" placeholder=""/> </a-form-item> </a-col>
             <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.ps" placeholder=""/> </a-form-item> </a-col>
 
             </template>
@@ -158,19 +159,19 @@ export default {
         },
         {
           title: '一级批发商',
-          dataIndex: 'firstSellerId',
+          dataIndex: 'firstSeller',
           width: 100,
           resizable: 'true'
         },
         {
           title: '二级批发商',
-          dataIndex: 'secondSellerId',
+          dataIndex: 'secondSeller',
           width: 100,
           resizable: 'true'
         },
         {
           title: '终端',
-          dataIndex: 'terminalId',
+          dataIndex: 'terminal',
           width: 100,
           resizable: 'true'
         },
@@ -182,13 +183,19 @@ export default {
         },
         {
           title: '产品种类',
-          dataIndex: 'categoryType',
+          dataIndex: 'bodyType',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '数量',
+          dataIndex: 'num',
           width: 100,
           resizable: 'true'
         },
         {
           title: '关联订单',
-          dataIndex: 'orderId',
+          dataIndex: 'orderCode',
           width: 100,
           resizable: 'true'
         },

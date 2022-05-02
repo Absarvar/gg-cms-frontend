@@ -19,27 +19,15 @@
         >
           <a-input v-decorator="['id', {rules:[{required: false, message: ''}]}]" />
         </a-form-item>
-        <a-form-item label="一级批发商"><a-input v-decorator="['firstSellerId', {rules:[{required: true, message: '请输入一级批发商'}]}]" /></a-form-item>
-        <a-form-item label="二级批发商"><a-input v-decorator="['secondSellerId', {rules:[{required: true, message: '请输入二级批发商'}]}]" /></a-form-item>
-        <a-form-item label="终端"><a-input v-decorator="['terminalId', {rules:[{required: true, message: '请输入终端'}]}]" /></a-form-item>
-        <a-form-item label="动物类型"><a-input v-decorator="['species', {rules:[{required: true, message: '请输入动物类型'}]}]" /></a-form-item>
-        <a-form-item label="产品种类"><a-input v-decorator="['categoryType', {rules:[{required: true, message: '请输入产品种类'}]}]" /></a-form-item>
-        <a-form-item label="关联订单"><a-input v-decorator="['orderId', {rules:[{required: true, message: '请输入关联订单'}]}]" /></a-form-item>
+        <a-form-item label="一级批发商"><a-input v-decorator="['firstSeller', {rules:[{required: true, message: '请输入一级批发商'}]}]" /></a-form-item>
+        <a-form-item label="二级批发商"><a-input v-decorator="['secondSeller', {rules:[{required: true, message: '请输入二级批发商'}]}]" /></a-form-item>
+        <a-form-item label="终端"><a-input v-decorator="['terminal', {rules:[{required: true, message: '请输入终端'}]}]" /></a-form-item>
+        <a-form-item label="动物类型"><a-input v-decorator="['speciesName', {rules:[{required: true, message: '请输入动物类型'}]}]" /></a-form-item>
+        <a-form-item label="产品种类"><a-input v-decorator="['bodyTypeName', {rules:[{required: true, message: '请输入产品种类'}]}]" /></a-form-item>
+        <a-form-item label="数量"><a-input v-decorator="['num', {rules:[{required: true, message: '请输入数量'}]}]" /></a-form-item>
+        <a-form-item label="关联订单"><a-input v-decorator="['orderCode', {rules:[{required: true, message: '请输入关联订单'}]}]" /></a-form-item>
         <a-form-item label="备注"><a-input v-decorator="['ps', {rules:[{required: true, message: '请输入备注'}]}]" /></a-form-item>
-        <a-form-item label="创建时间"><a-input v-decorator="['createTime', {rules:[{required: true, message: '请输入创建时间'}]}]" /></a-form-item>
 
-        <a-form-item
-          label="状态"
-        >
-          <a-space>
-            <a-select
-              ref="select"
-              style="width: 120px"
-              v-decorator="['status', {rules:[{required: true, message: '请选择状态'}]}]"
-              :options="options2"
-            ></a-select>
-          </a-space>
-        </a-form-item>
       </a-form>
     </a-spin>
   </a-modal>
@@ -49,7 +37,7 @@
 import pick from 'lodash.pick'
 
 // 表单字段
-const fields = ['id', 'firstSellerId', 'secondSellerId', 'terminalId', 'species', 'categoryType', 'orderId', 'ps', 'createTime', 'status']
+const fields = ['id', 'firstSeller', 'secondSeller', 'terminal', 'species', 'bodyType', 'num', 'orderCode', 'ps', 'createTime', 'status']
 
 export default {
   props: {
