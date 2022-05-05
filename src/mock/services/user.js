@@ -862,131 +862,131 @@ const userNav = options => {
       },
       component: 'StandardArticle'
     },
-    {
-      name: 'article-index',
-      parentId: 0,
-      id: 10036,
-      meta: {
-        title: '文章主页',
-        show: true
-      },
-      component: 'ArticleIndex'
-    },
-    {
-      name: 'article-list',
-      parentId: 0,
-      id: 10036,
-      meta: {
-        title: '文章列表',
-        show: true
-      },
-      component: 'ArticleList'
-    },
+    // {
+    //   name: 'article-index',
+    //   parentId: 0,
+    //   id: 10036,
+    //   meta: {
+    //     title: '文章主页',
+    //     show: true
+    //   },
+    //   component: 'ArticleIndex'
+    // },
+    // {
+    //   name: 'article-list',
+    //   parentId: 0,
+    //   id: 10036,
+    //   meta: {
+    //     title: '文章列表',
+    //     show: true
+    //   },
+    //   component: 'ArticleList'
+    // },
 
-    {
-      name: 'member-manage',
-      parentId: 0,
-      id: 20001,
-      meta: {
-        title: '会员管理',
-        show: true
-      },
-      component: 'RouteView' // 菜单
-    },
-    {
-      name: 'member-list',
-      parentId: 20001,
-      id: 20010,
-      meta: {
-        title: '会员列表',
-        show: true
-      },
-      component: 'MemberList'
-    },
+    // {
+    //   name: 'member-manage',
+    //   parentId: 0,
+    //   id: 20001,
+    //   meta: {
+    //     title: '会员管理',
+    //     show: true
+    //   },
+    //   component: 'RouteView' // 菜单
+    // },
+    // {
+    //   name: 'member-list',
+    //   parentId: 20001,
+    //   id: 20010,
+    //   meta: {
+    //     title: '会员列表',
+    //     show: true
+    //   },
+    //   component: 'MemberList'
+    // },
 
-    {
-      name: 'goods-manage',
-      parentId: 0,
-      id: 20002,
-      meta: {
-        title: '商品管理',
-        show: true
-      },
-      component: 'RouteView' // 菜单
-    },
-    {
-      name: 'goods-list',
-      parentId: 20002,
-      id: 20020,
-      meta: {
-        title: '商品列表',
-        show: true
-      },
-      component: 'GoodsList'
-    },
+    // {
+    //   name: 'goods-manage',
+    //   parentId: 0,
+    //   id: 20002,
+    //   meta: {
+    //     title: '商品管理',
+    //     show: true
+    //   },
+    //   component: 'RouteView' // 菜单
+    // },
+    // {
+    //   name: 'goods-list',
+    //   parentId: 20002,
+    //   id: 20020,
+    //   meta: {
+    //     title: '商品列表',
+    //     show: true
+    //   },
+    //   component: 'GoodsList'
+    // },
 
-    {
-      name: 'stream-manage',
-      parentId: 0,
-      id: 20008,
-      meta: {
-        title: '流向管理',
-        show: true
-      },
-      component: 'RouteView' // 菜单
-    },
-    {
-      name: 'stream-list',
-      parentId: 20008,
-      id: 20080,
-      meta: {
-        title: '流向列表',
-        show: true
-      },
-      component: 'StreamList'
-    },
+    // {
+    //   name: 'stream-manage',
+    //   parentId: 0,
+    //   id: 20008,
+    //   meta: {
+    //     title: '流向管理',
+    //     show: true
+    //   },
+    //   component: 'RouteView' // 菜单
+    // },
+    // {
+    //   name: 'stream-list',
+    //   parentId: 20008,
+    //   id: 20080,
+    //   meta: {
+    //     title: '流向列表',
+    //     show: true
+    //   },
+    //   component: 'StreamList'
+    // },
 
-    {
-      name: 'preorder-manage',
-      parentId: 0,
-      id: 20004,
-      meta: {
-        title: '预定订单管理',
-        show: true
-      },
-      component: 'RouteView' // 菜单
-    },
-    {
-      name: 'preorder-list',
-      parentId: 20004,
-      id: 20040,
-      meta: {
-        title: '预定订单列表',
-        show: true
-      },
-      component: 'PreorderList'
-    },
+    // {
+    //   name: 'preorder-manage',
+    //   parentId: 0,
+    //   id: 20004,
+    //   meta: {
+    //     title: '预定订单管理',
+    //     show: true
+    //   },
+    //   component: 'RouteView' // 菜单
+    // },
+    // {
+    //   name: 'preorder-list',
+    //   parentId: 20004,
+    //   id: 20040,
+    //   meta: {
+    //     title: '预定订单列表',
+    //     show: true
+    //   },
+    //   component: 'PreorderList'
+    // },
 
-    {
-      name: 'product-manage',
-      parentId: 0,
-      id: 20005,
-      meta: {
-        title: '产品管理',
-        show: true
-      },
-      component: 'RouteView' // 菜单
-    },
-    {
-      name: 'product-list',
-      parentId: 20005,
-      id: 20050,
-      meta: {
-        title: '产品列表',
-        show: true
-      },
-      component: 'ProductList'
-    },
+    // {
+    //   name: 'product-manage',
+    //   parentId: 0,
+    //   id: 20005,
+    //   meta: {
+    //     title: '产品管理',
+    //     show: true
+    //   },
+    //   component: 'RouteView' // 菜单
+    // },
+    // {
+    //   name: 'product-list',
+    //   parentId: 20005,
+    //   id: 20050,
+    //   meta: {
+    //     title: '产品列表',
+    //     show: true
+    //   },
+    //   component: 'ProductList'
+    // },
 
     {
       name: 'enterApply-manage',
@@ -1009,88 +1009,141 @@ const userNav = options => {
       component: 'EnterApplyList'
     },
 
+    // {
+    //   name: 'purchase-manage',
+    //   parentId: 0,
+    //   id: 30001,
+    //   meta: {
+    //     title: '采购制单管理',
+    //     show: true
+    //   },
+    //   component: 'RouteView' // 菜单
+    // },
+    // {
+    //   name: 'purchase-list',
+    //   parentId: 30001,
+    //   id: 30010,
+    //   meta: {
+    //     title: '采购制单列表',
+    //     show: true
+    //   },
+    //   component: 'PurchaseList'
+    // },
+
+    // {
+    //   name: 'sampleTest-manage',
+    //   parentId: 0,
+    //   id: 20006,
+    //   meta: {
+    //     title: '抽样检测管理',
+    //     show: true
+    //   },
+    //   component: 'RouteView' // 菜单
+    // },
+    // {
+    //   name: 'sampleTest-list',
+    //   parentId: 20006,
+    //   id: 20060,
+    //   meta: {
+    //     title: '抽样检测列表',
+    //     show: true
+    //   },
+    //   component: 'SampleTestList'
+    // },
+
+    // {
+    //   name: 'flow-manage',
+    //   parentId: 0,
+    //   id: 30006,
+    //   meta: {
+    //     title: '流向统计管理',
+    //     show: true
+    //   },
+    //   component: 'RouteView' // 菜单
+    // },
+    // {
+    //   name: 'flow-list',
+    //   parentId: 30006,
+    //   id: 30060,
+    //   meta: {
+    //     title: '流向统计列表',
+    //     show: true
+    //   },
+    //   component: 'FlowList'
+    // },
+
+    // {
+    //   name: 'order-manage',
+    //   parentId: 0,
+    //   id: 30001,
+    //   meta: {
+    //     title: '用户订单管理',
+    //     show: true
+    //   },
+    //   component: 'RouteView' // 菜单
+    // },
+    // {
+    //   name: 'order-list',
+    //   parentId: 30001,
+    //   id: 30010,
+    //   meta: {
+    //     title: '用户订单列表',
+    //     show: true
+    //   },
+    //   component: 'OrderList'
+    // },
+
     {
-      name: 'purchase-manage',
+      name: 'sellTicket-manage',
       parentId: 0,
-      id: 30001,
+      id: 60001,
       meta: {
-        title: '采购制单管理',
+        title: '出票管理',
         show: true
       },
       component: 'RouteView' // 菜单
     },
     {
-      name: 'purchase-list',
-      parentId: 30001,
-      id: 30010,
+      name: 'sellTicket-list',
+      parentId: 60001,
+      id: 60010,
       meta: {
-        title: '采购制单列表',
+        title: '出票列表',
         show: true
       },
-      component: 'PurchaseList'
+      component: 'SellTicketList'
     },
 
     {
-      name: 'sampleTest-manage',
+      name: 'pdProduct-manage',
       parentId: 0,
-      id: 20006,
+      id: 50003,
       meta: {
-        title: '抽样检测管理',
+        title: '产品管理',
         show: true
       },
       component: 'RouteView' // 菜单
     },
     {
+      name: 'pdProduct-list',
+      parentId: 50003,
+      id: 50030,
+      meta: {
+        title: '产品列表',
+        show: true
+      },
+      component: 'PdProductList'
+    },
+
+    {
       name: 'sampleTest-list',
-      parentId: 20006,
-      id: 20060,
+      parentId: 60001,
+      id: 60005,
       meta: {
         title: '抽样检测列表',
         show: true
       },
       component: 'SampleTestList'
-    },
-
-    {
-      name: 'flow-manage',
-      parentId: 0,
-      id: 30006,
-      meta: {
-        title: '流向统计管理',
-        show: true
-      },
-      component: 'RouteView' // 菜单
-    },
-    {
-      name: 'flow-list',
-      parentId: 30006,
-      id: 30060,
-      meta: {
-        title: '流向统计列表',
-        show: true
-      },
-      component: 'FlowList'
-    },
-
-    {
-      name: 'order-manage',
-      parentId: 0,
-      id: 30001,
-      meta: {
-        title: '用户订单管理',
-        show: true
-      },
-      component: 'RouteView' // 菜单
-    },
-    {
-      name: 'order-list',
-      parentId: 30001,
-      id: 30010,
-      meta: {
-        title: '用户订单列表',
-        show: true
-      },
-      component: 'OrderList'
     }
 
   ]

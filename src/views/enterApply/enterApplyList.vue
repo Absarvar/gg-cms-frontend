@@ -5,33 +5,52 @@
         <a-form layout="inline">
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
-              <a-form-item label="使用状态">
-                <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">禁用</a-select-option>
-                  <a-select-option value="1">启用</a-select-option>
-                </a-select>
-              </a-form-item>
-            </a-col>
-            <a-col :md="8" :sm="24">
               <a-form-item label="创建日期">
-                <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入创建日期"/>
+                <a-range-picker
+                  style="width: 400px"
+                  :ranges="ranges"
+                  format="YYYY-MM-DD"
+                  @change="timeChange"
+                />
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-              <a-col :md="8" :sm="24"> <a-form-item label="检疫证号"> <a-input v-model="queryParam.quarantineNo" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="重量"> <a-input v-model="queryParam.weight" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="屠宰场名称"> <a-input v-model="queryParam.slaughterId" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="养殖户"> <a-input v-model="queryParam.farmId" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="用途"> <a-input v-model="queryParam.usage" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="承运人"> <a-input v-model="queryParam.carrier" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="承运人联系方式"> <a-input v-model="queryParam.carrierMobile" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="运输方式"> <a-input v-model="queryParam.transportation" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="车牌号"> <a-input v-model="queryParam.plateNo" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="是否消毒"> <a-input v-model="queryParam.disinfect" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="养殖票证"> <a-input v-model="queryParam.farmTicket" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="检疫票证"> <a-input v-model="queryParam.quarantineTicket" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="ID"> <a-input v-model="queryParam.orderid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="入场批次号"> <a-input v-model="queryParam.pinjie" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="动物种类"> <a-input v-model="queryParam.animalspecies" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="车牌号"> <a-input v-model="queryParam.licenseplatenumber" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="确认状态"> <a-input v-model="queryParam.statusok" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="申报人"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="联系方式"> <a-input v-model="queryParam.consigneephonenum" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="预报规格"> <a-input v-model="queryParam.standards" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="预报数量"> <a-input v-model="queryParam.number" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="申报重量"> <a-input v-model="queryParam.quantity" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="检疫证号"> <a-input v-model="queryParam.certificateno" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰单位"> <a-input v-model="queryParam.destination" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="养殖单位"> <a-input v-model="queryParam.farmers" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="司机"> <a-input v-model="queryParam.driver" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="司机手机号"> <a-input v-model="queryParam.cellphonenumber" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰场ID"> <a-input v-model="queryParam.logisticianid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="供应商id"> <a-input v-model="queryParam.fid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商家类型 1.生产者 2.供应商"> <a-input v-model="queryParam.factorytype" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="车辆是否消毒 1-是  2-否"> <a-input v-model="queryParam.disinfected" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="养殖户ID"> <a-input v-model="queryParam.outletsid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.shoppingid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="启动地点"> <a-input v-model="queryParam.address" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="运输方式"> <a-input v-model="queryParam.typeofshipping" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="入场申报票证"> <a-input v-model="queryParam.wphoto" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="入库计重"> <a-input v-model="queryParam.warehousing" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="出库时间"> <a-input v-model="queryParam.exwarehousetime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="添加时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="复核时间"> <a-input v-model="queryParam.futime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="登记员"> <a-input v-model="queryParam.register" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="销售入库0，定向入库1"> <a-input v-model="queryParam.type" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰票证"> <a-input v-model="queryParam.ticket" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.remark" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="合格（1合格2不合格）"> <a-input v-model="queryParam.qualified" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="初始读数"> <a-input v-model="queryParam.initialreading" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="复核读数"> <a-input v-model="queryParam.recheckreading" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="复核重量"> <a-input v-model="queryParam.recheckweight" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -72,14 +91,29 @@
         :rowSelection="rowSelection"
         showPagination="auto"
         :scroll="{ x: 2000, y: 600 }"
+        :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
       >
         <span slot="serial" slot-scope="text, record, index">
           {{ index + 1 }}
         </span>
-        <span slot="status" slot-scope="text">
+
+        <span slot="statusok" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
-        <span slot="createTime" slot-scope="text">
+        <span slot="wphoto" slot-scope="text">
+          <a :href="'https://sy.ggmstc.com/szszdistfile/'+text" target="_blank">查看</a>
+        </span>
+        <span slot="ticket" slot-scope="text">
+          <a :href="'https://sy.ggmstc.com/szszdistfile/'+text" target="_blank">查看</a>
+        </span>
+
+        <span slot="number" slot-scope="text, record">
+          <router-link :to="{path: '/pdProduct-manage/pdProduct-list', query: {'outletsid':record.orderID }}">
+            {{ text }}
+          </router-link>
+        </span>
+
+        <span slot="addTime" slot-scope="text">
           {{ text | formateDate }}
         </span>
 
@@ -88,6 +122,7 @@
             <a @click="handleEdit(record)">编辑</a>
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
+            <a-divider type="vertical" />
           </template>
         </span>
       </s-table>
@@ -115,11 +150,11 @@ import { formateDate } from '@/utils/dateUtil'
 const statusMap = {
   0: {
     status: 'default',
-    text: '禁用中'
+    text: '未确认'
   },
   1: {
     status: 'processing',
-    text: '启用中'
+    text: '已确认'
   }
 }
 
@@ -159,91 +194,228 @@ export default {
           width: 60
         },
         {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
-        },
-        {
-          title: '检疫证号',
-          dataIndex: 'quarantineNo',
+          title: 'ID',
+          dataIndex: 'orderID',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '商品名称',
-          dataIndex: 'goodsId',
-          width: 100,
+          title: '入场批次号',
+          dataIndex: 'pinjie',
+          width: 120,
           resizable: 'true'
         },
         {
-          title: '数量',
-          dataIndex: 'num',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '重量',
-          dataIndex: 'weight',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '屠宰场名称',
-          dataIndex: 'slaughterId',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '养殖户',
-          dataIndex: 'farmId',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '用途',
-          dataIndex: 'usage',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '承运人',
-          dataIndex: 'carrier',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '承运人联系方式',
-          dataIndex: 'carrierMobile',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '运输方式',
-          dataIndex: 'transportation',
+          title: '动物种类',
+          dataIndex: 'animalspecies',
           width: 100,
           resizable: 'true'
         },
         {
           title: '车牌号',
-          dataIndex: 'plateNo',
+          dataIndex: 'licenseplatenumber',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '是否消毒',
-          dataIndex: 'disinfect',
+          title: '确认状态',
+          dataIndex: 'statusok',
+          width: 100,
+          resizable: 'true',
+          scopedSlots: { customRender: 'statusok' }
+        },
+        {
+          title: '申报人',
+          dataIndex: 'applierPersonName',
+          width: 80,
+          resizable: 'true'
+        },
+        {
+          title: '申报公司',
+          dataIndex: 'applierEntName',
+          width: 200,
+          resizable: 'true'
+        },
+        {
+          title: '联系方式',
+          dataIndex: 'applierMobile',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '申报规格',
+          dataIndex: 'standards',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '养殖票证',
-          dataIndex: 'farmTicket',
+          title: '申报数量',
+          dataIndex: 'number',
+          width: 100,
+          resizable: 'true',
+          scopedSlots: { customRender: 'number' }
+        },
+        {
+          title: '申报重量',
+          dataIndex: 'quantity',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '检疫票证',
-          dataIndex: 'quarantineTicket',
+          title: '检疫证号',
+          dataIndex: 'certificateno',
+          width: 110,
+          resizable: 'true'
+        },
+        {
+          title: '屠宰单位',
+          dataIndex: 'destination',
+          width: 150,
+          resizable: 'true'
+        },
+        {
+          title: '负责人',
+          dataIndex: 'slaughterBoss',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '联系电话',
+          dataIndex: 'slaughterMobile',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '养殖单位',
+          dataIndex: 'farmers',
+          width: 150,
+          resizable: 'true'
+        },
+        {
+          title: '司机',
+          dataIndex: 'driver',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '司机手机号',
+          dataIndex: 'cellPhoneNumber',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '供应商id',
+          dataIndex: 'fid',
+          width: 100,
+          resizable: 'true'
+        },
+        // {
+        //   title: '商家类型 1.生产者 2.供应商',
+        //   dataIndex: 'factorytype',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '车辆是否消毒 1-是  2-否',
+        //   dataIndex: 'disinfected',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '养殖户ID',
+        //   dataIndex: 'outletsid',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '商品id',
+        //   dataIndex: 'shoppingid',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        {
+          title: '启动地点',
+          dataIndex: 'address',
+          width: 300,
+          resizable: 'true'
+        },
+        {
+          title: '运输方式',
+          dataIndex: 'typeofshipping',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '申报票证',
+          dataIndex: 'wphoto',
+          width: 100,
+          resizable: 'true',
+          scopedSlots: { customRender: 'wphoto' }
+        },
+        {
+          title: '入库计重',
+          dataIndex: 'warehousing',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '出库时间',
+          dataIndex: 'exwarehousetime',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '复核时间',
+          dataIndex: 'futime',
+          width: 150,
+          resizable: 'true'
+        },
+        {
+          title: '登记员',
+          dataIndex: 'register',
+          width: 120,
+          resizable: 'true'
+        },
+        // {
+        //   title: '销售入库0，定向入库1',
+        //   dataIndex: 'type',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        {
+          title: '屠宰票证',
+          dataIndex: 'ticket',
+          width: 100,
+          resizable: 'true',
+          scopedSlots: { customRender: 'ticket' }
+        },
+        {
+          title: '备注',
+          dataIndex: 'remark',
+          width: 100,
+          resizable: 'true'
+        },
+        // {
+        //   title: '合格（1合格2不合格）',
+        //   dataIndex: 'qualified',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        {
+          title: '初始读数',
+          dataIndex: 'initialreading',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '复核读数',
+          dataIndex: 'recheckreading',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '复核重量',
+          dataIndex: 'recheckweight',
           width: 100,
           resizable: 'true'
         },
@@ -256,9 +428,9 @@ export default {
         },
         {
           title: '创建时间',
-          scopedSlots: { customRender: 'createTime' },
+          scopedSlots: { customRender: 'addTime' },
           width: 200,
-          dataIndex: 'createTime'
+          dataIndex: 'addTime'
         },
         {
           key: 'action',
@@ -294,6 +466,10 @@ export default {
     }
   },
   methods: {
+    timeChange (date, dateStr) {
+      this.queryParam.startTime = dateStr[0]
+      this.queryParam.endTime = dateStr[1]
+    },
     handleAdd () {
       this.mdl = null
       this.visible = true
@@ -367,3 +543,8 @@ export default {
   }
 }
 </script>
+<style >
+.table-striped {
+  background-color: #fafafa;
+}
+</style>

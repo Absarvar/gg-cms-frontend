@@ -39,11 +39,17 @@ const constantRouterComponents = {
   // purchase
   PurchaseList: () => import('@/views/purchase/purchaseList'),
   // sampleTest
-  SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
+  // SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
 // flow
   FlowList: () => import('@/views/flow/flowList'),
   // order
   OrderList: () => import('@/views/order/orderList'),
+  // sellTicket
+    SellTicketList: () => import('@/views/sellTicket/sellTicketList'),
+    // pdProduct
+      PdProductList: () => import('@/views/pdProduct/pdProductList'),
+      // sampleTest
+        SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

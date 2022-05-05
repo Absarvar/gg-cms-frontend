@@ -50,6 +50,18 @@
         </div>
         <div style="float:right;">出证人：&nbsp;&nbsp;&nbsp;&nbsp;</div>
       </div>
+      <div class="xbbbox" id="div_print">
+        ...
+        打印的内容
+        ...
+        <div style="width:770px;margin-left:90px;">
+          审核： <img width="70px" height="30px" src="https://atlas.pingcode.com/files/public/62728d99b98c3149715a05b8">
+          <span style="width:170px;margin-left:180px;">盖章：<img width="170px" height="130px" src="https://atlas.pingcode.com/files/public/6272927d83bcb368246be1c1/origin-url"></span>
+        </div>
+        <div style="text-align: center;margin-bottom: 20px" id="otherpho">
+          <input type="button" value="打印" @click="dayin()" />
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -71,6 +83,21 @@ export default {
           console.log('Received values of form: ', values)
         }
       })
+    },
+    dayin () {
+        // var userAgent = navigator.userAgent.toLowerCase() // 取得浏览器的userAgent字符串 // 其它浏览器使用lodop
+            var oldstr = document.body.innerHTML
+            var headstr = '<html><head><title></title></head><body>'
+            var footstr = '</body>'
+            // 执行隐藏打印区域不需要打印的内容
+            document.getElementById('otherpho').style.display = 'none'
+            // 此处id换为你自己的id
+            var printData = document.getElementById('div_print').innerHTML // 获得 div 里的所有 html 数据
+            document.body.innerHTML = headstr + printData + footstr
+            window.print()
+            // 打印结束后，放开隐藏内容
+            document.getElementById('otherpho').style.display = 'block'
+            document.body.innerHTML = oldstr
     },
     printHTML () {
 // 打开一个新的浏览器窗口
