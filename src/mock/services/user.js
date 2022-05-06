@@ -1144,6 +1144,27 @@ const userNav = options => {
         show: true
       },
       component: 'SampleTestList'
+    },
+
+    {
+      name: 'preorder-manage',
+      parentId: 0,
+      id: 40001,
+      meta: {
+        title: '预定信息管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'preorder-list',
+      parentId: 40001,
+      id: 40010,
+      meta: {
+        title: '预定信息列表',
+        show: true
+      },
+      component: 'PreorderList'
     }
 
   ]

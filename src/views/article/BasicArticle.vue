@@ -67,6 +67,7 @@
 </template>
 
 <script>
+import $ from 'jquery'
 export default {
   name: 'BaseForm',
   data () {
@@ -99,80 +100,116 @@ export default {
             document.getElementById('otherpho').style.display = 'block'
             document.body.innerHTML = oldstr
     },
-    printHTML () {
-// 打开一个新的浏览器窗口
-var win = window.open('print22')
+    async serialPort () {
+//       const tds = {
+//   start () {
+//     this.decoder = new TextDecoder(this.encoding, this.options)
+//   },
+//   transform (chunk, controller) {
+//     controller.enqueue(this.decoder.decode(chunk))
+//   }
+// }
+				const port = await navigator.serial.requestPort()
+				await port.open({
+					baudRate: 9600
+				}) // set baud rate
+				/* reader = port.readable.getReader(); */
 
-// win.document.write('sddddddddddddddddddddddddddd')
-// win.focus()// 在IE浏览器中使用必须添加这一句
-// win.print()
-// 写入
-win.document.write(`
-	<html>
-<style>
-</style>
-	<body>
-		<div class="text-center" style="width:750px;height:417px;" align="center" >
-       <br>
-      <div style="margin-top:0px;">
-        <div style="float:left;margin-left:50px;" align="left" >
-          <div style="margin-top:20px"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;深圳富士康-（龙华区）</div>
-          <div> </div>
-        </div>
-        <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;202x年xx月xx日xx时xx分</div>
-      </div>
-      <table
-        class="table table-bordered table-hover heavy_border t2print"
-        style="padding-top:15px;margin-bottom:1px;float:left;width:750px;">
-        <tbody >
-        
-          <tr>
-            <td colspan="2" style="border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;visibility: hidden;">已经过分销的，须填写</td>
-          </tr>
-          <tr>
-            <td colspan="2" style="border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;visibility: hidden;">已经过分销的，须填写</td>
-          </tr>
-          
-          <tr>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:70px;height:120px;">    猪胴体</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:115px;height:120px;">    华润五丰肉类食品（深圳有限公司龙岗分公司）</td>
-            <td style="text-align:left;border-width:0px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:105px;height:130px;">44841831502</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:110px;height:110px;visibility:hidden;">{上级供应商	}</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:120px;height:100px;visibility:hidden;">{	分销凭证号	}</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:50px;height:120px;visibility:hidden;">{规格}</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:55px;height:120px;"> &nbsp;&nbsp;&nbsp;10头</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:100px;height:120px;">&nbsp;1000（壹仟）</td>
-          </tr>
-          <tr>
-            <td colspan="2" style="height:40px;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;visibility: hidden;">已经过分销的，须填写</td>
-          </tr>
-          <tr>
-            <td style="border-width:1px;border-color:#000000;text-align:left;" colspan="7">&nbsp;&nbsp;&nbsp;</td>
-            <td style="border-width:1px;border-color:#000000;">    1000（壹仟）</td>
-          </tr>
-        </tbody>
-      </table>
-      <div style="margin-top:60px;">
-        <div style="float:left;margin-left:50px;" align="left" >
-          <div style="margin-top:20px"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<b>供广市场-广东温氏畜牧有限公司</b></div>
-          <div> </div>
-        </div>
-      <div style="float:right;margin-right:70px;margin-top:10px;"><div> &nbsp;</div> <div> &nbsp;</div>&nbsp; &nbsp; &nbsp; &nbsp;莫洋飞</div>
-      
-      </div>
-    </div>
+				const writer = port.writable.getWriter()
 
+				// set how to write to device intervally
+				setInterval(async () => {
+					const commandframe = new Uint8Array([
+						0x00,
+						0xff
+						/* ...some bytes to be sent */
+					])
+					await writer.write(commandframe)
+				}, 3000) // send a frame every 3000ms
 
+				// 流与变换。
+				const textDecoder = new TextDecoderStream()
+				const readableStreamClosed = port.readable.pipeTo(textDecoder.writable)
+				const reader = textDecoder.readable.getReader()
+				let checksum = 0
+				var all = ''
+				// 监听来自串行设备的数据。
+				var arrays = []
 
-	</body>
-	</html>
-`)
-win.document.close()// 在IE浏览器中使用必须添加这一句
-win.focus()// 在IE浏览器中使用必须添加这一句
-win.print()
-win.close()
-}
+				while (true) {
+					const {
+						value,
+						done
+					} = await reader.read()
+					if (done) {
+						reader.releaseLock()
+						break
+					}
+					const re = /(\n(?=(\n+)))+/g
+
+					var valuea = value
+					var str = value.replace(re, '')
+					// console.log("+++++",str);
+					// console.log("+++++",value);
+					if ((str !== ' ' && str !== '') && (str !== '\r' && str !== '\n') && str.length < 7) {
+						all = all + value
+						// console.log("拼接", all)
+						checksum = checksum + 0.5
+
+						if (value === 'g') {
+							var a = all.slice(2)
+							// console.log("未截取重量-",a)
+							var numArr = a.replace(/[^\d.]/g, '')
+							// console.log("截取前重量-",numArr)
+							var qqqww = numArr.substring(0, numArr.indexOf('.') + 2)
+							// console.log("截取中重量-",qqqww)
+
+							// console.log("重量-",qqqww)
+							/* $(".weight").text(qqqww); */
+							var aaaaa = parseFloat(qqqww) + 0.5
+							qqqww += 'kg'
+							aaaaa += 'kg'
+							$('.classp1').text(qqqww)
+							$('.classp2').text(aaaaa)
+
+							checksum = 0
+							arrays.push(all)
+							all = ''
+
+							/* 	console.log("shu", arrays) */
+						}
+					}
+					if (valuea != null && valuea !== undefined && valuea.length > 9) {
+						// console.log("一条", valuea)
+
+						valuea = valuea.replace(/w/g, '')
+						valuea = valuea.replace(/n/g, '')
+						valuea = valuea.replace(/\s+/g, '')
+						valuea = valuea.replace(/k/g, '')
+						valuea = valuea.replace(/g/g, '')
+
+						// console.log(">>>>>>>>>",valuea)
+						$('.classp1').text(valuea)
+						$('.classp2').text(parseFloat(valuea) + 0.5)
+					}
+					// value 是一个 string.
+					/* 	console.log(value); */
+				}
+
+				const textEncoder = new TextEncoderStream()
+				const writableStreamClosed = textEncoder.readable.pipeTo(port.writable)
+
+				reader.cancel()
+				await readableStreamClosed.catch(() => { /* Ignore the error */ })
+
+				writer.close()
+				await writableStreamClosed
+
+				await port.close()
+			}
+
   }
+
 }
 
 </script>

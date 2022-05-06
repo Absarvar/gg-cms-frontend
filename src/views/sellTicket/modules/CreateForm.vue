@@ -145,7 +145,6 @@ export default {
     this.nowTime = this.getNowTime()
     if (this.model !== null) {
       this.ticket = this.model
-      console.log(this.model)
     }
 
     // 防止表单未注册

@@ -31,7 +31,7 @@ const constantRouterComponents = {
   // stream
   StreamList: () => import('@/views/stream/streamList'),
   // preorder
-  PreorderList: () => import('@/views/preorder/preorderList'),
+  // PreorderList: () => import('@/views/preorder/preorderList'),
   // product
   ProductList: () => import('@/views/product/productList'),
   // enterApply
@@ -50,6 +50,8 @@ const constantRouterComponents = {
       PdProductList: () => import('@/views/pdProduct/pdProductList'),
       // sampleTest
         SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
+        // preorder
+          PreorderList: () => import('@/views/preorder/preorderList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),
