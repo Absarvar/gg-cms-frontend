@@ -1,1 +1,1 @@
-export const GG_URL_PREFIX = 'http://172.19.16.244:8080'
+export const GG_URL_PREFIX = 'http://121.40.171.89:8080'
