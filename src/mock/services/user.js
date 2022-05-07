@@ -1165,6 +1165,37 @@ const userNav = options => {
         show: true
       },
       component: 'PreorderList'
+    },
+
+    {
+      name: 'saleOrder-manage',
+      parentId: 0,
+      id: 60080,
+      meta: {
+        title: '订单管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'saleOrder-list',
+      parentId: 60080,
+      id: 60008,
+      meta: {
+        title: '订单列表',
+        show: true
+      },
+      component: 'SaleOrderList'
+    },
+    {
+      name: 'saleOrderDetail-list',
+      parentId: 60080,
+      id: 60009,
+      meta: {
+        title: '订单明细列表',
+        show: true
+      },
+      component: 'SaleOrderDetailList'
     }
 
   ]
