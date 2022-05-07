@@ -33,22 +33,20 @@
               <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border: solid white !important;" colspan="9"><h4><b>{{ fo.providerName }}送货单</b></h4></td>
             </tr>
             <tr>
-              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;" colspan="9">订单编号：{{ fo.outtradeno }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;" colspan="3">订单编号：{{ fo.outtradeno }}</td>
+              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border: solid white !important;;" colspan="3">订单日期：{{ fo.createTime }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;border-left: solid white !important;" colspan="3">送货地址：{{ fo.contactAddress }}</td>
             </tr>
             <tr>
-              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;" colspan="5">购货客户：{{ fo.merchantName }}</td>
-              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border: solid white !important;" colspan="2">联系人：{{ fo.contactMan }}</td>
-              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border: solid white !important;" colspan="2">联系电话：{{ fo.contactMobile }}</td>
-            </tr>
-            <tr>
-              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-right: solid white !important;border-left: solid white !important;" colspan="5">送货地址：{{ fo.contactAddress }}</td>
-              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border-right: solid white !important;;" colspan="4">订单日期：{{ fo.createTime }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="5">购货客户：{{ fo.merchantName }}</td>
+              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="2">联系人：{{ fo.contactMan }}</td>
+              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border-left: solid white !important;border-right: solid white !important;" colspan="2">联系电话：{{ fo.contactMobile }}</td>
             </tr>
             <tr>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >产品编码</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >产品名称</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >产品规格</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >发货重量</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >订货重量</td>
 
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">到货重量</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">辅单位（头）</td>
@@ -66,7 +64,7 @@
               <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"> </th>
               <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.goodsCount }}</th>
               <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.unitprice }}</th>
-              <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.totalamount }}</th>
+              <th style="border-width:2px;border-color:#000000;text-align:center"></th>
               <th style="border-width:2px;border-color:#000000;text-align:center"></th>
 
             </tr>

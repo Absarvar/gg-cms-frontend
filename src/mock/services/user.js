@@ -1196,6 +1196,47 @@ const userNav = options => {
         show: true
       },
       component: 'SaleOrderDetailList'
+    },
+
+    {
+      name: 'comSource-manage',
+      parentId: 0,
+      id: 30030,
+      meta: {
+        title: '源头企业管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'comSource-list',
+      parentId: 30030,
+      id: 30003,
+      meta: {
+        title: '源头企业列表',
+        show: true
+      },
+      component: 'ComSourceList'
+    },
+    {
+      name: 'comClient-list',
+      parentId: 30030,
+      id: 30004,
+      meta: {
+        title: '客户企业列表',
+        show: true
+      },
+      component: 'ComClientList'
+    },
+    {
+      name: 'priceSource-list',
+      parentId: 30030,
+      id: 30001,
+      meta: {
+        title: '源头价格列表',
+        show: true
+      },
+      component: 'PriceSourceList'
     }
 
   ]

@@ -56,6 +56,12 @@ const constantRouterComponents = {
             SaleOrderList: () => import('@/views/saleOrder/saleOrderList'),
             // saleOrderDetail
               SaleOrderDetailList: () => import('@/views/saleOrderDetail/saleOrderDetailList'),
+              // comSource
+                ComSourceList: () => import('@/views/comSource/comSourceList'),
+                // comClient
+                  ComClientList: () => import('@/views/comClient/comClientList'),
+                  // priceSource
+                    PriceSourceList: () => import('@/views/priceSource/priceSourceList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),
