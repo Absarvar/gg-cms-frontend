@@ -62,6 +62,14 @@ const constantRouterComponents = {
                   ComClientList: () => import('@/views/comClient/comClientList'),
                   // priceSource
                     PriceSourceList: () => import('@/views/priceSource/priceSourceList'),
+                    // farm
+                      FarmList: () => import('@/views/farm/farmList'),
+                      // slaughterHouse
+                        SlaughterHouseList: () => import('@/views/slaughterHouse/slaughterHouseList'),
+                        // flowDirection
+                          FlowDirectionList: () => import('@/views/flowDirection/flowDirectionList'),
+                          // harmlessfy
+                            HarmlessfyList: () => import('@/views/harmlessfy/harmlessfyList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

@@ -1237,6 +1237,57 @@ const userNav = options => {
         show: true
       },
       component: 'PriceSourceList'
+    },
+
+    {
+      name: 'farm-manage',
+      parentId: 0,
+      id: 70030,
+      meta: {
+        title: '申报管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'farm-list',
+      parentId: 70030,
+      id: 70004,
+      meta: {
+        title: '养殖场列表',
+        show: true
+      },
+      component: 'FarmList'
+    },
+    {
+      name: 'slaughterHouse-list',
+      parentId: 70030,
+      id: 70008,
+      meta: {
+        title: '屠宰场列表',
+        show: true
+      },
+      component: 'SlaughterHouseList'
+    },
+    {
+      name: 'flowDirection-list',
+      parentId: 70030,
+      id: 70009,
+      meta: {
+        title: '流向地址列表',
+        show: true
+      },
+      component: 'FlowDirectionList'
+    },
+    {
+      name: 'harmlessfy-list',
+      parentId: 70030,
+      id: 70011,
+      meta: {
+        title: '无害化列表',
+        show: true
+      },
+      component: 'HarmlessfyList'
     }
 
   ]
