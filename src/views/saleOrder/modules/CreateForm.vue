@@ -16,8 +16,8 @@
 </style>
 <template>
   <a-modal
-    title="送货单"
-    :width="640"
+    title="送货单1"
+    :width="1240"
     :visible="visible"
     :confirmLoading="loading"
     @ok="() => { $emit('ok') }"
@@ -26,8 +26,8 @@
     <a-spin :spinning="loading">
       <button @click="dayin()">打印</button>
 
-      <div class="text-center" id="div_print">
-        <table class="mx-auto table table-bordered table-hover heavy_border t2print" style="width:1240px;">
+      <div class="text-center" id="div_print" style="width:840px;">
+        <table class="mx-auto table table-bordered table-hover heavy_border t2print" style="width:840px;">
           <tbody>
             <tr>
               <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border: solid white !important;" colspan="9"><h4><b>{{ fo.providerName }}送货单</b></h4></td>
@@ -45,10 +45,10 @@
             <tr>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >产品编码</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >产品名称</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >产品规格</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >订货重量</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:80px;" >产品规格</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:120px;" >订货重量（kg）</td>
 
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">到货重量</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:120px;">到货重量（kg）</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">辅单位（头）</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">单价（元）</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">金额（元）</td>
@@ -70,6 +70,8 @@
             </tr>
           </tbody>
         </table>
+        <div style="margin-left:500px;"><img width="170px" height="130px" src="https://lcpublic.s3.cn-north-1.amazonaws.com.cn/af887e62-ac3b-46a8-b4d7-102038ad2cbc"></div>
+
       </div>
 
       <!-- <a-form :form="form" v-bind="formLayout">

@@ -19,18 +19,13 @@
         >
           <a-input v-decorator="['id', {rules:[{required: false, message: ''}]}]" />
         </a-form-item>
-        <a-form-item label="商品编号"><a-input v-decorator="['spid', {rules:[{required: true, message: '请输入商品编号'}]}]" /></a-form-item>
-        <a-form-item label="商品名称"><a-input v-decorator="['namea', {rules:[{required: true, message: '请输入商品名称'}]}]" /></a-form-item>
-        <a-form-item label="轮播1"><a-input v-decorator="['carouselpic1fileid', {rules:[{required: true, message: '请输入轮播1'}]}]" /></a-form-item>
-        <a-form-item label="商品详情"><a-input v-decorator="['experiencecontent', {rules:[{required: true, message: '请输入商品详情'}]}]" /></a-form-item>
-        <a-form-item label="添加时间"><a-input v-decorator="['addtime', {rules:[{required: true, message: '请输入添加时间'}]}]" /></a-form-item>
-        <a-form-item label="一级类目"><a-input v-decorator="['oneclass', {rules:[{required: true, message: '请输入一级类目'}]}]" /></a-form-item>
-        <a-form-item label="二级类目"><a-input v-decorator="['twoclass', {rules:[{required: true, message: '请输入二级类目'}]}]" /></a-form-item>
-        <a-form-item label="三级类目"><a-input v-decorator="['threeclass', {rules:[{required: true, message: '请输入三级类目'}]}]" /></a-form-item>
-        <a-form-item label="备注"><a-input v-decorator="['remark', {rules:[{required: true, message: '请输入备注'}]}]" /></a-form-item>
-        <a-form-item label="规格"><a-input v-decorator="['specifications', {rules:[{required: true, message: '请输入规格'}]}]" /></a-form-item>
-        <a-form-item label="销售单位"><a-input v-decorator="['salesunit', {rules:[{required: true, message: '请输入销售单位'}]}]" /></a-form-item>
-        <a-form-item label="单位"><a-input v-decorator="['unit', {rules:[{required: true, message: '请输入单位'}]}]" /></a-form-item>
+        <a-form-item label="编号"><a-input v-decorator="['number', {rules:[{required: true, message: '请输入编号'}]}]" /></a-form-item>
+        <a-form-item label="品名"><a-input v-decorator="['productname', {rules:[{required: true, message: '请输入品名'}]}]" /></a-form-item>
+        <a-form-item label="价格"><a-input v-decorator="['price', {rules:[{required: true, message: '请输入价格'}]}]" /></a-form-item>
+        <a-form-item label="时间"><a-input v-decorator="['addtime', {rules:[{required: true, message: '请输入时间'}]}]" /></a-form-item>
+        <a-form-item label="类别"><a-input v-decorator="['category', {rules:[{required: true, message: '请输入类别'}]}]" /></a-form-item>
+        <a-form-item label="分组凭证"><a-input v-decorator="['uuid', {rules:[{required: true, message: '请输入分组凭证'}]}]" /></a-form-item>
+        <a-form-item label="比价状态1上升2下降3相等4无"><a-input v-decorator="['pricestatus', {rules:[{required: true, message: '请输入比价状态1上升2下降3相等4无'}]}]" /></a-form-item>
 
         <a-form-item
           label="状态"
@@ -53,7 +48,7 @@
 import pick from 'lodash.pick'
 
 // 表单字段
-const fields = ['id', 'spid', 'namea', 'carouselpic1fileid', 'experiencecontent', 'addtime', 'oneclass', 'twoclass', 'threeclass', 'remark', 'specifications', 'salesunit', 'unit', 'status']
+const fields = ['id', 'number', 'productname', 'price', 'addtime', 'category', 'uuid', 'pricestatus', 'status']
 
 export default {
   props: {

@@ -1,12 +1,12 @@
 <template>
   <global-footer class="footer custom-render">
-    <template v-slot:links>
+    <!-- <template v-slot:links>
       <a href="https://www.github.com/vueComponent/pro-layout" target="_blank">Pro Layout</a>
       <a href="https://www.github.com/vueComponent/ant-design-vue-pro" target="_blank">Github</a>
       <a href="https://www.github.com/sendya/" target="_blank">@Sendya</a>
-    </template>
+    </template> -->
     <template v-slot:copyright>
-      <a href="https://github.com/vueComponent" target="_blank">vueComponent</a>
+      <a href="/" target="_blank">供广深圳肉类智能交易市场有限公司</a>
     </template>
   </global-footer>
 </template>

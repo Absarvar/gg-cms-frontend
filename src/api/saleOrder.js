@@ -4,6 +4,7 @@ import { GG_URL_PREFIX } from '@/config/common.config'
 const saleOrderApi = {
   newSaleOrder: GG_URL_PREFIX + '/saleOrder/newSaleOrder',
   saleOrderList: GG_URL_PREFIX + '/saleOrder/list',
+  outStockList: GG_URL_PREFIX + '/saleOrder/outStockList',
   getSaleOrder: GG_URL_PREFIX + '/saleOrder/get',
   deleteSaleOrder: GG_URL_PREFIX + '/saleOrder/delete',
   editSaleOrder: GG_URL_PREFIX + '/saleOrder/edit'
@@ -28,6 +29,14 @@ export function editSaleOrder (parameter) {
 export function saleOrderList (parameter) {
   return request({
     url: saleOrderApi.saleOrderList,
+    method: 'get',
+    params: parameter
+  })
+}
+
+export function outStockList (parameter) {
+  return request({
+    url: saleOrderApi.outStockList,
     method: 'get',
     params: parameter
   })

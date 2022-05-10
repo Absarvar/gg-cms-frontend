@@ -274,7 +274,7 @@ export const asyncRouterMap = [
         name: 'article',
         redirect: '/article/',
         component: RouteView,
-        meta: { title: '仪表盘', keepAlive: true, permission: [ 'dashboard' ] },
+        meta: { title: '总览', keepAlive: true, permission: [ 'dashboard' ] },
         children: [
           {
             path: '/article/basic-article',

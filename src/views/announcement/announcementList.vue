@@ -14,18 +14,12 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="商品编号"> <a-input v-model="queryParam.spid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.namea" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="轮播1"> <a-input v-model="queryParam.carouselpic1fileid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品详情"> <a-input v-model="queryParam.experiencecontent" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="标题"> <a-input v-model="queryParam.title" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="内容"> <a-input v-model="queryParam.content" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="图1"> <a-input v-model="queryParam.photo" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="图2"> <a-input v-model="queryParam.photo1" placeholder=""/> </a-form-item> </a-col>
             <a-col :md="8" :sm="24"> <a-form-item label="添加时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="一级类目"> <a-input v-model="queryParam.oneclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="二级类目"> <a-input v-model="queryParam.twoclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="三级类目"> <a-input v-model="queryParam.threeclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.remark" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="规格"> <a-input v-model="queryParam.specifications" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="销售单位"> <a-input v-model="queryParam.salesunit" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="单位"> <a-input v-model="queryParam.unit" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="审核时间"> <a-input v-model="queryParam.shtime" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -102,7 +96,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newGoods, editGoods, goodsList } from '@/api/goods'
+import { newAnnouncement, editAnnouncement, announcementList } from '@/api/announcement'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -139,7 +133,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return goodsList(requestParameters)
+        return announcementList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -159,26 +153,26 @@ export default {
           width: 60
         },
         {
-          title: '商品编号',
-          dataIndex: 'spid',
+          title: '标题',
+          dataIndex: 'title',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '商品名称',
-          dataIndex: 'namea',
+          title: '内容',
+          dataIndex: 'content',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '轮播1',
-          dataIndex: 'carouselpic1fileid',
+          title: '图1',
+          dataIndex: 'photo',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '商品详情',
-          dataIndex: 'experiencecontent',
+          title: '图2',
+          dataIndex: 'photo1',
           width: 120,
           resizable: 'true'
         },
@@ -189,44 +183,8 @@ export default {
           resizable: 'true'
         },
         {
-          title: '一级类目',
-          dataIndex: 'oneclass',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '二级类目',
-          dataIndex: 'twoclass',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '三级类目',
-          dataIndex: 'threeclass',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '备注',
-          dataIndex: 'remark',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '规格',
-          dataIndex: 'specifications',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '销售单位',
-          dataIndex: 'salesunit',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '单位',
-          dataIndex: 'unit',
+          title: '审核时间',
+          dataIndex: 'shtime',
           width: 120,
           resizable: 'true'
         },
@@ -296,7 +254,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editGoods(values)
+            editAnnouncement(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -309,7 +267,7 @@ export default {
             })
           } else {
             // 新增
-            newGoods(values)
+            newAnnouncement(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false

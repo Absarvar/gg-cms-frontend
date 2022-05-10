@@ -14,18 +14,25 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="商品编号"> <a-input v-model="queryParam.spid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.namea" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="轮播1"> <a-input v-model="queryParam.carouselpic1fileid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品详情"> <a-input v-model="queryParam.experiencecontent" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="添加时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="一级类目"> <a-input v-model="queryParam.oneclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="二级类目"> <a-input v-model="queryParam.twoclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="三级类目"> <a-input v-model="queryParam.threeclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.remark" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="规格"> <a-input v-model="queryParam.specifications" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="销售单位"> <a-input v-model="queryParam.salesunit" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="单位"> <a-input v-model="queryParam.unit" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="供应商名称"> <a-input v-model="queryParam.gname" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.sname" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.nmber" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="规格"> <a-input v-model="queryParam.specification" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="订货量"> <a-input v-model="queryParam.orderquantity" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="采购数量"> <a-input v-model="queryParam.purchasequantity" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="采购重量"> <a-input v-model="queryParam.purchaseweight" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="实收量"> <a-input v-model="queryParam.paid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="差量"> <a-input v-model="queryParam.difference" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="制单时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="制单人"> <a-input v-model="queryParam.preparedby" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="状态"> <a-input v-model="queryParam.state" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="单位"> <a-input v-model="queryParam.danwei" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="订货日期"> <a-input v-model="queryParam.daddtime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="回货日期"> <a-input v-model="queryParam.haddtime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="预计到货时间"> <a-input v-model="queryParam.yuji" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="订单编号"> <a-input v-model="queryParam.orderno" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="销售价"> <a-input v-model="queryParam.danjia" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="预计费用"> <a-input v-model="queryParam.feiyong" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -71,8 +78,8 @@
         <span slot="serial" slot-scope="text, record, index">
           {{ index + 1 }}
         </span>
-        <span slot="status" slot-scope="text">
-          <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
+        <span slot="state" slot-scope="text">
+          <a-badge :status="text | stateTypeFilter" :text="text | stateFilter" />
         </span>
         <span slot="addtime" slot-scope="text">
           {{ text | formateDate }}
@@ -102,12 +109,12 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newGoods, editGoods, goodsList } from '@/api/goods'
+import { newPurchaseOrder, editPurchaseOrder, purchaseOrderList } from '@/api/purchaseOrder'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
 
-const statusMap = {
+const stateMap = {
   0: {
     status: 'default',
     text: '禁用中'
@@ -139,7 +146,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return goodsList(requestParameters)
+        return purchaseOrderList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -159,83 +166,119 @@ export default {
           width: 60
         },
         {
-          title: '商品编号',
-          dataIndex: 'spid',
+          title: '供应商名称',
+          dataIndex: 'gname',
           width: 120,
           resizable: 'true'
         },
         {
           title: '商品名称',
-          dataIndex: 'namea',
+          dataIndex: 'sname',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '轮播1',
-          dataIndex: 'carouselpic1fileid',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '商品详情',
-          dataIndex: 'experiencecontent',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '添加时间',
-          dataIndex: 'addtime',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '一级类目',
-          dataIndex: 'oneclass',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '二级类目',
-          dataIndex: 'twoclass',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '三级类目',
-          dataIndex: 'threeclass',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '备注',
-          dataIndex: 'remark',
+          title: '数量',
+          dataIndex: 'nmber',
           width: 120,
           resizable: 'true'
         },
         {
           title: '规格',
-          dataIndex: 'specifications',
+          dataIndex: 'specification',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '销售单位',
-          dataIndex: 'salesunit',
+          title: '订货量',
+          dataIndex: 'orderquantity',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '采购数量',
+          dataIndex: 'purchasequantity',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '采购重量',
+          dataIndex: 'purchaseweight',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '实收量',
+          dataIndex: 'paid',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '差量',
+          dataIndex: 'difference',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '制单时间',
+          dataIndex: 'addtime',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '制单人',
+          dataIndex: 'preparedby',
           width: 120,
           resizable: 'true'
         },
         {
           title: '单位',
-          dataIndex: 'unit',
+          dataIndex: 'danwei',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '订货日期',
+          dataIndex: 'daddtime',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '回货日期',
+          dataIndex: 'haddtime',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '预计到货时间',
+          dataIndex: 'yuji',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '订单编号',
+          dataIndex: 'orderno',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '销售价',
+          dataIndex: 'danjia',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '预计费用',
+          dataIndex: 'feiyong',
           width: 120,
           resizable: 'true'
         },
 
         {
           title: '状态',
-          scopedSlots: { customRender: 'status' },
+          scopedSlots: { customRender: 'state' },
           width: 100,
-          dataIndex: 'status'
+          dataIndex: 'state'
         },
         {
           title: '创建时间',
@@ -254,11 +297,11 @@ export default {
     }
   },
   filters: {
-    statusFilter (type) {
-      return statusMap[type].text
+    stateFilter (type) {
+      return stateMap[type].text
     },
-    statusTypeFilter (type) {
-      return statusMap[type].status
+    stateTypeFilter (type) {
+      return stateMap[type].status
     },
     formateDate (time) {
       const date = new Date(time)
@@ -296,7 +339,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editGoods(values)
+            editPurchaseOrder(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -309,7 +352,7 @@ export default {
             })
           } else {
             // 新增
-            newGoods(values)
+            newPurchaseOrder(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -333,7 +376,7 @@ export default {
       form.resetFields() // 清理表单数据（可不做）
     },
     handleSub (record) {
-      if (record.status !== 0) {
+      if (record.state !== 0) {
         this.$message.info(`${record.no} 订阅成功`)
       } else {
         this.$message.error(`${record.no} 订阅失败，规则已关闭`)

@@ -33,7 +33,7 @@ const info = options => {
       {
         roleId: 'admin',
         permissionId: 'dashboard',
-        permissionName: '仪表盘',
+        permissionName: '总览',
         actions:
           '[{"action":"add","defaultCheck":false,"describe":"新增"},{"action":"query","defaultCheck":false,"describe":"查询"},{"action":"get","defaultCheck":false,"describe":"详情"},{"action":"update","defaultCheck":false,"describe":"修改"},{"action":"delete","defaultCheck":false,"describe":"删除"}]',
         actionEntitySet: [
@@ -481,7 +481,7 @@ const userNav = options => {
       id: 1,
       meta: {
         icon: 'dashboard',
-        title: '仪表盘',
+        title: '总览',
         show: true
       },
       component: 'RouteView',
@@ -497,17 +497,17 @@ const userNav = options => {
       },
       component: 'Workplace'
     },
-    {
-      name: 'monitor',
-      path: 'https://www.baidu.com/',
-      parentId: 1,
-      id: 3,
-      meta: {
-        title: '监控页（外部）',
-        target: '_blank',
-        show: true
-      }
-    },
+    // {
+    //   name: 'monitor',
+    //   path: 'https://www.baidu.com/',
+    //   parentId: 1,
+    //   id: 3,
+    //   meta: {
+    //     title: '监控页（外部）',
+    //     target: '_blank',
+    //     show: true
+    //   }
+    // },
     {
       name: 'Analysis',
       parentId: 1,
@@ -520,348 +520,348 @@ const userNav = options => {
       path: '/dashboard/analysis'
     },
 
-    // form
-    {
-      name: 'form',
-      parentId: 0,
-      id: 10,
-      meta: {
-        icon: 'form',
-        title: '表单页'
-      },
-      redirect: '/form/base-form',
-      component: 'RouteView'
-    },
-    {
-      name: 'basic-form',
-      parentId: 10,
-      id: 6,
-      meta: {
-        title: '基础表单'
-      },
-      component: 'BasicForm'
-    },
-    {
-      name: 'step-form',
-      parentId: 10,
-      id: 5,
-      meta: {
-        title: '分步表单'
-      },
-      component: 'StepForm'
-    },
-    {
-      name: 'advanced-form',
-      parentId: 10,
-      id: 4,
-      meta: {
-        title: '高级表单'
-      },
-      component: 'AdvanceForm'
-    },
+    // // form
+    // {
+    //   name: 'form',
+    //   parentId: 0,
+    //   id: 10,
+    //   meta: {
+    //     icon: 'form',
+    //     title: '表单页'
+    //   },
+    //   redirect: '/form/base-form',
+    //   component: 'RouteView'
+    // },
+    // {
+    //   name: 'basic-form',
+    //   parentId: 10,
+    //   id: 6,
+    //   meta: {
+    //     title: '基础表单'
+    //   },
+    //   component: 'BasicForm'
+    // },
+    // {
+    //   name: 'step-form',
+    //   parentId: 10,
+    //   id: 5,
+    //   meta: {
+    //     title: '分步表单'
+    //   },
+    //   component: 'StepForm'
+    // },
+    // {
+    //   name: 'advanced-form',
+    //   parentId: 10,
+    //   id: 4,
+    //   meta: {
+    //     title: '高级表单'
+    //   },
+    //   component: 'AdvanceForm'
+    // },
 
-    // list
-    {
-      name: 'list',
-      parentId: 0,
-      id: 10010,
-      meta: {
-        icon: 'table',
-        title: '列表页',
-        show: true
-      },
-      redirect: '/list/table-list',
-      component: 'RouteView'
-    },
-    {
-      name: 'table-list',
-      parentId: 10010,
-      id: 10011,
-      path: '/list/table-list/:pageNo([1-9]\\d*)?',
-      meta: {
-        title: '查询表格',
-        show: true
-      },
-      component: 'TableList'
-    },
-    {
-      name: 'basic-list',
-      parentId: 10010,
-      id: 10012,
-      meta: {
-        title: '标准列表',
-        show: true
-      },
-      component: 'StandardList'
-    },
-    {
-      name: 'card',
-      parentId: 10010,
-      id: 10013,
-      meta: {
-        title: '卡片列表',
-        show: true
-      },
-      component: 'CardList'
-    },
-    {
-      name: 'search',
-      parentId: 10010,
-      id: 10014,
-      meta: {
-        title: '搜索列表',
-        show: true
-      },
-      redirect: '/list/search/article',
-      component: 'SearchLayout'
-    },
-    {
-      name: 'article',
-      parentId: 10014,
-      id: 10015,
-      meta: {
-        title: '搜索列表（文章）',
-        show: true
-      },
-      component: 'SearchArticles'
-    },
-    {
-      name: 'project',
-      parentId: 10014,
-      id: 10016,
-      meta: {
-        title: '搜索列表（项目）',
-        show: true
-      },
-      component: 'SearchProjects'
-    },
-    {
-      name: 'application',
-      parentId: 10014,
-      id: 10017,
-      meta: {
-        title: '搜索列表（应用）',
-        show: true
-      },
-      component: 'SearchApplications'
-    },
+    // // list
+    // {
+    //   name: 'list',
+    //   parentId: 0,
+    //   id: 10010,
+    //   meta: {
+    //     icon: 'table',
+    //     title: '列表页',
+    //     show: true
+    //   },
+    //   redirect: '/list/table-list',
+    //   component: 'RouteView'
+    // },
+    // {
+    //   name: 'table-list',
+    //   parentId: 10010,
+    //   id: 10011,
+    //   path: '/list/table-list/:pageNo([1-9]\\d*)?',
+    //   meta: {
+    //     title: '查询表格',
+    //     show: true
+    //   },
+    //   component: 'TableList'
+    // },
+    // {
+    //   name: 'basic-list',
+    //   parentId: 10010,
+    //   id: 10012,
+    //   meta: {
+    //     title: '标准列表',
+    //     show: true
+    //   },
+    //   component: 'StandardList'
+    // },
+    // {
+    //   name: 'card',
+    //   parentId: 10010,
+    //   id: 10013,
+    //   meta: {
+    //     title: '卡片列表',
+    //     show: true
+    //   },
+    //   component: 'CardList'
+    // },
+    // {
+    //   name: 'search',
+    //   parentId: 10010,
+    //   id: 10014,
+    //   meta: {
+    //     title: '搜索列表',
+    //     show: true
+    //   },
+    //   redirect: '/list/search/article',
+    //   component: 'SearchLayout'
+    // },
+    // {
+    //   name: 'article',
+    //   parentId: 10014,
+    //   id: 10015,
+    //   meta: {
+    //     title: '搜索列表（文章）',
+    //     show: true
+    //   },
+    //   component: 'SearchArticles'
+    // },
+    // {
+    //   name: 'project',
+    //   parentId: 10014,
+    //   id: 10016,
+    //   meta: {
+    //     title: '搜索列表（项目）',
+    //     show: true
+    //   },
+    //   component: 'SearchProjects'
+    // },
+    // {
+    //   name: 'application',
+    //   parentId: 10014,
+    //   id: 10017,
+    //   meta: {
+    //     title: '搜索列表（应用）',
+    //     show: true
+    //   },
+    //   component: 'SearchApplications'
+    // },
 
-    // profile
-    {
-      name: 'profile',
-      parentId: 0,
-      id: 10018,
-      meta: {
-        title: '详情页',
-        icon: 'profile',
-        show: true
-      },
-      redirect: '/profile/basic',
-      component: 'RouteView'
-    },
-    {
-      name: 'basic',
-      parentId: 10018,
-      id: 10019,
-      meta: {
-        title: '基础详情页',
-        show: true
-      },
-      component: 'ProfileBasic'
-    },
-    {
-      name: 'advanced',
-      parentId: 10018,
-      id: 10020,
-      meta: {
-        title: '高级详情页',
-        show: true
-      },
-      component: 'ProfileAdvanced'
-    },
+    // // profile
+    // {
+    //   name: 'profile',
+    //   parentId: 0,
+    //   id: 10018,
+    //   meta: {
+    //     title: '详情页',
+    //     icon: 'profile',
+    //     show: true
+    //   },
+    //   redirect: '/profile/basic',
+    //   component: 'RouteView'
+    // },
+    // {
+    //   name: 'basic',
+    //   parentId: 10018,
+    //   id: 10019,
+    //   meta: {
+    //     title: '基础详情页',
+    //     show: true
+    //   },
+    //   component: 'ProfileBasic'
+    // },
+    // {
+    //   name: 'advanced',
+    //   parentId: 10018,
+    //   id: 10020,
+    //   meta: {
+    //     title: '高级详情页',
+    //     show: true
+    //   },
+    //   component: 'ProfileAdvanced'
+    // },
 
-    // result
-    {
-      name: 'result',
-      parentId: 0,
-      id: 10021,
-      meta: {
-        title: '结果页',
-        icon: 'check-circle-o',
-        show: true
-      },
-      redirect: '/result/success',
-      component: 'PageView'
-    },
-    {
-      name: 'success',
-      parentId: 10021,
-      id: 10022,
-      meta: {
-        title: '成功',
-        hiddenHeaderContent: true,
-        show: true
-      },
-      component: 'ResultSuccess'
-    },
-    {
-      name: 'fail',
-      parentId: 10021,
-      id: 10023,
-      meta: {
-        title: '失败',
-        hiddenHeaderContent: true,
-        show: true
-      },
-      component: 'ResultFail'
-    },
+    // // result
+    // {
+    //   name: 'result',
+    //   parentId: 0,
+    //   id: 10021,
+    //   meta: {
+    //     title: '结果页',
+    //     icon: 'check-circle-o',
+    //     show: true
+    //   },
+    //   redirect: '/result/success',
+    //   component: 'PageView'
+    // },
+    // {
+    //   name: 'success',
+    //   parentId: 10021,
+    //   id: 10022,
+    //   meta: {
+    //     title: '成功',
+    //     hiddenHeaderContent: true,
+    //     show: true
+    //   },
+    //   component: 'ResultSuccess'
+    // },
+    // {
+    //   name: 'fail',
+    //   parentId: 10021,
+    //   id: 10023,
+    //   meta: {
+    //     title: '失败',
+    //     hiddenHeaderContent: true,
+    //     show: true
+    //   },
+    //   component: 'ResultFail'
+    // },
 
-    // Exception
-    {
-      name: 'exception',
-      parentId: 0,
-      id: 10024,
-      meta: {
-        title: '异常页',
-        icon: 'warning',
-        show: true
-      },
-      redirect: '/exception/403',
-      component: 'RouteView'
-    },
-    {
-      name: '403',
-      parentId: 10024,
-      id: 10025,
-      meta: {
-        title: '403',
-        show: true
-      },
-      component: 'Exception403'
-    },
-    {
-      name: '404',
-      parentId: 10024,
-      id: 10026,
-      meta: {
-        title: '404',
-        show: true
-      },
-      component: 'Exception404'
-    },
-    {
-      name: '500',
-      parentId: 10024,
-      id: 10027,
-      meta: {
-        title: '500',
-        show: true
-      },
-      component: 'Exception500'
-    },
+    // // Exception
+    // {
+    //   name: 'exception',
+    //   parentId: 0,
+    //   id: 10024,
+    //   meta: {
+    //     title: '异常页',
+    //     icon: 'warning',
+    //     show: true
+    //   },
+    //   redirect: '/exception/403',
+    //   component: 'RouteView'
+    // },
+    // {
+    //   name: '403',
+    //   parentId: 10024,
+    //   id: 10025,
+    //   meta: {
+    //     title: '403',
+    //     show: true
+    //   },
+    //   component: 'Exception403'
+    // },
+    // {
+    //   name: '404',
+    //   parentId: 10024,
+    //   id: 10026,
+    //   meta: {
+    //     title: '404',
+    //     show: true
+    //   },
+    //   component: 'Exception404'
+    // },
+    // {
+    //   name: '500',
+    //   parentId: 10024,
+    //   id: 10027,
+    //   meta: {
+    //     title: '500',
+    //     show: true
+    //   },
+    //   component: 'Exception500'
+    // },
 
-    // account
-    {
-      name: 'account',
-      parentId: 0,
-      id: 10028,
-      meta: {
-        title: '个人页',
-        icon: 'user',
-        show: true
-      },
-      redirect: '/account/center',
-      component: 'RouteView'
-    },
-    {
-      name: 'center',
-      parentId: 10028,
-      id: 10029,
-      meta: {
-        title: '个人中心',
-        show: true
-      },
-      component: 'AccountCenter'
-    },
-    // 特殊三级菜单
-    {
-      name: 'settings',
-      parentId: 10028,
-      id: 10030,
-      meta: {
-        title: '个人设置',
-        hideHeader: true,
-        hideChildren: true,
-        show: true
-      },
-      redirect: '/account/settings/basic',
-      component: 'AccountSettings'
-    },
-    {
-      name: 'BasicSettings',
-      path: '/account/settings/basic',
-      parentId: 10030,
-      id: 10031,
-      meta: {
-        title: '基本设置',
-        show: false
-      },
-      component: 'BasicSetting'
-    },
-    {
-      name: 'SecuritySettings',
-      path: '/account/settings/security',
-      parentId: 10030,
-      id: 10032,
-      meta: {
-        title: '安全设置',
-        show: false
-      },
-      component: 'SecuritySettings'
-    },
-    {
-      name: 'CustomSettings',
-      path: '/account/settings/custom',
-      parentId: 10030,
-      id: 10033,
-      meta: {
-        title: '个性化设置',
-        show: false
-      },
-      component: 'CustomSettings'
-    },
-    {
-      name: 'BindingSettings',
-      path: '/account/settings/binding',
-      parentId: 10030,
-      id: 10034,
-      meta: {
-        title: '账户绑定',
-        show: false
-      },
-      component: 'BindingSettings'
-    },
-    {
-      name: 'NotificationSettings',
-      path: '/account/settings/notification',
-      parentId: 10030,
-      id: 10034,
-      meta: {
-        title: '新消息通知',
-        show: false
-      },
-      component: 'NotificationSettings'
-    },
-    {
-      name: 'basic-article',
-      parentId: 0,
-      id: 10035,
-      meta: {
-        title: '分销凭证',
-        show: true
-      },
-      component: 'StandardArticle'
-    },
+    // // account
+    // {
+    //   name: 'account',
+    //   parentId: 0,
+    //   id: 10028,
+    //   meta: {
+    //     title: '个人页',
+    //     icon: 'user',
+    //     show: true
+    //   },
+    //   redirect: '/account/center',
+    //   component: 'RouteView'
+    // },
+    // {
+    //   name: 'center',
+    //   parentId: 10028,
+    //   id: 10029,
+    //   meta: {
+    //     title: '个人中心',
+    //     show: true
+    //   },
+    //   component: 'AccountCenter'
+    // },
+    // // 特殊三级菜单
+    // {
+    //   name: 'settings',
+    //   parentId: 10028,
+    //   id: 10030,
+    //   meta: {
+    //     title: '个人设置',
+    //     hideHeader: true,
+    //     hideChildren: true,
+    //     show: true
+    //   },
+    //   redirect: '/account/settings/basic',
+    //   component: 'AccountSettings'
+    // },
+    // {
+    //   name: 'BasicSettings',
+    //   path: '/account/settings/basic',
+    //   parentId: 10030,
+    //   id: 10031,
+    //   meta: {
+    //     title: '基本设置',
+    //     show: false
+    //   },
+    //   component: 'BasicSetting'
+    // },
+    // {
+    //   name: 'SecuritySettings',
+    //   path: '/account/settings/security',
+    //   parentId: 10030,
+    //   id: 10032,
+    //   meta: {
+    //     title: '安全设置',
+    //     show: false
+    //   },
+    //   component: 'SecuritySettings'
+    // },
+    // {
+    //   name: 'CustomSettings',
+    //   path: '/account/settings/custom',
+    //   parentId: 10030,
+    //   id: 10033,
+    //   meta: {
+    //     title: '个性化设置',
+    //     show: false
+    //   },
+    //   component: 'CustomSettings'
+    // },
+    // {
+    //   name: 'BindingSettings',
+    //   path: '/account/settings/binding',
+    //   parentId: 10030,
+    //   id: 10034,
+    //   meta: {
+    //     title: '账户绑定',
+    //     show: false
+    //   },
+    //   component: 'BindingSettings'
+    // },
+    // {
+    //   name: 'NotificationSettings',
+    //   path: '/account/settings/notification',
+    //   parentId: 10030,
+    //   id: 10034,
+    //   meta: {
+    //     title: '新消息通知',
+    //     show: false
+    //   },
+    //   component: 'NotificationSettings'
+    // },
+    // {
+    //   name: 'basic-article',
+    //   parentId: 0,
+    //   id: 10035,
+    //   meta: {
+    //     title: '分销凭证',
+    //     show: true
+    //   },
+    //   component: 'StandardArticle'
+    // },
     // {
     //   name: 'article-index',
     //   parentId: 0,
@@ -988,27 +988,6 @@ const userNav = options => {
     //   component: 'ProductList'
     // },
 
-    {
-      name: 'enterApply-manage',
-      parentId: 0,
-      id: 20006,
-      meta: {
-        title: '入场申请管理',
-        show: true
-      },
-      component: 'RouteView' // 菜单
-    },
-    {
-      name: 'enterApply-list',
-      parentId: 20006,
-      id: 20060,
-      meta: {
-        title: '入场申请列表',
-        show: true
-      },
-      component: 'EnterApplyList'
-    },
-
     // {
     //   name: 'purchase-manage',
     //   parentId: 0,
@@ -1094,124 +1073,81 @@ const userNav = options => {
     // },
 
     {
-      name: 'sellTicket-manage',
+      name: 'goods-manage',
       parentId: 0,
-      id: 60001,
+      id: 20000,
       meta: {
-        title: '出票管理',
+        title: '交易中心管理',
         show: true
       },
       component: 'RouteView' // 菜单
     },
-    {
-      name: 'sellTicket-list',
-      parentId: 60001,
-      id: 60010,
-      meta: {
-        title: '出票列表',
-        show: true
-      },
-      component: 'SellTicketList'
-    },
 
     {
-      name: 'pdProduct-manage',
-      parentId: 0,
-      id: 50003,
+      name: 'goods-list',
+      parentId: 20000,
+      id: 20011,
       meta: {
-        title: '产品管理',
+        title: '商品管理',
         show: true
       },
-      component: 'RouteView' // 菜单
+      component: 'GoodsList'
     },
     {
-      name: 'pdProduct-list',
-      parentId: 50003,
-      id: 50030,
+      name: 'coldStore-list',
+      parentId: 20000,
+      id: 20021,
       meta: {
-        title: '产品列表',
+        title: '冷库管理',
         show: true
       },
-      component: 'PdProductList'
-    },
-
-    {
-      name: 'sampleTest-list',
-      parentId: 60001,
-      id: 60005,
-      meta: {
-        title: '抽样检测列表',
-        show: true
-      },
-      component: 'SampleTestList'
-    },
-
-    {
-      name: 'preorder-manage',
-      parentId: 0,
-      id: 40001,
-      meta: {
-        title: '预定信息管理',
-        show: true
-      },
-      component: 'RouteView' // 菜单
-    },
-    {
-      name: 'preorder-list',
-      parentId: 40001,
-      id: 40010,
-      meta: {
-        title: '预定信息列表',
-        show: true
-      },
-      component: 'PreorderList'
-    },
-
-    {
-      name: 'saleOrder-manage',
-      parentId: 0,
-      id: 60080,
-      meta: {
-        title: '订单管理',
-        show: true
-      },
-      component: 'RouteView' // 菜单
-    },
-    {
-      name: 'saleOrder-list',
-      parentId: 60080,
-      id: 60008,
-      meta: {
-        title: '订单列表',
-        show: true
-      },
-      component: 'SaleOrderList'
-    },
-    {
-      name: 'saleOrderDetail-list',
-      parentId: 60080,
-      id: 60009,
-      meta: {
-        title: '订单明细列表',
-        show: true
-      },
-      component: 'SaleOrderDetailList'
+      component: 'ColdStoreList'
     },
 
     {
       name: 'comSource-manage',
-      parentId: 0,
-      id: 30030,
+      parentId: 20000,
+      id: 20030,
       meta: {
-        title: '源头企业管理',
+        title: '信息管理',
         show: true
       },
       component: 'RouteView' // 菜单
     },
     {
+      name: 'announcement-list',
+      parentId: 20030,
+      id: 20031,
+      meta: {
+        title: '公告发布',
+        show: true
+      },
+      component: 'AnnouncementList'
+    },
+    {
+      name: 'priceSource-list',
+      parentId: 20030,
+      id: 20032,
+      meta: {
+        title: '源头自提价',
+        show: true
+      },
+      component: 'PriceSourceList'
+    },
+    {
+      name: 'priceGG-list',
+      parentId: 20030,
+      id: 20033,
+      meta: {
+        title: '供广参考价',
+        show: true
+      },
+      component: 'PriceGGList'
+    },
+    {
       name: 'comSource-list',
-      parentId: 30030,
-      id: 30003,
+      parentId: 20030,
+      id: 20034,
       meta: {
         title: '源头企业列表',
         show: true
@@ -1220,8 +1156,8 @@ const userNav = options => {
     },
     {
       name: 'comClient-list',
-      parentId: 30030,
-      id: 30004,
+      parentId: 20030,
+      id: 20035,
       meta: {
         title: '客户企业列表',
         show: true
@@ -1229,20 +1165,136 @@ const userNav = options => {
       component: 'ComClientList'
     },
     {
-      name: 'priceSource-list',
-      parentId: 30030,
-      id: 30001,
+      name: 'agreement-list',
+      parentId: 20030,
+      id: 20036,
       meta: {
-        title: '源头价格列表',
+        title: '服务协议列表',
         show: true
       },
-      component: 'PriceSourceList'
+      component: 'AgreementList'
     },
 
     {
-      name: 'farm-manage',
+      name: 'sales-manage',
+      parentId: 20000,
+      id: 20040,
+      meta: {
+        title: '销售管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+
+    {
+      name: 'preorder-list',
+      parentId: 20040,
+      id: 20041,
+      meta: {
+        title: '预定信息列表',
+        show: true
+      },
+      component: 'PreorderList'
+    },
+    {
+      name: 'enterApply-list?status=0',
+      parentId: 20040,
+      id: 20042,
+      meta: {
+        title: '入场申报列表',
+        show: true
+      },
+      component: 'EnterApplyList'
+    },
+
+    {
+      name: 'purchaseOrder-list',
+      parentId: 20040,
+      id: 20043,
+      meta: {
+        title: '采购制单列表',
+        show: true
+      },
+      component: 'PurchaseOrderList'
+    },
+
+    {
+      name: 'ground-manage',
+      parentId: 20000,
+      id: 20050,
+      meta: {
+        title: '现场管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'enterRecheck-list?status=1&statusok=1',
+      // path: '/goods-manage/sales-manage/enterApply-list/:status=1',
+      parentId: 20050,
+      id: 20051,
+      meta: {
+        title: '理货入库',
+        show: true
+      },
+      component: 'PrepareInstockList'
+    },
+    {
+      name: 'pdProduct-list',
+      parentId: 20050,
+      id: 20052,
+      meta: {
+        title: '入库记录',
+        show: true
+      },
+      component: 'PdProductList'
+    },
+    {
+      name: 'outStock-list',
+      parentId: 20050,
+      id: 20054,
+      meta: {
+        title: '出库记录',
+        show: true
+      },
+      component: 'OutStockList'
+    },
+    {
+      name: 'sourceTrack-list',
+      parentId: 20050,
+      id: 20055,
+      meta: {
+        title: '商品溯源列表',
+        show: true
+      },
+      component: 'SourceTrackList'
+    },
+    {
+      name: 'saleOrder-list',
+      parentId: 20050,
+      id: 20056,
+      meta: {
+        title: '送货单列表',
+        show: true
+      },
+      component: 'SaleOrderList'
+    },
+
+    {
+      name: 'anitest-manage',
       parentId: 0,
-      id: 70030,
+      id: 30000,
+      meta: {
+        title: '动检中心',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+
+    {
+      name: 'apply-manage',
+      parentId: 30000,
+      id: 30010,
       meta: {
         title: '申报管理',
         show: true
@@ -1251,8 +1303,8 @@ const userNav = options => {
     },
     {
       name: 'farm-list',
-      parentId: 70030,
-      id: 70004,
+      parentId: 30010,
+      id: 30011,
       meta: {
         title: '养殖场列表',
         show: true
@@ -1261,8 +1313,8 @@ const userNav = options => {
     },
     {
       name: 'slaughterHouse-list',
-      parentId: 70030,
-      id: 70008,
+      parentId: 30010,
+      id: 30012,
       meta: {
         title: '屠宰场列表',
         show: true
@@ -1270,25 +1322,123 @@ const userNav = options => {
       component: 'SlaughterHouseList'
     },
     {
-      name: 'flowDirection-list',
-      parentId: 70030,
-      id: 70009,
+      name: 'test-list',
+      parentId: 30000,
+      id: 30020,
       meta: {
-        title: '流向地址列表',
+        title: '检验管理',
         show: true
       },
-      component: 'FlowDirectionList'
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'sampleTest-list',
+      parentId: 30020,
+      id: 30021,
+      meta: {
+        title: '抽样检测列表',
+        show: true
+      },
+      component: 'SampleTestList'
     },
     {
       name: 'harmlessfy-list',
-      parentId: 70030,
-      id: 70011,
+      parentId: 30020,
+      id: 30022,
       meta: {
         title: '无害化列表',
         show: true
       },
       component: 'HarmlessfyList'
+    },
+      {
+        name: 'sellTicket-manage',
+        parentId: 30000,
+        id: 30030,
+        meta: {
+          title: '出票管理',
+          show: true
+        },
+        component: 'RouteView' // 菜单
+      },
+
+    {
+      name: 'sellTicket-list',
+      parentId: 30030,
+      id: 30031,
+      meta: {
+        title: '出票列表',
+        show: true
+      },
+      component: 'SellTicketList'
+    },
+
+      {
+        name: 'enterApply2-manage',
+        parentId: 30000,
+        id: 30040,
+        meta: {
+          title: '入场管理',
+          show: true
+        },
+        component: 'RouteView' // 菜单
+      },
+    {
+      name: 'enterReg-list?status=1&statusok=0',
+      parentId: 30040,
+      id: 30041,
+      meta: {
+        title: '入场登记',
+        show: true
+      },
+      component: 'EnterRegList'
+    },
+    {
+      name: 'enterRecheck-list?status=1&statusok=1',
+      // path: '/goods-manage/sales-manage/enterApply-list/:status=1',
+      query: { 'status': 1 },
+      mdl: { 'status': 1, 'statusok': '1' },
+      model: { 'status': 1, 'statusok': '1' },
+      parentId: 30040,
+      id: 30042,
+      meta: {
+        title: '地磅复秤',
+        show: true
+      },
+      component: 'EnterRecheckList'
+    },
+
+      {
+        name: 'flowDirection-manage',
+        parentId: 30000,
+        id: 30050,
+        meta: {
+          title: '流向地址管理',
+          show: true
+        },
+        component: 'RouteView' // 菜单
+      },
+    {
+      name: 'flowDirection-list',
+      parentId: 30050,
+      id: 30051,
+      meta: {
+        title: '流向地址列表',
+        show: true
+      },
+      component: 'FlowDirectionList'
     }
+
+    // {
+    //   name: 'saleOrderDetail-list',
+    //   parentId: 0,
+    //   id: 60009,
+    //   meta: {
+    //     title: '订单明细列表',
+    //     show: true
+    //   },
+    //   component: 'SaleOrderDetailList'
+    // }
 
   ]
   const json = builder(nav)

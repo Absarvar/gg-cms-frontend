@@ -4,7 +4,8 @@
       <div class="table-page-search-wrapper">
         <a-form layout="inline">
           <a-row :gutter="48">
-            <a-col :md="8" :sm="24">
+            <a-col :md="8" :sm="24"> <a-form-item label="入场批次号"> <a-input v-model="queryParam.pinjie" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="12" :sm="24">
               <a-form-item label="创建日期">
                 <a-range-picker
                   style="width: 400px"
@@ -16,10 +17,10 @@
             </a-col>
             <template v-if="advanced">
               <a-col :md="8" :sm="24"> <a-form-item label="ID"> <a-input v-model="queryParam.orderid" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="入场批次号"> <a-input v-model="queryParam.pinjie" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="动物种类"> <a-input v-model="queryParam.animalspecies" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="车牌号"> <a-input v-model="queryParam.licenseplatenumber" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="确认状态"> <a-input v-model="queryParam.statusok" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="状态"> <a-input v-model="queryParam.status" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="申报人"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="联系方式"> <a-input v-model="queryParam.consigneephonenum" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="预报规格"> <a-input v-model="queryParam.standards" placeholder=""/> </a-form-item> </a-col>
@@ -108,7 +109,7 @@
         </span>
 
         <span slot="number" slot-scope="text, record">
-          <router-link :to="{path: '/pdProduct-manage/pdProduct-list', query: {'outletsid':record.orderID }}">
+          <router-link :to="{path: '/ground-manage/pdProduct-list', query: {'outletsid':record.orderID }}">
             {{ text }}
           </router-link>
         </span>
@@ -146,6 +147,7 @@ import { newEnterApply, editEnterApply, enterApplyList } from '@/api/enterApply'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
+import { getPageQuery } from '@/utils/util'
 
 const statusMap = {
   0: {
@@ -155,6 +157,10 @@ const statusMap = {
   1: {
     status: 'processing',
     text: '已确认'
+  },
+  null: {
+    status: 'default',
+    text: '无'
   }
 }
 
@@ -177,6 +183,11 @@ export default {
       queryParam: {},
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
+        const urlParam = getPageQuery()
+        if (urlParam !== undefined) {
+          Object.assign(this.queryParam, urlParam)
+        //  this.queryParam = urlParam
+        }
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
         return enterApplyList(requestParameters)

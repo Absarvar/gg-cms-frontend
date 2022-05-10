@@ -19,18 +19,9 @@
         >
           <a-input v-decorator="['id', {rules:[{required: false, message: ''}]}]" />
         </a-form-item>
-        <a-form-item label="商品编号"><a-input v-decorator="['spid', {rules:[{required: true, message: '请输入商品编号'}]}]" /></a-form-item>
-        <a-form-item label="商品名称"><a-input v-decorator="['namea', {rules:[{required: true, message: '请输入商品名称'}]}]" /></a-form-item>
-        <a-form-item label="轮播1"><a-input v-decorator="['carouselpic1fileid', {rules:[{required: true, message: '请输入轮播1'}]}]" /></a-form-item>
-        <a-form-item label="商品详情"><a-input v-decorator="['experiencecontent', {rules:[{required: true, message: '请输入商品详情'}]}]" /></a-form-item>
+        <a-form-item label="协议内容"><a-input v-decorator="['agreement', {rules:[{required: true, message: '请输入协议内容'}]}]" /></a-form-item>
         <a-form-item label="添加时间"><a-input v-decorator="['addtime', {rules:[{required: true, message: '请输入添加时间'}]}]" /></a-form-item>
-        <a-form-item label="一级类目"><a-input v-decorator="['oneclass', {rules:[{required: true, message: '请输入一级类目'}]}]" /></a-form-item>
-        <a-form-item label="二级类目"><a-input v-decorator="['twoclass', {rules:[{required: true, message: '请输入二级类目'}]}]" /></a-form-item>
-        <a-form-item label="三级类目"><a-input v-decorator="['threeclass', {rules:[{required: true, message: '请输入三级类目'}]}]" /></a-form-item>
-        <a-form-item label="备注"><a-input v-decorator="['remark', {rules:[{required: true, message: '请输入备注'}]}]" /></a-form-item>
-        <a-form-item label="规格"><a-input v-decorator="['specifications', {rules:[{required: true, message: '请输入规格'}]}]" /></a-form-item>
-        <a-form-item label="销售单位"><a-input v-decorator="['salesunit', {rules:[{required: true, message: '请输入销售单位'}]}]" /></a-form-item>
-        <a-form-item label="单位"><a-input v-decorator="['unit', {rules:[{required: true, message: '请输入单位'}]}]" /></a-form-item>
+        <a-form-item label="类型:1服务协议  2用户协议"><a-input v-decorator="['type', {rules:[{required: true, message: '请输入类型:1服务协议  2用户协议'}]}]" /></a-form-item>
 
         <a-form-item
           label="状态"
@@ -53,7 +44,7 @@
 import pick from 'lodash.pick'
 
 // 表单字段
-const fields = ['id', 'spid', 'namea', 'carouselpic1fileid', 'experiencecontent', 'addtime', 'oneclass', 'twoclass', 'threeclass', 'remark', 'specifications', 'salesunit', 'unit', 'status']
+const fields = ['id', 'agreement', 'addtime', 'type', 'status']
 
 export default {
   props: {

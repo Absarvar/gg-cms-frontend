@@ -14,18 +14,26 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="商品编号"> <a-input v-model="queryParam.spid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.namea" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="轮播1"> <a-input v-model="queryParam.carouselpic1fileid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品详情"> <a-input v-model="queryParam.experiencecontent" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="添加时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="一级类目"> <a-input v-model="queryParam.oneclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="二级类目"> <a-input v-model="queryParam.twoclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="三级类目"> <a-input v-model="queryParam.threeclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.remark" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="规格"> <a-input v-model="queryParam.specifications" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="销售单位"> <a-input v-model="queryParam.salesunit" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="单位"> <a-input v-model="queryParam.unit" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="会员名称"> <a-input v-model="queryParam.namess" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="订单编号"> <a-input v-model="queryParam.outtradeno" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.devicename" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="轨道编号"> <a-input v-model="queryParam.devicecode" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="等级"> <a-input v-model="queryParam.rank" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="溯源批次号(编号)"> <a-input v-model="queryParam.orderid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="供应商名字"> <a-input v-model="queryParam.gyname" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="申报时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="进场时间"> <a-input v-model="queryParam.jtime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="车牌号"> <a-input v-model="queryParam.licenseplatenumber" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="验收人"> <a-input v-model="queryParam.register" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="养殖户"> <a-input v-model="queryParam.farmers" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰场名称"> <a-input v-model="queryParam.logisticianname" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰票证"> <a-input v-model="queryParam.ticket" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="养殖票证"> <a-input v-model="queryParam.wphoto" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="溯源码"> <a-input v-model="queryParam.sycode" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="流向时间"> <a-input v-model="queryParam.lxaddtime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="流向地址"> <a-input v-model="queryParam.flowaddress" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="检疫证号"> <a-input v-model="queryParam.certificateno" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="批发市场名字"> <a-input v-model="queryParam.logistician" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -43,7 +51,7 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        <a-button type="primary" icon="plus" @click="handleAdd">新222222222建</a-button>
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
@@ -70,9 +78,6 @@
       >
         <span slot="serial" slot-scope="text, record, index">
           {{ index + 1 }}
-        </span>
-        <span slot="status" slot-scope="text">
-          <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
         <span slot="addtime" slot-scope="text">
           {{ text | formateDate }}
@@ -102,21 +107,10 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newGoods, editGoods, goodsList } from '@/api/goods'
+import { newSourceTrack, editSourceTrack, sourceTrackList } from '@/api/sourceTrack'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
-
-const statusMap = {
-  0: {
-    status: 'default',
-    text: '禁用中'
-  },
-  1: {
-    status: 'processing',
-    text: '启用中'
-  }
-}
 
 export default {
   name: 'TableList',
@@ -139,7 +133,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return goodsList(requestParameters)
+        return sourceTrackList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -159,90 +153,127 @@ export default {
           width: 60
         },
         {
-          title: '商品编号',
-          dataIndex: 'spid',
+          title: '会员名称',
+          dataIndex: 'namess',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '订单编号',
+          dataIndex: 'outtradeno',
           width: 120,
           resizable: 'true'
         },
         {
           title: '商品名称',
-          dataIndex: 'namea',
+          dataIndex: 'devicename',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '轮播1',
-          dataIndex: 'carouselpic1fileid',
+          title: '轨道编号',
+          dataIndex: 'devicecode',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '商品详情',
-          dataIndex: 'experiencecontent',
+          title: '等级',
+          dataIndex: 'rank',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '添加时间',
+          title: '溯源批次号(编号)',
+          dataIndex: 'orderid',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '供应商名字',
+          dataIndex: 'gyname',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '申报时间',
+          scopedSlots: { customRender: 'addtime' },
           dataIndex: 'addtime',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '一级类目',
-          dataIndex: 'oneclass',
+          title: '进场时间',
+          dataIndex: 'jtime',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '二级类目',
-          dataIndex: 'twoclass',
+          title: '车牌号',
+          dataIndex: 'licenseplatenumber',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '三级类目',
-          dataIndex: 'threeclass',
+          title: '验收人',
+          dataIndex: 'register',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '备注',
-          dataIndex: 'remark',
+          title: '养殖户',
+          dataIndex: 'farmers',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '规格',
-          dataIndex: 'specifications',
+          title: '屠宰场名称',
+          dataIndex: 'logisticianname',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '销售单位',
-          dataIndex: 'salesunit',
+          title: '屠宰票证',
+          dataIndex: 'ticket',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '单位',
-          dataIndex: 'unit',
+          title: '养殖票证',
+          dataIndex: 'wphoto',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '溯源码',
+          dataIndex: 'sycode',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '流向时间',
+          dataIndex: 'lxaddtime',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '流向地址',
+          dataIndex: 'flowaddress',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '检疫证号',
+          dataIndex: 'certificateno',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '批发市场名字',
+          dataIndex: 'logistician',
           width: 120,
           resizable: 'true'
         },
 
-        {
-          title: '状态',
-          scopedSlots: { customRender: 'status' },
-          width: 100,
-          dataIndex: 'status'
-        },
-        {
-          title: '创建时间',
-          scopedSlots: { customRender: 'addtime' },
-          width: 200,
-          dataIndex: 'addtime'
-        },
         {
           key: 'action',
           title: '操作',
@@ -254,12 +285,6 @@ export default {
     }
   },
   filters: {
-    statusFilter (type) {
-      return statusMap[type].text
-    },
-    statusTypeFilter (type) {
-      return statusMap[type].status
-    },
     formateDate (time) {
       const date = new Date(time)
       return formateDate(date, 'yyyy-MM-dd hh:mm')
@@ -296,7 +321,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editGoods(values)
+            editSourceTrack(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -309,7 +334,7 @@ export default {
             })
           } else {
             // 新增
-            newGoods(values)
+            newSourceTrack(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -333,11 +358,6 @@ export default {
       form.resetFields() // 清理表单数据（可不做）
     },
     handleSub (record) {
-      if (record.status !== 0) {
-        this.$message.info(`${record.no} 订阅成功`)
-      } else {
-        this.$message.error(`${record.no} 订阅失败，规则已关闭`)
-      }
     },
     onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys

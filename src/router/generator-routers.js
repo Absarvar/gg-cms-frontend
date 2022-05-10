@@ -16,7 +16,7 @@ const constantRouterComponents = {
   'showHome': () => import(/* webpackChunkName: "error" */ '@/views/show/home'),
 
   // 你需要动态引入的页面组件
-  Workplace: () => import('@/views/dashboard/Workplace'),
+  Workplace: () => import('@/views/dashboard/Analysis'),
   Analysis: () => import('@/views/dashboard/Analysis'),
 
   // article
@@ -25,23 +25,28 @@ const constantRouterComponents = {
   StandardArticle: () => import('@/views/article/BasicArticle'),
 
   // member
-  MemberList: () => import('@/views/member/memberList'),
-  // goods
-  GoodsList: () => import('@/views/goods/goodsList'),
-  // stream
-  StreamList: () => import('@/views/stream/streamList'),
-  // preorder
-  // PreorderList: () => import('@/views/preorder/preorderList'),
-  // product
-  ProductList: () => import('@/views/product/productList'),
+//   MemberList: () => import('@/views/member/memberList'),
+//   // goods
+//   GoodsList: () => import('@/views/goods/goodsList'),
+//   // stream
+//   StreamList: () => import('@/views/stream/streamList'),
+//   // preorder
+//   // PreorderList: () => import('@/views/preorder/preorderList'),
+//   // product
+//   ProductList: () => import('@/views/product/productList'),
+//   // purchase
+//   PurchaseList: () => import('@/views/purchase/purchaseList'),
+//   // sampleTest
+//   // SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
+// // flow
+//   FlowList: () => import('@/views/flow/flowList'),
   // enterApply
-  EnterApplyList: () => import('@/views/enterApply/enterApplyList'),
-  // purchase
-  PurchaseList: () => import('@/views/purchase/purchaseList'),
-  // sampleTest
-  // SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
-// flow
-  FlowList: () => import('@/views/flow/flowList'),
+  EnterApplyList: () => import('@/views/enterApply/enterApplyList?status=0&statusok=0'),
+  EnterRegList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=0'),
+  EnterRecheckList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=1'),
+  PrepareInstockList: () => import('@/views/enterApply/enterApplyList?status=2&statusok=1'),
+  PrepareOutstockList: () => import('@/views/enterApply/enterApplyList?status=3&statusok=1'),
+
   // order
   OrderList: () => import('@/views/order/orderList'),
   // sellTicket
@@ -54,6 +59,8 @@ const constantRouterComponents = {
           PreorderList: () => import('@/views/preorder/preorderList'),
           // saleOrder
             SaleOrderList: () => import('@/views/saleOrder/saleOrderList'),
+            // outStock
+              OutStockList: () => import('@/views/saleOrder/outStockList'),
             // saleOrderDetail
               SaleOrderDetailList: () => import('@/views/saleOrderDetail/saleOrderDetailList'),
               // comSource
@@ -70,6 +77,20 @@ const constantRouterComponents = {
                           FlowDirectionList: () => import('@/views/flowDirection/flowDirectionList'),
                           // harmlessfy
                             HarmlessfyList: () => import('@/views/harmlessfy/harmlessfyList'),
+                            // priceGG
+                              PriceGGList: () => import('@/views/priceGG/priceGGList'),
+                              // goods
+                                GoodsList: () => import('@/views/goods/goodsList'),
+                                // coldStore
+                                  ColdStoreList: () => import('@/views/coldStore/coldStoreList'),
+                                  // announcement
+                                    AnnouncementList: () => import('@/views/announcement/announcementList'),
+                                    // agreement
+                                      AgreementList: () => import('@/views/agreement/agreementList'),
+                                      // purchaseOrder
+                                        PurchaseOrderList: () => import('@/views/purchaseOrder/purchaseOrderList'),
+                                        // sourceTrack
+                                          SourceTrackList: () => import('@/views/sourceTrack/sourceTrackList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

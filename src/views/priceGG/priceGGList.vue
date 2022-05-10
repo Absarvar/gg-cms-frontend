@@ -14,18 +14,13 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="商品编号"> <a-input v-model="queryParam.spid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.namea" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="轮播1"> <a-input v-model="queryParam.carouselpic1fileid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品详情"> <a-input v-model="queryParam.experiencecontent" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="添加时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="一级类目"> <a-input v-model="queryParam.oneclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="二级类目"> <a-input v-model="queryParam.twoclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="三级类目"> <a-input v-model="queryParam.threeclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.remark" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="规格"> <a-input v-model="queryParam.specifications" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="销售单位"> <a-input v-model="queryParam.salesunit" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="单位"> <a-input v-model="queryParam.unit" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="编号"> <a-input v-model="queryParam.number" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="品名"> <a-input v-model="queryParam.productname" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="价格"> <a-input v-model="queryParam.price" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="类别"> <a-input v-model="queryParam.category" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="分组凭证"> <a-input v-model="queryParam.uuid" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="比价状态1上升2下降3相等4无"> <a-input v-model="queryParam.pricestatus" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -74,7 +69,7 @@
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
-        <span slot="addtime" slot-scope="text">
+        <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
         </span>
 
@@ -102,7 +97,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newGoods, editGoods, goodsList } from '@/api/goods'
+import { newPriceGG, editPriceGG, priceGGList } from '@/api/priceGG'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -139,7 +134,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return goodsList(requestParameters)
+        return priceGGList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -159,74 +154,44 @@ export default {
           width: 60
         },
         {
-          title: '商品编号',
-          dataIndex: 'spid',
+          title: '编号',
+          dataIndex: 'number',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '商品名称',
-          dataIndex: 'namea',
+          title: '品名',
+          dataIndex: 'productname',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '轮播1',
-          dataIndex: 'carouselpic1fileid',
+          title: '价格',
+          dataIndex: 'price',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '商品详情',
-          dataIndex: 'experiencecontent',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '添加时间',
+          title: '时间',
           dataIndex: 'addtime',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '一级类目',
-          dataIndex: 'oneclass',
+          title: '类别',
+          dataIndex: 'category',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '二级类目',
-          dataIndex: 'twoclass',
+          title: '分组凭证',
+          dataIndex: 'uuid',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '三级类目',
-          dataIndex: 'threeclass',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '备注',
-          dataIndex: 'remark',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '规格',
-          dataIndex: 'specifications',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '销售单位',
-          dataIndex: 'salesunit',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '单位',
-          dataIndex: 'unit',
+          title: '比价状态1上升2下降3相等4无',
+          dataIndex: 'pricestatus',
           width: 120,
           resizable: 'true'
         },
@@ -239,9 +204,9 @@ export default {
         },
         {
           title: '创建时间',
-          scopedSlots: { customRender: 'addtime' },
+          scopedSlots: { customRender: 'createTime' },
           width: 200,
-          dataIndex: 'addtime'
+          dataIndex: 'createTime'
         },
         {
           key: 'action',
@@ -296,7 +261,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editGoods(values)
+            editPriceGG(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -309,7 +274,7 @@ export default {
             })
           } else {
             // 新增
-            newGoods(values)
+            newPriceGG(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false

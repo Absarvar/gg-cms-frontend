@@ -14,18 +14,26 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="商品编号"> <a-input v-model="queryParam.spid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.namea" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="轮播1"> <a-input v-model="queryParam.carouselpic1fileid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品详情"> <a-input v-model="queryParam.experiencecontent" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="添加时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="一级类目"> <a-input v-model="queryParam.oneclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="二级类目"> <a-input v-model="queryParam.twoclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="三级类目"> <a-input v-model="queryParam.threeclass" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.remark" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="规格"> <a-input v-model="queryParam.specifications" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="销售单位"> <a-input v-model="queryParam.salesunit" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="单位"> <a-input v-model="queryParam.unit" placeholder=""/> </a-form-item> </a-col>
+              <!-- <a-col :md="8" :sm="24"> <a-form-item label="ID"> <a-input v-model="queryParam.orderid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="总金额：单位元  参考价格"> <a-input v-model="queryParam.totalamount" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="总重量"> <a-input v-model="queryParam.totalweight" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="下单时间"> <a-input v-model="queryParam.ordertime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="支付时间"> <a-input v-model="queryParam.paytime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="第三方交易流水号"> <a-input v-model="queryParam.transactionid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商户系统单号"> <a-input v-model="queryParam.outtradeno" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="添加时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="配送地址"> <a-input v-model="queryParam.address" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="采购人姓名"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="销售商家"> <a-input v-model="queryParam.factoryid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="采购商家"> <a-input v-model="queryParam.logisticianid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品iD"> <a-input v-model="queryParam.sid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="单选 0 false 1 true 2供应商发送订单标识 3采购商支付4加入购物车后已购买5加入购物车取消"> <a-input v-model="queryParam.ischecked" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="申请出库3待出库0已出库1 状态"> <a-input v-model="queryParam.stockstatus" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="采购商未支付0"> <a-input v-model="queryParam.type" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="图片商品id"> <a-input v-model="queryParam.shoppingid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="总数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="轨道编号"> <a-input v-model="queryParam.devicecode" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="供应商名称"> <a-input v-model="queryParam.gyname" placeholder=""/> </a-form-item> </a-col> -->
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -65,22 +73,19 @@
         :alert="true"
         :rowSelection="rowSelection"
         showPagination="auto"
-        :scroll="{ x: 2000, y: 600 }"
+        :scroll="{ x: 1700, y: 600 }"
         :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
       >
         <span slot="serial" slot-scope="text, record, index">
           {{ index + 1 }}
         </span>
-        <span slot="status" slot-scope="text">
+        <span slot="stockstatus" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
-        </span>
-        <span slot="addtime" slot-scope="text">
-          {{ text | formateDate }}
         </span>
 
         <span slot="action" slot-scope="text, record">
           <template>
-            <a @click="handleEdit(record)">编辑</a>
+            <a @click="handleEdit(record)">查看</a>
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
           </template>
@@ -102,7 +107,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newGoods, editGoods, goodsList } from '@/api/goods'
+import { newSaleOrder, editSaleOrder, outStockList } from '@/api/saleOrder'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -110,11 +115,19 @@ import { formateDate } from '@/utils/dateUtil'
 const statusMap = {
   0: {
     status: 'default',
-    text: '禁用中'
+    text: '待出库'
   },
   1: {
     status: 'processing',
-    text: '启用中'
+    text: '已出库'
+  },
+  2: {
+    status: 'processing',
+    text: '无'
+  },
+  3: {
+    status: 'default',
+    text: '申请出库'
   }
 }
 
@@ -139,7 +152,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return goodsList(requestParameters)
+        return outStockList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -154,99 +167,149 @@ export default {
           width: 60
         },
         {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
-        },
-        {
-          title: '商品编号',
-          dataIndex: 'spid',
+          title: '订单编号',
+          dataIndex: 'outtradeno',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '商品名称',
-          dataIndex: 'namea',
+          title: '批次号',
+          dataIndex: 'pinjie',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '轮播1',
-          dataIndex: 'carouselpic1fileid',
+          title: '屠宰场',
+          dataIndex: 'destination',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '商品详情',
-          dataIndex: 'experiencecontent',
+          title: '养殖场',
+          dataIndex: 'farmers',
+          width: 120,
+          resizable: 'true'
+        },
+        // {
+        //   title: 'ID',
+        //   dataIndex: 'orderid',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        {
+          title: '总金额',
+          dataIndex: 'totalamount',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '添加时间',
-          dataIndex: 'addtime',
+          title: '总重量',
+          dataIndex: 'totalweight',
+          width: 120,
+          resizable: 'true'
+        },
+        // {
+        //   title: '下单时间',
+        //   dataIndex: 'ordertime',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '支付时间',
+        //   dataIndex: 'paytime',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '第三方交易流水号',
+        //   dataIndex: 'transactionid',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '配送地址',
+        //   dataIndex: 'address',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '采购人姓名',
+        //   dataIndex: 'name',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        {
+          title: '销售商家',
+          dataIndex: 'providerName',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '一级类目',
-          dataIndex: 'oneclass',
+          title: '采购商家',
+          dataIndex: 'merchantName',
           width: 120,
           resizable: 'true'
         },
+        // {
+        //   title: '商品iD',
+        //   dataIndex: 'sid',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '单选 0 false 1 true 2供应商发送订单标识 3采购商支付4加入购物车后已购买5加入购物车取消',
+        //   dataIndex: 'ischecked',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '申请出库3待出库0已出库1 状态',
+        //   dataIndex: 'stockstatus',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '采购商未支付0',
+        //   dataIndex: 'type',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '图片商品id',
+        //   dataIndex: 'shoppingid',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
-          title: '二级类目',
-          dataIndex: 'twoclass',
+          title: '总数量',
+          dataIndex: 'goodsCount',
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '三级类目',
-          dataIndex: 'threeclass',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '备注',
-          dataIndex: 'remark',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '规格',
-          dataIndex: 'specifications',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '销售单位',
-          dataIndex: 'salesunit',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '单位',
-          dataIndex: 'unit',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '供应商名称',
+        //   dataIndex: 'gyname',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
 
         {
           title: '状态',
-          scopedSlots: { customRender: 'status' },
+          scopedSlots: { customRender: 'stockstatus' },
           width: 100,
-          dataIndex: 'status'
+          dataIndex: 'stockstatus'
         },
         {
-          title: '创建时间',
-          scopedSlots: { customRender: 'addtime' },
-          width: 200,
-          dataIndex: 'addtime'
+          title: '添加时间',
+          dataIndex: 'createTime',
+          width: 120,
+          resizable: 'true'
         },
         {
           key: 'action',
           title: '操作',
           dataIndex: 'action',
+          fixed: 'right',
           width: '150px',
           scopedSlots: { customRender: 'action' }
         }
@@ -296,7 +359,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editGoods(values)
+            editSaleOrder(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -309,7 +372,7 @@ export default {
             })
           } else {
             // 新增
-            newGoods(values)
+            newSaleOrder(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
