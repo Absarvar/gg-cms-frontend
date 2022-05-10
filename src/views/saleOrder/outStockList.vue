@@ -280,12 +280,12 @@ export default {
         //   width: 120,
         //   resizable: 'true'
         // },
-        {
-          title: '总数量',
-          dataIndex: 'goodsCount',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '总数量',
+        //   dataIndex: 'goodsCount',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         // {
         //   title: '供应商名称',
         //   dataIndex: 'gyname',
