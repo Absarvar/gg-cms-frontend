@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="printHTML">打印</button>
+    <button @click="testPort()">打印22222111111</button>
     <div class="text-center" style="width:500px;height:300px;" align="center" >
       <h4>供广深圳肉类智能交易市场动物产品分销信息凭证</h4>
       <div style="float:left;">
@@ -14,33 +14,6 @@
         class="table table-bordered table-hover heavy_border t2print"
         style="vertical-align:middle;padding-top:15px;margin-bottom:1px;">
         <tbody >
-          <tr style="">
-            <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">商品名称</td>
-            <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">生产单位</td>
-            <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">原检疫证号</td>
-            <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >上级供应商</td>
-            <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >分销凭证号</td>
-            <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">规格</td>
-            <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">数量</td>
-            <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">重量（千克）</td>
-          </tr>
-          <tr>
-            <td colspan="2" style="border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle">已经过分销的，须填写</td>
-          </tr>
-          <tr>
-            <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br></th>
-            <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br></th>
-            <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br></th>
-            <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br></th>
-            <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br><br></th>
-            <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br></th>
-            <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br></th>
-            <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br></th>
-          </tr>
-          <tr>
-            <th style="border-width:1px;border-color:#000000;text-align:left;" colspan="7">合计：</th>
-            <th style="border-width:1px;border-color:#000000;">    </th>
-          </tr>
         </tbody>
       </table>
       <div>
@@ -48,26 +21,24 @@
           <div>供货单位：</div>
           <div>出证单位：供广深圳肉类智能交易市场</div>
         </div>
-        <div style="float:right;">出证人：&nbsp;&nbsp;&nbsp;&nbsp;</div>
-      </div>
-      <div class="xbbbox" id="div_print">
-        ...
-        打印的内容
-        ...
-        <div style="width:770px;margin-left:90px;">
-          审核： <img width="70px" height="30px" src="https://atlas.pingcode.com/files/public/62728d99b98c3149715a05b8">
-          <span style="width:170px;margin-left:180px;">盖章：<img width="170px" height="130px" src="https://atlas.pingcode.com/files/public/6272927d83bcb368246be1c1/origin-url"></span>
-        </div>
-        <div style="text-align: center;margin-bottom: 20px" id="otherpho">
-          <input type="button" value="打印" @click="dayin()" />
-        </div>
+        <div style="float:right;">出证人11111111111：&nbsp;&nbsp;&nbsp;&nbsp;</div>
       </div>
     </div>
+    <span id="userno" style="display: flex;font-size:5px;color:red">------fdddddddddd-----</span>
   </div>
 </template>
 
 <script>
 import $ from 'jquery'
+
+async function handleRequestPort () {
+  // 请求授权
+  const port = await navigator.serial.requestPort()
+  await port.open({ baudRate: 9600 })
+  const writer = await port.writable.getWriter()
+  console.log(writer)
+  console.log(port)
+}
 export default {
   name: 'BaseForm',
   data () {
@@ -75,7 +46,131 @@ export default {
       form: this.$form.createForm(this)
     }
   },
+  created () {
+    this.$nextTick(() => {
+      // this.serialPort()
+      console.log(navigator)
+    console.log('------sssssss---')
+    console.log(window.document.getElementById('userno'))
+    var websocket = null
+			if (!window.localStorage) {
+				alert('浏览器支持localstorage')
+			} else {
+				// 读取
+				console.log('++++++++++++', window.localStorage.getItem('se'))
+				if (window.localStorage.getItem('se') != null) {
+					console.log('laile')
+					var a = window.localStorage.getItem('se')
+					var s = 's' + a
+					console.log('ssssssssssssssssssss' + s)
+					document.getElementById('userno').innerText = s
+					// console.log("_++++++_____",s);
+				} else {
+					console.log('来了')
+					var random = this.genID(4)
+					document.getElementById('userno').innerText = random
+					var storage = window.localStorage
+					storage.se = random
+					console.log(typeof storage['se'])
+				}
+			}
+			var userno = document.getElementById('userno').innerText.substr(1, 4)
+			console.log('来了', userno)
+      const socketUrl = 'ws://192.168.2.155:8080/websocket/c'
+			// 判断当前浏览器是否支持WebSocket
+			if ('WebSocket' in window) { // ws://192.168.0.167:8081/szszbo/websocket
+				// websocket = new WebSocket("ws://localhost:9091/szszbo/websocket/c"+userno);
+				// websocket = new WebSocket("wss://sy.ggmstc.com/wss/szszbo/websocket/c"+userno);
+				// websocket = new WebSocket('wss://szsz.ggmstc.com/ws/websocket/c' + userno)
+							websocket = new WebSocket(socketUrl + userno)
+			} else {
+				alert('当前浏览器 Not support websocket')
+			}
+			// 心跳检测, 每隔一段时间检测连接状态，如果处于连接中，就向server端主动发送消息，来重置server端与客户端的最大连接时间，如果已经断开了，发起重连。
+			var heartCheck = {
+				timeout: 3000, // 10秒钟发一次心跳，比server端设置的连接时间稍微小一点，在接近断开的情况下以通信的方式去重置连接时间。
+				serverTimeoutObj: null,
+				reset: function () {
+					clearInterval(this.serverTimeoutObj)
+					return this
+				},
+				start: function () {
+					// var self = this
+					this.serverTimeoutObj = setInterval(function () {
+						if (websocket.readyState === 1) {
+							console.log('连接状态，发送消息保持连接')
+							websocket.send("{'data':'" + document.getElementById('message') + "'}")
+							// heartCheck.reset().start();    // 如果获取到消息，说明连接是正常的，重置心跳检测
+						} else {
+							console.log('断开状态，尝试重连')
+							// newWebSocket();
+							websocket = new WebSocket(socketUrl + userno)
+							// websocket = new WebSocket("wss://szsz2.shidongvr.com/wss/szszbo/websocket/c"+userno);
+							// websocket = new WebSocket("wss://sy.ggmstc.com/wss/szszbo/websocket/c"+userno);
+							// websocket = new WebSocket('wss://szsz.ggmstc.com/ws/websocket/c' + userno)
+						}
+					}, this.timeout)
+				}
+			}
+
+			// 连接发生错误的回调方法
+			websocket.onerror = function () {
+				this.setMessageInnerHTML('WebSocket连接发生错误')
+			}
+
+			// 连接成功建立的回调方法
+			websocket.onopen = function () {
+				heartCheck.start()
+				// websocket.send('{"f":260,"r":"H1nzpDxnQvGLmui1Ts7EUA==","b":{}}');
+				this.setMessageInnerHTML('WebSocket连接成功')
+			}
+
+			// 接收到消息的回调方法
+			websocket.onmessage = function (event) {
+				this.setMessageInnerHTML(event.data)
+			}
+
+			// 连接关闭的回调方法
+			websocket.onclose = function () {
+				this.setMessageInnerHTML('WebSocket连接关闭')
+				heartCheck.start()
+			}
+
+			// 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+			window.onbeforeunload = function () {
+				this.closeWebSocket()
+			}
+    })
+  },
   methods: {
+
+    async testPort () {
+      var sup = 'serial' in navigator
+      console.log(sup)
+      console.log(window.navigator.serial)
+      console.log(window.navigator.serialPort)
+      handleRequestPort()
+      await navigator.serial.requestPort()
+      console.log(await navigator.serial.getPorts())
+    },
+    genID (length) {
+				return Number(Math.random().toString().substr(2, length))
+			},
+      setMessageInnerHTML (innerHTML) {
+				console.log('aaaaaaa++++', innerHTML)
+				var numArr = innerHTML.match(/\d+/g)
+
+				console.log('aaaaaaaccccccccccccc+++++++', numArr)
+				// 十六进制转字符串
+				// console.log("aaassdssssssss", hexToStr( numArr.toString()));
+
+				if (numArr) {
+					document.getElementById('message').innerHTML = numArr[0]
+				}
+
+				// console.log("aaaaaaaaaacccc",JSON.parse(JSON.parse(innerHTML).data1) );
+				// console.log(c.substring(19,27))
+			},
     // handler
     handleSubmit (e) {
       e.preventDefault()
@@ -84,21 +179,6 @@ export default {
           console.log('Received values of form: ', values)
         }
       })
-    },
-    dayin () {
-        // var userAgent = navigator.userAgent.toLowerCase() // 取得浏览器的userAgent字符串 // 其它浏览器使用lodop
-            var oldstr = document.body.innerHTML
-            var headstr = '<html><head><title></title></head><body>'
-            var footstr = '</body>'
-            // 执行隐藏打印区域不需要打印的内容
-            document.getElementById('otherpho').style.display = 'none'
-            // 此处id换为你自己的id
-            var printData = document.getElementById('div_print').innerHTML // 获得 div 里的所有 html 数据
-            document.body.innerHTML = headstr + printData + footstr
-            window.print()
-            // 打印结束后，放开隐藏内容
-            document.getElementById('otherpho').style.display = 'block'
-            document.body.innerHTML = oldstr
     },
     async serialPort () {
 //       const tds = {

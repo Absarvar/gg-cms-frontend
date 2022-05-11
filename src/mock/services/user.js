@@ -852,16 +852,16 @@ const userNav = options => {
     //   },
     //   component: 'NotificationSettings'
     // },
-    // {
-    //   name: 'basic-article',
-    //   parentId: 0,
-    //   id: 10035,
-    //   meta: {
-    //     title: '分销凭证',
-    //     show: true
-    //   },
-    //   component: 'StandardArticle'
-    // },
+    {
+      name: 'basic-article',
+      parentId: 0,
+      id: 10035,
+      meta: {
+        title: '分销凭证',
+        show: true
+      },
+      component: 'StandardArticle'
+    },
     // {
     //   name: 'article-index',
     //   parentId: 0,

@@ -75,6 +75,8 @@ module.exports = {
   ],
   "globals":{
     "TextEncoderStream":true,
-    "TextDecoderStream":true
+    "TextDecoderStream":true,
+    "navigator.serial":true,
+    "navigator":true
   }
 }
