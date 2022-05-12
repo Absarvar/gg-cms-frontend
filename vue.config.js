@@ -66,6 +66,12 @@ const vueConfig = {
   },
 
   chainWebpack: config => {
+    config.plugin('provide').use(webpack.ProvidePlugin, [{
+      $: 'jquery',
+      jquery: 'jquery',
+      jQuery: 'jquery',
+      'window.jQuery': 'jquery'
+    }])
     config.resolve.alias.set('@$', resolve('src'))
 
     const svgRule = config.module.rule('svg')

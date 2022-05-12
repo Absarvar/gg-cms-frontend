@@ -51,13 +51,14 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        <!-- <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button> -->
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
-          <a-menu slot="overlay">
+          <!-- <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
+            lock | unlock
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
-          </a-menu>
+          </a-menu> -->
+          <a-button type="primary" @click="batchPrint()">批量打印</a-button>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
@@ -97,6 +98,7 @@
         :visible="visible"
         :loading="confirmLoading"
         :model="mdl"
+        :isBatch="isBatch"
         @cancel="handleCancel"
         @ok="handleOk"
       />
@@ -141,6 +143,7 @@ export default {
   data () {
     return {
       // create model
+      isBatch: false,
       visible: false,
       confirmLoading: false,
       mdl: null,
@@ -180,13 +183,13 @@ export default {
         // },
         {
           title: '总金额',
-          dataIndex: 'totalamount',
+          dataIndex: 'totalamount2',
           width: 120,
           resizable: 'true'
         },
         {
           title: '总重量',
-          dataIndex: 'totalweight',
+          dataIndex: 'totalweight2',
           width: 120,
           resizable: 'true'
         },
@@ -327,16 +330,25 @@ export default {
       this.queryParam.endTime = dateStr[1]
     },
     handleAdd () {
+      this.isBatch = false
       this.mdl = null
       this.visible = true
     },
     handleEdit (record) {
+      this.isBatch = false
       this.visible = true
       this.mdl = { ...record }
+    },
+    batchPrint () {
+      const datas = this.selectedRows
+      this.visible = true
+      this.isBatch = true
+      this.mdl = { ...datas }
     },
     handleOk () {
       const form = this.$refs.createModal.form
       this.confirmLoading = true
+      this.isBatch = false
       form.validateFields((errors, values) => {
         if (!errors) {
           if (values.id > 0) {

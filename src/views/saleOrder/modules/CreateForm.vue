@@ -55,19 +55,40 @@
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">备注</td>
 
             </tr>
-            <tr >
-              <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">1200010</th>
-              <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">猪胴体</th>
-              <th style="border-width:2px;border-color:#000000;text-align:center;">自然重量</th>
-              <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ fo.totalweight }}</th>
 
-              <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"> </th>
-              <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.goodsCount }}</th>
-              <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.unitprice }}</th>
-              <th style="border-width:2px;border-color:#000000;text-align:center"></th>
-              <th style="border-width:2px;border-color:#000000;text-align:center"></th>
+            <template v-if="!isBatch">
+              <tr >
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">1200010</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">猪胴体</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;">自然重量</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ fo.totalweight2 }}</th>
 
-            </tr>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"> </th>
+                <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.goodsCount }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.unitprice }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center"></th>
+                <th style="border-width:2px;border-color:#000000;text-align:center"></th>
+
+              </tr>
+            </template>
+
+            <template v-if="isBatch" v-for="(order,index) in foList">
+
+              <tr :key="index">
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">1200010</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">猪胴体</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;">自然重量</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ order.totalweight2 }}</th>
+
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"> </th>
+                <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.goodsCount }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.unitprice }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center"></th>
+                <th style="border-width:2px;border-color:#000000;text-align:center"></th>
+
+              </tr>
+            </template>
+
           </tbody>
         </table>
         <div style="margin-left:500px;"><img width="170px" height="130px" src="https://lcpublic.s3.cn-north-1.amazonaws.com.cn/af887e62-ac3b-46a8-b4d7-102038ad2cbc"></div>
@@ -144,6 +165,10 @@ export default {
     model: {
       type: Object,
       default: () => null
+    },
+    isBatch: {
+      type: Boolean,
+      required: true
     }
   },
   data () {
@@ -159,6 +184,7 @@ export default {
     }
     return {
       fo: {},
+      foList: [],
       form: this.$form.createForm(this),
       options2: [{
         value: 0,
@@ -173,6 +199,10 @@ export default {
     if (this.model !== null) {
       this.fo = this.model
     }
+    if (this.model !== null && this.isBatch) {
+      this.foList = this.model
+      this.fo = this.foList[0]
+    }
 
     // 防止表单未注册
     fields.forEach(v => this.form.getFieldDecorator(v))
@@ -182,6 +212,12 @@ export default {
       this.model && this.form.setFieldsValue(pick(this.model, fields))
       if (this.model !== null) {
         this.fo = this.model
+        console.log(this.isBatch)
+      }
+
+      if (this.model !== null && this.isBatch) {
+        this.foList = this.model
+        this.fo = this.foList[0]
       }
     })
   },

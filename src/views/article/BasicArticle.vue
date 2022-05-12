@@ -31,14 +31,14 @@
 <script>
 import $ from 'jquery'
 
-async function handleRequestPort () {
-  // 请求授权
-  const port = await navigator.serial.requestPort()
-  await port.open({ baudRate: 9600 })
-  const writer = await port.writable.getWriter()
-  console.log(writer)
-  console.log(port)
-}
+// async function handleRequestPort () {
+//   // 请求授权
+//   const port = await navigator.serial.requestPort()
+//   await port.open({ baudRate: 9600 })
+//   const writer = await port.writable.getWriter()
+//   console.log(writer)
+//   console.log(port)
+// }
 export default {
   name: 'BaseForm',
   data () {
@@ -147,11 +147,10 @@ export default {
     async testPort () {
       var sup = 'serial' in navigator
       console.log(sup)
-      console.log(window.navigator.serial)
-      console.log(window.navigator.serialPort)
-      handleRequestPort()
-      await navigator.serial.requestPort()
-      console.log(await navigator.serial.getPorts())
+      console.log(window.navigator)
+    //   handleRequestPort()
+    //   await navigator.serial.requestPort()
+    //   console.log(await navigator.serial.getPorts())
     },
     genID (length) {
 				return Number(Math.random().toString().substr(2, length))
