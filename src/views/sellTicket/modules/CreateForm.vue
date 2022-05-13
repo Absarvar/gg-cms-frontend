@@ -15,60 +15,77 @@
           <a-button type="primary" @click="printHTML()">打印</a-button>
           <div class="text-center" style="width:750px;height:417px;" align="center" >
             <br>
-            <h4>供广深圳肉类智能交易市场动物产品分销信息凭证</h4>
+            <h4>供广深圳肉类智能交易市场</h4>
+            <h4>动物产品分销信息凭证</h4>
             <div style="margin-top:0px;">
               <div style="float:left;margin-left:0px;" align="left" >
-                <div style="margin-top:20px">&nbsp; 购货单位：{{ ticket.flowaddress }}</div>
+                <div style="margin-top:20px">&nbsp; NO：{{ ticket.fxId }}</div>
                 <div> </div>
               </div>
-              <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div>
+              <!-- <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
             </div>
             <table
               class="table table-bordered table-hover heavy_border t2print"
               style="vertical-align:middle;padding-top:15px;margin-bottom:1px;">
               <tbody >
                 <tr style="">
-                  <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">商品名称</td>
-                  <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">生产单位</td>
-                  <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">原检疫证号</td>
-                  <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >上级供应商</td>
-                  <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >分销凭证号</td>
-                  <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">规格</td>
-                  <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">数量</td>
-                  <td scope="col" style="text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" rowspan="2">重量（千克）</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">供货商22</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="5">供广深圳肉类智能交易市场有限公司</td>
                 </tr>
-                <tr>
-                  <td colspan="2" style="border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle">已经过分销的，须填写</td>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >生产单位</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ ticket.business }}</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >生产单位地址</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ ticket.shAddress }}</td>
                 </tr>
-                <tr>
-                  <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>   {{ ticket.productname }}<br></th>
-                  <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    {{ ticket.business }}<br></th>
-                  <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    {{ ticket.certificateno }}<br></th>
-                  <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br></th>
-                  <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br><br></th>
-                  <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    <br></th>
-                  <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    {{ ticket.number }}<br></th>
-                  <th style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;"><br>    {{ ticket.quantity }}<br></th>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >购货单位</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ ticket.flowaddress }}</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >购货单位地址</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ ticket.flowaddress }}</td>
                 </tr>
-                <tr>
-                  <th style="border-width:1px;border-color:#000000;text-align:left;" colspan="7">合计：</th>
-                  <th style="border-width:1px;border-color:#000000;">    {{ ticket.quantity }}</th>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >入场批次</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ ticket.mobilizationbatch }}</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >原检疫证号</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ ticket.certificateno }}</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >产品名称</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ ticket.productname }}</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >数量及单位</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ ticket.quantity }}</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">检测结果</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">本批次产品经抽样进行感官、理化、瘦肉精、非洲猪瘟病毒及禁限药物残留检测，结果合格。</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">备注</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3"></td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="2">出证人： 莫洋飞</td>
+                  <td scope="col" style="height:32px;text-align:right;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="2">出证日期： {{ this.nowTime }}</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4">出证单位：供广深圳肉类智能交易市场有限公司&nbsp;&nbsp;&nbsp;&nbsp; 0755-2885 3668</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4">注：仅限于国内动物产品，在深圳市境内使用，二日内到达有效。</td>
                 </tr>
               </tbody>
             </table>
-            <div>
-              <div style="float:left;" align="left" >
-                <div>供货单位：供广深圳肉类智能交易市场有限公司</div>
-                <div>出证单位：供广深圳肉类智能交易市场</div>
-              </div>
-              <div style="float:right;">出证人：&nbsp;&nbsp;&nbsp;&nbsp;莫洋飞</div>
-            </div>
           </div>
         </div>
         <!-- 检查是否有 id 并且大于0，大于0是修改。其他是新增，新增不显示主键ID -->
         <!-- <a-form-item v-show="model && model.id > 0" label="主键ID">
           <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
         </a-form-item> -->
+        <br>
+        <br>
+        <br>
+        <br>
         <a-form-item
           label="id"
           hidden
@@ -186,52 +203,66 @@ win.document.write(`
 </style>
 	<body>
 		<div class="text-center" style="width:750px;height:417px;" align="center" >
-       <br>
-      <div style="margin-top:0px;">
-        <div style="float:left;margin-left:50px;" align="left" >
-          <div style="margin-top:20px"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;` + this.model.flowaddress + `</div>
-          <div> </div>
-        </div>
-        <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;` + this.nowTime + `</div>
-      </div>
-      <table
-        class="table table-bordered table-hover heavy_border t2print"
-        style="padding-top:15px;margin-bottom:1px;float:left;width:750px;">
-        <tbody >
+      <table 
+              class="table table-bordered table-hover heavy_border t2print"
+              style="vertical-align:middle;padding-top:15px;margin-bottom:1px;">
+              <tbody >
+              <!--   <div style="text-align:left;margin-top:30px">&nbsp; ` + this.model.fxId + `</div>
+              <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
 
-          <tr>
-            <td colspan="2" style="border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;visibility: hidden;">已经过分销的，须填写</td>
-          </tr>
-          <tr>
-            <td colspan="2" style="border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;visibility: hidden;">已经过分销的，须填写</td>
-          </tr>
-
-          <tr>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:70px;height:120px;">    ` + this.model.productname + `</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:115px;height:120px;">   ` + this.model.business + `</td>
-            <td style="text-align:left;border-width:0px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:105px;height:130px;">` + this.model.certificateno + `</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:110px;height:110px;visibility:hidden;">{上级供应商	}</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:120px;height:100px;visibility:hidden;">{	分销凭证号	}</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:50px;height:120px;visibility:hidden;">{规格}</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:55px;height:120px;"> &nbsp;&nbsp;&nbsp;` + this.model.number + `</td>
-            <td style="text-align:center;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;width:100px;height:120px;">&nbsp;` + this.model.quantity + `</td>
-          </tr>
-          <tr>
-            <td colspan="2" style="height:40px;border-width:1px;border-color:#000000;text-align:center;padding:0px;vertical-align:middle;visibility: hidden;">已经过分销的，须填写</td>
-          </tr>
-          <tr>
-            <td style="border-width:1px;border-color:#000000;text-align:left;" colspan="7">&nbsp;&nbsp;&nbsp;</td>
-            <td style="border-width:1px;border-color:#000000;" align="center">    ` + this.model.quantity + `</td>
-          </tr>
-        </tbody>
-      </table>
-      <div style="margin-top:60px;">
-        <div style="float:left;margin-left:50px;" align="left" >
-          <div style="margin-top:20px"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<b>供广深圳肉类智能交易市场有限公司</b></div>
-          <div> </div>
-        </div>
-      <div style="float:right;margin-right:70px;margin-top:10px;"><div> &nbsp;</div> <div> &nbsp;</div>&nbsp; &nbsp; &nbsp; &nbsp;莫洋飞</div>
-
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">` + this.model.fxId + `</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1"><img width="70px" height="30px" src="https://sy.ggmstc.com/szszdistfile/8c7ea05c-8b80-4190-a527-79126c6073f1.jpg"></td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1"> </td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">供广深圳肉类智能交易市场有限公司</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" > 购货单位地址----</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.business + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" > 购货单位地址--------</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.shAddress + `</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.flowaddress + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.flowaddress + `</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.mobilizationbatch + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.certificateno + `</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.productname + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.quantity + `公斤</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1">检测结果</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="3">本批次产品经抽样进行感官、理化、瘦肉精、非洲猪瘟病毒及禁限药物残留检测，结果合格。</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1">备注</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">` + this.model.separatedetails + `</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;莫洋飞</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1"> 莫洋飞</td>
+                  <td scope="col" style="height:32px;text-align:right;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ` + this.nowTime + `</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4"></td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4"></td>
+                </tr>
+              </tbody>
+            </table>
       </div>
     </div>
 
