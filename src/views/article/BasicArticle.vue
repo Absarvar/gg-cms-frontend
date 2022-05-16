@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="testPort()">打印22222111111</button>
+    <button @click="serialPort()">打印22222111111</button>
     <div class="text-center" style="width:500px;height:300px;" align="center" >
       <h4>供广深圳肉类智能交易市场动物产品分销信息凭证</h4>
       <div style="float:left;">
@@ -25,20 +25,66 @@
       </div>
     </div>
     <span id="userno" style="display: flex;font-size:5px;color:red">------fdddddddddd-----</span>
+
+    <div style="display: flex;justify-content: space-between;align-items:center;margin-top:5%;">
+      <div class="divButtonMax">
+        <span class="classp" style="display:inline;font-size:20px">毛重: </span> <span class="classp2">0.0kg</span>
+      </div>
+      <div class="divButtonMax">
+        <span class="classp" style="display:inline;font-size:20px">净重: </span><span class="classp1">0.0kg</span>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 import $ from 'jquery'
 
-// async function handleRequestPort () {
-//   // 请求授权
-//   const port = await navigator.serial.requestPort()
-//   await port.open({ baudRate: 9600 })
-//   const writer = await port.writable.getWriter()
-//   console.log(writer)
-//   console.log(port)
-// }
+async function handleRequestPort () {
+  // 请求授权
+  const port = await navigator.serial.requestPort()
+  await port.open({ baudRate: 9600 })
+  const writer = await port.writable.getWriter()
+  console.log(writer)
+  console.log(port)
+}
+// async function serial () {
+//       // 浏览器支持serial
+//       if ('serial' in navigator) {
+//           console.log('当前浏览器支持serial')
+
+//           const port = await navigator.serial.requestPort()
+//           // 设置波特率，发和收的波特率要一致
+//           await port.open({ baudRate: 9600 })
+//           const reader = port.readable.getReader()
+//           try {
+//             while (true) {
+//               const { value, done } = await reader.read()
+//               if (done) {
+//                 reader.releaseLock()
+//                 break
+//               }
+//               // 解码
+//               var weight = Uint8ArrayToString(value)
+//               console.log(weight)
+//             }
+//           } catch (error) {
+//             console.error(error)
+//           } finally {
+//             reader.releaseLock()
+//             console.log('允许稍后关闭串口。')
+//             await port.close()
+//           }
+//       }
+//   }
+//  const Uint8ArrayToString = (fileData) => {
+//     var dataString = ''
+//     for (var i = 0; i < fileData.length; i++) {
+//         dataString += String.fromCharCode(fileData[i])
+//     }
+//     return dataString
+//     }
+
 export default {
   name: 'BaseForm',
   data () {
@@ -148,9 +194,9 @@ export default {
       var sup = 'serial' in navigator
       console.log(sup)
       console.log(window.navigator)
-    //   handleRequestPort()
-    //   await navigator.serial.requestPort()
-    //   console.log(await navigator.serial.getPorts())
+      handleRequestPort()
+      await navigator.serial.requestPort()
+      console.log(await navigator.serial.getPorts())
     },
     genID (length) {
 				return Number(Math.random().toString().substr(2, length))
