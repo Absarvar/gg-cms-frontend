@@ -76,7 +76,7 @@ export default {
 			}
 			var userno = document.getElementById('userno').innerText.substr(1, 4)
 			console.log('来了', userno)
-      const socketUrl = 'ws://192.168.2.155:8080/websocket/c'
+      const socketUrl = 'ws://mkt.ggmstc.com/cms-api/websocket/c'
 			// 判断当前浏览器是否支持WebSocket
 			if ('WebSocket' in window) { // ws://192.168.0.167:8081/szszbo/websocket
 				// websocket = new WebSocket("ws://localhost:9091/szszbo/websocket/c"+userno);
