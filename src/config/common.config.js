@@ -1,1 +1,1 @@
-export const GG_URL_PREFIX = 'http://121.40.171.89:8080/cms-api'
+export const GG_URL_PREFIX = 'https://mkt.ggmstc.com/cms-api'
