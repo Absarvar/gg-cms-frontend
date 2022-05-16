@@ -13,15 +13,16 @@
 
         <div align="center" >
           <a-button type="primary" @click="printHTML()">打印</a-button>
-          <div class="text-center" style="width:750px;height:417px;" align="center" >
-            <br>
-            <h4>供广深圳肉类智能交易市场</h4>
-            <h4>动物产品分销信息凭证</h4>
-            <div style="margin-top:0px;">
+          <br>
+          <br>
+          <h4>供广深圳肉类智能交易市场</h4>
+          <h4>动物产品分销信息凭证</h4>
+          <div class="text-center" style="width:750px;height:417px;" align="center" id="div_print">
+            <div style="margin-top:0px;height:70px;">
               <div style="float:left;margin-left:0px;" align="left" >
                 <div style="margin-top:20px">&nbsp; NO：{{ ticket.fxId }}</div>
-                <div> </div>
               </div>
+              <div style="float:right;margin-top:-30px;"> <img width="70px" height="70px" src="https://sy.ggmstc.com/szszdistfile/8c7ea05c-8b80-4190-a527-79126c6073f1.jpg"></div>
               <!-- <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
             </div>
             <table
@@ -189,6 +190,25 @@ export default {
       const dateTime = yy + '年' + mm + '月' + dd + '日' + hh + '时' + mf + '分'
       return dateTime
     },
+
+    dayin () {
+        // var userAgent = navigator.userAgent.toLowerCase() // 取得浏览器的userAgent字符串 // 其它浏览器使用lodop
+            var oldstr = document.body.innerHTML
+            var headstr = '<html><head><title></title></head><body>'
+            var footstr = '</body>'
+            // 执行隐藏打印区域不需要打印的内容
+            // document.getElementById('otherpho').style.display = 'none'
+            // 此处id换为你自己的id
+            var printData = document.getElementById('div_print').innerHTML // 获得 div 里的所有 html 数据
+            document.body.innerHTML = headstr + printData + footstr
+            window.print()
+            // 打印结束后，放开隐藏内容
+            // document.getElementById('otherpho').style.display = 'block'
+            document.body.innerHTML = oldstr
+            window.location.reload()
+            // this.isPrint = false
+            // console.log(location.href)
+    },
       printHTML (model) {
 // 打开一个新的浏览器窗口
 var win = window.open('print22')
@@ -203,32 +223,36 @@ win.document.write(`
 </style>
 	<body>
 		<div class="text-center" style="width:750px;height:417px;" align="center" >
+      <div style="margin-top:0px;height:35px;">
+              <div style="margin-left:0px;" align="left" >
+                <div style="margin-top:20px">&nbsp; ` + this.model.fxId + `</div>
+              </div>
+              <div style="float:right;margin-top:-60px;"> <img width="70px" height="80px" src="https://sy.ggmstc.com/szszdistfile/8c7ea05c-8b80-4190-a527-79126c6073f1.jpg"></div>
+              <!-- <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
+            </div>
       <table 
               class="table table-bordered table-hover heavy_border t2print"
               style="vertical-align:middle;padding-top:15px;margin-bottom:1px;">
               <tbody >
-              <!--   <div style="text-align:left;margin-top:30px">&nbsp; ` + this.model.fxId + `</div>
+               
+              <!--  <div style="text-align:left;margin-top:30px">&nbsp; ` + this.model.fxId + `</div>
               <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
 
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">` + this.model.fxId + `</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1"><img width="70px" height="30px" src="https://sy.ggmstc.com/szszdistfile/8c7ea05c-8b80-4190-a527-79126c6073f1.jpg"></td>
-                </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1"> </td>
                   <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">供广深圳肉类智能交易市场有限公司</td>
                 </tr>
                 <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" > 购货单位地址----</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.business + `</td>
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" > 购货单位地址--------</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.shAddress + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;width:150px;" > 购货单位地址----</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:200px;" >` + this.model.business + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;width:200px;" > 购货单位地址--------</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:200px;font-size:8px;" >` + this.model.shAddress + `购货单位地址购</td>
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
                   <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.flowaddress + `</td>
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + this.model.flowaddress + `</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:200px;font-size:8px;" >` + this.model.flowaddress + `</td>
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >&nbsp;&nbsp;&nbsp;&nbsp; </td>
