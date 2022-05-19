@@ -20,8 +20,8 @@ const constantRouterComponents = {
   Analysis: () => import('@/views/dashboard/Analysis'),
 
   // article
-  ArticleList: () => import('@/views/article/basicArticle/list'),
-  ArticleIndex: () => import('@/views/article/basicArticle/index'),
+  // ArticleList: () => import('@/views/article/basicArticle/list'),
+  // ArticleIndex: () => import('@/views/article/basicArticle/index'),
   StandardArticle: () => import('@/views/article/BasicArticle'),
 
   // member
@@ -90,6 +90,8 @@ const constantRouterComponents = {
                                         PurchaseOrderList: () => import('@/views/purchaseOrder/purchaseOrderList'),
                                         // sourceTrack
                                           SourceTrackList: () => import('@/views/sourceTrack/sourceTrackList'),
+                                           // productInstock
+                                           ProductInstock: () => import('@/views/pdProduct/productInstock'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

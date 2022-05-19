@@ -124,6 +124,9 @@
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
             <a-divider type="vertical" />
+            <router-link :to="{path: '/goods-manage/ground-manage/productInstock', query: {'id':record.orderID }}">
+              理货入库
+            </router-link>
           </template>
         </span>
       </s-table>
@@ -448,6 +451,7 @@ export default {
           title: '操作',
           dataIndex: 'action',
           width: '150px',
+          fixed: 'right',
           scopedSlots: { customRender: 'action' }
         }
       ]

@@ -16,7 +16,7 @@
 </style>
 <template>
   <a-modal
-    title="送货单1"
+    title="送货单"
     :width="1240"
     :visible="visible"
     :confirmLoading="loading"
@@ -26,8 +26,8 @@
     <a-spin :spinning="loading">
       <button @click="dayin()">打印</button>
 
-      <div class="text-center" id="div_print" style="width:840px;">
-        <table class="mx-auto table table-bordered table-hover heavy_border t2print" style="width:840px;">
+      <div class="text-center" id="div_print" style="width:800px;">
+        <table class="mx-auto table table-bordered table-hover heavy_border t2print" style="width:800px;">
           <tbody>
             <tr>
               <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border: solid white !important;" colspan="9"><h4><b>{{ fo.providerName }}送货单</b></h4></td>
@@ -43,12 +43,12 @@
               <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border-left: solid white !important;border-right: solid white !important;" colspan="2">联系电话：{{ fo.contactMobile }}</td>
             </tr>
             <tr>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >产品编码</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;" >产品编码</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >产品名称</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:80px;" >产品规格</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:120px;" >订货重量（kg）</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;" >订货重量（kg）</td>
 
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:120px;">到货重量（kg）</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;">到货重量（kg）</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">辅单位（头）</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">单价（元）</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">金额（元）</td>
@@ -72,22 +72,50 @@
               </tr>
             </template>
 
-            <template v-if="isBatch" v-for="(order,index) in foList">
+            <template v-if="isBatch">
+              <template v-for="(order,index) in foList">
 
-              <tr :key="index">
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">1200010</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">猪胴体</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center;">自然重量</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ order.totalweight2 }}</th>
+                <tr :key="index">
+                  <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">1200010</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">猪胴体</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center;">自然重量</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ order.totalweight2 }}</th>
 
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"> </th>
-                <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.goodsCount }}</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.unitprice }}</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center"></th>
-                <th style="border-width:2px;border-color:#000000;text-align:center"></th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"> </th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.goodsCount }}</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.unitprice }}</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center"></th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center"></th>
 
-              </tr>
+                </tr>
+              </template>
             </template>
+
+            <tr>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border-left: solid white !important;border-right: solid white !important;" colspan="9"></td>
+            </tr>
+            <tr>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" >操作人：</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" >董事</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" >制单人：</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;">董事</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;">签收人：</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
+            </tr>
+            <tr>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;">签收日期：</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
+            </tr>
 
           </tbody>
         </table>
@@ -96,7 +124,7 @@
       </div>
 
       <!-- <a-form :form="form" v-bind="formLayout">
-        <!-- 检查是否有 id 并且大于0，大于0是修改。其他是新增，新增不显示主键ID -->
+        检查是否有 id 并且大于0，大于0是修改。其他是新增，新增不显示主键ID -->
       <!-- <a-form-item v-show="model && model.id > 0" label="主键ID">
           <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
         </a-form-item> -->

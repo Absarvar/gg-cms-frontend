@@ -25,7 +25,7 @@
       </div>
     </div>
     <span id="userno" style="display: flex;font-size:5px;color:red">------fdddddddddd-----</span>
-
+    轨道信息：<span class="classp2">xxxx</span> 重量信息：
     <div style="display: flex;justify-content: space-between;align-items:center;margin-top:5%;">
       <div class="divButtonMax">
         <span class="classp" style="display:inline;font-size:20px">毛重: </span> <span class="classp2">0.0kg</span>
@@ -40,14 +40,6 @@
 <script>
 import $ from 'jquery'
 
-async function handleRequestPort () {
-  // 请求授权
-  const port = await navigator.serial.requestPort()
-  await port.open({ baudRate: 9600 })
-  const writer = await port.writable.getWriter()
-  console.log(writer)
-  console.log(port)
-}
 // async function serial () {
 //       // 浏览器支持serial
 //       if ('serial' in navigator) {
@@ -95,9 +87,6 @@ export default {
   created () {
     this.$nextTick(() => {
       // this.serialPort()
-      console.log(navigator)
-    console.log('------sssssss---')
-    console.log(window.document.getElementById('userno'))
     var websocket = null
 			if (!window.localStorage) {
 				alert('浏览器支持localstorage')
@@ -189,15 +178,6 @@ export default {
     })
   },
   methods: {
-
-    async testPort () {
-      var sup = 'serial' in navigator
-      console.log(sup)
-      console.log(window.navigator)
-      handleRequestPort()
-      await navigator.serial.requestPort()
-      console.log(await navigator.serial.getPorts())
-    },
     genID (length) {
 				return Number(Math.random().toString().substr(2, length))
 			},
@@ -319,6 +299,54 @@ export default {
 					}
 					// value 是一个 string.
 					/* 	console.log(value); */
+				}
+
+				const textEncoder = new TextEncoderStream()
+				const writableStreamClosed = textEncoder.readable.pipeTo(port.writable)
+
+				reader.cancel()
+				await readableStreamClosed.catch(() => { /* Ignore the error */ })
+
+				writer.close()
+				await writableStreamClosed
+
+				await port.close()
+			},
+    async getRfid () {
+				const port = await navigator.serial.requestPort()
+				await port.open({
+					baudRate: 115200
+				}) // set baud rate
+				/* reader = port.readable.getReader(); */
+
+				const writer = port.writable.getWriter()
+
+				// const tagExistCmd = new Uint8Array([0x01, 0x03, 0x60, 0x08, 0x00, 0x01, 0xC8, 0x1B])
+				const tagCmd = new Uint8Array([0x01, 0x03, 0x00, 0x00, 0x00, 0x02, 0x0B, 0xC4])
+
+				// set how to write to device intervally
+				setInterval(async () => {
+					const commandframe = tagCmd
+					await writer.write(commandframe)
+				}, 3000) // send a frame every 3000ms
+
+				// 流与变换。
+				const textDecoder = new TextDecoderStream()
+				const readableStreamClosed = port.readable.pipeTo(textDecoder.writable)
+				const reader = textDecoder.readable.getReader()
+
+				while (true) {
+					const {
+						value,
+						done
+					} = await reader.read()
+					if (done) {
+						reader.releaseLock()
+						break
+					}
+
+					var valuea = value
+					console.log(valuea)
 				}
 
 				const textEncoder = new TextEncoderStream()

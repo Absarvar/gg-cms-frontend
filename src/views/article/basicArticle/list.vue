@@ -117,7 +117,7 @@
 <script>
 import moment from 'moment'
 import { STable } from '@/components'
-import { articleList2 } from '@/api/article'
+import { articleList } from '@/api/article'
 
 export default {
   name: 'TableList',
@@ -172,7 +172,7 @@ export default {
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         console.log('loadData.parameter', parameter)
-        return articleList2(Object.assign(parameter, this.queryParam))
+        return articleList(Object.assign(parameter, this.queryParam))
           .then(res => {
             console.log(res.data)
             return res.data
@@ -195,7 +195,7 @@ export default {
   created () {
     this.tableOption()
     // getRoleList({ t: new Date() })
-    articleList2(this.queryParam).then(res => {
+    articleList(this.queryParam).then(res => {
       console.log(res)
     }).catch(err => {
       const { $message } = this

@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import { getArticle, articleList, newArticle, testApi } from '@/api/article'
+import { getArticle, articleList, newArticle } from '@/api/article'
 
 import $ from 'jquery'
 
@@ -80,11 +80,6 @@ export default {
     queryUsers () {
       articleList(this.queryParam).then(res => {
         this.list = res
-      })
-    },
-    testApi () {
-      testApi(this.queryParam).then(res => {
-        this.testData = res
       })
     }
   }
