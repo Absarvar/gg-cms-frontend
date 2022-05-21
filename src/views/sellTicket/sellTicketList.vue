@@ -374,7 +374,7 @@ export default {
 		for (var i = 0; i < datas.length; i++) {
 			ticketHtml +=
       `
-			<div class="text-center" style="width:750px;height:417px;" align="center" >
+			<div class="text-center" style="width:750px;height:417px;margin-top:-1px;" align="center" >
        <br>
       <div style="margin-top:0px;">
         <div style="float:left;margin-left:50px;" align="left" >
@@ -421,19 +421,17 @@ export default {
 		          <div> </div>
 		        </div>
 		      <div style="float:right;margin-right:70px;margin-top:10px;"><div> &nbsp;</div> <div> &nbsp;</div>&nbsp; &nbsp; &nbsp; &nbsp;莫洋飞</div>
-		      
 		      </div>
-	    </div>
-      `
+	    </div>`
 		}
 
-		ticketHtml += `</body>
-		</html>
-		`
+		// ticketHtml += `</body>
+		// </html>
+		// `
 
 		// console.log(ticketHtml)
 		// 打开一个新的浏览器窗口
-		var win = window.open('print22')
+		var win = window.open('1')
 		// win.document.write('sddddddddddddddddddddddddddd')
 		// win.focus()// 在IE浏览器中使用必须添加这一句
 		// win.print()

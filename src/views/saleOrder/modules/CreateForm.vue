@@ -27,30 +27,30 @@
       <button @click="dayin()">打印</button>
 
       <div class="text-center" id="div_print" style="width:800px;">
-        <table class="mx-auto table table-bordered table-hover heavy_border t2print" style="width:800px;">
+        <table class="mx-auto table table-bordered table-hover heavy_border t2print" style="width:800px;margin-top: 0px;">
           <tbody>
             <tr>
               <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border: solid white !important;" colspan="9"><h4><b>{{ fo.providerName }}送货单</b></h4></td>
             </tr>
             <tr>
               <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;" colspan="3">订单编号：{{ fo.outtradeno }}</td>
-              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border: solid white !important;;" colspan="3">订单日期：{{ fo.createTime }}</td>
-              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;border-left: solid white !important;" colspan="3">送货地址：{{ fo.contactAddress }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;;" colspan="3">订单日期：{{ fo.createTime }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;border-left: solid white !important;font-size: 8px;" colspan="3">送货地址：{{ fo.contactAddress }}</td>
             </tr>
             <tr>
-              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="5">购货客户：{{ fo.merchantName }}</td>
-              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="2">联系人：{{ fo.contactMan }}</td>
-              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border-left: solid white !important;border-right: solid white !important;" colspan="2">联系电话：{{ fo.contactMobile }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="3">购货客户：{{ fo.merchantName }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="3">联系人：{{ fo.contactMan }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;border-right: solid white !important;" colspan="3">联系电话：{{ fo.contactMobile }}</td>
             </tr>
             <tr>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;" >产品编码</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:120px;" >产品编码</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >产品名称</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:80px;" >产品规格</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;" >订货重量（kg）</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:80px;" >订货重量（kg）</td>
 
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;">到货重量（kg）</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">辅单位（头）</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">单价（元）</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:80px;">辅单位</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;">单价（元）</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">金额（元）</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">备注</td>
 
@@ -58,13 +58,13 @@
 
             <template v-if="!isBatch">
               <tr >
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">1200010</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">猪胴体</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center;">自然重量</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ fo.totalweight2 }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">{{ fo.goodsCode }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">{{ fo.goodsName }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;">{{ fo.specification }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"></th>
 
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"> </th>
-                <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.goodsCount }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ fo.totalweight2 }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.goodsCount }}{{ fo.goodsUnit }}</th>
                 <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.unitprice }}</th>
                 <th style="border-width:2px;border-color:#000000;text-align:center"></th>
                 <th style="border-width:2px;border-color:#000000;text-align:center"></th>
@@ -76,13 +76,13 @@
               <template v-for="(order,index) in foList">
 
                 <tr :key="index">
-                  <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">1200010</th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">猪胴体</th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center;">自然重量</th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ order.totalweight2 }}</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">{{ order.goodsCode }}</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">{{ order.goodsName }}</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center;">{{ order.specification }}</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"></th>
 
-                  <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"> </th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.goodsCount }}</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ order.totalweight2 }}</th>
+                  <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.goodsCount }}{{ order.goodsUnit }}</th>
                   <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.unitprice }}</th>
                   <th style="border-width:2px;border-color:#000000;text-align:center"></th>
                   <th style="border-width:2px;border-color:#000000;text-align:center"></th>
@@ -92,17 +92,39 @@
             </template>
 
             <tr>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;height: 35px;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
+            </tr>
+            <tr>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;height: 35px;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
+            </tr>
+            <tr>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border-left: solid white !important;border-right: solid white !important;" colspan="9"></td>
             </tr>
             <tr>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" >操作人：</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" >董事</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" ></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" >制单人：</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;">董事</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" >董事</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;">签收人：</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;">签收日期：</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
             </tr>
             <tr>
@@ -113,13 +135,13 @@
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;">签收日期：</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
             </tr>
 
           </tbody>
         </table>
-        <div style="margin-left:500px;"><img width="170px" height="130px" src="https://lcpublic.s3.cn-north-1.amazonaws.com.cn/af887e62-ac3b-46a8-b4d7-102038ad2cbc"></div>
+        <!-- <div style="margin-top:-120px;margin-left:300px;"><img width="170px" height="130px" src="https://lcpublic.s3.cn-north-1.amazonaws.com.cn/af887e62-ac3b-46a8-b4d7-102038ad2cbc"></div> -->
 
       </div>
 
