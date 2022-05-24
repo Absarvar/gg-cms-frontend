@@ -17,7 +17,7 @@ const constantRouterComponents = {
 
   // 你需要动态引入的页面组件
   Workplace: () => import('@/views/dashboard/Analysis'),
-  Analysis: () => import('@/views/dashboard/Analysis'),
+  Analysis: () => import('@/views/dashboard/Analysis2'),
 
   // article
   // ArticleList: () => import('@/views/article/basicArticle/list'),

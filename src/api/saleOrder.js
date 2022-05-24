@@ -7,7 +7,8 @@ const saleOrderApi = {
   outStockList: GG_URL_PREFIX + '/saleOrder/outStockList',
   getSaleOrder: GG_URL_PREFIX + '/saleOrder/get',
   deleteSaleOrder: GG_URL_PREFIX + '/saleOrder/delete',
-  editSaleOrder: GG_URL_PREFIX + '/saleOrder/edit'
+  editSaleOrder: GG_URL_PREFIX + '/saleOrder/edit',
+  saleDataList: GG_URL_PREFIX + '/saleOrder/saleDataList'
 }
 
 export function newSaleOrder (parameter) {
@@ -54,5 +55,13 @@ export function deleteSaleOrder () {
   return request({
     url: saleOrderApi.deleteSaleOrder,
     method: 'get'
+  })
+}
+
+export function saleDataList (parameter) {
+  return request({
+    url: saleOrderApi.saleDataList,
+    method: 'get',
+    params: parameter
   })
 }
