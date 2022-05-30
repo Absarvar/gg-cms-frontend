@@ -67,13 +67,15 @@
       <div class="salesCard">
         <a-tabs default-active-key="1" size="large" :tab-bar-style="{marginBottom: '24px', paddingLeft: '16px'}">
           <div class="extra-wrapper" slot="tabBarExtraContent">
-            <div class="extra-item">
+            <!-- <div class="extra-item">
               <a>{{ $t('dashboard.analysis.all-day') }}</a>
               <a>{{ $t('dashboard.analysis.all-week') }}</a>
               <a>{{ $t('dashboard.analysis.all-month') }}</a>
               <a>{{ $t('dashboard.analysis.all-year') }}</a>
-            </div>
-            <a-range-picker :style="{width: '256px'}" />
+            </div> -->
+            <a-range-picker
+              :style="{width: '256px'}"
+              @change="timeChange"/>
           </div>
           <a-tab-pane loading="true" :tab="$t('dashboard.analysis.sales')" key="1">
             <a-row>
@@ -370,22 +372,25 @@ export default {
       ]
     }
   },
-  created () {
-    this.$nextTick(() => {
-        // const urlParam = getPageQuery()
-        // if (urlParam !== undefined) {
-        //   Object.assign(this.queryParam, urlParam)
-        // }
+  methods: {
+    timeChange (date, dateStr) {
+      this.queryParam.startTime = dateStr[0]
+      this.queryParam.endTime = dateStr[1]
+      this.reloadData()
+    },
+    reloadData () {
         saleDataList(this.queryParam)
           .then(res => {
+            this.barData = []
+            this.barData2 = []
             // this.info = res.data.enterApply
             const list = res.data
             for (var i = 0; i < list.length; i++) {
-              barData.push({
+              this.barData.push({
                 x: list[i].dayly,
                 y: Math.floor(list[i].amount)
               })
-              barData2.push({
+              this.barData2.push({
                 x: list[i].dayly,
                 y: Math.floor(list[i].weight)
               })
@@ -397,20 +402,30 @@ export default {
         newParam.gp = 'merchant'
         saleDataList(newParam)
           .then(res => {
+            this.rankList = []
+            this.rankList2 = []
             // this.info = res.data.enterApply
             const list = res.data
             for (var i = 0; i < list.length; i++) {
-              rankList.push({
+              this.rankList.push({
                 name: list[i].merchantName,
                 total: Math.floor(list[i].amount)
               })
-              rankList2.push({
+              this.rankList2.push({
                 name: list[i].merchantName,
                 total: Math.floor(list[i].weight)
               })
             }
           })
-          console.log(rankList2)
+    }
+  },
+  created () {
+    this.$nextTick(() => {
+        // const urlParam = getPageQuery()
+        // if (urlParam !== undefined) {
+        //   Object.assign(this.queryParam, urlParam)
+        // }
+        this.reloadData()
     })
 
     setTimeout(() => {
