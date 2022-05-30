@@ -2,6 +2,7 @@
 import * as loginService from '@/api/login'
 // eslint-disable-next-line
 import { BasicLayout, BlankLayout, PageView, RouteView } from '@/layouts'
+import { builder } from '../mock/util'
 
 // 前端路由表
 const constantRouterComponents = {
@@ -160,18 +161,21 @@ export const generatorDynamicRouter = token => {
     loginService
       .getCurrentUserNav(token)
       .then(res => {
-        console.log('generatorDynamicRouter response:', res)
-        const { result } = res
+        // console.log('generatorDynamicRouter response:', res.data)
+        var jsonObj = JSON.parse(res.data)
+        const json = builder(jsonObj)
+        const { result } = json
+        // console.log('result', result)
         const menuNav = []
         const childrenNav = []
         //      后端数据, 根级树数组,  根级 PID
         listToTree(result, childrenNav, 0)
         rootRouter.children = childrenNav
         menuNav.push(rootRouter)
-        console.log('menuNav', menuNav)
+        // console.log('menuNav', menuNav)
         const routers = generator(menuNav)
         routers.push(notFoundRouter)
-        console.log('routers', routers)
+        // console.log('routers', routers)
         resolve(routers)
       })
       .catch(err => {
@@ -247,6 +251,7 @@ const listToTree = (list, tree, parentId) => {
         key: item.key || item.name,
         children: []
       }
+      console.log(child)
       // 迭代 list， 找到当前菜单相符合的所有子菜单
       listToTree(list, child.children, item.id)
       // 删掉不存在 children 值的属性
