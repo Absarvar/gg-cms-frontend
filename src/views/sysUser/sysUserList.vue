@@ -14,26 +14,11 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-              <!-- <a-col :md="8" :sm="24"> <a-form-item label="ID"> <a-input v-model="queryParam.orderid" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="总金额：单位元  参考价格"> <a-input v-model="queryParam.totalamount" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="总重量"> <a-input v-model="queryParam.totalweight" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="下单时间"> <a-input v-model="queryParam.ordertime" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="支付时间"> <a-input v-model="queryParam.paytime" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="第三方交易流水号"> <a-input v-model="queryParam.transactionid" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="商户系统单号"> <a-input v-model="queryParam.outtradeno" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="添加时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="配送地址"> <a-input v-model="queryParam.address" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="采购人姓名"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="销售商家"> <a-input v-model="queryParam.factoryid" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="采购商家"> <a-input v-model="queryParam.logisticianid" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="商品iD"> <a-input v-model="queryParam.sid" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="单选 0 false 1 true 2供应商发送订单标识 3采购商支付4加入购物车后已购买5加入购物车取消"> <a-input v-model="queryParam.ischecked" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="申请出库3待出库0已出库1 状态"> <a-input v-model="queryParam.stockstatus" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="采购商未支付0"> <a-input v-model="queryParam.type" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="图片商品id"> <a-input v-model="queryParam.shoppingid" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="总数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="轨道编号"> <a-input v-model="queryParam.devicecode" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="供应商名称"> <a-input v-model="queryParam.gyname" placeholder=""/> </a-form-item> </a-col> -->
+            <a-col :md="8" :sm="24"> <a-form-item label="登录账号"> <a-input v-model="queryParam.username" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="用户名"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="手机"> <a-input v-model="queryParam.mobile" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="角色"> <a-input v-model="queryParam.role" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="菜单权限"> <a-input v-model="queryParam.menu" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -51,14 +36,13 @@
       </div>
 
       <div class="table-operator">
-        <!-- <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button> -->
+        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
-          <!-- <a-menu slot="overlay">
+          <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            lock | unlock
+            <!-- lock | unlock -->
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
-          </a-menu> -->
-          <a-button type="primary" @click="batchPrint()">批量打印</a-button>
+          </a-menu>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
@@ -74,7 +58,7 @@
         :alert="true"
         :rowSelection="rowSelection"
         showPagination="auto"
-        :scroll="{ x: 1700, y: 600 }"
+        :scroll="{ x: 2000, y: 600 }"
         :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
       >
         <span slot="serial" slot-scope="text, record, index">
@@ -83,10 +67,13 @@
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
+        <span slot="addtime" slot-scope="text">
+          {{ text | formateDate }}
+        </span>
 
         <span slot="action" slot-scope="text, record">
           <template>
-            <a @click="handleEdit(record)">查看</a>
+            <a @click="handleEdit(record)">编辑</a>
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
           </template>
@@ -98,7 +85,6 @@
         :visible="visible"
         :loading="confirmLoading"
         :model="mdl"
-        :isBatch="isBatch"
         @cancel="handleCancel"
         @ok="handleOk"
       />
@@ -109,7 +95,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newSaleOrder, editSaleOrder, saleOrderList } from '@/api/saleOrder'
+import { newSysUser, editSysUser, sysUserList } from '@/api/sysUser'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -117,19 +103,11 @@ import { formateDate } from '@/utils/dateUtil'
 const statusMap = {
   0: {
     status: 'default',
-    text: '加入购物车'
+    text: '禁用中'
   },
   1: {
-    status: 'default',
-    text: '未支付'
-  },
-  2: {
     status: 'processing',
-    text: '已支付'
-  },
-  3: {
-    status: 'default',
-    text: '订单取消'
+    text: '启用中'
   }
 }
 
@@ -143,7 +121,6 @@ export default {
   data () {
     return {
       // create model
-      isBatch: false,
       visible: false,
       confirmLoading: false,
       mdl: null,
@@ -155,7 +132,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return saleOrderList(requestParameters)
+        return sysUserList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -170,114 +147,40 @@ export default {
           width: 60
         },
         {
-          title: '订单编号',
-          key: 'outtradeno',
-          dataIndex: 'outtradeno',
-          width: 120,
-          resizable: 'true'
+          title: 'id',
+          dataIndex: 'id',
+          width: 60
         },
-        // {
-        //   title: 'ID',
-        //   dataIndex: 'orderid',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
         {
-          title: '总金额',
-          dataIndex: 'totalamount2',
+          title: '登录账号',
+          dataIndex: 'username',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '总重量',
-          dataIndex: 'totalweight2',
-          width: 120,
-          resizable: 'true'
-        },
-        // {
-        //   title: '下单时间',
-        //   dataIndex: 'ordertime',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
-        // {
-        //   title: '支付时间',
-        //   dataIndex: 'paytime',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
-        // {
-        //   title: '第三方交易流水号',
-        //   dataIndex: 'transactionid',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
-        // {
-        //   title: '配送地址',
-        //   dataIndex: 'address',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
-        // {
-        //   title: '采购人姓名',
-        //   dataIndex: 'name',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
-        {
-          title: '销售商家',
-          dataIndex: 'providerName',
+          title: '用户名',
+          dataIndex: 'name',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '采购商家',
-          dataIndex: 'merchantName',
+          title: '手机',
+          dataIndex: 'mobile',
           width: 120,
           resizable: 'true'
         },
-        // {
-        //   title: '商品iD',
-        //   dataIndex: 'sid',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
-        // {
-        //   title: '单选 0 false 1 true 2供应商发送订单标识 3采购商支付4加入购物车后已购买5加入购物车取消',
-        //   dataIndex: 'ischecked',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
-        // {
-        //   title: '申请出库3待出库0已出库1 状态',
-        //   dataIndex: 'stockstatus',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
-        // {
-        //   title: '采购商未支付0',
-        //   dataIndex: 'type',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
-        // {
-        //   title: '图片商品id',
-        //   dataIndex: 'shoppingid',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
         {
-          title: '总数量',
-          dataIndex: 'goodsCount',
+          title: '角色',
+          dataIndex: 'role',
           width: 120,
           resizable: 'true'
         },
-        // {
-        //   title: '供应商名称',
-        //   dataIndex: 'gyname',
-        //   width: 120,
-        //   resizable: 'true'
-        // },
+        {
+          title: '菜单权限',
+          dataIndex: 'menu',
+          width: 120,
+          resizable: 'true'
+        },
 
         {
           title: '状态',
@@ -286,16 +189,15 @@ export default {
           dataIndex: 'status'
         },
         {
-          title: '添加时间',
-          dataIndex: 'createTime',
-          width: 120,
-          resizable: 'true'
+          title: '创建时间',
+          scopedSlots: { customRender: 'addtime' },
+          width: 200,
+          dataIndex: 'addtime'
         },
         {
           key: 'action',
           title: '操作',
           dataIndex: 'action',
-          fixed: 'right',
           width: '150px',
           scopedSlots: { customRender: 'action' }
         }
@@ -331,30 +233,21 @@ export default {
       this.queryParam.endTime = dateStr[1]
     },
     handleAdd () {
-      this.isBatch = false
       this.mdl = null
       this.visible = true
     },
     handleEdit (record) {
-      this.isBatch = false
       this.visible = true
       this.mdl = { ...record }
-    },
-    batchPrint () {
-      const datas = this.selectedRows
-      this.visible = true
-      this.isBatch = true
-      this.mdl = { ...datas }
     },
     handleOk () {
       const form = this.$refs.createModal.form
       this.confirmLoading = true
-      this.isBatch = false
       form.validateFields((errors, values) => {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editSaleOrder(values)
+            editSysUser(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -367,7 +260,7 @@ export default {
             })
           } else {
             // 新增
-            newSaleOrder(values)
+            newSysUser(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false

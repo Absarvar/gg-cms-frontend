@@ -17,7 +17,7 @@ const constantRouterComponents = {
   'showHome': () => import(/* webpackChunkName: "error" */ '@/views/show/home'),
 
   // 你需要动态引入的页面组件
-  Workplace: () => import('@/views/dashboard/Analysis'),
+  Workplace: () => import('@/views/dashboard/Workplace'),
   Analysis: () => import('@/views/dashboard/Analysis2'),
 
   // article
@@ -93,6 +93,10 @@ const constantRouterComponents = {
                                           SourceTrackList: () => import('@/views/sourceTrack/sourceTrackList'),
                                            // productInstock
                                            ProductInstock: () => import('@/views/pdProduct/productInstock'),
+                                           // sysUser
+                                             SysUserList: () => import('@/views/sysUser/sysUserList'),
+                                             // sysMenu
+                                               SysMenuList: () => import('@/views/sysMenu/sysMenuList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),
@@ -251,7 +255,6 @@ const listToTree = (list, tree, parentId) => {
         key: item.key || item.name,
         children: []
       }
-      console.log(child)
       // 迭代 list， 找到当前菜单相符合的所有子菜单
       listToTree(list, child.children, item.id)
       // 删掉不存在 children 值的属性

@@ -1438,6 +1438,37 @@ const userNav = options => {
         show: true
       },
       component: 'FlowDirectionList'
+    },
+
+    {
+      name: 'sysUser-manage',
+      parentId: 0,
+      id: 40010,
+      meta: {
+        title: '系统管理',
+        show: true
+      },
+      component: 'RouteView' // 菜单
+    },
+    {
+      name: 'sysUser-list',
+      parentId: 40010,
+      id: 40001,
+      meta: {
+        title: '系统用户列表',
+        show: true
+      },
+      component: 'SysUserList'
+    },
+    {
+      name: 'sysMenu-list',
+      parentId: 40010,
+      id: 40002,
+      meta: {
+        title: '系统菜单列表',
+        show: true
+      },
+      component: 'SysMenuList'
     }
 
     // {
@@ -1452,7 +1483,6 @@ const userNav = options => {
     // }
 
   ]
-  console.log('jsonfy', JSON.stringify(nav))
 
   const json = builder(nav)
   // console.log('json', json)
