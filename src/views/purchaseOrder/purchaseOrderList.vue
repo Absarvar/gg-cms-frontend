@@ -84,6 +84,12 @@
         <span slot="addtime" slot-scope="text">
           {{ text | formateDate }}
         </span>
+        <span slot="haddtime" slot-scope="text">
+          {{ text | formateDate }}
+        </span>
+        <span slot="daddtime" slot-scope="text">
+          {{ text | formateDate }}
+        </span>
 
         <span slot="action" slot-scope="text, record">
           <template>
@@ -120,6 +126,18 @@ const stateMap = {
     text: '禁用中'
   },
   1: {
+    status: 'processing',
+    text: '启用中'
+  },
+  2: {
+    status: 'processing',
+    text: '启用中'
+  },
+  3: {
+    status: 'processing',
+    text: '启用中'
+  },
+  4: {
     status: 'processing',
     text: '启用中'
   }
@@ -189,42 +207,36 @@ export default {
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '订货量',
-          dataIndex: 'orderquantity',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '采购数量',
-          dataIndex: 'purchasequantity',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '采购重量',
-          dataIndex: 'purchaseweight',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '实收量',
-          dataIndex: 'paid',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '差量',
-          dataIndex: 'difference',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '制单时间',
-          dataIndex: 'addtime',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '订货量',
+        //   dataIndex: 'orderquantity',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '采购数量',
+        //   dataIndex: 'purchasequantity',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '采购重量',
+        //   dataIndex: 'purchaseweight',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '实收量',
+        //   dataIndex: 'paid',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '差量',
+        //   dataIndex: 'difference',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
           title: '制单人',
           dataIndex: 'preparedby',
@@ -239,12 +251,14 @@ export default {
         },
         {
           title: '订货日期',
+          scopedSlots: { customRender: 'daddtime' },
           dataIndex: 'daddtime',
           width: 120,
           resizable: 'true'
         },
         {
           title: '回货日期',
+          scopedSlots: { customRender: 'haddtime' },
           dataIndex: 'haddtime',
           width: 120,
           resizable: 'true'
@@ -291,6 +305,7 @@ export default {
           title: '操作',
           dataIndex: 'action',
           width: '150px',
+          fixed: 'right',
           scopedSlots: { customRender: 'action' }
         }
       ]

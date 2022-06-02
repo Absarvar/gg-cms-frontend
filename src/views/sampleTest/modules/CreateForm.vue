@@ -377,7 +377,7 @@ export default {
     handleSearch (value) {
       const requestParameters = { 'pinjie': value }
       enterApplyList(requestParameters).then(res => {
-            console.log(res.data.data)
+            // console.log(res.data.data)
             const pcList = []
             if (res.data != null && res.data.data != null) {
               for (let index = 0; index < res.data.data.length; index++) {

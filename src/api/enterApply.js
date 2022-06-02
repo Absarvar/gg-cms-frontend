@@ -6,7 +6,8 @@ const enterApplyApi = {
   enterApplyList: GG_URL_PREFIX + '/enterApply/list',
   getEnterApply: GG_URL_PREFIX + '/enterApply/get',
   deleteEnterApply: GG_URL_PREFIX + '/enterApply/delete',
-  editEnterApply: GG_URL_PREFIX + '/enterApply/edit'
+  editEnterApply: GG_URL_PREFIX + '/enterApply/edit',
+  enterApplyListTree: GG_URL_PREFIX + '/enterApply/listTree'
 }
 
 export function newEnterApply (parameter) {
@@ -45,5 +46,13 @@ export function deleteEnterApply () {
   return request({
     url: enterApplyApi.deleteEnterApply,
     method: 'get'
+  })
+}
+
+export function enterApplyListTree (parameter) {
+  return request({
+    url: enterApplyApi.enterApplyListTree,
+    method: 'get',
+    params: parameter
   })
 }
