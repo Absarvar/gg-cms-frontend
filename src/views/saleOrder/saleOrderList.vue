@@ -58,7 +58,7 @@
             lock | unlock
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu> -->
-          <a-button type="primary" @click="batchPrint()">批量打印</a-button>
+          <a-button type="primary" @click="batchPrint()">合并打印</a-button>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
@@ -87,6 +87,8 @@
         <span slot="action" slot-scope="text, record">
           <template>
             <a @click="handleEdit(record)">查看</a>
+            <a-divider type="vertical" />
+            <a @click="handleDetail(record)">明细</a>
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
           </template>
@@ -96,9 +98,20 @@
       <create-form
         ref="createModal"
         :visible="visible"
+        :isDetail="isDetail"
         :loading="confirmLoading"
         :model="mdl"
         :isBatch="isBatch"
+        @cancel="handleCancel"
+        @ok="handleOk"
+      />
+
+      <detail
+        ref="Detail"
+        :visible="isDetail"
+        :isDetail="isDetail"
+        :loading="confirmLoading"
+        :model="mdl"
         @cancel="handleCancel"
         @ok="handleOk"
       />
@@ -112,6 +125,7 @@ import { STable, Ellipsis } from '@/components'
 import { newSaleOrder, editSaleOrder, saleOrderList } from '@/api/saleOrder'
 
 import CreateForm from './modules/CreateForm'
+import Detail from './modules/Detail'
 import { formateDate } from '@/utils/dateUtil'
 
 const statusMap = {
@@ -138,12 +152,14 @@ export default {
   components: {
     STable,
     Ellipsis,
-    CreateForm
+    CreateForm,
+    Detail
   },
   data () {
     return {
       // create model
       isBatch: false,
+      isDetail: false,
       visible: false,
       confirmLoading: false,
       mdl: null,
@@ -334,15 +350,24 @@ export default {
       this.isBatch = false
       this.mdl = null
       this.visible = true
+      this.isDetail = false
     },
     handleEdit (record) {
       this.isBatch = false
       this.visible = true
+      this.isDetail = false
+      this.mdl = { ...record }
+    },
+    handleDetail (record) {
+      this.isBatch = false
+      this.visible = false
+      this.isDetail = true
       this.mdl = { ...record }
     },
     batchPrint () {
       const datas = this.selectedRows
       this.visible = true
+      this.isDetail = false
       this.isBatch = true
       this.mdl = { ...datas }
     },
@@ -357,6 +382,7 @@ export default {
             editSaleOrder(values)
             .then(res => {
               this.visible = false
+              this.isDetail = false
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
@@ -370,6 +396,7 @@ export default {
             newSaleOrder(values)
             .then(res => {
               this.visible = false
+              this.isDetail = false
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
@@ -386,6 +413,7 @@ export default {
     },
     handleCancel () {
       this.visible = false
+      this.isDetail = false
 
       const form = this.$refs.createModal.form
       form.resetFields() // 清理表单数据（可不做）
