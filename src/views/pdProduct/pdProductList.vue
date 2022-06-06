@@ -42,17 +42,17 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        <a-button type="primary" @click="dataExport">导出</a-button>
+        <!-- <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
-        </a-dropdown>
+        </a-dropdown> -->
       </div>
 
       <s-table
@@ -76,13 +76,13 @@
           {{ text | formateDate }}
         </span>
 
-        <span slot="action" slot-scope="text, record">
-          <template>
-            <a @click="handleEdit(record)">编辑</a>
-            <!-- <a-divider type="vertical" />
+        <!-- <span slot="action" slot-scope="text, record">
+          <template> -->
+        <!-- <a @click="handleEdit(record)">编辑</a> -->
+        <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
-          </template>
-        </span>
+        <!-- </template>
+        </span> -->
       </s-table>
 
       <create-form
@@ -100,7 +100,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newPdProduct, editPdProduct, pdProductList } from '@/api/pdProduct'
+import { newPdProduct, editPdProduct, pdProductList, pdProductListExport } from '@/api/pdProduct'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -342,6 +342,17 @@ export default {
       this.queryParam = {
         date: moment(new Date())
       }
+    },
+    dataExport () {
+      var parameter
+      if (this.$route.query.outletsid > 0) {
+        this.queryParam.outletsid = this.$route.query.outletsid
+      } else {
+        this.queryParam.outletsid = null
+      }
+      const requestParameters = Object.assign({}, parameter, this.queryParam)
+      console.log('loadData request parameters:', requestParameters)
+      pdProductListExport(requestParameters)
     }
   }
 }

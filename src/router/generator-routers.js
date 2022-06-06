@@ -46,6 +46,7 @@ const constantRouterComponents = {
   EnterRegList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=0'),
   EnterRecheckList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=1'),
   PrepareInstockList: () => import('@/views/enterApply/enterApplyList?status=2&statusok=1'),
+  EnterApplyReadOnly: () => import('@/views/enterApply/enterApplyList-readOnly'),
 
   // order
   OrderList: () => import('@/views/order/orderList'),

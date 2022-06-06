@@ -69,16 +69,7 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
-          <a-menu slot="overlay">
-            <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
-            <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
-          </a-menu>
-          <a-button style="margin-left: 8px">
-            批量操作 <a-icon type="down" />
-          </a-button>
         </a-dropdown>
       </div>
 
@@ -118,17 +109,6 @@
           {{ text | formateDate }}
         </span>
 
-        <span slot="action" slot-scope="text, record">
-          <template>
-            <a @click="handleEdit(record)">编辑</a>
-            <!-- <a-divider type="vertical" />
-            <a @click="handleSub(record)">订阅报警</a> -->
-            <a-divider type="vertical" />
-            <router-link :to="{path: '/goods-manage/ground-manage/productInstock', query: {'id':record.orderID }}">
-              理货入库
-            </router-link>
-          </template>
-        </span>
       </s-table>
 
       <create-form
@@ -367,29 +347,35 @@ export default {
           scopedSlots: { customRender: 'wphoto' }
         },
         {
-          title: '入库计重',
-          dataIndex: 'warehousing',
+          title: '入库重量',
+          dataIndex: 'instockWeight',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '出库时间',
-          dataIndex: 'exwarehousetime',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '复核时间',
-          dataIndex: 'futime',
+          title: '开始入库时间',
+          dataIndex: 'startInstockTime',
           width: 150,
           resizable: 'true'
         },
         {
-          title: '登记员',
-          dataIndex: 'register',
-          width: 120,
+          title: '结束入库时间',
+          dataIndex: 'endInstockTime',
+          width: 150,
           resizable: 'true'
         },
+        // {
+        //   title: '出库时间',
+        //   dataIndex: 'exwarehousetime',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '复核时间',
+        //   dataIndex: 'futime',
+        //   width: 150,
+        //   resizable: 'true'
+        // },
         // {
         //   title: '销售入库0，定向入库1',
         //   dataIndex: 'type',
@@ -445,15 +431,16 @@ export default {
           scopedSlots: { customRender: 'addTime' },
           width: 200,
           dataIndex: 'addTime'
-        },
-        {
-          key: 'action',
-          title: '操作',
-          dataIndex: 'action',
-          width: '150px',
-          fixed: 'right',
-          scopedSlots: { customRender: 'action' }
         }
+        // ,
+        // {
+        //   key: 'action',
+        //   title: '操作',
+        //   dataIndex: 'action',
+        //   width: '150px',
+        //   fixed: 'right',
+        //   scopedSlots: { customRender: 'action' }
+        // }
       ]
     }
   },

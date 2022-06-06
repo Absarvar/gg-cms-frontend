@@ -178,33 +178,57 @@ export default {
           scopedSlots: { customRender: 'serial' },
           width: 60
         },
-        {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
-        },
+        // {
+        //   title: 'id',
+        //   dataIndex: 'id',
+        //   width: 60
+        // },
         {
           title: '供应商名称',
           dataIndex: 'gname',
-          width: 120,
+          width: 180,
           resizable: 'true'
         },
         {
           title: '商品名称',
           dataIndex: 'sname',
-          width: 120,
+          width: 100,
           resizable: 'true'
         },
         {
           title: '数量',
           dataIndex: 'nmber',
-          width: 120,
+          width: 60,
+          resizable: 'true'
+        },
+        {
+          title: '单位',
+          dataIndex: 'danwei',
+          width: 60,
           resizable: 'true'
         },
         {
           title: '规格',
           dataIndex: 'specification',
-          width: 120,
+          width: 60,
+          resizable: 'true'
+        },
+        {
+          title: '销售价',
+          dataIndex: 'danjia',
+          width: 90,
+          resizable: 'true'
+        },
+        {
+          title: '预计费用',
+          dataIndex: 'feiyong',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '制单人',
+          dataIndex: 'preparedby',
+          width: 90,
           resizable: 'true'
         },
         // {
@@ -238,29 +262,17 @@ export default {
         //   resizable: 'true'
         // },
         {
-          title: '制单人',
-          dataIndex: 'preparedby',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '单位',
-          dataIndex: 'danwei',
-          width: 120,
-          resizable: 'true'
-        },
-        {
           title: '订货日期',
           scopedSlots: { customRender: 'daddtime' },
           dataIndex: 'daddtime',
-          width: 120,
+          width: 140,
           resizable: 'true'
         },
         {
           title: '回货日期',
           scopedSlots: { customRender: 'haddtime' },
           dataIndex: 'haddtime',
-          width: 120,
+          width: 140,
           resizable: 'true'
         },
         {
@@ -269,24 +281,11 @@ export default {
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '订单编号',
-          dataIndex: 'orderno',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '销售价',
-          dataIndex: 'danjia',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '预计费用',
-          dataIndex: 'feiyong',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '订单编号',
+        //   dataIndex: 'orderno',
+        //   resizable: 'true'
+        // },
 
         {
           title: '状态',
