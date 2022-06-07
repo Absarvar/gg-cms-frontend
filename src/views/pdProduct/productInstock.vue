@@ -48,30 +48,42 @@
       <!-- <div class="no-data"><a-icon type="frown-o"/>暂无数据</div> -->
       <template>
         <a-row>
-          <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 4, offset: 1 }">
+          <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
+            <a-card type="inner" title="商品名称" style="width:200px; text-align:center;">
+              <a-descriptions :title="info.animalspecies" size="small">
+              </a-descriptions>
+            </a-card>
+          </a-col>
+          <a-col :xs="{ span: 3, offset: 3 }" :lg="{ span: 2, offset: 3 }">
             <a-card type="inner" title="总数量" style="width:100px; text-align:center;">
               <a-descriptions :title="info.number" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
-          <a-col :xs="{ span: 6, offset: 1 }" :lg="{ span: 4, offset: 1 }">
+          <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
             <a-card type="inner" title="已入库" style="width:100px; text-align:center;">
               <a-descriptions :title="info.number" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
-          <a-col :xs="{ span: 9, offset: 1 }" :lg="{ span: 4, offset: 1 }">
+          <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
             <a-card type="inner" title="剩余" style="width:100px; text-align:center;">
               <a-descriptions :title="info.number" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
-          <a-col :xs="{ span: 11, offset: 1 }" :lg="{ span: 4, offset: 1 }">
+          <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
             <a-card type="inner" title="已理公斤数" style="width:200px; text-align:center;">
               <a-descriptions :title="info.number" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
+          <!-- <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
+            <a-card type="inner" title="商品名称" style="width:120px; text-align:center;">
+              <a-descriptions :title="info.animalspecies" size="small">
+              </a-descriptions>
+            </a-card>
+          </a-col> -->
           <!-- <a-col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }" :style="{height: '350px', 'background-color':'grey', 'text-align':'center'}">
             Col
           </a-col>
@@ -119,40 +131,80 @@
     </a-card> -->
 
     <a-card style="margin-top: 24px" :bordered="false" title="现场信息">
+      <a-card type="inner" title="轨道信息" style="width:300px;float:left;">
+        <a-descriptions title="价格" size="small">
+          <a-descriptions-item label="一级">
+            <a-input v-model="price" ></a-input>
+          </a-descriptions-item>
+          <!-- <a-descriptions-item label="二级">
+            <a-input :value="price" ></a-input>
+          </a-descriptions-item> -->
+        </a-descriptions>
+        <a-divider style="margin: 16px 0" />
+        <a-descriptions title="重量" size="small" :col="1">
+          <a-descriptions-item label=""><a-input v-model="weight" ></a-input></a-descriptions-item>
+        </a-descriptions>
+        <a-divider style="margin: 16px 0" />
+        <a-descriptions title="轨道编号" size="small" :col="2">
+          <a-descriptions-item label=""><a-input v-model="orbitCode" ></a-input></a-descriptions-item>
+        </a-descriptions>
+        <a-divider style="margin: 16px 0" />
+        <a-button type="primary" @click="handleAdd()">提交</a-button>
+        <a-divider style="margin: 16px 0" />
+        <a-button type="primary" @click="serialPort()">电子秤</a-button>
+        <a-divider style="margin: 16px 0" />
+        <a-button type="primary" @click="getRfid()">rfid</a-button>
+        <a-divider style="margin: 16px 0" />
 
-      <a-card type="inner" title="多层信息组" style="width:500px;">
-        <a-descriptions title="组名称" size="small">
-          <a-descriptions-item label="负责人">林东东</a-descriptions-item>
-          <a-descriptions-item label="角色码">1234567</a-descriptions-item>
-          <a-descriptions-item label="所属部门">XX公司-YY部</a-descriptions-item>
-          <a-descriptions-item label="过期时间">2018-08-08</a-descriptions-item>
-          <a-descriptions-item label="描述">这段描述很长很长很长很长很长很长很长很长很长很长很长很长很长很长...</a-descriptions-item>
-        </a-descriptions>
-        <a-divider style="margin: 16px 0" />
-        <a-descriptions title="组名称" size="small" :col="1">
-          <a-descriptions-item label="学名">	Citrullus lanatus (Thunb.) Matsum. et Nakai一年生蔓生藤本；茎、枝粗壮，具明显的棱。卷须较粗..</a-descriptions-item>
-        </a-descriptions>
-        <a-divider style="margin: 16px 0" />
-        <a-descriptions title="组名称" size="small" :col="2">
-          <a-descriptions-item label="负责人">付小小</a-descriptions-item>
-          <a-descriptions-item label="角色码">1234567</a-descriptions-item>
-        </a-descriptions>
+        <span id="userno" style="display: flex;font-size:5px;color:red">------fdddddddddd-----</span>
+        轨道信息：<span class="classp2">xxxx</span> 重量信息：
+        <div style="display: flex;justify-content: space-between;align-items:center;margin-top:5%;">
+          <div class="divButtonMax">
+            <span class="classp" style="display:inline;font-size:20px">毛重22: </span> <span class="classp2">0.0kg</span>
+          </div>
+          <div class="divButtonMax">
+            <span class="classp" style="display:inline;font-size:20px">净重: </span><span class="classp1">0.0kg</span>
+          </div>
+        </div>
       </a-card>
 
+      <a-card type="inner" title="入库日志" style="width:700px;float:right;">
+
+        <s-table
+          ref="table"
+          size="default"
+          rowKey="key"
+          :columns="columns"
+          :data="loadData"
+          :showPagination="false"
+          pageSize="100"
+          :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
+        >
+          <span slot="addTime" slot-scope="text">
+            {{ text | formateDate }}
+          </span>
+          <span slot="action" slot-scope="text, record">
+            <template>
+              <a @click="handleDelete(record)">删除</a>
+            </template>
+          </span>
+        </s-table>
+      </a-card>
     </a-card>
 
     <!-- 操作 -->
-    <a-card
+    <!-- <a-card
       style="margin-top: 24px"
       :bordered="false"
       :tabList="operationTabList"
       :activeTabKey="operationActiveTabKey"
       @tabChange="(key) => {this.operationActiveTabKey = key}"
     >
+
       <a-table
         v-if="operationActiveTabKey === '1'"
-        :columns="operationColumns"
-        :dataSource="operation1"
+        :columns="columns"
+        :data="loadData"
         :pagination="false"
       >
         <template
@@ -185,7 +237,7 @@
           <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
         </template>
       </a-table>
-    </a-card>
+    </a-card> -->
 
   </page-header-wrapper>
 </template>
@@ -196,8 +248,21 @@ import { baseMixin } from '@/store/app-mixin'
 import { getEnterApply } from '@/api/enterApply'
 import { getPageQuery } from '@/utils/util'
 import { formateDate } from '@/utils/dateUtil'
+import { pdProductList, deletePdProduct, newPdProduct } from '@/api/pdProduct'
+import { STable } from '@/components'
+
+ const Uint8ArrayToString = (fileData) => {
+    var dataString = ''
+    for (var i = 0; i < fileData.length; i++) {
+        dataString += String.fromCharCode(fileData[i])
+    }
+    return dataString
+    }
 
 export default {
+  components: {
+    STable
+  },
   name: 'ProductInstock',
   mixins: [baseMixin],
 
@@ -216,35 +281,86 @@ export default {
             this.info.addTime = formateDate(new Date(this.info.addTime), 'yyyy-MM-dd')
             this.info.arriveDate = formateDate(new Date(this.info.arriveDate), 'yyyy-MM-dd')
             // return res.data
+            // 设置产品通用属性
+            this.product.devicename = this.info.animalspecies
+            this.product.pinjie = this.info.pinjie
+            this.product.outletsid = this.info.orderid
+            this.product.status = 1
           })
     })
   },
   data () {
     return {
+      keepReading: true,
+      enterApplyId: 0,
+      orbitCode: 0,
+      weight: 0,
+      rank: 1,
+      price: 0,
+      product: { },
       info: {},
       // 查询参数
       queryParam: {},
       // 加载数据方法 必须为 Promise 对象
-      // loadData: parameter => {
-      // },
       tabList: [
-        { key: 'detail', tab: '详情' },
-        { key: 'rule', tab: '规则' }
+        { key: 'detail', tab: '详情' }
+        // { key: 'rule', tab: '规则' }
       ],
       tabActiveKey: 'detail',
+
+      // 加载数据方法 必须为 Promise 对象
+      loadData: parameter => {
+        const urlParam = getPageQuery()
+        if (urlParam.id > 0) {
+         this.queryParam.outletsid = urlParam.id
+        } else {
+          this.queryParam.outletsid = null
+        }
+        const requestParameters = Object.assign({}, parameter, this.queryParam)
+        return pdProductList(requestParameters)
+          .then(res => {
+            console.log(res)
+            return res.data
+          })
+      },
+      columns: [
+        {
+          title: '轨道编号',
+          dataIndex: 'devicecode',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '重量',
+          dataIndex: 'weight',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '价格',
+          dataIndex: 'price',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '入库时间',
+          scopedSlots: { customRender: 'addTime' },
+          width: 180,
+          dataIndex: 'addTime'
+        },
+        {
+          key: 'action',
+          title: '操作',
+          dataIndex: 'action',
+          width: '100px',
+          scopedSlots: { customRender: 'action' }
+        }
+      ],
 
       operationTabList: [
         {
           key: '1',
-          tab: '操作日志一'
-        },
-        {
-          key: '2',
-          tab: '操作日志二'
-        },
-        {
-          key: '3',
-          tab: '操作日志三'
+          tab: '入库日志'
         }
       ],
       operationActiveTabKey: '1',
@@ -276,116 +392,257 @@ export default {
           dataIndex: 'remark',
           key: 'remark'
         }
-      ],
-      operation1: [
-        {
-          key: 'op1',
-          type: '订购关系生效',
-          name: '曲丽丽',
-          status: 'agree',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '-'
-        },
-        {
-          key: 'op2',
-          type: '财务复审',
-          name: '付小小',
-          status: 'reject',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '不通过原因'
-        },
-        {
-          key: 'op3',
-          type: '部门初审',
-          name: '周毛毛',
-          status: 'agree',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '-'
-        },
-        {
-          key: 'op4',
-          type: '提交订单',
-          name: '林东东',
-          status: 'agree',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '很棒'
-        },
-        {
-          key: 'op5',
-          type: '创建订单',
-          name: '汗牙牙',
-          status: 'agree',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '-'
-        }
-      ],
-      operation2: [
-        {
-          key: 'op2',
-          type: '财务复审',
-          name: '付小小',
-          status: 'reject',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '不通过原因'
-        },
-        {
-          key: 'op3',
-          type: '部门初审',
-          name: '周毛毛',
-          status: 'agree',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '-'
-        },
-        {
-          key: 'op4',
-          type: '提交订单',
-          name: '林东东',
-          status: 'agree',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '很棒'
-        }
-      ],
-      operation3: [
-        {
-          key: 'op2',
-          type: '财务复审',
-          name: '付小小',
-          status: 'reject',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '不通过原因'
-        },
-        {
-          key: 'op3',
-          type: '部门初审',
-          name: '周毛毛',
-          status: 'agree',
-          updatedAt: '2017-10-03  19:23:12',
-          remark: '-'
-        }
       ]
     }
   },
   filters: {
-    statusFilter (status) {
-      const statusMap = {
-        'agree': '成功',
-        'reject': '驳回'
-      }
-      return statusMap[status]
-    },
-    statusTypeFilter (type) {
-      const statusTypeMap = {
-        'agree': 'success',
-        'reject': 'error'
-      }
-      return statusTypeMap[type]
+    formateDate (time) {
+      const date = new Date(time)
+      return formateDate(date, 'yyyy-MM-dd hh:mm:ss')
     }
   },
   methods: {
+      serial: async () => {
+        console.log('serial')
+      // 浏览器支持serial
+      if ('serial' in navigator) {
+          console.log('当前浏览器支持serial')
+          const port = await navigator.serial.requestPort()
+          // 设置波特率，发和收的波特率要一致
+          await port.open({ baudRate: 9600 })
+          const reader = port.readable.getReader()
+          try {
+            while (true) {
+              const { value, done } = await reader.read()
+              if (done) {
+                reader.releaseLock()
+                break
+              }
+              // 解码
+              var weight = Uint8ArrayToString(value)
+              console.log(weight)
+            }
+          } catch (error) {
+            console.error(error)
+          } finally {
+            reader.releaseLock()
+            console.log('允许稍后关闭串口。')
+            await port.close()
+          }
+      }
+  },
     handleTabChange (key) {
-      console.log('')
       this.tabActiveKey = key
-    }
+    },
+    handleDelete (record) {
+      deletePdProduct({ id: record.deviceID }).then(res => {
+        this.$refs.table.refresh()
+      })
+    },
+    handleAdd () {
+      this.product.devicecode = this.orbitCode
+      this.product.weight = this.weight
+      this.product.rank = this.rank
+      this.product.price = this.price
+      newPdProduct(this.product).then(res => {
+        this.$refs.table.refresh()
+      })
+    },
+    // 串口设备
+
+    async serialPort () {
+//       const tds = {
+//   start () {
+//     this.decoder = new TextDecoder(this.encoding, this.options)
+//   },
+//   transform (chunk, controller) {
+//     controller.enqueue(this.decoder.decode(chunk))
+//   }
+// }
+				const port = await navigator.serial.requestPort()
+				await port.open({
+					baudRate: 9600
+				}) // set baud rate
+				/* reader = port.readable.getReader(); */
+
+				const writer = port.writable.getWriter()
+
+				// set how to write to device intervally
+				setInterval(async () => {
+					const commandframe = new Uint8Array([
+						0x00,
+						0xff
+						/* ...some bytes to be sent */
+					])
+					await writer.write(commandframe)
+				}, 3000) // send a frame every 3000ms
+
+				// 流与变换。
+				const textDecoder = new TextDecoderStream()
+				const readableStreamClosed = port.readable.pipeTo(textDecoder.writable)
+				const reader = textDecoder.readable.getReader()
+				let checksum = 0
+				var all = ''
+				// 监听来自串行设备的数据。
+				var arrays = []
+
+				while (true) {
+					const {
+						value,
+						done
+					} = await reader.read()
+					if (done) {
+						reader.releaseLock()
+						break
+					}
+					const re = /(\n(?=(\n+)))+/g
+
+					var valuea = value
+					var str = value.replace(re, '')
+					// console.log("+++++",str);
+					// console.log("+++++",value);
+					if ((str !== ' ' && str !== '') && (str !== '\r' && str !== '\n') && str.length < 7) {
+						all = all + value
+						// console.log("拼接", all)
+						checksum = checksum + 0.5
+
+						if (value === 'g') {
+							var a = all.slice(2)
+							// console.log("未截取重量-",a)
+							var numArr = a.replace(/[^\d.]/g, '')
+							// console.log("截取前重量-",numArr)
+							var qqqww = numArr.substring(0, numArr.indexOf('.') + 2)
+							// console.log("截取中重量-",qqqww)
+
+							// console.log("重量-",qqqww)
+							/* $(".weight").text(qqqww); */
+							// var aaaaa = parseFloat(qqqww) + 0.5
+							qqqww += 'kg'
+							// aaaaa += 'kg'
+              this.weight = qqqww
+							// $('.classp1').text(qqqww)
+							// $('.classp2').text(aaaaa)
+
+							checksum = 0
+							arrays.push(all)
+							all = ''
+
+							/* 	console.log("shu", arrays) */
+						}
+					}
+					if (valuea != null && valuea !== undefined && valuea.length > 9) {
+						// console.log("一条", valuea)
+
+						valuea = valuea.replace(/w/g, '')
+						valuea = valuea.replace(/n/g, '')
+						valuea = valuea.replace(/\s+/g, '')
+						valuea = valuea.replace(/k/g, '')
+						valuea = valuea.replace(/g/g, '')
+
+						// console.log(">>>>>>>>>",valuea)
+            this.weight = valuea
+						// $('.classp1').text(valuea)
+						// $('.classp2').text(parseFloat(valuea) + 0.5)
+					}
+					// value 是一个 string.
+					/* 	console.log(value); */
+				}
+
+				const textEncoder = new TextEncoderStream()
+				const writableStreamClosed = textEncoder.readable.pipeTo(port.writable)
+
+				reader.cancel()
+				await readableStreamClosed.catch(() => { /* Ignore the error */ })
+
+				writer.close()
+				await writableStreamClosed
+
+				await port.close()
+			},
+    async getRfid () {
+				const port = await navigator.serial.requestPort()
+        await port.open({ baudRate: 115200 }) // set baud rate
+        // var keepReading = true
+        const reader = port.readable.getReader()
+        const writer = port.writable.getWriter()
+
+        // const tagExistCmd = new Uint8Array([0x01, 0x03, 0x60, 0x08, 0x00, 0x01, 0xC8, 0x1B])
+          const tagCmd = new Uint8Array([0x01, 0x03, 0x00, 0x00, 0x00, 0x02, 0x0B, 0xC4])
+
+        // set how to write to device intervally
+        const writeInt = setInterval(async () => {
+          const commandframe = tagCmd
+          await writer.write(commandframe)
+        }, 1000) // send a frame every 3000ms
+
+          // const textDecoder = new TextDecoderStream()
+          // const readableStreamClosed = port.readable.pipeTo(textDecoder.writable)
+          // const reader = textDecoder.readable.getReader()
+
+        while (port.readable && this.keepReading) {
+          try {
+          while (true) {
+            const { value, done } = await reader.read()
+            if (done) {
+            // Allow the serial port to be closed later.
+            reader.releaseLock()
+            // Allow the serial port to be closed later.
+            writer.releaseLock()
+            break
+            }
+            if (value === 0x01) {
+              continue
+            }
+            if (value && value.length === 8) {
+            /** * TODO: deal with the data value ***/
+            this.dealWithData(value)
+            }
+          }
+          } catch (error) {
+          // Handle non-fatal read error.
+          console.error(error)
+          } finally {
+            console.log(port.readable, this.keepReading)
+          }
+        }
+        clearInterval(writeInt)
+        await port.close()
+        console.log('port closed')
+      },
+      dealWithData (value) {
+        console.log(value)
+
+        const v1 = String.fromCharCode(value[2])
+        const v2 = String.fromCharCode(value[3])
+        const v3 = String.fromCharCode(value[4])
+        const v4 = String.fromCharCode(value[5])
+        const rfid = v1 + v2 + v3 + v4
+        console.log(rfid)
+        this.orbitCode = rfid
+        document.getElementById('rfid').innerText = (rfid)
+      // check the frame
+      function checkSum (buf) {
+        let checksum = 0
+        buf.forEach((val, idx) => {
+        if (idx > 0 && idx < 8) {
+          checksum += val
+        } else if (idx === 8) {
+          checksum = (~checksum & 0xff) + 1
+        }
+        })
+        return buf[8] === checksum
+      }
+
+        if (checkSum(value)) {
+          // parse the frame
+          console.log('checkSum done')
+
+          // record the frame
+          // receivedframe.push(frame)
+
+          // update the chart
+        }
+      }
   }
 }
 </script>
