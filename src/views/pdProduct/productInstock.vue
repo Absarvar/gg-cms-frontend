@@ -7,14 +7,12 @@
   >
     <template v-slot:content>
       <a-descriptions size="small" :column="isMobile ? 1 : 2">
-        <a-descriptions-item label="创建人">{{ info.name }}</a-descriptions-item>
+        <a-descriptions-item label="申报人">{{ info.name }}</a-descriptions-item>
         <a-descriptions-item label="车牌号">{{ info.licenseplatenumber }} </a-descriptions-item>
-        <a-descriptions-item label="创建时间">2017-07-07</a-descriptions-item>
-        <a-descriptions-item label="关联单据">
-          <a href="">12421</a>
-        </a-descriptions-item>
-        <a-descriptions-item label="生效日期">2017-07-07 ~ 2017-08-08</a-descriptions-item>
-        <a-descriptions-item label="备注">请于两个工作日内确认</a-descriptions-item>
+        <a-descriptions-item label="到达日期">{{ info.arriveDate }}</a-descriptions-item>
+        <a-descriptions-item label="司机">{{ info.driver }}</a-descriptions-item>
+        <a-descriptions-item label="申报日期">{{ info.addTime }}</a-descriptions-item>
+        <a-descriptions-item label="司机电话">{{ info.cellPhoneNumber }}</a-descriptions-item>
       </a-descriptions>
     </template>
 
@@ -32,16 +30,66 @@
       <a-row class="status-list">
         <a-col :xs="12" :sm="12">
           <div class="text">状态</div>
-          <div class="heading">待审批</div>
+          <div class="heading">
+            <template v-if="info.status === 1">
+              待入库
+            </template>
+
+          </div>
         </a-col>
         <a-col :xs="12" :sm="12">
-          <div class="text">订单金额</div>
-          <div class="heading">¥ 568.08</div>
+          <div class="text">申报数量</div>
+          <div class="heading">{{ info.number }}</div>
         </a-col>
       </a-row>
     </template>
 
-    <a-card :bordered="false" title="流程进度">
+    <a-card style="margin-top: 24px" :bordered="false">
+      <!-- <div class="no-data"><a-icon type="frown-o"/>暂无数据</div> -->
+      <template>
+        <a-row>
+          <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 4, offset: 1 }">
+            <a-card type="inner" title="总数量" style="width:100px; text-align:center;">
+              <a-descriptions :title="info.number" size="small">
+              </a-descriptions>
+            </a-card>
+          </a-col>
+          <a-col :xs="{ span: 6, offset: 1 }" :lg="{ span: 4, offset: 1 }">
+            <a-card type="inner" title="已入库" style="width:100px; text-align:center;">
+              <a-descriptions :title="info.number" size="small">
+              </a-descriptions>
+            </a-card>
+          </a-col>
+          <a-col :xs="{ span: 9, offset: 1 }" :lg="{ span: 4, offset: 1 }">
+            <a-card type="inner" title="剩余" style="width:100px; text-align:center;">
+              <a-descriptions :title="info.number" size="small">
+              </a-descriptions>
+            </a-card>
+          </a-col>
+          <a-col :xs="{ span: 11, offset: 1 }" :lg="{ span: 4, offset: 1 }">
+            <a-card type="inner" title="已理公斤数" style="width:200px; text-align:center;">
+              <a-descriptions :title="info.number" size="small">
+              </a-descriptions>
+            </a-card>
+          </a-col>
+          <!-- <a-col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }" :style="{height: '350px', 'background-color':'grey', 'text-align':'center'}">
+            Col
+          </a-col>
+          <a-col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 2 }" :style="{height: '350px', 'background-color':'grey', 'text-align':'center'}">
+            Col
+          </a-col> -->
+        </a-row>
+
+      </template>
+
+      <!-- <a-card type="inner" title="总数量" style="width:100px; text-align:center;">
+        <a-descriptions :title="info.number" size="small">
+        </a-descriptions>
+      </a-card> -->
+
+    </a-card>
+
+    <!-- <a-card :bordered="false" title="流程进度">
       <a-steps :direction="isMobile && 'vertical' || 'horizontal'" :current="1" progressDot>
         <a-step>
           <template v-slot:title>
@@ -68,7 +116,7 @@
         <a-step title="财务复核" />
         <a-step title="完成" />
       </a-steps>
-    </a-card>
+    </a-card> -->
 
     <a-card style="margin-top: 24px" :bordered="false" title="现场信息">
 
@@ -91,10 +139,6 @@
         </a-descriptions>
       </a-card>
 
-    </a-card>
-
-    <a-card style="margin-top: 24px" :bordered="false" title="用户近半年来电记录">
-      <div class="no-data"><a-icon type="frown-o"/>暂无数据</div>
     </a-card>
 
     <!-- 操作 -->
@@ -151,6 +195,7 @@ import { baseMixin } from '@/store/app-mixin'
 
 import { getEnterApply } from '@/api/enterApply'
 import { getPageQuery } from '@/utils/util'
+import { formateDate } from '@/utils/dateUtil'
 
 export default {
   name: 'ProductInstock',
@@ -166,9 +211,10 @@ export default {
         // const requestParameters = Object.assign({}, parameter, this.queryParam)
         return getEnterApply(this.queryParam)
           .then(res => {
+            console.log(res)
             this.info = res.data.enterApply
-            console.log(this.info)
-            console.log(this.info.enterApply)
+            this.info.addTime = formateDate(new Date(this.info.addTime), 'yyyy-MM-dd')
+            this.info.arriveDate = formateDate(new Date(this.info.arriveDate), 'yyyy-MM-dd')
             // return res.data
           })
     })

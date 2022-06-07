@@ -18,7 +18,7 @@
         <a-form-item label="请选择批次">
           <a-tree-select
             v-model="value"
-            style="width: 500px;"
+            :dropdownStyle="ddStyle"
             :tree-data="treeData"
             tree-checkable
             search-placeholder="请选择批次"
@@ -32,7 +32,7 @@
         </a-form-item>
         <a-form-item
           label="batchIdList"
-
+          hidden
         >
           <a-input v-decorator="['batchIdList', {}]" />
         </a-form-item>
@@ -137,7 +137,7 @@ import { formateDate } from '@/utils/dateUtil'
 import moment from 'moment'
 
 // 表单字段
-const fields = ['id', 'gname', 'sname', 'nmber', 'specification', 'orderquantity', 'purchasequantity', 'purchaseweight', 'paid', 'difference', 'addtime', 'preparedby', 'state', 'danwei', 'daddtime', 'haddtime', 'yuji', 'orderno', 'danjia', 'feiyong', 'batchIdList']
+const fields = ['id', 'gname', 'sname', 'nmber', 'specification', 'orderquantity', 'purchasequantity', 'purchaseweight', 'paid', 'difference', 'preparedby', 'state', 'danwei', 'daddtime', 'haddtime', 'yuji', 'orderno', 'danjia', 'feiyong', 'batchIdList']
 
 export default {
   props: {
@@ -166,6 +166,7 @@ export default {
       }
     }
     return {
+      ddStyle: { width: '500px', height: '600px' },
       fo: {},
       daddTimeDefault: '',
       haddTimeDefault: '',
@@ -211,6 +212,17 @@ export default {
       const price = Number(e.srcElement.value)
       const amount = number * specification * price
       this.form.setFieldsValue({ 'feiyong': amount.toFixed(2) })
+    },
+    setDefaultVal () {
+      // 设置默认值
+      const date = new Date()
+      const todayStr = formateDate(date, 'yyyy-MM-dd')
+      const dateFormat = 'YYYY-MM-DD'
+      const todayjs = moment(todayStr, dateFormat)
+      this.form.setFieldsValue({ 'daddtime': date * 1 })
+      this.form.setFieldsValue({ 'haddtime': date * 1 })
+      this.daddTimeDefault = todayjs
+      this.haddTimeDefault = todayjs
     }
   },
   watch: {
@@ -223,16 +235,6 @@ export default {
   // },
   created () {
     this.$nextTick(() => {
-      // 设置默认值
-      const date = new Date()
-      const todayStr = formateDate(date, 'yyyy-MM-dd')
-      console.log(date)
-      const dateFormat = 'YYYY-MM-DD'
-      const todayjs = moment(todayStr, dateFormat)
-      this.form.setFieldsValue({ 'daddtime': date * 1 })
-      this.form.setFieldsValue({ 'haddtime': date * 1 })
-      this.daddTimeDefault = todayjs
-      this.haddTimeDefault = todayjs
       // this.form.setFieldsValue({
       // 'haddtimeStr': todayjs })
 
@@ -274,7 +276,9 @@ export default {
     // 当 model 发生改变时，为表单设置值
     this.$watch('model', () => {
       this.model && this.form.setFieldsValue(pick(this.model, fields))
+      // 恢复默认值
       this.value = undefined
+      this.setDefaultVal()
       if (this.model !== null) {
         this.fo = this.model
         this.value = undefined
@@ -282,6 +286,19 @@ export default {
           this.form.setFieldsValue({ 'batchIdList': this.model.batchIdList.toString() })
           this.value = this.model.batchIdList.split(',')
         }
+        // 设置两个时间的展示
+        var haddDate = new Date(this.model.haddtime)
+        var daddDate = new Date(this.model.daddtime)
+        const haddDateStr = formateDate(haddDate, 'yyyy-MM-dd')
+        const daddDateStr = formateDate(daddDate, 'yyyy-MM-dd')
+        const dateFormat = 'YYYY-MM-DD'
+        const haddDateStrmm = moment(haddDateStr, dateFormat)
+        const daddDateStrmm = moment(daddDateStr, dateFormat)
+        this.daddTimeDefault = daddDateStrmm
+        this.haddTimeDefault = haddDateStrmm
+        this.model.haddtime = Date.parse(haddDate) * 1
+        this.model.daddtime = Date.parse(daddDate) * 1
+        this.form.setFieldsValue({ 'haddtime': this.model.haddtime, 'daddtime': this.model.daddtime })
       }
     })
   }

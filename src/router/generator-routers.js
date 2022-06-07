@@ -98,6 +98,10 @@ const constantRouterComponents = {
                                              SysUserList: () => import('@/views/sysUser/sysUserList'),
                                              // sysMenu
                                                SysMenuList: () => import('@/views/sysMenu/sysMenuList'),
+                                               // processDetail
+                                                 ProcessDetailList: () => import('@/views/processDetail/processDetailList'),
+                                                 // drawDetail
+                                                   DrawDetailList: () => import('@/views/drawDetail/drawDetailList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),
