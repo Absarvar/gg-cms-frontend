@@ -14,18 +14,18 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="仓库"> <a-input v-model="queryParam.depository" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="分组"> <a-input v-model="queryParam.grp" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.goodsName" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="领用原料出库量（原单位）"> <a-input v-model="queryParam.drawMtrlOri" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="领用原料出库重量"> <a-input v-model="queryParam.drawMtrlWeight" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="生产领料退回入库量（原单位）"> <a-input v-model="queryParam.returnMtrlOri" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="生产领料退回入库重量"> <a-input v-model="queryParam.returnMtrlWeightOri" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="实际领用量（原单位）"> <a-input v-model="queryParam.actDrawMtrlOri" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="实际领用重量"> <a-input v-model="queryParam.actDrawMtrlWeight" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="原料单价"> <a-input v-model="queryParam.mtrlPrice" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="原料金额"> <a-input v-model="queryParam.mtrlAmount" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="明细日期"> <a-input v-model="queryParam.effectTime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="仓库"> <a-input v-model="queryParam.depository" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="分组"> <a-input v-model="queryParam.grp" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.goodsName" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="领用原料出库量（原单位）"> <a-input v-model="queryParam.drawMtrlOri" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="领用原料出库重量"> <a-input v-model="queryParam.drawMtrlWeight" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="生产领料退回入库量（原单位）"> <a-input v-model="queryParam.returnMtrlOri" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="生产领料退回入库重量"> <a-input v-model="queryParam.returnMtrlWeightOri" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="实际领用量（原单位）"> <a-input v-model="queryParam.actDrawMtrlOri" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="实际领用重量"> <a-input v-model="queryParam.actDrawMtrlWeight" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="原料单价"> <a-input v-model="queryParam.mtrlPrice" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="原料金额"> <a-input v-model="queryParam.mtrlAmount" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="明细日期"> <a-input v-model="queryParam.effectTime" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -42,18 +42,63 @@
         </a-form>
       </div>
 
+      <template>
+
+        <!-- <div>
+          <a-descriptions
+            title="汇总信息"
+            bordered
+            :column="{ xxl: 4, xl: 4, lg: 4, md: 4, sm: 4, xs: 4 }"
+          >
+            <a-descriptions-item label="领用重量">
+              发货重量
+            </a-descriptions-item>
+            <a-descriptions-item label="损耗量">
+              损耗率
+            </a-descriptions-item>
+            <a-descriptions-item label="领用成本金额">
+              加工金额
+            </a-descriptions-item>
+            <a-descriptions-item label="加工毛利">
+              加工毛利率
+            </a-descriptions-item>
+
+            <a-descriptions-item label="?">
+              ?
+            </a-descriptions-item>
+            <a-descriptions-item label="?">
+              ?
+            </a-descriptions-item>
+            <a-descriptions-item label="?">
+              ?
+            </a-descriptions-item>
+            <a-descriptions-item label="?">
+              ?
+            </a-descriptions-item>
+          </a-descriptions>
+        </div> -->
+      </template>
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
-        <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
+
+        <a-upload
+          name="file"
+          :multiple="true"
+          :action="importUrl.url"
+          :headers="headers"
+          @change="handleChange"
+        >
+          <a-button> <a-icon type="upload" /> Click to Upload </a-button>
+        </a-upload>
+        <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
-        </a-dropdown>
+        </a-dropdown> -->
       </div>
 
       <s-table
@@ -71,9 +116,9 @@
         <span slot="serial" slot-scope="text, record, index">
           {{ index + 1 }}
         </span>
-        <span slot="status" slot-scope="text">
+        <!-- <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
-        </span>
+        </span> -->
         <span slot="addtime" slot-scope="text">
           {{ text | formateDate }}
         </span>
@@ -85,6 +130,19 @@
             <a @click="handleSub(record)">订阅报警</a> -->
           </template>
         </span>
+      </s-table>
+
+      汇总数据
+      <s-table
+        ref="table_sta"
+        size="default"
+        rowKey="key"
+        bordered
+        :columns="columns_sta"
+        :data="loadDataSta"
+        :showPagination="false"
+        :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
+      >
       </s-table>
 
       <create-form
@@ -102,21 +160,23 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newDrawDetail, editDrawDetail, drawDetailList } from '@/api/drawDetail'
+import { newDrawDetail, editDrawDetail, drawDetailList, drawDetailApi, drawDetailStatistic } from '@/api/drawDetail'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
+import storage from 'store'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
-const statusMap = {
-  0: {
-    status: 'default',
-    text: '禁用中'
-  },
-  1: {
-    status: 'processing',
-    text: '启用中'
-  }
-}
+// const statusMap = {
+//   0: {
+//     status: 'default',
+//     text: '禁用中'
+//   },
+//   1: {
+//     status: 'processing',
+//     text: '启用中'
+//   }
+// }
 
 export default {
   name: 'TableList',
@@ -127,6 +187,12 @@ export default {
   },
   data () {
     return {
+      headers: {
+        Authorization: storage.get(ACCESS_TOKEN)
+      },
+      importUrl: {
+        url: drawDetailApi.importDrawDetail
+      },
       // create model
       visible: false,
       confirmLoading: false,
@@ -138,14 +204,69 @@ export default {
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
-        console.log('loadData request parameters:', requestParameters)
         return drawDetailList(requestParameters)
           .then(res => {
             return res.data
           })
       },
+      // 加载数据方法 必须为 Promise 对象
+      loadDataSta: parameter => {
+        const requestParameters = Object.assign({}, parameter, this.queryParam)
+        return drawDetailStatistic(requestParameters)
+          .then(res => {
+            console.log(res)
+            return res.data
+          })
+      },
       selectedRowKeys: [],
       selectedRows: [],
+      columns_sta: [
+        {
+          title: '分组',
+          dataIndex: 'grp',
+          width: 60
+        },
+        {
+          title: '领用重量',
+          dataIndex: 'drawWeight',
+          width: 60
+        },
+        {
+          title: '发货重量',
+          dataIndex: 'sendWeight',
+          width: 60
+        },
+        {
+          title: '损耗量',
+          dataIndex: 'costWeight',
+          width: 60
+        },
+        {
+          title: '损耗率',
+          dataIndex: 'costRate',
+          width: 60
+        },
+        {
+          title: '领用成本金额',
+          dataIndex: 'drawAmount',
+          width: 60
+        },
+        {
+          title: '加工金额',
+          dataIndex: 'processAmount',
+          width: 60
+        },
+        {
+          title: '加工毛利',
+          dataIndex: 'processProfit',
+          width: 60
+        },
+        {
+          title: '加工毛利率',
+          dataIndex: 'processProfitRate',
+          width: 60
+        }
+      ],
       columns: [
         {
           key: 'serial',
@@ -231,12 +352,12 @@ export default {
           resizable: 'true'
         },
 
-        {
-          title: '状态',
-          scopedSlots: { customRender: 'status' },
-          width: 100,
-          dataIndex: 'status'
-        },
+        // {
+        //   title: '状态',
+        //   scopedSlots: { customRender: 'status' },
+        //   width: 100,
+        //   dataIndex: 'status'
+        // },
         {
           title: '创建时间',
           scopedSlots: { customRender: 'addtime' },
@@ -254,12 +375,12 @@ export default {
     }
   },
   filters: {
-    statusFilter (type) {
-      return statusMap[type].text
-    },
-    statusTypeFilter (type) {
-      return statusMap[type].status
-    },
+    // statusFilter (type) {
+    //   return statusMap[type].text
+    // },
+    // statusTypeFilter (type) {
+    //   return statusMap[type].status
+    // },
     formateDate (time) {
       const date = new Date(time)
       return formateDate(date, 'yyyy-MM-dd hh:mm')
@@ -277,6 +398,16 @@ export default {
     }
   },
   methods: {
+    handleChange (info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList)
+      }
+      if (info.file.status === 'done') {
+        this.$message.success(`${info.file.name} file uploaded successfully`)
+      } else if (info.file.status === 'error') {
+        this.$message.error(`${info.file.name} file upload failed.`)
+      }
+    },
     timeChange (date, dateStr) {
       this.queryParam.startTime = dateStr[0]
       this.queryParam.endTime = dateStr[1]
@@ -304,6 +435,7 @@ export default {
               form.resetFields()
               // 刷新表格
               this.$refs.table.refresh()
+              this.$refs.table_sta.refresh()
 
               this.$message.info('修改成功')
             })
