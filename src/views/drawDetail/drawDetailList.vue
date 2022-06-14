@@ -88,7 +88,7 @@
           :headers="headers"
           @change="handleChange"
         >
-          <a-button> <a-icon type="upload" /> Click to Upload </a-button>
+          <a-button> <a-icon type="upload" /> 导入 </a-button>
         </a-upload>
         <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">

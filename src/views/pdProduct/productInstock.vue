@@ -499,7 +499,7 @@ export default {
 
 					var valuea = value
 					var str = value.replace(re, '')
-					// console.log("+++++",str);
+					console.log('+++++', str)
 					// console.log("+++++",value);
 					if ((str !== ' ' && str !== '') && (str !== '\r' && str !== '\n') && str.length < 7) {
 						all = all + value
@@ -510,9 +510,9 @@ export default {
 							var a = all.slice(2)
 							// console.log("未截取重量-",a)
 							var numArr = a.replace(/[^\d.]/g, '')
-							// console.log("截取前重量-",numArr)
+							console.log('截取前重量-', numArr)
 							var qqqww = numArr.substring(0, numArr.indexOf('.') + 2)
-							// console.log("截取中重量-",qqqww)
+							console.log('截取中重量-', qqqww)
 
 							// console.log("重量-",qqqww)
 							/* $(".weight").text(qqqww); */

@@ -45,15 +45,23 @@
 
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+
+        <a-upload
+          name="file"
+          :multiple="true"
+          :action="importUrl.url"
+          :headers="headers"
+          @change="handleChange"
+        >
+          <a-button> <a-icon type="upload" /> 导入 </a-button>
+        </a-upload>
+
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
-          <a-menu slot="overlay">
-            <!-- <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item> -->
-          </a-menu>
           <a-button type="primary" @click="batchPrint">打印</a-button>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
+
         </a-dropdown>
       </div>
 
@@ -107,10 +115,12 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newSellTicket, editSellTicket, sellTicketList } from '@/api/sellTicket'
+import { newSellTicket, editSellTicket, sellTicketList, sellTicketApi } from '@/api/sellTicket'
 
 import CreateForm from './modules/CreateForm'
+import storage from 'store'
 import { formateDate } from '@/utils/dateUtil'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
 
 const statusMap = {
   '0': {
@@ -144,6 +154,12 @@ export default {
   },
   data () {
     return {
+      headers: {
+        Authorization: storage.get(ACCESS_TOKEN)
+      },
+      importUrl: {
+        url: sellTicketApi.importSellTicket
+      },
       // create model
       visible: false,
       confirmLoading: false,
@@ -278,6 +294,16 @@ export default {
     }
   },
   methods: {
+    handleChange (info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList)
+      }
+      if (info.file.status === 'done') {
+        this.$message.success(`${info.file.name} file uploaded successfully`)
+      } else if (info.file.status === 'error') {
+        this.$message.error(`${info.file.name} file upload failed.`)
+      }
+    },
     timeChange (date, dateStr) {
       this.queryParam.startTime = dateStr[0]
       this.queryParam.endTime = dateStr[1]
