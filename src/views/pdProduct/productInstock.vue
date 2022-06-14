@@ -157,13 +157,10 @@
         <a-divider style="margin: 16px 0" />
 
         <span id="userno" style="display: flex;font-size:5px;color:red">------fdddddddddd-----</span>
-        轨道信息：<span class="classp2">xxxx</span> 重量信息：
+        轨道信息：<span class="classp2">{{ this.orbitCode }}</span> 重量信息：
         <div style="display: flex;justify-content: space-between;align-items:center;margin-top:5%;">
           <div class="divButtonMax">
-            <span class="classp" style="display:inline;font-size:20px">毛重22: </span> <span class="classp2">0.0kg</span>
-          </div>
-          <div class="divButtonMax">
-            <span class="classp" style="display:inline;font-size:20px">净重: </span><span class="classp1">0.0kg</span>
+            <span class="classp" style="display:inline;font-size:20px">净重: </span><span class="classp1">{{ this.weight }}</span>
           </div>
         </div>
       </a-card>
@@ -487,7 +484,6 @@ export default {
 				// 监听来自串行设备的数据。
 				var arrays = []
 
-      console.log('serialPort loop start')
 				while (true) {
 					const {
 						value,
@@ -501,7 +497,6 @@ export default {
 
 					var valuea = value
 					var str = value.replace(re, '')
-					console.log('+++++', str)
 					// console.log("+++++",value);
 					if ((str !== ' ' && str !== '') && (str !== '\r' && str !== '\n') && str.length < 7) {
 						all = all + value
@@ -519,7 +514,7 @@ export default {
 							// console.log("重量-",qqqww)
 							/* $(".weight").text(qqqww); */
 							// var aaaaa = parseFloat(qqqww) + 0.5
-							qqqww += 'kg'
+							// qqqww += 'kg'
 							// aaaaa += 'kg'
               this.weight = qqqww
 							// $('.classp1').text(qqqww)
@@ -549,7 +544,6 @@ export default {
 					// value 是一个 string.
 					/* 	console.log(value); */
 				}
-      console.log('serialPort loop end')
 
 				const textEncoder = new TextEncoderStream()
 				const writableStreamClosed = textEncoder.readable.pipeTo(port.writable)
@@ -581,7 +575,7 @@ export default {
           // const textDecoder = new TextDecoderStream()
           // const readableStreamClosed = port.readable.pipeTo(textDecoder.writable)
           // const reader = textDecoder.readable.getReader()
-
+        console.log('rf loop start')
         while (port.readable && this.keepReading) {
           try {
           while (true) {
@@ -593,6 +587,7 @@ export default {
             writer.releaseLock()
             break
             }
+            console.log('rf value:' + value)
             if (value === 0x01) {
               continue
             }
@@ -613,7 +608,7 @@ export default {
         console.log('port closed')
       },
       dealWithData (value) {
-        console.log(value)
+        console.log('dealWithData' + value)
 
         const v1 = String.fromCharCode(value[2])
         const v2 = String.fromCharCode(value[3])
