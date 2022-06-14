@@ -459,6 +459,7 @@ export default {
 //     controller.enqueue(this.decoder.decode(chunk))
 //   }
 // }
+      console.log('serialPort start')
 				const port = await navigator.serial.requestPort()
 				await port.open({
 					baudRate: 9600
@@ -486,6 +487,7 @@ export default {
 				// 监听来自串行设备的数据。
 				var arrays = []
 
+      console.log('serialPort loop start')
 				while (true) {
 					const {
 						value,
@@ -547,6 +549,7 @@ export default {
 					// value 是一个 string.
 					/* 	console.log(value); */
 				}
+      console.log('serialPort loop end')
 
 				const textEncoder = new TextEncoderStream()
 				const writableStreamClosed = textEncoder.readable.pipeTo(port.writable)
