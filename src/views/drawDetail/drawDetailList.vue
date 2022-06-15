@@ -206,6 +206,8 @@ export default {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         return drawDetailList(requestParameters)
           .then(res => {
+            // this.loadDataSta()
+            this.$refs.table_sta.refresh()
             return res.data
           })
       },
