@@ -142,11 +142,11 @@
         </a-descriptions>
         <a-divider style="margin: 16px 0" />
         <a-descriptions title="重量" size="small" :col="1">
-          <a-descriptions-item label=""><a-input v-model="weight" ></a-input></a-descriptions-item>
+          <a-descriptions-item label=""><a-input id="weighti" v-model="weight" ></a-input></a-descriptions-item>
         </a-descriptions>
         <a-divider style="margin: 16px 0" />
         <a-descriptions title="轨道编号" size="small" :col="2">
-          <a-descriptions-item label=""><a-input v-model="orbitCode" ></a-input></a-descriptions-item>
+          <a-descriptions-item label=""><a-input id="orbitCode" v-model="orbitCode" ></a-input></a-descriptions-item>
         </a-descriptions>
         <a-divider style="margin: 16px 0" />
         <a-button type="primary" @click="handleAdd()">提交</a-button>
@@ -456,7 +456,6 @@ export default {
 //     controller.enqueue(this.decoder.decode(chunk))
 //   }
 // }
-      console.log('serialPort start')
 				const port = await navigator.serial.requestPort()
 				await port.open({
 					baudRate: 9600
@@ -507,9 +506,9 @@ export default {
 							var a = all.slice(2)
 							// console.log("未截取重量-",a)
 							var numArr = a.replace(/[^\d.]/g, '')
-							console.log('截取前重量-', numArr)
+							// console.log('截取前重量-', numArr)
 							var qqqww = numArr.substring(0, numArr.indexOf('.') + 2)
-							console.log('截取中重量-', qqqww)
+							// console.log('截取中重量-', qqqww)
 
 							// console.log("重量-",qqqww)
 							/* $(".weight").text(qqqww); */
@@ -538,8 +537,13 @@ export default {
 
 						// console.log(">>>>>>>>>",valuea)
             this.weight = valuea
+            document.getElementById('weighti').value = (valuea)
 						// $('.classp1').text(valuea)
 						// $('.classp2').text(parseFloat(valuea) + 0.5)
+
+            setTimeout(() => {
+
+            }, 100)
 					}
 					// value 是一个 string.
 					/* 	console.log(value); */
@@ -593,8 +597,13 @@ export default {
             }
             if (value && value.length === 8) {
             /** * TODO: deal with the data value ***/
-            this.dealWithData(value)
+            this.dealWithData8(value)
+            } else if (value && value.length === 9) {
+            this.dealWithData9(value)
             }
+            setTimeout(() => {
+
+            }, 500)
           }
           } catch (error) {
           // Handle non-fatal read error.
@@ -607,8 +616,8 @@ export default {
         await port.close()
         console.log('port closed')
       },
-      dealWithData (value) {
-        console.log('dealWithData' + value)
+      dealWithData8 (value) {
+        console.log('dealWithData8' + value)
 
         const v1 = String.fromCharCode(value[2])
         const v2 = String.fromCharCode(value[3])
@@ -617,29 +626,19 @@ export default {
         const rfid = v1 + v2 + v3 + v4
         console.log(rfid)
         this.orbitCode = rfid
-        document.getElementById('rfid').innerText = (rfid)
-      // check the frame
-      function checkSum (buf) {
-        let checksum = 0
-        buf.forEach((val, idx) => {
-        if (idx > 0 && idx < 8) {
-          checksum += val
-        } else if (idx === 8) {
-          checksum = (~checksum & 0xff) + 1
-        }
-        })
-        return buf[8] === checksum
-      }
+        document.getElementById('orbitCode').value = (rfid)
+      },
+      dealWithData9 (value) {
+        console.log('dealWithData9' + value)
 
-        if (checkSum(value)) {
-          // parse the frame
-          console.log('checkSum done')
-
-          // record the frame
-          // receivedframe.push(frame)
-
-          // update the chart
-        }
+        const v1 = String.fromCharCode(value[3])
+        const v2 = String.fromCharCode(value[4])
+        const v3 = String.fromCharCode(value[5])
+        const v4 = String.fromCharCode(value[6])
+        const rfid = v1 + v2 + v3 + v4
+        console.log(rfid)
+        this.orbitCode = rfid
+        document.getElementById('orbitCode').value = (rfid)
       }
   }
 }
