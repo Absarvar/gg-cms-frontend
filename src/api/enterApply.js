@@ -1,13 +1,14 @@
 import request from '@/utils/request'
 import { GG_URL_PREFIX } from '@/config/common.config'
 
-const enterApplyApi = {
+export const enterApplyApi = {
   newEnterApply: GG_URL_PREFIX + '/enterApply/newEnterApply',
   enterApplyList: GG_URL_PREFIX + '/enterApply/list',
   getEnterApply: GG_URL_PREFIX + '/enterApply/get',
   deleteEnterApply: GG_URL_PREFIX + '/enterApply/delete',
   editEnterApply: GG_URL_PREFIX + '/enterApply/edit',
-  enterApplyListTree: GG_URL_PREFIX + '/enterApply/listTree'
+  enterApplyListTree: GG_URL_PREFIX + '/enterApply/listTree',
+  importEnterApply: GG_URL_PREFIX + '/enterApply/import'
 }
 
 export function newEnterApply (parameter) {

@@ -118,9 +118,9 @@ import { STable, Ellipsis } from '@/components'
 import { newSellTicket, editSellTicket, sellTicketList, sellTicketApi } from '@/api/sellTicket'
 
 import CreateForm from './modules/CreateForm'
-import storage from 'store'
 import { formateDate } from '@/utils/dateUtil'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
+import storage from 'store'
 
 const statusMap = {
   '0': {

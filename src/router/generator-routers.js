@@ -102,6 +102,8 @@ const constantRouterComponents = {
                                                  ProcessDetailList: () => import('@/views/processDetail/processDetailList'),
                                                  // drawDetail
                                                    DrawDetailList: () => import('@/views/drawDetail/drawDetailList'),
+                                                   // flowInfo
+                                                     FlowInfoList: () => import('@/views/flowInfo/flowInfoList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

@@ -70,6 +70,15 @@
 
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        <a-upload
+          name="file"
+          :multiple="true"
+          :action="importUrl.url"
+          :headers="headers"
+          @change="handleChange"
+        >
+          <a-button> <a-icon type="upload" /> 导入 </a-button>
+        </a-upload>
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
@@ -146,11 +155,13 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newEnterApply, editEnterApply, enterApplyList } from '@/api/enterApply'
+import { newEnterApply, editEnterApply, enterApplyList, enterApplyApi } from '@/api/enterApply'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
 import { getPageQuery } from '@/utils/util'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
+import storage from 'store'
 
 const statusMap = {
   0: {
@@ -176,6 +187,12 @@ export default {
   },
   data () {
     return {
+      headers: {
+        Authorization: storage.get(ACCESS_TOKEN)
+      },
+      importUrl: {
+        url: enterApplyApi.importEnterApply
+      },
       // create model
       visible: false,
       confirmLoading: false,
@@ -481,6 +498,16 @@ export default {
     }
   },
   methods: {
+    handleChange (info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList)
+      }
+      if (info.file.status === 'done') {
+        this.$message.success(`${info.file.name} file uploaded successfully`)
+      } else if (info.file.status === 'error') {
+        this.$message.error(`${info.file.name} file upload failed.`)
+      }
+    },
     timeChange (date, dateStr) {
       this.queryParam.startTime = dateStr[0]
       this.queryParam.endTime = dateStr[1]
