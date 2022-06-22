@@ -21,8 +21,9 @@
     -->
     <template v-slot:menuHeaderRender>
       <div>
-        <logo-svg />
-        <h1>{{ title }}</h1>
+        <!-- <logo-svg /> -->
+        <img src="http://cdn.ggmstc.com/common/logo.png" class="logo" alt="logo">
+        <h1>供广市场管理系统</h1>
       </div>
     </template>
     <!-- 1.0.0+ 版本 pro-layout 提供 API,
@@ -31,7 +32,7 @@
     <template v-slot:headerContentRender>
       <div>
         <a-tooltip title="刷新页面">
-          <a-icon type="reload" style="font-size: 18px;cursor: pointer;" @click="() => { $message.info('只是一个DEMO') }" />
+          <a-icon type="reload" style="font-size: 18px;cursor: pointer;" @click="() => { $message.info('敬请期待') }" />
         </a-tooltip>
       </div>
     </template>

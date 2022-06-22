@@ -104,6 +104,14 @@ const constantRouterComponents = {
                                                    DrawDetailList: () => import('@/views/drawDetail/drawDetailList'),
                                                    // flowInfo
                                                      FlowInfoList: () => import('@/views/flowInfo/flowInfoList'),
+                                                     // entryApply
+                                                       EntryApplyList: () => import('@/views/entryApply/entryApplyList'),
+                                                       // butcherEnt
+                                                       ButcherEntList: () => import('@/views/butcherEnt/butcherEntList'),
+                                                       // mkOrder
+                                                         MkOrderList: () => import('@/views/mkOrder/mkOrderList'),
+                                                         // farmEnt
+                                                           FarmEntList: () => import('@/views/farmEnt/farmEntList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),
