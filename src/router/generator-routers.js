@@ -65,24 +65,40 @@ const constantRouterComponents = {
                                     AnnouncementList: () => import('@/views/announcement/announcementList'),
                                     // agreement
                                       AgreementList: () => import('@/views/agreement/agreementList'),
-                                           // sysUser
-                                             SysUserList: () => import('@/views/sysUser/sysUserList'),
-                                             // sysMenu
-                                               SysMenuList: () => import('@/views/sysMenu/sysMenuList'),
-                                               // processDetail
-                                                 ProcessDetailList: () => import('@/views/processDetail/processDetailList'),
-                                                 // drawDetail
-                                                   DrawDetailList: () => import('@/views/drawDetail/drawDetailList'),
-                                                   // flowInfo
-                                                     FlowInfoList: () => import('@/views/flowInfo/flowInfoList'),
-                                                     // entryApply
-                                                       EntryApplyList: () => import('@/views/entryApply/entryApplyList'),
-                                                       // butcherEnt
-                                                       ButcherEntList: () => import('@/views/butcherEnt/butcherEntList'),
-                                                       // mkOrder
-                                                         MkOrderList: () => import('@/views/mkOrder/mkOrderList'),
-                                                         // farmEnt
-                                                           FarmEntList: () => import('@/views/farmEnt/farmEntList'),
+  // sysUser
+    SysUserList: () => import('@/views/sysUser/sysUserList'),
+    // sysMenu
+      SysMenuList: () => import('@/views/sysMenu/sysMenuList'),
+      // processDetail
+        ProcessDetailList: () => import('@/views/processDetail/processDetailList'),
+        // drawDetail
+          DrawDetailList: () => import('@/views/drawDetail/drawDetailList'),
+          // flowInfo
+            FlowInfoList: () => import('@/views/flowInfo/flowInfoList'),
+            // entryApply
+              EntryApplyList: () => import('@/views/entryApply/entryApplyList'),
+              // butcherEnt
+              ButcherEntList: () => import('@/views/butcherEnt/butcherEntList'),
+              // mkOrder
+                MkOrderList: () => import('@/views/mkOrder/mkOrderList'),
+                // farmEnt
+                  FarmEntList: () => import('@/views/farmEnt/farmEntList'),
+                  // product
+                    ProductList: () => import('@/views/product/productList'),
+                    // goods
+                      GoodsList: () => import('@/views/goods/goodsList'),
+                      // category
+                        CategoryList: () => import('@/views/category/categoryList'),
+                        // preorder
+                          PreorderList: () => import('@/views/preorder/preorderList'),
+                          // sku
+                          SkuList: () => import('@/views/sku/skuList'),
+                          // purchase
+                            PurchaseList: () => import('@/views/purchase/purchaseList'),
+                            // sellTicket
+                              SellTicketList: () => import('@/views/sellTicket/sellTicketList'),
+                              // member
+                                MemberList: () => import('@/views/member/memberList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),
