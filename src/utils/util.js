@@ -1,3 +1,5 @@
+import { parse } from 'querystring'
+
 export function timeFix () {
   const time = new Date()
   const hour = time.getHours()
@@ -93,3 +95,4 @@ export function scorePassword (pass) {
 
   return parseInt(score)
 }
+export const getPageQuery = () => parse(window.location.href.split('?')[1])

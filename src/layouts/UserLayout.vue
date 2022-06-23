@@ -9,12 +9,12 @@
         <div class="top">
           <div class="header">
             <a href="/">
-              <img src="~@/assets/logo.svg" class="logo" alt="logo">
-              <span class="title">Ant Design</span>
+              <img src="http://cdn.ggmstc.com/common/logo.png" class="logo" alt="logo">
+              <span class="title">供广深圳肉类智能交易市场管理系统</span>
             </a>
           </div>
           <div class="desc">
-            {{ $t('layouts.userLayout.title') }}
+            供广深圳肉类智能交易市场
           </div>
         </div>
 
@@ -27,7 +27,7 @@
             <a href="_self">条款</a>
           </div>
           <div class="copyright">
-            Copyright &copy; 2018 vueComponent
+            Copyright &copy; 2022 供广深圳肉类智能交易市场管理系统
           </div>
         </div>
       </div>
