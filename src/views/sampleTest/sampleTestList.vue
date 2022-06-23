@@ -12,19 +12,34 @@
                 </a-select>
               </a-form-item>
             </a-col>
-              <a-col :md="8" :sm="24">
-                <a-form-item label="创建日期">
-                  <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入创建日期"/>
-                </a-form-item>
-              </a-col>
+            <a-col :md="8" :sm="24">
+              <a-form-item label="创建日期">
+                <a-date-picker v-model="queryParam.date" style="width: 100%" placeholder="请输入创建日期"/>
+              </a-form-item>
+            </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="入场申报ID"> <a-input v-model="queryParam.enterApplyId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="样品编号"> <a-input v-model="queryParam.sampleCode" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="样品种类"> <a-input v-model="queryParam.sampleType" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="样品种类"> <a-input v-model="queryParam.collector" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="样品种类"> <a-input v-model="queryParam.tester" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="样品种类"> <a-input v-model="queryParam.reportPic" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="样品种类"> <a-input v-model="queryParam.collectorTime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="进场批次"> <a-input v-model="queryParam.mobilizationbatch" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="检疫证号相关"> <a-input v-model="queryParam.ids" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品名称相关"> <a-input v-model="queryParam.tradename" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="供应商名称相关 商品名称可拿到此字段可不用"> <a-input v-model="queryParam.suppliername" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="气味"> <a-input v-model="queryParam.sensoryindexq" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="色泽"> <a-input v-model="queryParam.sensoryindexs" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="弹性"> <a-input v-model="queryParam.sensoryindext" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="水分"> <a-input v-model="queryParam.chemicaindexes" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="挥发性盐基氮"> <a-input v-model="queryParam.chemicaindexesdy" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="病害肉特征物"> <a-input v-model="queryParam.microorganism" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="四环素"> <a-input v-model="queryParam.coliformgroup" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="非洲猪瘟"> <a-input v-model="queryParam.nfectiousdisease" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="盐酸克伦特罗"> <a-input v-model="queryParam.clenbuterol" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="沙丁胺醇"> <a-input v-model="queryParam.clenbuterold" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="莱多克巴安"> <a-input v-model="queryParam.clenbuterolk" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="磺胺类"> <a-input v-model="queryParam.drugresidues" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="氯霉素"> <a-input v-model="queryParam.drugresiduesl" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="ID"> <a-input v-model="queryParam.drugresiduesf" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="氟喹诺酮类"> <a-input v-model="queryParam.drugresiduesn" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="ID"> <a-input v-model="queryParam.drugresiduesy" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="检测结果"> <a-input v-model="queryParam.detectionresult" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="检测时间"> <a-input v-model="queryParam.testTime" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -43,6 +58,7 @@
 
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
@@ -64,13 +80,12 @@
         :alert="true"
         :rowSelection="rowSelection"
         showPagination="auto"
+        :scroll="{ x: 2000, y: 600 }"
         :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
       >
         <span slot="serial" slot-scope="text, record, index">
           {{ index + 1 }}
-        </span>
-        <span slot="status" slot-scope="text">
-          <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
+
         </span>
         <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
@@ -88,13 +103,26 @@
       <create-form
         ref="createModal"
         :visible="visible"
+        :isPrint="isPrint"
+        :loading="confirmLoading"
+        :model="mdl"
+        @cancel="handleCancel"
+        @ok="handleOk"
+      />
+
+      <create-form-print
+        ref="createModalPrint"
+        :visible="isPrint"
+        :isPrint="isPrint"
         :loading="confirmLoading"
         :model="mdl"
         @cancel="handleCancel"
         @ok="handleOk"
       />
     </a-card>
+
   </page-header-wrapper>
+
 </template>
 
 <script>
@@ -103,30 +131,22 @@ import { STable, Ellipsis } from '@/components'
 import { newSampleTest, editSampleTest, sampleTestList } from '@/api/sampleTest'
 
 import CreateForm from './modules/CreateForm'
+import CreateFormPrint from './modules/CreateFormPrint'
 import { formateDate } from '@/utils/dateUtil'
-
-const statusMap = {
-  0: {
-    status: 'default',
-    text: '禁用中'
-  },
-  1: {
-    status: 'processing',
-    text: '启用中'
-  }
-}
 
 export default {
   name: 'TableList',
   components: {
     STable,
     Ellipsis,
-    CreateForm
+    CreateForm,
+    CreateFormPrint
   },
   data () {
     return {
       // create model
       visible: false,
+      isPrint: false,
       confirmLoading: false,
       mdl: null,
       // 高级搜索 展开/关闭
@@ -157,77 +177,144 @@ export default {
           width: 60
         },
         {
-          title: '入场申报ID',
-          dataIndex: 'enterApplyId',
+          title: '进场批次号',
+          dataIndex: 'pinjie',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '样品编号',
-          dataIndex: 'sampleCode',
+          title: '检疫证号',
+          dataIndex: 'certificateno',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '商品名称相关',
+          dataIndex: 'tradename',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '样品种类',
-          dataIndex: 'sampleType',
+          title: '气味',
+          dataIndex: 'sensoryindexq',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '样品种类',
-          dataIndex: 'collector',
+          title: '色泽',
+          dataIndex: 'sensoryindexs',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '样品种类',
-          dataIndex: 'tester',
+          title: '弹性',
+          dataIndex: 'sensoryindext',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '样品种类',
-          dataIndex: 'reportPic',
+          title: '水分',
+          dataIndex: 'chemicaindexes',
           width: 100,
           resizable: 'true'
         },
         {
-          title: '样品种类',
-          dataIndex: 'collectorTime',
+          title: '挥发性盐基氮',
+          dataIndex: 'chemicaindexesdy',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '病害肉特征物',
+          dataIndex: 'microorganism',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '四环素',
+          dataIndex: 'coliformgroup',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '非洲猪瘟',
+          dataIndex: 'nfectiousdisease',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '盐酸克伦特罗',
+          dataIndex: 'clenbuterol',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '沙丁胺醇',
+          dataIndex: 'clenbuterold',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '莱多克巴安',
+          dataIndex: 'clenbuterolk',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '磺胺类',
+          dataIndex: 'drugresidues',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '氯霉素',
+          dataIndex: 'drugresiduesl',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: 'ID',
+          dataIndex: 'drugresiduesf',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '氟喹诺酮类',
+          dataIndex: 'drugresiduesn',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: 'ID',
+          dataIndex: 'drugresiduesy',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '检测结果',
+          dataIndex: 'detectionresult',
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '检测时间',
+          dataIndex: 'testTime',
           width: 100,
           resizable: 'true'
         },
 
         {
-          title: '状态',
-          scopedSlots: { customRender: 'status' },
-          width: 100,
-          dataIndex: 'status'
-        },
-        {
-          title: '创建时间',
-          scopedSlots: { customRender: 'createTime' },
-          width: 200,
-          dataIndex: 'createTime'
-        },
-        {
           key: 'action',
           title: '操作',
           dataIndex: 'action',
           width: '150px',
+          fixed: 'right',
           scopedSlots: { customRender: 'action' }
         }
       ]
     }
   },
   filters: {
-    statusFilter (type) {
-      return statusMap[type].text
-    },
-    statusTypeFilter (type) {
-      return statusMap[type].status
-    },
     formateDate (time) {
       const date = new Date(time)
       return formateDate(date, 'yyyy-MM-dd hh:mm')
@@ -248,21 +335,25 @@ export default {
     handleAdd () {
       this.mdl = null
       this.visible = true
+      this.isPrint = false
     },
     handleEdit (record) {
-      this.visible = true
+      this.visible = false
+      this.isPrint = true
       this.mdl = { ...record }
     },
     handleOk () {
       const form = this.$refs.createModal.form
       this.confirmLoading = true
       form.validateFields((errors, values) => {
+        console.log(values)
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
             editSampleTest(values)
             .then(res => {
               this.visible = false
+              this.isPrint = false
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
@@ -276,6 +367,7 @@ export default {
             newSampleTest(values)
             .then(res => {
               this.visible = false
+              this.isPrint = false
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
@@ -292,6 +384,7 @@ export default {
     },
     handleCancel () {
       this.visible = false
+      this.isPrint = false
 
       const form = this.$refs.createModal.form
       form.resetFields() // 清理表单数据（可不做）

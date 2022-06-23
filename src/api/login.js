@@ -11,7 +11,7 @@ const userApi = {
   SendSmsErr: '/account/sms_err',
   // get my info
   UserInfo: '/user/info',
-  UserMenu: '/user/nav'
+  UserMenu: GG_URL_PREFIX + '/user/getMenu'
 }
 
 /**

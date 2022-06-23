@@ -1,1 +1,1 @@
-export const GG_URL_PREFIX = 'http://192.168.2.181:8080'
+export const GG_URL_PREFIX = 'http://10.88.9.184:8080/cms-api'

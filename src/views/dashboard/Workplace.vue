@@ -7,9 +7,9 @@
         </div>
         <div class="content">
           <div class="content-title">
-            {{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome }}</span>
+            {{ timeFix }}，{{ user.name }}<span class="welcome-text"></span>
           </div>
-          <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
+          <!-- <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div> -->
         </div>
       </div>
     </template>
@@ -40,7 +40,7 @@
           >
             <a slot="extra">全部项目</a>
             <div>
-              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in projects">
+              <!-- <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in projects">
                 <a-card :bordered="false" :body-style="{ padding: 0 }">
                   <a-card-meta>
                     <div slot="title" class="card-title">
@@ -56,13 +56,13 @@
                     <span class="datetime">9小时前</span>
                   </div>
                 </a-card>
-              </a-card-grid>
+              </a-card-grid> -->
             </div>
           </a-card>
 
           <a-card :loading="loading" title="动态" :bordered="false">
             <a-list>
-              <a-list-item :key="index" v-for="(item, index) in activities">
+              <!-- <a-list-item :key="index" v-for="(item, index) in activities">
                 <a-list-item-meta>
                   <a-avatar slot="avatar" size="small" :src="item.user.avatar" />
                   <div slot="title">
@@ -74,7 +74,7 @@
                   </div>
                   <div slot="description">{{ item.time }}</div>
                 </a-list-item-meta>
-              </a-list-item>
+              </a-list-item> -->
             </a-list>
           </a-card>
         </a-col>
@@ -115,14 +115,14 @@
           </a-card>
           <a-card :loading="loading" title="团队" :bordered="false">
             <div class="members">
-              <a-row>
+              <!-- <a-row>
                 <a-col :span="12" v-for="(item, index) in teams" :key="index">
                   <a>
                     <a-avatar size="small" :src="item.avatar" />
                     <span class="member">{{ item.name }}</span>
                   </a>
                 </a-col>
-              </a-row>
+              </a-row> -->
             </div>
           </a-card>
         </a-col>

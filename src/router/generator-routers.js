@@ -2,6 +2,7 @@
 import * as loginService from '@/api/login'
 // eslint-disable-next-line
 import { BasicLayout, BlankLayout, PageView, RouteView } from '@/layouts'
+import { builder } from '../mock/util'
 
 // 前端路由表
 const constantRouterComponents = {
@@ -17,33 +18,71 @@ const constantRouterComponents = {
 
   // 你需要动态引入的页面组件
   Workplace: () => import('@/views/dashboard/Workplace'),
-  Analysis: () => import('@/views/dashboard/Analysis'),
+  Analysis: () => import('@/views/dashboard/Analysis2'),
 
   // article
-  ArticleList: () => import('@/views/article/basicArticle/list'),
-  ArticleIndex: () => import('@/views/article/basicArticle/index'),
+  // ArticleList: () => import('@/views/article/basicArticle/list'),
+  // ArticleIndex: () => import('@/views/article/basicArticle/index'),
   StandardArticle: () => import('@/views/article/BasicArticle'),
 
   // member
-  MemberList: () => import('@/views/member/memberList'),
-  // goods
-  GoodsList: () => import('@/views/goods/goodsList'),
-  // stream
-  StreamList: () => import('@/views/stream/streamList'),
-  // preorder
-  PreorderList: () => import('@/views/preorder/preorderList'),
-  // product
-  ProductList: () => import('@/views/product/productList'),
+//   MemberList: () => import('@/views/member/memberList'),
+//   // goods
+//   GoodsList: () => import('@/views/goods/goodsList'),
+//   // stream
+//   StreamList: () => import('@/views/stream/streamList'),
+//   // preorder
+//   // PreorderList: () => import('@/views/preorder/preorderList'),
+//   // product
+//   ProductList: () => import('@/views/product/productList'),
+//   // purchase
+//   PurchaseList: () => import('@/views/purchase/purchaseList'),
+//   // sampleTest
+//   // SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
+// // flow
+//   FlowList: () => import('@/views/flow/flowList'),
   // enterApply
-  EnterApplyList: () => import('@/views/enterApply/enterApplyList'),
-  // purchase
-  PurchaseList: () => import('@/views/purchase/purchaseList'),
-  // sampleTest
-  SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
-// flow
-  FlowList: () => import('@/views/flow/flowList'),
-  // order
-  OrderList: () => import('@/views/order/orderList'),
+  // EnterApplyList: () => import('@/views/enterApply/enterApplyList?status=0&statusok=0'),
+  // EnterRegList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=0'),
+  // EnterRecheckList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=1'),
+  // PrepareInstockList: () => import('@/views/enterApply/enterApplyList?status=2&statusok=1'),
+
+      // sampleTest
+        SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
+              // comSource
+                ComSourceList: () => import('@/views/comSource/comSourceList'),
+                // comClient
+                  ComClientList: () => import('@/views/comClient/comClientList'),
+                  // priceSource
+                    PriceSourceList: () => import('@/views/priceSource/priceSourceList'),
+                        // flowDirection
+                          FlowDirectionList: () => import('@/views/flowDirection/flowDirectionList'),
+                          // harmlessfy
+                            HarmlessfyList: () => import('@/views/harmlessfy/harmlessfyList'),
+                            // priceGG
+                              PriceGGList: () => import('@/views/priceGG/priceGGList'),
+                                  // announcement
+                                    AnnouncementList: () => import('@/views/announcement/announcementList'),
+                                    // agreement
+                                      AgreementList: () => import('@/views/agreement/agreementList'),
+                                           // sysUser
+                                             SysUserList: () => import('@/views/sysUser/sysUserList'),
+                                             // sysMenu
+                                               SysMenuList: () => import('@/views/sysMenu/sysMenuList'),
+                                               // processDetail
+                                                 ProcessDetailList: () => import('@/views/processDetail/processDetailList'),
+                                                 // drawDetail
+                                                   DrawDetailList: () => import('@/views/drawDetail/drawDetailList'),
+                                                   // flowInfo
+                                                     FlowInfoList: () => import('@/views/flowInfo/flowInfoList'),
+                                                     // entryApply
+                                                       EntryApplyList: () => import('@/views/entryApply/entryApplyList'),
+                                                       // butcherEnt
+                                                       ButcherEntList: () => import('@/views/butcherEnt/butcherEntList'),
+                                                       // mkOrder
+                                                         MkOrderList: () => import('@/views/mkOrder/mkOrderList'),
+                                                         // farmEnt
+                                                           FarmEntList: () => import('@/views/farmEnt/farmEntList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),
@@ -112,18 +151,21 @@ export const generatorDynamicRouter = token => {
     loginService
       .getCurrentUserNav(token)
       .then(res => {
-        console.log('generatorDynamicRouter response:', res)
-        const { result } = res
+        // console.log('generatorDynamicRouter response:', res.data)
+        var jsonObj = JSON.parse(res.data)
+        const json = builder(jsonObj)
+        const { result } = json
+        // console.log('result', result)
         const menuNav = []
         const childrenNav = []
         //      后端数据, 根级树数组,  根级 PID
         listToTree(result, childrenNav, 0)
         rootRouter.children = childrenNav
         menuNav.push(rootRouter)
-        console.log('menuNav', menuNav)
+        // console.log('menuNav', menuNav)
         const routers = generator(menuNav)
         routers.push(notFoundRouter)
-        console.log('routers', routers)
+        // console.log('routers', routers)
         resolve(routers)
       })
       .catch(err => {

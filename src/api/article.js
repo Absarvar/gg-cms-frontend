@@ -20,7 +20,7 @@ export function newArticle (parameter) {
   })
 }
 
-export function articleList2 (parameter) {
+export function articleList (parameter) {
   console.log(parameter)
   return request({
     url: articleApi.articleList,

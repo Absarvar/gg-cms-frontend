@@ -2,7 +2,7 @@
   <div>
     <a-row :gutter="24">
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
-        <chart-card :loading="loading" :title="$t('dashboard.analysis.total-sales')" total="￥126,560">
+        <chart-card :loading="loading" :title="$t('dashboard.analysis.total-sales')" total="￥2,126,560">
           <a-tooltip :title="$t('dashboard.analysis.introduce')" slot="action">
             <a-icon type="info-circle-o" />
           </a-tooltip>
@@ -16,7 +16,7 @@
               11%
             </trend>
           </div>
-          <template slot="footer">{{ $t('dashboard.analysis.day-sales') }}<span>￥ 234.56</span></template>
+          <template slot="footer">{{ $t('dashboard.analysis.day-sales') }}<span>￥ 134,358.56</span></template>
         </chart-card>
       </a-col>
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
@@ -167,7 +167,7 @@
           <a-card class="antd-pro-pages-dashboard-analysis-salesCard" :loading="loading" :bordered="false" :title="$t('dashboard.analysis.the-proportion-of-sales')" :style="{ height: '100%' }">
             <div slot="extra" style="height: inherit;">
               <!-- style="bottom: 12px;display: inline-block;" -->
-              <span class="dashboard-analysis-iconGroup">
+              <!-- <span class="dashboard-analysis-iconGroup">
                 <a-dropdown :trigger="['click']" placement="bottomLeft">
                   <a-icon type="ellipsis" class="ant-dropdown-link" />
                   <a-menu slot="overlay">
@@ -186,10 +186,10 @@
                   <a-radio-button value="b">{{ $t('dashboard.analysis.channel.online') }}</a-radio-button>
                   <a-radio-button value="c">{{ $t('dashboard.analysis.channel.stores') }}</a-radio-button>
                 </a-radio-group>
-              </div>
+              </div> -->
 
             </div>
-            <h4>{{ $t('dashboard.analysis.sales') }}</h4>
+            <h4>{{ $t('dashboard.analysis.flow') }}</h4>
             <div>
               <!-- style="width: calc(100% - 240px);" -->
               <div>
@@ -242,8 +242,8 @@ for (let i = 0; i < 12; i += 1) {
 const rankList = []
 for (let i = 0; i < 7; i++) {
   rankList.push({
-    name: '白鹭岛 ' + (i + 1) + ' 号店',
-    total: 1234.56 - i * 100
+    name: '' + (i + 1) + ' 号商户',
+    total: 12648 - i * 1003
   })
 }
 
@@ -280,12 +280,12 @@ for (let i = 0; i < 50; i += 1) {
 const DataSet = require('@antv/data-set')
 
 const sourceData = [
-  { item: '家用电器', count: 32.2 },
-  { item: '食用酒水', count: 21 },
-  { item: '个护健康', count: 17 },
-  { item: '服饰箱包', count: 13 },
-  { item: '母婴产品', count: 9 },
-  { item: '其他', count: 7.8 }
+  { item: '龙岗区', count: 32.2 },
+  { item: '罗湖区', count: 21 },
+  { item: '福田区', count: 17 },
+  { item: '龙华区', count: 13 },
+  { item: '南山区', count: 9 },
+  { item: '宝安区', count: 7.8 }
 ]
 
 const pieScale = [{
