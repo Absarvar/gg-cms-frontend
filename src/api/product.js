@@ -41,9 +41,10 @@ export function getProduct (parameter) {
   })
 }
 
-export function deleteProduct () {
+export function deleteProduct (parameter) {
   return request({
     url: productApi.deleteProduct,
-    method: 'get'
+    method: 'post',
+    params: parameter
   })
 }

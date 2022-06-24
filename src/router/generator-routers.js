@@ -45,7 +45,7 @@ const constantRouterComponents = {
   // EnterApplyList: () => import('@/views/enterApply/enterApplyList?status=0&statusok=0'),
   // EnterRegList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=0'),
   // EnterRecheckList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=1'),
-  // PrepareInstockList: () => import('@/views/enterApply/enterApplyList?status=2&statusok=1'),
+  PrepareInstockList: () => import('@/views/entryApply/entryApplyList'),
 
       // sampleTest
         SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
@@ -99,6 +99,16 @@ const constantRouterComponents = {
                               SellTicketList: () => import('@/views/sellTicket/sellTicketList'),
                               // member
                                 MemberList: () => import('@/views/member/memberList'),
+                                // productInstock
+                                ProductInstock: () => import('@/views/product/productInstock'),
+                                // outStock
+                                  OutStockList: () => import('@/views/mkOrder/mkOrderList'),
+                                  // orderOutStock
+                                  OrderOutStock: () => import('@/views/mkOrder/mkOrderList'),
+                                  // hotMeatInstock
+                                  HotMeatInstock: () => import('@/views/entryApply/entryApplyList'),
+                                  // GsBillList
+                                  GsBillList: () => import('@/views/mkOrder/mkOrderList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

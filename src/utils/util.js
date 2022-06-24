@@ -1,5 +1,10 @@
 import { parse } from 'querystring'
 
+import storage from 'store'
+import { ACCESS_TOKEN } from '@/store/mutation-types'
+
+import { GG_URL_PREFIX } from '@/config/common.config'
+
 export function timeFix () {
   const time = new Date()
   const hour = time.getHours()
@@ -7,7 +12,7 @@ export function timeFix () {
 }
 
 export function welcome () {
-  const arr = ['休息一会儿吧', '准备吃什么呢?', '要不要打一把 DOTA', '我猜你可能累了']
+  const arr = ['welcome', '?', '', '']
   const index = Math.floor(Math.random() * arr.length)
   return arr[index]
 }
@@ -96,3 +101,22 @@ export function scorePassword (pass) {
   return parseInt(score)
 }
 export const getPageQuery = () => parse(window.location.href.split('?')[1])
+
+export const uploadHeaders = {
+  Authorization: storage.get(ACCESS_TOKEN)
+}
+export const uploadUrl = {
+  common: GG_URL_PREFIX + '/upload/common',
+  ticket: GG_URL_PREFIX + '/upload/ticket'
+}
+
+export function handleUploadInfo (info) {
+  if (info.file.status !== 'uploading') {
+    console.log(info.file, info.fileList)
+  }
+  if (info.file.status === 'done') {
+    this.$message.success(`${info.file.name} file uploaded successfully`)
+  } else if (info.file.status === 'error') {
+    this.$message.error(`${info.file.name} file upload failed.`)
+  }
+}

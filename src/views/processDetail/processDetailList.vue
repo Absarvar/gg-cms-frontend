@@ -83,7 +83,7 @@
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
-        <span slot="addtime" slot-scope="text">
+        <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
         </span>
 
@@ -251,9 +251,9 @@ export default {
         },
         {
           title: '创建时间',
-          scopedSlots: { customRender: 'addtime' },
+          scopedSlots: { customRender: 'createTime' },
           width: 200,
-          dataIndex: 'addtime'
+          dataIndex: 'createTime'
         },
         {
           key: 'action',

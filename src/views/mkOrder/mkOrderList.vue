@@ -114,6 +114,7 @@ import { newMkOrder, editMkOrder, mkOrderList } from '@/api/mkOrder'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
+import { getPageQuery } from '@/utils/util'
 
 const statusMap = {
   0: {
@@ -149,6 +150,12 @@ export default {
       queryParam: {},
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
+        const urlParam = getPageQuery()
+        if (urlParam.status > 0) {
+         this.queryParam.status = urlParam.status
+        } else {
+          this.queryParam.status = null
+        }
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
         return mkOrderList(requestParameters)

@@ -19,7 +19,7 @@
         >
           <a-input v-decorator="['id', {rules:[{required: false, message: ''}]}]" />
         </a-form-item>
-        <a-form-item label="批次号"><a-input v-decorator="['batchNo', {rules:[{required: true, message: '请输入批次号'}]}]" /></a-form-item>
+        <a-form-item label="批次号"><a-input disabled v-decorator="['batchNo', {rules:[{required: false, message: '请输入批次号'}]}]" /></a-form-item>
         <a-form-item label="检疫证号"><a-input v-decorator="['quarantineNo', {rules:[{required: true, message: '请输入检疫证号'}]}]" /></a-form-item>
         <a-form-item label="商品id"><a-input v-decorator="['goodsId', {rules:[{required: true, message: '请输入商品id'}]}]" /></a-form-item>
         <a-form-item label="商品数量"><a-input v-decorator="['num', {rules:[{required: true, message: '请输入商品数量'}]}]" /></a-form-item>
@@ -32,14 +32,34 @@
         <a-form-item label="运输方式"><a-input v-decorator="['transportation', {rules:[{required: true, message: '请输入运输方式'}]}]" /></a-form-item>
         <a-form-item label="车牌号"><a-input v-decorator="['plateNo', {rules:[{required: true, message: '请输入车牌号'}]}]" /></a-form-item>
         <a-form-item label="是否已消毒"><a-input v-decorator="['disinfect', {rules:[{required: true, message: '请输入是否已消毒'}]}]" /></a-form-item>
-        <a-form-item label="养殖票证"><a-input v-decorator="['farmTicket', {rules:[{required: true, message: '请输入养殖票证'}]}]" /></a-form-item>
-        <a-form-item label="屠宰票证"><a-input v-decorator="['quarantineTicket', {rules:[{required: true, message: '请输入屠宰票证'}]}]" /></a-form-item>
+        <a-form-item label="养殖票证">
+          <a-upload
+            name="file"
+            :multiple="true"
+            :action="uploadUrl.ticket"
+            :headers="uploadHeaders"
+            @change="uploadFarmTicket"
+          >
+            <a-button> <a-icon type="upload" /> 上传 </a-button>
+          </a-upload>
+
+          <a-input v-decorator="['farmTicket', {rules:[{required: true, message: '请输入养殖票证'}]}]" /></a-form-item>
+        <a-form-item label="屠宰票证">
+          <a-upload
+            name="file"
+            :multiple="true"
+            :action="uploadUrl.ticket"
+            :headers="uploadHeaders"
+            @change="uploadButcherTicket"
+          >
+            <a-button> <a-icon type="upload" /> 上传 </a-button>
+          </a-upload>
+
+          <a-input v-decorator="['quarantineTicket', {rules:[{required: true, message: '请输入屠宰票证'}]}]" />
+        </a-form-item>
         <a-form-item label="地磅初读"><a-input v-decorator="['checkLoad', {rules:[{required: true, message: '请输入地磅初读'}]}]" /></a-form-item>
         <a-form-item label="地磅复读"><a-input v-decorator="['recheckLoad', {rules:[{required: true, message: '请输入地磅复读'}]}]" /></a-form-item>
         <a-form-item label="地磅重量"><a-input v-decorator="['load', {rules:[{required: true, message: '请输入地磅重量'}]}]" /></a-form-item>
-        <a-form-item label="申报用户id"><a-input v-decorator="['memberId', {rules:[{required: true, message: '请输入申报用户id'}]}]" /></a-form-item>
-        <a-form-item label="审核人"><a-input v-decorator="['acceptorId', {rules:[{required: true, message: '请输入审核人'}]}]" /></a-form-item>
-        <a-form-item label="入场时间"><a-input v-decorator="['enterTime', {rules:[{required: true, message: '请输入入场时间'}]}]" /></a-form-item>
 
         <a-form-item
           label="状态"
@@ -60,6 +80,7 @@
 
 <script>
 import pick from 'lodash.pick'
+import { uploadHeaders, uploadUrl, handleUploadInfo } from '@/utils/util'
 
 // 表单字段
 const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'num', 'weight', 'slaughterId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'acceptorId', 'enterTime', 'status']
@@ -91,6 +112,8 @@ export default {
       }
     }
     return {
+      uploadHeaders: uploadHeaders,
+      uploadUrl: uploadUrl,
       fo: {},
       form: this.$form.createForm(this),
       options2: [{
@@ -100,6 +123,19 @@ export default {
         value: 1,
         label: '启用'
       }]
+    }
+  },
+  methods: {
+    uploadFarmTicket (info) {
+      var fileName = info.file.response.data.url
+      console.log(fileName)
+      this.form.setFieldsValue({ farmTicket: fileName })
+      return handleUploadInfo(info)
+    },
+    uploadButcherTicket (info) {
+      var fileName = info.file.response.data.url
+      this.form.setFieldsValue({ quarantineTicket: fileName })
+      return handleUploadInfo(info)
     }
   },
   created () {

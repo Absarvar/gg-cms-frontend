@@ -72,5 +72,9 @@ module.exports = {
         jquery: true
       }
     }
-  ]
+  ],
+  "globals":{
+    "TextEncoderStream":true,
+    "TextDecoderStream":true
+  }
 }
