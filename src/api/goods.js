@@ -6,7 +6,8 @@ const goodsApi = {
   goodsList: GG_URL_PREFIX + '/goods/list',
   getGoods: GG_URL_PREFIX + '/goods/get',
   deleteGoods: GG_URL_PREFIX + '/goods/delete',
-  editGoods: GG_URL_PREFIX + '/goods/edit'
+  editGoods: GG_URL_PREFIX + '/goods/edit',
+  goodsListAll: GG_URL_PREFIX + '/goods/listAll'
 }
 
 export function newGoods (parameter) {
@@ -45,5 +46,13 @@ export function deleteGoods () {
   return request({
     url: goodsApi.deleteGoods,
     method: 'get'
+  })
+}
+
+export function goodsListAll (parameter) {
+  return request({
+    url: goodsApi.goodsListAll,
+    method: 'get',
+    params: parameter
   })
 }

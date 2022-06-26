@@ -30,8 +30,32 @@
         <a-form-item label="场地面积"><a-input v-decorator="['butcherArea', {rules:[{required: true, message: '请输入场地面积'}]}]" /></a-form-item>
         <a-form-item label="动物检疫合格证号"><a-input v-decorator="['aniQuarantineNo', {rules:[{required: true, message: '请输入动物检疫合格证号'}]}]" /></a-form-item>
         <a-form-item label="屠宰场备案号"><a-input v-decorator="['farmBackupNo', {rules:[{required: true, message: '请输入屠宰场备案号'}]}]" /></a-form-item>
-        <a-form-item label="营业执照"><a-input v-decorator="['businessLicense', {rules:[{required: true, message: '请输入营业执照'}]}]" /></a-form-item>
-        <a-form-item label="相关认证"><a-input v-decorator="['relatedLicense', {rules:[{required: true, message: '请输入相关认证'}]}]" /></a-form-item>
+
+        <a-form-item label="营业执照">
+          <a-upload
+            name="file"
+            :multiple="true"
+            :action="uploadUrl.ticket"
+            :headers="uploadHeaders"
+            @change="uploadBusinessLicense"
+          >
+            <a-button> <a-icon type="upload" /> 上传 </a-button>
+          </a-upload>
+          <a-input v-decorator="['businessLicense', {rules:[{required: true, message: '请上传营业执照'}]}]" />
+        </a-form-item>
+
+        <a-form-item label="相关认证">
+          <a-upload
+            name="file"
+            :multiple="true"
+            :action="uploadUrl.ticket"
+            :headers="uploadHeaders"
+            @change="uploadRelatedLicense"
+          >
+            <a-button> <a-icon type="upload" /> 上传 </a-button>
+          </a-upload>
+          <a-input v-decorator="['relatedLicense', {rules:[{required: true, message: '请上传相关认证'}]}]" />
+        </a-form-item>
 
         <a-form-item
           label="状态"
@@ -52,6 +76,7 @@
 
 <script>
 import pick from 'lodash.pick'
+import { uploadHeaders, uploadUrl, handleUploadInfo } from '@/utils/util'
 
 // 表单字段
 const fields = ['id', 'name', 'address', 'creditCode', 'peopleNum', 'linkman', 'linkmanMobile', 'butcherType', 'butcherNum', 'butcherArea', 'aniQuarantineNo', 'farmBackupNo', 'businessLicense', 'relatedLicense', 'status']
@@ -83,6 +108,8 @@ export default {
       }
     }
     return {
+      uploadHeaders: uploadHeaders,
+      uploadUrl: uploadUrl,
       fo: {},
       form: this.$form.createForm(this),
       options2: [{
@@ -92,6 +119,18 @@ export default {
         value: 1,
         label: '启用'
       }]
+    }
+  },
+  methods: {
+    uploadRelatedLicense (info) {
+      var fileName = info.file.response.data.url
+      this.form.setFieldsValue({ relatedLicense: fileName })
+      return handleUploadInfo(info)
+    },
+    uploadBusinessLicense (info) {
+      var fileName = info.file.response.data.url
+      this.form.setFieldsValue({ businessLicense: fileName })
+      return handleUploadInfo(info)
     }
   },
   created () {

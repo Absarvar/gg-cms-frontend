@@ -21,7 +21,21 @@
         </a-form-item>
         <a-form-item label="批次号"><a-input disabled v-decorator="['batchNo', {rules:[{required: false, message: '请输入批次号'}]}]" /></a-form-item>
         <a-form-item label="检疫证号"><a-input v-decorator="['quarantineNo', {rules:[{required: true, message: '请输入检疫证号'}]}]" /></a-form-item>
-        <a-form-item label="商品id"><a-input v-decorator="['goodsId', {rules:[{required: true, message: '请输入商品id'}]}]" /></a-form-item>
+
+        <a-form-item
+          label="商品名称"
+        >
+          <a-space>
+            <a-select
+              defaultActiveFirst
+              ref="select"
+              style="width: 120px"
+              v-decorator="['goodsId', {initialValue:1, rules:[{required: true, message: '请选择商品名称'}]}]"
+              :options="goodsList"
+            ></a-select>
+          </a-space>
+        </a-form-item>
+        <!-- <a-form-item label="商品id"><a-input v-decorator="['goodsId', {rules:[{required: true, message: '请输入商品id'}]}]" /></a-form-item> -->
         <a-form-item label="商品数量"><a-input v-decorator="['num', {rules:[{required: true, message: '请输入商品数量'}]}]" /></a-form-item>
         <a-form-item label="总重量"><a-input v-decorator="['weight', {rules:[{required: true, message: '请输入总重量'}]}]" /></a-form-item>
         <a-form-item label="屠宰场ID"><a-input v-decorator="['slaughterId', {rules:[{required: true, message: '请输入屠宰场ID'}]}]" /></a-form-item>
@@ -57,9 +71,11 @@
 
           <a-input v-decorator="['quarantineTicket', {rules:[{required: true, message: '请输入屠宰票证'}]}]" />
         </a-form-item>
-        <a-form-item label="地磅初读"><a-input v-decorator="['checkLoad', {rules:[{required: true, message: '请输入地磅初读'}]}]" /></a-form-item>
-        <a-form-item label="地磅复读"><a-input v-decorator="['recheckLoad', {rules:[{required: true, message: '请输入地磅复读'}]}]" /></a-form-item>
-        <a-form-item label="地磅重量"><a-input v-decorator="['load', {rules:[{required: true, message: '请输入地磅重量'}]}]" /></a-form-item>
+
+        <template v-if="op===''"></template>
+        <a-form-item label="地磅初读"><a-input v-decorator="['checkLoad', {rules:[{required: false, message: '请输入地磅初读'}]}]" /></a-form-item>
+        <a-form-item label="地磅复读"><a-input v-decorator="['recheckLoad', {rules:[{required: false, message: '请输入地磅复读'}]}]" /></a-form-item>
+        <a-form-item label="地磅重量"><a-input v-decorator="['load', {rules:[{required: false, message: '请输入地磅重量'}]}]" /></a-form-item>
 
         <a-form-item
           label="状态"
@@ -73,6 +89,7 @@
             ></a-select>
           </a-space>
         </a-form-item>
+
       </a-form>
     </a-spin>
   </a-modal>
@@ -81,6 +98,7 @@
 <script>
 import pick from 'lodash.pick'
 import { uploadHeaders, uploadUrl, handleUploadInfo } from '@/utils/util'
+import { goodsListAll } from '@/api/goods'
 
 // 表单字段
 const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'num', 'weight', 'slaughterId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'acceptorId', 'enterTime', 'status']
@@ -98,6 +116,10 @@ export default {
     model: {
       type: Object,
       default: () => null
+    },
+    op: {
+      type: String,
+      default: () => ''
     }
   },
   data () {
@@ -112,6 +134,11 @@ export default {
       }
     }
     return {
+      ddStyle: { width: '500px', height: '600px' },
+      daddTimeDefault: '',
+      haddTimeDefault: '',
+      treeData: [],
+      goodsList: [],
       uploadHeaders: uploadHeaders,
       uploadUrl: uploadUrl,
       fo: {},
@@ -139,8 +166,18 @@ export default {
     }
   },
   created () {
+    this.$nextTick(() => {
+      goodsListAll('').then(res => {
+        console.log(res.data[0])
+        for (var i = 0; i < res.data.length; i++) {
+          this.goodsList.push({ label: res.data[i]['name'], value: res.data[i]['id'] })
+        }
+      })
+    })
+
     if (this.model !== null) {
       this.fo = this.model
+      console.log(this.op)
     }
 
     // 防止表单未注册

@@ -110,6 +110,7 @@
         :visible="visible"
         :loading="confirmLoading"
         :model="mdl"
+        :op="queryParam.op"
         @cancel="handleCancel"
         @ok="handleOk"
       />
