@@ -17,7 +17,7 @@
               <a-col :md="8" :sm="24"> <a-form-item label="批次号"> <a-input v-model="queryParam.batchNo" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="检疫证号"> <a-input v-model="queryParam.quarantineNo" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="屠宰场ID"> <a-input v-model="queryParam.slaughterId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰场ID"> <a-input v-model="queryParam.butcherId" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="养殖场ID"> <a-input v-model="queryParam.farmId" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="用途"> <a-input v-model="queryParam.usage" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="承运人"> <a-input v-model="queryParam.carrier" placeholder=""/> </a-form-item> </a-col>
@@ -215,7 +215,7 @@ export default {
         },
         {
           title: '屠宰场ID',
-          dataIndex: 'slaughterId',
+          dataIndex: 'butcherId',
           width: 120,
           resizable: 'true'
         },

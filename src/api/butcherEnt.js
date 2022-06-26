@@ -6,7 +6,8 @@ const butcherEntApi = {
   butcherEntList: GG_URL_PREFIX + '/butcherEnt/list',
   getButcherEnt: GG_URL_PREFIX + '/butcherEnt/get',
   deleteButcherEnt: GG_URL_PREFIX + '/butcherEnt/delete',
-  editButcherEnt: GG_URL_PREFIX + '/butcherEnt/edit'
+  editButcherEnt: GG_URL_PREFIX + '/butcherEnt/edit',
+  sourceEntList: GG_URL_PREFIX + '/butcherEnt/listSourceEnt'
 }
 
 export function newButcherEnt (parameter) {
@@ -45,5 +46,13 @@ export function deleteButcherEnt () {
   return request({
     url: butcherEntApi.deleteButcherEnt,
     method: 'get'
+  })
+}
+
+export function sourceEntList (parameter) {
+  return request({
+    url: butcherEntApi.sourceEntList,
+    method: 'get',
+    params: parameter
   })
 }

@@ -38,14 +38,55 @@
         <!-- <a-form-item label="商品id"><a-input v-decorator="['goodsId', {rules:[{required: true, message: '请输入商品id'}]}]" /></a-form-item> -->
         <a-form-item label="商品数量"><a-input v-decorator="['num', {rules:[{required: true, message: '请输入商品数量'}]}]" /></a-form-item>
         <a-form-item label="总重量"><a-input v-decorator="['weight', {rules:[{required: true, message: '请输入总重量'}]}]" /></a-form-item>
-        <a-form-item label="屠宰场ID"><a-input v-decorator="['slaughterId', {rules:[{required: true, message: '请输入屠宰场ID'}]}]" /></a-form-item>
-        <a-form-item label="养殖场ID"><a-input v-decorator="['farmId', {rules:[{required: true, message: '请输入养殖场ID'}]}]" /></a-form-item>
+
+        <a-form-item
+          label="屠宰场"
+        >
+          <a-space>
+            <a-select
+              defaultActiveFirst
+              ref="selectB"
+              style="width: 220px"
+              v-decorator="['butcherId', {initialValue:37, rules:[{required: true, message: '请选择屠宰场'}]}]"
+              :options="butcherEntList"
+            ></a-select>
+          </a-space>
+        </a-form-item>
+        <!-- <a-form-item label="屠宰场ID"><a-input v-decorator="['butcherId', {rules:[{required: true, message: '请输入屠宰场ID'}]}]" /></a-form-item> -->
+
+        <a-form-item
+          label="养殖场"
+        >
+          <a-space>
+            <a-select
+              defaultActiveFirst
+              ref="selectF"
+              style="width: 220px"
+              v-decorator="['farmId', {initialValue:9, rules:[{required: true, message: '请选择屠宰场'}]}]"
+              :options="farmEntList"
+            ></a-select>
+          </a-space>
+        </a-form-item>
+        <!-- <a-form-item label="养殖场ID"><a-input v-decorator="['farmId', {rules:[{required: true, message: '请输入养殖场ID'}]}]" /></a-form-item> -->
         <a-form-item label="用途"><a-input v-decorator="['usage', {rules:[{required: true, message: '请输入用途'}]}]" /></a-form-item>
         <a-form-item label="承运人"><a-input v-decorator="['carrier', {rules:[{required: true, message: '请输入承运人'}]}]" /></a-form-item>
         <a-form-item label="承运人手机"><a-input v-decorator="['carrierMobile', {rules:[{required: true, message: '请输入承运人手机'}]}]" /></a-form-item>
         <a-form-item label="运输方式"><a-input v-decorator="['transportation', {rules:[{required: true, message: '请输入运输方式'}]}]" /></a-form-item>
         <a-form-item label="车牌号"><a-input v-decorator="['plateNo', {rules:[{required: true, message: '请输入车牌号'}]}]" /></a-form-item>
-        <a-form-item label="是否已消毒"><a-input v-decorator="['disinfect', {rules:[{required: true, message: '请输入是否已消毒'}]}]" /></a-form-item>
+
+        <a-form-item
+          label="是否已消毒"
+        >
+          <a-space>
+            <a-select
+              ref="select"
+              style="width: 120px"
+              v-decorator="['disinfect', {initialValue:1,rules:[{required: true, message: '请选择是否已消毒'}]}]"
+              :options="disinfectOptions"
+            ></a-select>
+          </a-space>
+        </a-form-item>
+        <!-- <a-form-item label="是否已消毒"><a-input v-decorator="['disinfect', {rules:[{required: true, message: '请输入是否已消毒'}]}]" /></a-form-item> -->
         <a-form-item label="养殖票证">
           <a-upload
             name="file"
@@ -84,7 +125,7 @@
             <a-select
               ref="select"
               style="width: 120px"
-              v-decorator="['status', {rules:[{required: true, message: '请选择状态'}]}]"
+              v-decorator="['status', {initialValue:1,rules:[{required: true, message: '请选择状态'}]}]"
               :options="options2"
             ></a-select>
           </a-space>
@@ -99,9 +140,10 @@
 import pick from 'lodash.pick'
 import { uploadHeaders, uploadUrl, handleUploadInfo } from '@/utils/util'
 import { goodsListAll } from '@/api/goods'
+import { sourceEntList } from '@/api/butcherEnt'
 
 // 表单字段
-const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'num', 'weight', 'slaughterId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'acceptorId', 'enterTime', 'status']
+const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'num', 'weight', 'butcherId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'acceptorId', 'enterTime', 'status']
 
 export default {
   props: {
@@ -139,6 +181,8 @@ export default {
       haddTimeDefault: '',
       treeData: [],
       goodsList: [],
+      butcherEntList: [],
+      farmEntList: [],
       uploadHeaders: uploadHeaders,
       uploadUrl: uploadUrl,
       fo: {},
@@ -149,6 +193,13 @@ export default {
       }, {
         value: 1,
         label: '启用'
+      }],
+      disinfectOptions: [{
+        value: 0,
+        label: '否'
+      }, {
+        value: 1,
+        label: '是'
       }]
     }
   },
@@ -171,6 +222,19 @@ export default {
         console.log(res.data[0])
         for (var i = 0; i < res.data.length; i++) {
           this.goodsList.push({ label: res.data[i]['name'], value: res.data[i]['id'] })
+        }
+      })
+
+      sourceEntList('').then(res => {
+        console.log('sourceEnt')
+        const dataList = res.data.butcherEntList
+        console.log(dataList)
+        for (var i = 0; i < dataList.length; i++) {
+          this.butcherEntList.push({ label: dataList[i]['name'], value: dataList[i]['id'] })
+        }
+        const dataList2 = res.data.farmEntList
+        for (var j = 0; j < dataList2.length; j++) {
+          this.farmEntList.push({ label: dataList2[j]['name'], value: dataList2[j]['id'] })
         }
       })
     })
