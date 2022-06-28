@@ -14,26 +14,26 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="分销证号"> <a-input v-model="queryParam.fxNo" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="批次号"> <a-input v-model="queryParam.batchNo" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="生产单位"> <a-input v-model="queryParam.butcherEnt" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="生产单位地址"> <a-input v-model="queryParam.butcherAddress" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="检疫证号"> <a-input v-model="queryParam.quarantineNo" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="供应商企业"> <a-input v-model="queryParam.supplierEnt" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="供货商"> <a-input v-model="queryParam.goodsSupplier" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="流向企业"> <a-input v-model="queryParam.flowtoEnt" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="流向企业地址"> <a-input v-model="queryParam.flowtoEntAddress" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.goodsName" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="重量"> <a-input v-model="queryParam.weight" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.remark" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="订单编号"> <a-input v-model="queryParam.orderCode" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="生产企业ID"> <a-input v-model="queryParam.butcherEntId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="供应商企业ID"> <a-input v-model="queryParam.supplierEntId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="流向企业ID"> <a-input v-model="queryParam.flowtoEntId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="入场ID"> <a-input v-model="queryParam.entryApplyId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="订单ID"> <a-input v-model="queryParam.orderId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="换算参数"> <a-input v-model="queryParam.convertFact" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="分销证号"> <a-input v-model="queryParam.fxNo" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="批次号"> <a-input v-model="queryParam.batchNo" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="生产单位"> <a-input v-model="queryParam.butcherEnt" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="生产单位地址"> <a-input v-model="queryParam.butcherAddress" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="检疫证号"> <a-input v-model="queryParam.quarantineNo" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="供应商企业"> <a-input v-model="queryParam.supplierEnt" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="供货商"> <a-input v-model="queryParam.goodsSupplier" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="流向企业"> <a-input v-model="queryParam.flowtoEnt" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="流向企业地址"> <a-input v-model="queryParam.flowtoEntAddress" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.goodsName" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="重量"> <a-input v-model="queryParam.weight" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.remark" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="订单编号"> <a-input v-model="queryParam.orderCode" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="生产企业ID"> <a-input v-model="queryParam.butcherEntId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="供应商企业ID"> <a-input v-model="queryParam.supplierEntId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="流向企业ID"> <a-input v-model="queryParam.flowtoEntId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="入场ID"> <a-input v-model="queryParam.entryApplyId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="订单ID"> <a-input v-model="queryParam.orderId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="换算参数"> <a-input v-model="queryParam.convertFact" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -52,12 +52,23 @@
 
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+
+        <a-upload
+          name="file"
+          :multiple="true"
+          :action="importUrl.url"
+          :headers="importHeaders"
+          @change="handleChange"
+        >
+          <a-button> <a-icon type="upload" /> 导入 </a-button>
+        </a-upload>
+
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
-          <a-menu slot="overlay">
+          <a-button type="primary" @click="batchPrint">打印</a-button>
+          <!-- <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
-          </a-menu>
+          </a-menu> -->
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
@@ -110,10 +121,11 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newSellTicket, editSellTicket, sellTicketList } from '@/api/sellTicket'
+import { newSellTicket, editSellTicket, sellTicketList, sellTicketApi } from '@/api/sellTicket'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
+import { uploadHeaders, getNowTime } from '@/utils/util'
 
 const statusMap = {
   0: {
@@ -135,6 +147,10 @@ export default {
   },
   data () {
     return {
+      importHeaders: uploadHeaders,
+      importUrl: {
+        url: sellTicketApi.importSellTicket
+      },
       // create model
       visible: false,
       confirmLoading: false,
@@ -334,6 +350,21 @@ export default {
     }
   },
   methods: {
+    handleChange (info) {
+      console.log(info)
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList)
+      }
+      if (info.file.status === 'done') {
+        if (info.file.response.success === true) {
+          this.$message.success(`${info.file.name} 导入成功！`)
+        } else {
+          this.$message.error(`${info.file.name} 导入失败.原因：${info.file.response.msg}`)
+        }
+      } else if (info.file.status === 'error') {
+        this.$message.error(`${info.file.name} 文件上传失败.`)
+      }
+    },
     timeChange (date, dateStr) {
       this.queryParam.startTime = dateStr[0]
       this.queryParam.endTime = dateStr[1]
@@ -407,7 +438,106 @@ export default {
       this.queryParam = {
         date: moment(new Date())
       }
-    }
+    },
+    batchPrint () {
+      const nowTime = getNowTime()
+		// var str = ''
+		// var arr = []
+    const datas = this.selectedRows
+		var ticketHtml = `
+			<html>
+			<style>
+			</style>
+				<body>`
+		for (var i = 0; i < datas.length; i++) {
+			ticketHtml +=
+      `
+		<div class="text-center" style="width:750px;height:417px;" align="center" >
+      <div style="margin-top:0px;height:35px;">
+              <div style="margin-left:0px;" align="left" >
+                <div style="margin-top:20px">&nbsp; ` + datas[i].fxNo + `</div>
+              </div>
+              <div style="float:right;margin-top:-60px;"> <img width="75px" height="80px" src="https://sy.ggmstc.com/szszdistfile/8c7ea05c-8b80-4190-a527-79126c6073f1.jpg"></div>
+              <!-- <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
+            </div>
+      <table 
+              class="table table-bordered table-hover heavy_border t2print"
+              style="vertical-align:middle;padding-top:15px;margin-bottom:1px;">
+              <tbody >
+               
+              <!--  <div style="text-align:left;margin-top:30px">&nbsp; ` + datas[i].fxNo + `</div>
+              <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
+
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1"> </td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">供广深圳肉类智能交易市场有限公司</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;width:150px;" > 生产单位----</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:200px;" >` + datas[i].butcherEnt + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;width:200px;" > 生产单位地址--------</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:200px;font-size:8px;" >` + datas[i].butcherAddress + `购货单位地址购</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + datas[i].flowtoEnt + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:200px;font-size:8px;" >` + datas[i].flowtoEntAddress + `</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + datas[i].batchNo + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + datas[i].quarantineNo + `</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + datas[i].goodsName + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >&nbsp;&nbsp;&nbsp;&nbsp; </td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + datas[i].weight + `公斤</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1">检测结果</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="3">本批次产品经抽样进行感官、理化、瘦肉精、非洲猪瘟病毒及禁限药物残留检测，结果合格。</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1">备注</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">` + datas[i].remark + `</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;莫洋飞</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1"> 莫洋飞</td>
+                  <td scope="col" style="height:32px;text-align:right;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ` + nowTime + `</td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4"></td>
+                </tr>
+                <tr style="">
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4"></td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+    </div>`
+		}
+
+		// ticketHtml += `</body>
+		// </html>
+		// `
+
+		// console.log(ticketHtml)
+		// 打开一个新的浏览器窗口
+		var win = window.open('1')
+		// win.document.write('sddddddddddddddddddddddddddd')
+		// win.focus()// 在IE浏览器中使用必须添加这一句
+		// win.print()
+		// 写入
+		win.document.write(ticketHtml)
+		win.document.close()// 在IE浏览器中使用必须添加这一句
+		win.focus()// 在IE浏览器中使用必须添加这一句
+		win.print()
+		win.close()
+	}
   }
 }
 </script>

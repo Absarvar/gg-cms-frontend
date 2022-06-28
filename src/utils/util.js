@@ -120,3 +120,17 @@ export function handleUploadInfo (info) {
     this.$message.error(`${info.file.name} file upload failed.`)
   }
 }
+
+export function getNowTime () { // 获取当前时间
+  const nowDate = new Date()
+  const yy = nowDate.getFullYear()
+  const mm = nowDate.getMonth() + 1
+  const dd = nowDate.getDate()
+  const hh = nowDate.getHours()
+  const mf = nowDate.getMinutes() < 10 ? '0' + nowDate.getMinutes()
+    : nowDate.getMinutes()
+  // const ss = new Date().getSeconds() < 10 ? '0' + new Date().getSeconds()
+  //   : new Date().getSeconds()
+  const dateTime = yy + '年' + mm + '月' + dd + '日' + hh + '时' + mf + '分'
+  return dateTime
+}

@@ -1,12 +1,13 @@
 import request from '@/utils/request'
 import { GG_URL_PREFIX } from '@/config/common.config'
 
-const sellTicketApi = {
+export const sellTicketApi = {
   newSellTicket: GG_URL_PREFIX + '/sellTicket/newSellTicket',
   sellTicketList: GG_URL_PREFIX + '/sellTicket/list',
   getSellTicket: GG_URL_PREFIX + '/sellTicket/get',
   deleteSellTicket: GG_URL_PREFIX + '/sellTicket/delete',
-  editSellTicket: GG_URL_PREFIX + '/sellTicket/edit'
+  editSellTicket: GG_URL_PREFIX + '/sellTicket/edit',
+  importSellTicket: GG_URL_PREFIX + '/sellTicket/import'
 }
 
 export function newSellTicket (parameter) {
@@ -45,5 +46,13 @@ export function deleteSellTicket () {
   return request({
     url: sellTicketApi.deleteSellTicket,
     method: 'get'
+  })
+}
+
+export function importSellTicket (parameter) {
+  return request({
+    url: sellTicketApi.importSellTicket,
+    method: 'post',
+    params: parameter
   })
 }
