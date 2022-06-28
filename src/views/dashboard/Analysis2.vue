@@ -227,7 +227,7 @@ import {
   MiniSmoothArea
 } from '@/components'
 import { baseMixin } from '@/store/app-mixin'
-import { saleDataList } from '@/api/saleOrder'
+import { saleDataList } from '@/api/mkOrder'
 
 const barData = []
 const barData2 = []

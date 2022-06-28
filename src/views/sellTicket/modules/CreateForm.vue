@@ -9,75 +9,76 @@
   >
     <a-spin :spinning="loading">
       <a-form :form="form" v-bind="formLayout">
-
-        <div align="center" >
-          <a-button type="primary" @click="printHTML()">打印</a-button>
-          <br>
-          <br>
-          <h4>供广深圳肉类智能交易市场</h4>
-          <h4>动物产品分销信息凭证</h4>
-          <div class="text-center" style="width:750px;height:417px;" align="center" id="div_print">
-            <div style="margin-top:0px;height:70px;">
-              <div style="float:left;margin-left:0px;" align="left" >
-                <div style="margin-top:20px">&nbsp; NO：{{ model.fxNo }}</div>
-              </div>
-              <div style="float:right;margin-top:-30px;"> <img width="70px" height="70px" src="https://sy.ggmstc.com/szszdistfile/8c7ea05c-8b80-4190-a527-79126c6073f1.jpg"></div>
+        <template v-if="model!==null">
+          <div align="center" >
+            <a-button type="primary" @click="printHTML()">打印</a-button>
+            <br>
+            <br>
+            <h4>供广深圳肉类智能交易市场</h4>
+            <h4>动物产品分销信息凭证</h4>
+            <div class="text-center" style="width:750px;height:417px;" align="center" id="div_print">
+              <div style="margin-top:0px;height:70px;">
+                <div style="float:left;margin-left:0px;" align="left" >
+                  <div style="margin-top:20px">&nbsp; NO：{{ model.fxNo }}</div>
+                </div>
+                <div style="float:right;margin-top:-30px;"> <img width="70px" height="70px" src="https://sy.ggmstc.com/szszdistfile/8c7ea05c-8b80-4190-a527-79126c6073f1.jpg"></div>
               <!-- <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
+              </div>
+              <table
+                class="table table-bordered table-hover heavy_border t2print"
+                style="vertical-align:middle;padding-top:15px;margin-bottom:1px;">
+                <tbody >
+                  <tr style="">
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">供货商22</td>
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="5">供广深圳肉类智能交易市场有限公司</td>
+                  </tr>
+                  <tr style="">
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >生产单位</td>
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.butcherEnt }}</td>
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >生产单位地址</td>
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.butcherAddress }}</td>
+                  </tr>
+                  <tr style="">
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >购货单位</td>
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.flowtoEnt }}</td>
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >购货单位地址</td>
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.flowtoEntAddress }}</td>
+                  </tr>
+                  <tr style="">
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >入场批次</td>
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.batchNo }}</td>
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >原检疫证号</td>
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.quarantineNo }}</td>
+                  </tr>
+                  <tr style="">
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >产品名称</td>
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.goodsName }}</td>
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >数量及单位</td>
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.weight }}</td>
+                  </tr>
+                  <tr style="">
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">检测结果</td>
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">本批次产品经抽样进行感官、理化、瘦肉精、非洲猪瘟病毒及禁限药物残留检测，结果合格。</td>
+                  </tr>
+                  <tr style="">
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">备注</td>
+                    <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">{{ model.remark }}</td>
+                  </tr>
+                  <tr style="">
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="2">出证人： 莫洋飞</td>
+                    <td scope="col" style="height:32px;text-align:right;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="2">出证日期： {{ this.nowTime }}</td>
+                  </tr>
+                  <tr style="">
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4">出证单位：供广深圳肉类智能交易市场有限公司&nbsp;&nbsp;&nbsp;&nbsp; 0755-2885 3668</td>
+                  </tr>
+                  <tr style="">
+                    <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4">注：仅限于国内动物产品，在深圳市境内使用，二日内到达有效。</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <table
-              class="table table-bordered table-hover heavy_border t2print"
-              style="vertical-align:middle;padding-top:15px;margin-bottom:1px;">
-              <tbody >
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">供货商22</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="5">供广深圳肉类智能交易市场有限公司</td>
-                </tr>
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >生产单位</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.butcherEnt }}</td>
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >生产单位地址</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.butcherAddress }}</td>
-                </tr>
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >购货单位</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.flowtoEnt }}</td>
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >购货单位地址</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.flowtoEntAddress }}</td>
-                </tr>
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >入场批次</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.batchNo }}</td>
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >原检疫证号</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.quarantineNo }}</td>
-                </tr>
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >产品名称</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.goodsName }}</td>
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >数量及单位</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >{{ model.weight }}</td>
-                </tr>
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">检测结果</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">本批次产品经抽样进行感官、理化、瘦肉精、非洲猪瘟病毒及禁限药物残留检测，结果合格。</td>
-                </tr>
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">备注</td>
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">{{ model.remark }}</td>
-                </tr>
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="2">出证人： 莫洋飞</td>
-                  <td scope="col" style="height:32px;text-align:right;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="2">出证日期： {{ this.nowTime }}</td>
-                </tr>
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4">出证单位：供广深圳肉类智能交易市场有限公司&nbsp;&nbsp;&nbsp;&nbsp; 0755-2885 3668</td>
-                </tr>
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4">注：仅限于国内动物产品，在深圳市境内使用，二日内到达有效。</td>
-                </tr>
-              </tbody>
-            </table>
           </div>
-        </div>
+        </template>
         <!-- 检查是否有 id 并且大于0，大于0是修改。其他是新增，新增不显示主键ID -->
         <!-- <a-form-item v-show="model && model.id > 0" label="主键ID">
           <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
@@ -190,6 +191,7 @@ export default {
             // console.log(location.href)
     },
       printHTML (model) {
+        if (this.model === null) return
 // 打开一个新的浏览器窗口
 var win = window.open('print22')
 

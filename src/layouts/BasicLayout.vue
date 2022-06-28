@@ -22,7 +22,7 @@
     <template v-slot:menuHeaderRender>
       <div>
         <!-- <logo-svg /> -->
-        <img src="http://cdn.ggmstc.com/common/logo.png" class="logo" alt="logo">
+        <img src="https://mkt.ggmstc.com/static/common/logo.png" class="logo" alt="logo">
         <h1>供广市场管理系统</h1>
       </div>
     </template>

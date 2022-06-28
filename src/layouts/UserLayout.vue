@@ -9,7 +9,7 @@
         <div class="top">
           <div class="header">
             <a href="/">
-              <img src="http://cdn.ggmstc.com/common/logo.png" class="logo" alt="logo">
+              <img src="https://mkt.ggmstc.com/static/common/logo.png" class="logo" alt="logo">
               <span class="title">供广深圳肉类智能交易市场管理系统</span>
             </a>
           </div>

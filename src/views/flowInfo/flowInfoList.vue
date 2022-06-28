@@ -368,13 +368,18 @@ export default {
   },
   methods: {
     handleChange (info) {
+      console.log(info)
       if (info.file.status !== 'uploading') {
         console.log(info.file, info.fileList)
       }
       if (info.file.status === 'done') {
-        this.$message.success(`${info.file.name} file uploaded successfully`)
+        if (info.file.response.success === true) {
+          this.$message.success(`${info.file.name} 导入成功！`)
+        } else {
+          this.$message.error(`${info.file.name} 导入失败.原因：${info.file.response.msg}`)
+        }
       } else if (info.file.status === 'error') {
-        this.$message.error(`${info.file.name} file upload failed.`)
+        this.$message.error(`${info.file.name} 文件上传失败.`)
       }
     },
     timeChange (date, dateStr) {
