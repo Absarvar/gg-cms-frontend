@@ -42,7 +42,7 @@ const constantRouterComponents = {
 // // flow
 //   FlowList: () => import('@/views/flow/flowList'),
   // enterApply
-  // EnterApplyList: () => import('@/views/enterApply/enterApplyList?status=0&statusok=0'),
+  EnterApplyList: () => import('@/views/enterApply/enterApplyList?status=0&statusok=0'),
   // EnterRegList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=0'),
   // EnterRecheckList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=1'),
   PrepareInstockList: () => import('@/views/entryApply/entryApplyList'),

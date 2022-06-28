@@ -98,7 +98,7 @@
             <a-button> <a-icon type="upload" /> 上传 </a-button>
           </a-upload>
 
-          <a-input v-decorator="['farmTicket', {rules:[{required: true, message: '请输入养殖票证'}]}]" /></a-form-item>
+          <a-input disabled v-decorator="['farmTicket', {rules:[{required: true, message: '请输入养殖票证'}]}]" /></a-form-item>
         <a-form-item label="屠宰票证">
           <a-upload
             name="file"
@@ -110,26 +110,28 @@
             <a-button> <a-icon type="upload" /> 上传 </a-button>
           </a-upload>
 
-          <a-input v-decorator="['quarantineTicket', {rules:[{required: true, message: '请输入屠宰票证'}]}]" />
+          <a-input disabled v-decorator="['quarantineTicket', {rules:[{required: true, message: '请输入屠宰票证'}]}]" />
         </a-form-item>
 
-        <template v-if="op===''"></template>
-        <a-form-item label="地磅初读"><a-input v-decorator="['checkLoad', {rules:[{required: false, message: '请输入地磅初读'}]}]" /></a-form-item>
-        <a-form-item label="地磅复读"><a-input v-decorator="['recheckLoad', {rules:[{required: false, message: '请输入地磅复读'}]}]" /></a-form-item>
-        <a-form-item label="地磅重量"><a-input v-decorator="['load', {rules:[{required: false, message: '请输入地磅重量'}]}]" /></a-form-item>
+        <template v-if="roleType!==99">
+          <a-form-item label="地磅初读"><a-input v-decorator="['checkLoad', {rules:[{required: false, message: '请输入地磅初读'}]}]" /></a-form-item>
+          <a-form-item label="地磅复读"><a-input v-decorator="['recheckLoad', {rules:[{required: false, message: '请输入地磅复读'}]}]" /></a-form-item>
+          <a-form-item label="地磅重量"><a-input v-decorator="['load', {rules:[{required: false, message: '请输入地磅重量'}]}]" /></a-form-item>
 
-        <a-form-item
-          label="状态"
-        >
-          <a-space>
-            <a-select
-              ref="select"
-              style="width: 120px"
-              v-decorator="['status', {initialValue:1,rules:[{required: true, message: '请选择状态'}]}]"
-              :options="options2"
-            ></a-select>
-          </a-space>
-        </a-form-item>
+          <a-form-item
+            label="状态"
+          >
+            <a-space>
+              <a-select
+                ref="select"
+                style="width: 120px"
+                v-decorator="['status', {initialValue:1,rules:[{required: true, message: '请选择状态'}]}]"
+                :options="options2"
+              ></a-select>
+            </a-space>
+          </a-form-item>
+
+        </template>
 
       </a-form>
     </a-spin>
@@ -137,6 +139,7 @@
 </template>
 
 <script>
+import storage from 'store'
 import pick from 'lodash.pick'
 import { uploadHeaders, uploadUrl, handleUploadInfo } from '@/utils/util'
 import { goodsListAll } from '@/api/goods'
@@ -176,6 +179,7 @@ export default {
       }
     }
     return {
+      roleType: storage.get('roleType'),
       ddStyle: { width: '500px', height: '600px' },
       daddTimeDefault: '',
       haddTimeDefault: '',
@@ -189,10 +193,16 @@ export default {
       form: this.$form.createForm(this),
       options2: [{
         value: 0,
-        label: '禁用'
+        label: '作废'
       }, {
         value: 1,
-        label: '启用'
+        label: '审核中'
+      }, {
+        value: 2,
+        label: '信息确认'
+      }, {
+        value: 3,
+        label: '入场确认'
       }],
       disinfectOptions: [{
         value: 0,
@@ -206,7 +216,7 @@ export default {
   methods: {
     uploadFarmTicket (info) {
       var fileName = info.file.response.data.url
-      console.log(fileName)
+      // console.log(fileName)
       this.form.setFieldsValue({ farmTicket: fileName })
       return handleUploadInfo(info)
     },
@@ -219,16 +229,16 @@ export default {
   created () {
     this.$nextTick(() => {
       goodsListAll('').then(res => {
-        console.log(res.data[0])
+        // console.log(res.data[0])
         for (var i = 0; i < res.data.length; i++) {
           this.goodsList.push({ label: res.data[i]['name'], value: res.data[i]['id'] })
         }
       })
 
       sourceEntList('').then(res => {
-        console.log('sourceEnt')
+        // console.log('sourceEnt')
         const dataList = res.data.butcherEntList
-        console.log(dataList)
+        // console.log(dataList)
         for (var i = 0; i < dataList.length; i++) {
           this.butcherEntList.push({ label: dataList[i]['name'], value: dataList[i]['id'] })
         }
@@ -241,7 +251,7 @@ export default {
 
     if (this.model !== null) {
       this.fo = this.model
-      console.log(this.op)
+      // console.log(this.op)
     }
 
     // 防止表单未注册

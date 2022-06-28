@@ -92,10 +92,13 @@
 
         <span slot="action" slot-scope="text, record">
           <template>
-            <a @click="handleEdit(record)">查看</a>
+            <template v-if="roleType!==99 || (roleType===99&& record.status===1)">
+              <a @click="handleEdit(record)">编辑</a>
+            </template>
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
-            <template v-if="queryParam.op==='instock'">
+            <!-- <template v-if="queryParam.op==='instock'"> -->
+            <template v-if="roleType!==99">
               <a-divider type="vertical" />
               <router-link :to="{path: '/trade-center/ground-manage/productInstock', query: {'id':record.id }}">
                 理货入库
@@ -119,6 +122,7 @@
 </template>
 
 <script>
+import storage from 'store'
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
 import { newEntryApply, editEntryApply, entryApplyList } from '@/api/entryApply'
@@ -130,11 +134,19 @@ import { getPageQuery } from '@/utils/util'
 const statusMap = {
   0: {
     status: 'default',
-    text: '禁用中'
+    text: '已作废'
   },
   1: {
+    status: 'error',
+    text: '审核中'
+  },
+  2: {
     status: 'processing',
-    text: '启用中'
+    text: '已确认'
+  },
+  3: {
+    status: 'success',
+    text: '已入场'
   }
 }
 
@@ -147,6 +159,7 @@ export default {
   },
   data () {
     return {
+      roleType: storage.get('roleType'),
       // create model
       visible: false,
       confirmLoading: false,
@@ -162,7 +175,7 @@ export default {
           Object.assign(this.queryParam, urlParam)
         //  this.queryParam = urlParam
         }
-        console.log(this.queryParam)
+        // console.log(this.queryParam)
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         return entryApplyList(requestParameters)
           .then(res => {
@@ -186,7 +199,7 @@ export default {
         {
           title: '批次号',
           dataIndex: 'batchNo',
-          width: 120,
+          width: 115,
           resizable: 'true'
         },
         {
@@ -302,7 +315,7 @@ export default {
         {
           title: '审核人',
           dataIndex: 'acceptorId',
-          width: 120,
+          width: 80,
           resizable: 'true'
         },
         {
@@ -314,16 +327,17 @@ export default {
         },
 
         {
-          title: '状态',
-          scopedSlots: { customRender: 'status' },
-          width: 100,
-          dataIndex: 'status'
-        },
-        {
           title: '创建时间',
           scopedSlots: { customRender: 'createTime' },
           width: 200,
           dataIndex: 'createTime'
+        },
+        {
+          title: '状态',
+          scopedSlots: { customRender: 'status' },
+          width: 100,
+          fixed: 'right',
+          dataIndex: 'status'
         },
         {
           key: 'action',
@@ -355,7 +369,7 @@ export default {
           Object.assign(this.queryParam, urlParam)
         //  this.queryParam = urlParam
         }
-        console.log(this.queryParam)
+        // console.log(this.queryParam)
       })
   },
   computed: {
