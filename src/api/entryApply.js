@@ -42,10 +42,11 @@ export function getEntryApply (parameter) {
   })
 }
 
-export function deleteEntryApply () {
+export function deleteEntryApply (parameter) {
   return request({
     url: entryApplyApi.deleteEntryApply,
-    method: 'get'
+    method: 'post',
+    params: parameter
   })
 }
 

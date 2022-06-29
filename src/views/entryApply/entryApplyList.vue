@@ -45,16 +45,15 @@
 
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
-        <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
+        <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
-        </a-dropdown>
+        </a-dropdown> -->
       </div>
 
       <s-table
@@ -88,6 +87,10 @@
 
         <span slot="quarantineTicket" slot-scope="text">
           <a :href="'http://cdn.ggmstc.com/'+text" target="_blank">查看</a>
+        </span>
+
+        <span slot="deleteAction" slot-scope="text, record">
+          <a @click="handleDelete(record)">删除</a>
         </span>
 
         <span slot="action" slot-scope="text, record">
@@ -125,7 +128,7 @@
 import storage from 'store'
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newEntryApply, editEntryApply, entryApplyList } from '@/api/entryApply'
+import { newEntryApply, editEntryApply, entryApplyList, deleteEntryApply } from '@/api/entryApply'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -191,15 +194,69 @@ export default {
           scopedSlots: { customRender: 'serial' },
           width: 60
         },
-        {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
-        },
+        // {
+        //   title: 'id',
+        //   dataIndex: 'id',
+        //   width: 60
+        // },
         {
           title: '批次号',
           dataIndex: 'batchNo',
           width: 115,
+          resizable: 'true'
+        },
+        {
+          title: '屠宰场',
+          dataIndex: 'butcherName',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '屠宰场联系人',
+          dataIndex: 'butcherLinkman',
+          width: 80,
+          resizable: 'true'
+        },
+        {
+          title: '屠宰场电话',
+          dataIndex: 'butcherLinkmanMobile',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '申报人',
+          dataIndex: 'memberLegal',
+          width: 80,
+          resizable: 'true'
+        },
+        {
+          title: '申报人电话',
+          dataIndex: 'memberMobile',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '申报公司',
+          dataIndex: 'memberName',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '承运人',
+          dataIndex: 'carrier',
+          width: 80,
+          resizable: 'true'
+        },
+        {
+          title: '承运人手机',
+          dataIndex: 'carrierMobile',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '车牌号',
+          dataIndex: 'plateNo',
+          width: 120,
           resizable: 'true'
         },
         {
@@ -209,8 +266,8 @@ export default {
           resizable: 'true'
         },
         {
-          title: '商品id',
-          dataIndex: 'goodsId',
+          title: '商品',
+          dataIndex: 'goodsName',
           width: 120,
           resizable: 'true'
         },
@@ -227,32 +284,8 @@ export default {
           resizable: 'true'
         },
         {
-          title: '屠宰场ID',
-          dataIndex: 'butcherId',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '养殖场ID',
-          dataIndex: 'farmId',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '用途',
-          dataIndex: 'usage',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '承运人',
-          dataIndex: 'carrier',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '承运人手机',
-          dataIndex: 'carrierMobile',
+          title: '养殖场',
+          dataIndex: 'farmName',
           width: 120,
           resizable: 'true'
         },
@@ -263,17 +296,17 @@ export default {
           resizable: 'true'
         },
         {
-          title: '车牌号',
-          dataIndex: 'plateNo',
+          title: '用途',
+          dataIndex: 'usage',
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '是否已消毒',
-          dataIndex: 'disinfect',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '是否已消毒',
+        //   dataIndex: 'disinfect',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
           title: '养殖票证',
           dataIndex: 'farmTicket',
@@ -307,12 +340,6 @@ export default {
           resizable: 'true'
         },
         {
-          title: '申报用户id',
-          dataIndex: 'memberId',
-          width: 120,
-          resizable: 'true'
-        },
-        {
           title: '审核人',
           dataIndex: 'acceptorId',
           width: 80,
@@ -331,6 +358,13 @@ export default {
           scopedSlots: { customRender: 'createTime' },
           width: 200,
           dataIndex: 'createTime'
+        },
+        {
+          key: 'deleteAction',
+          title: '操作',
+          dataIndex: 'deleteAction',
+          width: '70px',
+          scopedSlots: { customRender: 'deleteAction' }
         },
         {
           title: '状态',
@@ -392,6 +426,16 @@ export default {
     handleEdit (record) {
       this.visible = true
       this.mdl = { ...record }
+    },
+    handleDelete (record) {
+      deleteEntryApply({ id: record.id })
+      .then(res => {
+        if (res.success === true) {
+          // 刷新表格
+          this.$refs.table.refresh()
+          this.$message.info('删除成功')
+        }
+      })
     },
     handleOk () {
       const form = this.$refs.createModal.form

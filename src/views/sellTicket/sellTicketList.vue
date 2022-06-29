@@ -51,7 +51,13 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        <template>
+          <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+          <a-divider type="vertical" />
+          <a type="primary" href="http://cdn.ggmstc.com/common/%E4%BF%A1%E6%81%AF%E4%B8%8A%E4%BC%A0%E6%A8%A1%E6%9D%BF-%E5%88%86%E9%94%80%E7%A5%A8%E4%B8%93%E7%94%A8.xls">模板下载</a>
+          <a-divider type="vertical" />
+          &nbsp;
+        </template>
 
         <a-upload
           name="file"
@@ -64,6 +70,7 @@
         </a-upload>
 
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
+
           <a-button type="primary" @click="batchPrint">打印</a-button>
           <!-- <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
