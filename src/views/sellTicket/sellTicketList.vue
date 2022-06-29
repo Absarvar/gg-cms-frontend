@@ -100,6 +100,11 @@
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
+
+        <span slot="qrcodeUrl" slot-scope="text">
+          <img width="50px" height="50px" :src="text">
+        </span>
+
         <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
         </span>
@@ -184,11 +189,11 @@ export default {
           scopedSlots: { customRender: 'serial' },
           width: 60
         },
-        {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
-        },
+        // {
+        //   title: 'id',
+        //   dataIndex: 'id',
+        //   width: 60
+        // },
         {
           title: '分销证号',
           dataIndex: 'fxNo',
@@ -265,6 +270,13 @@ export default {
           title: '备注',
           dataIndex: 'remark',
           width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '二维码',
+          dataIndex: 'qrcodeUrl',
+          width: 120,
+          scopedSlots: { customRender: 'qrcodeUrl' },
           resizable: 'true'
         },
         {
@@ -460,48 +472,45 @@ export default {
 			ticketHtml +=
       `
 		<div class="text-center" style="width:750px;height:417px;" align="center" >
-      <div style="margin-top:0px;height:35px;">
+      <div style="margin-top:35px;height:70px;">
               <div style="margin-left:0px;" align="left" >
-                <div style="margin-top:20px">&nbsp; ` + datas[i].fxNo + `</div>
+                <div style="margin-top:20px;padding-left:80px;padding-top:15px;"> ` + datas[i].fxNo + `</div>
               </div>
-              <div style="float:right;margin-top:-60px;"> <img width="75px" height="80px" src="https://sy.ggmstc.com/szszdistfile/8c7ea05c-8b80-4190-a527-79126c6073f1.jpg"></div>
+              <div style="float:right;margin-top:-70px;"> <img width="70px" height="80px" src="https://sy.ggmstc.com/szszdistfile/8c7ea05c-8b80-4190-a527-79126c6073f1.jpg"></div>
               <!-- <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
             </div>
       <table 
               class="table table-bordered table-hover heavy_border t2print"
-              style="vertical-align:middle;padding-top:15px;margin-bottom:1px;">
+              style="vertical-align:middle;padding-top:15px;margin-top:-35px;">
               <tbody >
                
-              <!--  <div style="text-align:left;margin-top:30px">&nbsp; ` + datas[i].fxNo + `</div>
-              <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
-
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1"> </td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">供广深圳肉类智能交易市场有限公司</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:0px;" colspan="3">供广深圳肉类智能交易市场有限公司</td>
                 </tr>
-                <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;width:150px;" > 生产单位----</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:200px;" >` + datas[i].butcherEnt + `</td>
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;width:200px;" > 生产单位地址--------</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:200px;font-size:8px;" >` + datas[i].butcherAddress + `购货单位地址购</td>
+                <tr style="width:750px;">
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:150px;" > 生产单位</td>
+                  <td scope="col" style="text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:230px;padding-left:-0px;font-size:15px; " >` + datas[i].butcherEnt + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:120px;visibility:hidden;" > -</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:250px;font-size:8px;padding-left:25px;" >` + datas[i].butcherAddress + `购货单位地址购</td>
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + datas[i].flowtoEnt + `</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:0px;font-size:15px;" >` + datas[i].flowtoEnt + `</td>
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:200px;font-size:8px;" >` + datas[i].flowtoEntAddress + `</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:200px;font-size:8px;padding-left:25px;" >` + datas[i].flowtoEntAddress + `</td>
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >&nbsp;&nbsp;&nbsp;&nbsp; </td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + datas[i].batchNo + `</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:0px;" >` + datas[i].batchNo + `</td>
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + datas[i].quarantineNo + `</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:25px;" >` + datas[i].quarantineNo + `</td>
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >&nbsp;&nbsp;&nbsp;&nbsp; </td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + datas[i].goodsName + `</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:0px;" >` + datas[i].goodsName + `</td>
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >&nbsp;&nbsp;&nbsp;&nbsp; </td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" >` + datas[i].weight + `公斤</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:25px;" >` + datas[i].weight + `公斤</td>
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1">检测结果</td>
@@ -509,12 +518,12 @@ export default {
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1">备注</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="3">` + datas[i].remark + `</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:55px;" colspan="3">` + datas[i].remark + `</td>
                 </tr>
                 <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;莫洋飞</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1"> 莫洋飞</td>
-                  <td scope="col" style="height:32px;text-align:right;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ` + nowTime + `</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:45px;width:90px;" colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;莫洋飞</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:0px;visibility:hidden;" colspan="1"> 莫洋飞</td>
+                  <td scope="col" style="height:32px;text-align:right;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;font-size:12px;" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ` + nowTime + `</td>
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4"></td>
