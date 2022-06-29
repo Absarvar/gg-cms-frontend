@@ -471,7 +471,7 @@ export default {
 		for (var i = 0; i < datas.length; i++) {
 			ticketHtml +=
       `
-		<div class="text-center" style="width:750px;height:417px;" align="center" >
+		<div class="text-center" style="width:750px;height:386px;" align="center" >
       <div style="margin-top:35px;height:70px;">
               <div style="margin-left:0px;" align="left" >
                 <div style="margin-top:20px;padding-left:80px;padding-top:15px;"> ` + datas[i].fxNo + `</div>
@@ -489,7 +489,7 @@ export default {
                   <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:0px;" colspan="3">供广深圳肉类智能交易市场有限公司</td>
                 </tr>
                 <tr style="width:750px;">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:150px;" > 生产单位</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:150px;visibility:hidden;" > 生产单位</td>
                   <td scope="col" style="text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:230px;padding-left:-0px;font-size:15px; " >` + datas[i].butcherEnt + `</td>
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:120px;visibility:hidden;" > -</td>
                   <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:250px;font-size:8px;padding-left:25px;" >` + datas[i].butcherAddress + `购货单位地址购</td>
@@ -533,8 +533,7 @@ export default {
                 </tr>
               </tbody>
             </table>
-      </div>
-    </div>`
+      </div></div>`
 		}
 
 		// ticketHtml += `</body>
