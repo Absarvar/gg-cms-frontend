@@ -518,10 +518,10 @@ export default {
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1">备注</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:55px;" colspan="3">` + datas[i].remark + `</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:55px;" colspan="3"><br>` + datas[i].remark + `</td>
                 </tr>
                 <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:45px;width:90px;" colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;莫洋飞</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:bottom;padding-left:45px;width:90px;" colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;莫洋飞</td>
                   <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:0px;visibility:hidden;" colspan="1"> 莫洋飞</td>
                   <td scope="col" style="height:32px;text-align:right;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;font-size:12px;" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ` + nowTime + `</td>
                 </tr>

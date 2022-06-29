@@ -204,7 +204,7 @@ win.document.write(`
 <style>
 </style>
 	<body>
-		<div class="text-center" style="width:750px;height:417px;" align="center" >
+		<div class="text-center" style="width:750px;height:386px;" align="center" >
       <div style="margin-top:35px;height:70px;">
               <div style="margin-left:0px;" align="left" >
                 <div style="margin-top:20px;padding-left:80px;padding-top:15px;"> ` + this.model.fxNo + `</div>
@@ -225,7 +225,7 @@ win.document.write(`
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:150px;visibility:hidden;" > 生产单位</td>
                   <td scope="col" style="text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:230px;padding-left:-0px;font-size:15px; " >` + this.model.butcherEnt + `</td>
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:120px;visibility:hidden;" > -</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:250px;font-size:8px;padding-left:25px;" >` + this.model.butcherAddress + `购货单位地址购</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;width:250px;font-size:8px;padding-left:25px;" >` + this.model.butcherAddress + `</td>
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" > &nbsp;&nbsp;&nbsp;&nbsp;</td>
@@ -251,12 +251,12 @@ win.document.write(`
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;visibility:hidden;" colspan="1">备注</td>
-                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:55px;" colspan="3">` + this.model.remark + `</td>
+                  <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:55px;" colspan="3"><br>` + this.model.remark + `</td>
                 </tr>
                 <tr style="">
-                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:45px;width:90px;" colspan="1">&nbsp;&nbsp;&nbsp;&nbsp;莫洋飞</td>
+                  <td scope="col" style="height:32px;text-align:center;border-width:1px;border-color:#000000;padding:0px;vertical-align:bottom;padding-left:45px;width:90px;" colspan="1"><br>&nbsp;&nbsp;&nbsp;&nbsp;莫洋飞</td>
                   <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;padding-left:0px;visibility:hidden;" colspan="1"> 莫洋飞</td>
-                  <td scope="col" style="height:32px;text-align:right;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;font-size:12px;" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ` + this.nowTime + `</td>
+                  <td scope="col" style="height:32px;text-align:right;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;font-size:12px;" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<br> ` + this.nowTime + `</td>
                 </tr>
                 <tr style="">
                   <td scope="col" style="height:32px;text-align:left;border-width:1px;border-color:#000000;padding:0px;vertical-align:middle;" colspan="4"></td>
