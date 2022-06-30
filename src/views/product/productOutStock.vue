@@ -32,7 +32,7 @@
           <div class="text">状态</div>
           <div class="heading">
             <template v-if="info.status === 1">
-              待入库
+              待出库
             </template>
 
           </div>
@@ -120,7 +120,7 @@
           <a-descriptions-item label=""><a-input id="orbitCode" v-model="orbitCode" ></a-input></a-descriptions-item>
         </a-descriptions>
         <a-divider style="margin: 16px 0" />
-        <a-button type="primary" @click="handleAdd()">提交</a-button>
+        <a-button type="primary" @click="handleOutStock()">提交出库</a-button>
         <a-divider style="margin: 16px 0" />
         <a-button type="primary" @click="serialPort()">电子秤</a-button>
         <a-divider style="margin: 16px 0" />
@@ -216,7 +216,7 @@ import { baseMixin } from '@/store/app-mixin'
 import { getEntryApply } from '@/api/entryApply'
 import { getPageQuery } from '@/utils/util'
 import { formateDate } from '@/utils/dateUtil'
-import { productList, deleteProduct, newProduct } from '@/api/product'
+import { productList, deleteProduct, outStock } from '@/api/product'
 import { STable } from '@/components'
 
  const Uint8ArrayToString = (fileData) => {
@@ -278,7 +278,6 @@ export default {
           Object.assign(this.queryParam, urlParam)
         //  this.queryParam = urlParam
         }
-        this.queryParam.applyId = urlParam.id
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         return productList(requestParameters)
           .then(res => {
@@ -402,14 +401,14 @@ export default {
         this.$refs.table.refresh()
       })
     },
-    handleAdd () {
+    handleOutStock () {
       this.product.orbitCode = this.orbitCode
       this.product.weight = this.weight
       this.product.level = this.rank
       this.product.price = this.price
       this.product.goodsId = this.info.goodsId
       this.product.applyId = this.info.id
-      newProduct(this.product).then(res => {
+      outStock(this.product).then(res => {
         this.$refs.table.refresh()
       })
     },

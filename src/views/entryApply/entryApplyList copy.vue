@@ -13,30 +13,20 @@
                 />
               </a-form-item>
             </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="状态"> <a-input v-model="queryParam.status" placeholder=""/> </a-form-item> </a-col>
             <template v-if="advanced">
-              <a-col :md="8" :sm="24"> <a-form-item label="供应商"> <a-input v-model="queryParam.supplierEntName" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="屠宰单位"> <a-input v-model="queryParam.butcherEntName" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="检疫证号"> <a-input v-model="queryParam.quarantineCertNo" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="检疫证类型"> <a-input v-model="queryParam.quarantineCertType" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="批次重量"> <a-input v-model="queryParam.batchWeight" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="产品名称"> <a-input v-model="queryParam.productName" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="流向企业"> <a-input v-model="queryParam.flowtoEntName" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="进场批次号"> <a-input v-model="queryParam.batchCode" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="出场重量"> <a-input v-model="queryParam.batchOutWeight" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="出场价格"> <a-input v-model="queryParam.batchOutPrice" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="进场价格"> <a-input v-model="queryParam.batchInPrice" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="分销流水号"> <a-input v-model="queryParam.fxCode" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="产品类别编号"> <a-input v-model="queryParam.productCategoryCode" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="进场日期"> <a-input v-model="queryParam.batchInDate" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="出场日期"> <a-input v-model="queryParam.batchOutDate" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="产品图片"> <a-input v-model="queryParam.productImg" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="检测报告"> <a-input v-model="queryParam.batchCheckReport" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="供应商信用代码"> <a-input v-model="queryParam.supplierEntUnifCode" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="屠宰场信用代码"> <a-input v-model="queryParam.butcherEntUnifCode" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="流向企业信用代码"> <a-input v-model="queryParam.flowtoEntUnifCode" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="二维码地址"> <a-input v-model="queryParam.qrcodeUrl" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="进场重量"> <a-input v-model="queryParam.batchInWeight" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="批次号"> <a-input v-model="queryParam.batchNo" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="检疫证号"> <a-input v-model="queryParam.quarantineNo" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰场ID"> <a-input v-model="queryParam.butcherId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="养殖场ID"> <a-input v-model="queryParam.farmId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="用途"> <a-input v-model="queryParam.usage" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="承运人"> <a-input v-model="queryParam.carrier" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="承运人手机"> <a-input v-model="queryParam.carrierMobile" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="运输方式"> <a-input v-model="queryParam.transportation" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="车牌号"> <a-input v-model="queryParam.plateNo" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="申报用户id"> <a-input v-model="queryParam.memberId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="审核人"> <a-input v-model="queryParam.acceptorId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="入场时间"> <a-input v-model="queryParam.enterTime" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -55,31 +45,15 @@
 
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
-
-        <a-divider type="vertical" />
-        <a type="primary" href="http://cdn.ggmstc.com/common/%E4%BF%A1%E6%81%AF%E4%B8%8A%E4%BC%A0%E6%A8%A1%E6%9D%BF-%E5%88%86%E9%94%80%E7%A5%A8%E4%B8%93%E7%94%A8.xls">模板下载</a>
-        <a-divider type="vertical" />
-
-        <a-upload
-          name="file"
-          :multiple="true"
-          :action="importUrl.url"
-          :headers="headers"
-          @change="handleChange"
-        >
-          <a-button> <a-icon type="upload" /> 导入 </a-button>
-        </a-upload>
-
-        <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
+        <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
-        </a-dropdown>
+        </a-dropdown> -->
       </div>
 
       <s-table
@@ -100,15 +74,39 @@
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
-        <span slot="addtime" slot-scope="text">
+        <span slot="enterTime" slot-scope="text">
           {{ text | formateDate }}
+        </span>
+        <span slot="createTime" slot-scope="text">
+          {{ text | formateDate }}
+        </span>
+
+        <span slot="farmTicket" slot-scope="text">
+          <a :href="'http://cdn.ggmstc.com/'+text" target="_blank">查看</a>
+        </span>
+
+        <span slot="quarantineTicket" slot-scope="text">
+          <a :href="'http://cdn.ggmstc.com/'+text" target="_blank">查看</a>
+        </span>
+
+        <span slot="deleteAction" slot-scope="text, record">
+          <a @click="handleDelete(record)">删除</a>
         </span>
 
         <span slot="action" slot-scope="text, record">
           <template>
-            <a @click="handleEdit(record)">编辑</a>
+            <template v-if="roleType!==99 || (roleType===99&& record.status===1)">
+              <a @click="handleEdit(record)">编辑</a>
+            </template>
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
+            <!-- <template v-if="queryParam.op==='instock'"> -->
+            <template v-if="roleType!==99 && queryParam.op==='instock'">
+              <a-divider type="vertical" />
+              <router-link :to="{path: '/trade-center/ground-manage/productInstock', query: {'id':record.id }}">
+                理货入库
+              </router-link>
+            </template>
           </template>
         </span>
       </s-table>
@@ -118,6 +116,7 @@
         :visible="visible"
         :loading="confirmLoading"
         :model="mdl"
+        :op="queryParam.op"
         @cancel="handleCancel"
         @ok="handleOk"
       />
@@ -126,23 +125,31 @@
 </template>
 
 <script>
+import storage from 'store'
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newFlowInfo, editFlowInfo, flowInfoList, flowInfoApi } from '@/api/flowInfo'
+import { newEntryApply, editEntryApply, entryApplyList, deleteEntryApply } from '@/api/entryApply'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
-import { ACCESS_TOKEN } from '@/store/mutation-types'
-import storage from 'store'
+import { getPageQuery } from '@/utils/util'
 
 const statusMap = {
   0: {
     status: 'default',
-    text: '禁用中'
+    text: '已作废'
   },
   1: {
+    status: 'error',
+    text: '审核中'
+  },
+  2: {
     status: 'processing',
-    text: '启用中'
+    text: '已确认'
+  },
+  3: {
+    status: 'success',
+    text: '已入场'
   }
 }
 
@@ -155,12 +162,7 @@ export default {
   },
   data () {
     return {
-      headers: {
-        Authorization: storage.get(ACCESS_TOKEN)
-      },
-      importUrl: {
-        url: flowInfoApi.importFlowInfo
-      },
+      roleType: storage.get('roleType'),
       // create model
       visible: false,
       confirmLoading: false,
@@ -171,9 +173,14 @@ export default {
       queryParam: {},
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
+        const urlParam = getPageQuery()
+        if (urlParam !== undefined) {
+          Object.assign(this.queryParam, urlParam)
+        //  this.queryParam = urlParam
+        }
+        // console.log(this.queryParam)
         const requestParameters = Object.assign({}, parameter, this.queryParam)
-        console.log('loadData request parameters:', requestParameters)
-        return flowInfoList(requestParameters)
+        return entryApplyList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -187,159 +194,189 @@ export default {
           scopedSlots: { customRender: 'serial' },
           width: 60
         },
+        // {
+        //   title: 'id',
+        //   dataIndex: 'id',
+        //   width: 60
+        // },
         {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
+          title: '批次号',
+          dataIndex: 'batchNo',
+          width: 115,
+          resizable: 'true'
         },
         {
-          title: '供应商',
-          dataIndex: 'supplierEntName',
+          title: '屠宰场',
+          dataIndex: 'butcherName',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '屠宰单位',
-          dataIndex: 'butcherEntName',
+          title: '屠宰场联系人',
+          dataIndex: 'butcherLinkman',
+          width: 80,
+          resizable: 'true'
+        },
+        {
+          title: '屠宰场电话',
+          dataIndex: 'butcherLinkmanMobile',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '申报人',
+          dataIndex: 'memberLegal',
+          width: 80,
+          resizable: 'true'
+        },
+        {
+          title: '申报人电话',
+          dataIndex: 'memberMobile',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '申报公司',
+          dataIndex: 'memberName',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '承运人',
+          dataIndex: 'carrier',
+          width: 80,
+          resizable: 'true'
+        },
+        {
+          title: '承运人手机',
+          dataIndex: 'carrierMobile',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '车牌号',
+          dataIndex: 'plateNo',
           width: 120,
           resizable: 'true'
         },
         {
           title: '检疫证号',
-          dataIndex: 'quarantineCertNo',
+          dataIndex: 'quarantineNo',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '检疫证类型',
-          dataIndex: 'quarantineCertType',
+          title: '商品',
+          dataIndex: 'goodsName',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '批次重量',
-          dataIndex: 'batchWeight',
+          title: '商品数量',
+          dataIndex: 'num',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '产品名称',
-          dataIndex: 'productName',
+          title: '总重量',
+          dataIndex: 'weight',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '流向企业',
-          dataIndex: 'flowtoEntName',
+          title: '养殖场',
+          dataIndex: 'farmName',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '进场批次号',
-          dataIndex: 'batchCode',
+          title: '运输方式',
+          dataIndex: 'transportation',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '出场重量',
-          dataIndex: 'batchOutWeight',
+          title: '用途',
+          dataIndex: 'usage',
+          width: 120,
+          resizable: 'true'
+        },
+        // {
+        //   title: '是否已消毒',
+        //   dataIndex: 'disinfect',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        {
+          title: '养殖票证',
+          dataIndex: 'farmTicket',
+          width: 120,
+          resizable: 'true',
+          scopedSlots: { customRender: 'farmTicket' }
+        },
+        {
+          title: '屠宰票证',
+          dataIndex: 'quarantineTicket',
+          width: 120,
+          resizable: 'true',
+          scopedSlots: { customRender: 'quarantineTicket' }
+        },
+        {
+          title: '地磅初读',
+          dataIndex: 'checkLoad',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '出场价格',
-          dataIndex: 'batchOutPrice',
+          title: '地磅复读',
+          dataIndex: 'recheckLoad',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '进场价格',
-          dataIndex: 'batchInPrice',
+          title: '地磅重量',
+          dataIndex: 'load',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '分销流水号',
-          dataIndex: 'salesDocumentNo',
-          width: 120,
+          title: '审核人',
+          dataIndex: 'acceptorId',
+          width: 80,
           resizable: 'true'
         },
         {
-          title: '产品类别编号',
-          dataIndex: 'productCategoryCode',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '进场日期',
-          dataIndex: 'batchInDate',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '出场日期',
-          dataIndex: 'batchOutDate',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '产品图片',
-          dataIndex: 'productImg',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '检测报告',
-          dataIndex: 'batchCheckReport',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '供应商信用代码',
-          dataIndex: 'supplierEntUnifCode',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '屠宰场信用代码',
-          dataIndex: 'butcherEntUnifCode',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '流向企业信用代码',
-          dataIndex: 'flowtoEntUnifCode',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '二维码地址',
-          dataIndex: 'qrcodeUrl',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '进场重量',
-          dataIndex: 'batchInWeight',
+          title: '入场时间',
+          scopedSlots: { customRender: 'enterTime' },
+          dataIndex: 'enterTime',
           width: 120,
           resizable: 'true'
         },
 
         {
+          title: '创建时间',
+          scopedSlots: { customRender: 'createTime' },
+          width: 200,
+          dataIndex: 'createTime'
+        },
+        {
+          key: 'deleteAction',
+          title: '操作',
+          dataIndex: 'deleteAction',
+          width: '70px',
+          scopedSlots: { customRender: 'deleteAction' }
+        },
+        {
           title: '状态',
           scopedSlots: { customRender: 'status' },
           width: 100,
+          fixed: 'right',
           dataIndex: 'status'
-        },
-        {
-          title: '创建时间',
-          scopedSlots: { customRender: 'addtime' },
-          width: 200,
-          dataIndex: 'addtime'
         },
         {
           key: 'action',
           title: '操作',
+          fixed: 'right',
           dataIndex: 'action',
           width: '150px',
           scopedSlots: { customRender: 'action' }
@@ -360,7 +397,17 @@ export default {
     }
   },
   created () {
-
+        console.log(this.$route)
+      this.$nextTick(() => {
+        console.log(this.$route.query)
+        const urlParam = getPageQuery()
+        if (urlParam !== undefined) {
+          Object.assign(this.queryParam, urlParam)
+        this.$refs.table.refresh()
+        //  this.queryParam = urlParam
+        }
+        // console.log(this.queryParam)
+      })
   },
   computed: {
     rowSelection () {
@@ -371,21 +418,6 @@ export default {
     }
   },
   methods: {
-    handleChange (info) {
-      console.log(info)
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList)
-      }
-      if (info.file.status === 'done') {
-        if (info.file.response.success === true) {
-          this.$message.success(`${info.file.name} 导入成功！`)
-        } else {
-          this.$message.error(`${info.file.name} 导入失败.原因：${info.file.response.msg}`)
-        }
-      } else if (info.file.status === 'error') {
-        this.$message.error(`${info.file.name} 文件上传失败.`)
-      }
-    },
     timeChange (date, dateStr) {
       this.queryParam.startTime = dateStr[0]
       this.queryParam.endTime = dateStr[1]
@@ -398,6 +430,16 @@ export default {
       this.visible = true
       this.mdl = { ...record }
     },
+    handleDelete (record) {
+      deleteEntryApply({ id: record.id })
+      .then(res => {
+        if (res.success === true) {
+          // 刷新表格
+          this.$refs.table.refresh()
+          this.$message.info('删除成功')
+        }
+      })
+    },
     handleOk () {
       const form = this.$refs.createModal.form
       this.confirmLoading = true
@@ -405,7 +447,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editFlowInfo(values)
+            editEntryApply(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -418,7 +460,7 @@ export default {
             })
           } else {
             // 新增
-            newFlowInfo(values)
+            newEntryApply(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false

@@ -101,12 +101,12 @@
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
             <!-- <template v-if="queryParam.op==='instock'"> -->
-            <template v-if="roleType!==99">
+            <!-- <template v-if="roleType!==99">
               <a-divider type="vertical" />
               <router-link :to="{path: '/trade-center/ground-manage/productInstock', query: {'id':record.id }}">
                 理货入库
               </router-link>
-            </template>
+            </template> -->
           </template>
         </span>
       </s-table>
@@ -397,10 +397,13 @@ export default {
     }
   },
   created () {
+        console.log(this.$route)
       this.$nextTick(() => {
+        console.log(this.$route.query)
         const urlParam = getPageQuery()
         if (urlParam !== undefined) {
           Object.assign(this.queryParam, urlParam)
+        this.$refs.table.refresh()
         //  this.queryParam = urlParam
         }
         // console.log(this.queryParam)
