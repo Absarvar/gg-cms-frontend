@@ -44,7 +44,7 @@
       </div>
 
       <div class="table-operator">
-        <template v-if="roleType===1 || (roleType===99&& record.status===1)">
+        <template v-if="roleType===1 || (roleType===99)">
           <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
         </template>
         <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
@@ -97,14 +97,14 @@
         </span>
 
         <span slot="deleteAction" slot-scope="text, record">
-          <template v-if="roleType===1 || (roleType===99&& record.status===1)">
+          <template v-if="roleType===1 || (roleType===99)">
             <a @click="handleDelete(record)">删除</a>
           </template>
         </span>
 
         <span slot="action" slot-scope="text, record">
           <template>
-            <template v-if="roleType<99 || (roleType===99&& record.status===1)">
+            <template v-if="roleType<99 || (roleType===99)">
               <a @click="handleEdit(record)">编辑</a>
             </template>
             <!-- <a-divider type="vertical" />
