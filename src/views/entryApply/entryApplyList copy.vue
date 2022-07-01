@@ -90,18 +90,20 @@
         </span>
 
         <span slot="deleteAction" slot-scope="text, record">
-          <a @click="handleDelete(record)">删除</a>
+          <template v-if="roleType===1 || (roleType===99&& record.status===1)">
+            <a @click="handleDelete(record)">删除</a>
+          </template>
         </span>
 
         <span slot="action" slot-scope="text, record">
           <template>
-            <template v-if="roleType!==99 || (roleType===99&& record.status===1)">
+            <template v-if="roleType===1 || (roleType===99&& record.status===1)">
               <a @click="handleEdit(record)">编辑</a>
             </template>
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
             <!-- <template v-if="queryParam.op==='instock'"> -->
-            <template v-if="roleType!==99 && queryParam.op==='instock'">
+            <template v-if="roleType===97 || roleType===1">
               <a-divider type="vertical" />
               <router-link :to="{path: '/trade-center/ground-manage/productInstock', query: {'id':record.id }}">
                 理货入库
@@ -397,10 +399,10 @@ export default {
     }
   },
   created () {
-        console.log(this.$route)
-      this.$nextTick(() => {
-        console.log(this.$route.query)
         const urlParam = getPageQuery()
+      this.$nextTick(() => {
+        console.log(this.$route.path)
+        // const urlParam = getPageQuery()
         if (urlParam !== undefined) {
           Object.assign(this.queryParam, urlParam)
         this.$refs.table.refresh()
@@ -408,6 +410,10 @@ export default {
         }
         // console.log(this.queryParam)
       })
+
+    this.$watch(urlParam, () => {
+        console.log(this.$route)
+    })
   },
   computed: {
     rowSelection () {

@@ -44,7 +44,9 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        <template v-if="roleType===1 || (roleType===99&& record.status===1)">
+          <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        </template>
         <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
@@ -71,6 +73,11 @@
         <span slot="serial" slot-scope="text, record, index">
           {{ index + 1 }}
         </span>
+
+        <span slot="plateNo" slot-scope="text">
+          <a-tag style="width:80px;height:25px;font-size: 15px;text-align: center;vertical-align: center;" color="blue" >{{ text }}</a-tag>
+        </span>
+
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
@@ -90,18 +97,20 @@
         </span>
 
         <span slot="deleteAction" slot-scope="text, record">
-          <a @click="handleDelete(record)">删除</a>
+          <template v-if="roleType===1 || (roleType===99&& record.status===1)">
+            <a @click="handleDelete(record)">删除</a>
+          </template>
         </span>
 
         <span slot="action" slot-scope="text, record">
           <template>
-            <template v-if="roleType!==99 || (roleType===99&& record.status===1)">
+            <template v-if="roleType<99 || (roleType===99&& record.status===1)">
               <a @click="handleEdit(record)">编辑</a>
             </template>
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
             <!-- <template v-if="queryParam.op==='instock'"> -->
-            <!-- <template v-if="roleType!==99">
+            <!-- <template v-if="roleType===97 || roleType===1">
               <a-divider type="vertical" />
               <router-link :to="{path: '/trade-center/ground-manage/productInstock', query: {'id':record.id }}">
                 理货入库
@@ -132,7 +141,7 @@ import { newEntryApply, editEntryApply, entryApplyList, deleteEntryApply } from 
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
-import { getPageQuery } from '@/utils/util'
+// import { getPageQuery } from '@/utils/util'
 
 const statusMap = {
   0: {
@@ -173,11 +182,10 @@ export default {
       queryParam: {},
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        const urlParam = getPageQuery()
-        if (urlParam !== undefined) {
-          Object.assign(this.queryParam, urlParam)
-        //  this.queryParam = urlParam
-        }
+        // const urlParam = getPageQuery()
+        // if (urlParam !== undefined) {
+        //   Object.assign(this.queryParam, urlParam)
+        // }
         // console.log(this.queryParam)
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         return entryApplyList(requestParameters)
@@ -257,7 +265,8 @@ export default {
           title: '车牌号',
           dataIndex: 'plateNo',
           width: 120,
-          resizable: 'true'
+          resizable: 'true',
+          scopedSlots: { customRender: 'plateNo' }
         },
         {
           title: '检疫证号',
@@ -397,17 +406,35 @@ export default {
     }
   },
   created () {
-        console.log(this.$route)
-      this.$nextTick(() => {
-        console.log(this.$route.query)
-        const urlParam = getPageQuery()
-        if (urlParam !== undefined) {
-          Object.assign(this.queryParam, urlParam)
-        this.$refs.table.refresh()
-        //  this.queryParam = urlParam
+      //   const urlParam = getPageQuery()
+      // this.$nextTick(() => {
+      //   console.log(this.$route.name)
+      //   if (urlParam !== undefined) {
+      //     Object.assign(this.queryParam, urlParam)
+      //   this.$refs.table.refresh()
+      //   }
+      // })
+  },
+  watch: {
+    '$route': {
+      immediate: true, // true首次加载执行，默认false
+      handler () {
+        // console.log('单个属性监听')
+        // console.log(this.$route.name)
+        if (this.$route.name === 'load-recheck') {
+          this.queryParam.status = 3
+        } else if (this.$route.name === 'register-entry') {
+          this.queryParam.status = 2
+          this.$refs.table.refresh()
+        } else if (this.$route.name === 'entryApply-list') {
+          this.queryParam.status = null
         }
-        // console.log(this.queryParam)
-      })
+        if (this.$refs.table) {
+          this.$refs.table.refresh()
+        }
+      }
+
+    }
   },
   computed: {
     rowSelection () {
