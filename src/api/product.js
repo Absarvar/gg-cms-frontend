@@ -8,7 +8,8 @@ const productApi = {
   deleteProduct: GG_URL_PREFIX + '/product/delete',
   editProduct: GG_URL_PREFIX + '/product/edit',
   frozenStock: GG_URL_PREFIX + '/product/frozenStock',
-  outStock: GG_URL_PREFIX + '/product/outStock'
+  outStock: GG_URL_PREFIX + '/product/outStock',
+  productListTree: GG_URL_PREFIX + '/product/listTree'
 }
 
 export function newProduct (parameter) {
@@ -63,6 +64,14 @@ export function outStock (parameter) {
   return request({
     url: productApi.outStock,
     method: 'post',
+    params: parameter
+  })
+}
+
+export function productListTree (parameter) {
+  return request({
+    url: productApi.productListTree,
+    method: 'get',
     params: parameter
   })
 }

@@ -23,7 +23,7 @@ const constantRouterComponents = {
   // article
   // ArticleList: () => import('@/views/article/basicArticle/list'),
   // ArticleIndex: () => import('@/views/article/basicArticle/index'),
-  StandardArticle: () => import('@/views/article/BasicArticle'),
+  // StandardArticle: () => import('@/views/article/BasicArticle'),
 
   // member
 //   MemberList: () => import('@/views/member/memberList'),

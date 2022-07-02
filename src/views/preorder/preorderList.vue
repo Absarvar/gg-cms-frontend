@@ -14,17 +14,17 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="预定单号"> <a-input v-model="queryParam.preorderCode" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="会员id"> <a-input v-model="queryParam.memberId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="预定手机号"> <a-input v-model="queryParam.mobile" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="规格id"> <a-input v-model="queryParam.skuId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="确认规格"> <a-input v-model="queryParam.confirmSku" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="确认数量"> <a-input v-model="queryParam.confirmNum" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="确认价格"> <a-input v-model="queryParam.confirmPrice" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="总额"> <a-input v-model="queryParam.amount" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="到货时间"> <a-input v-model="queryParam.arriveTime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="预定单号"> <a-input v-model="queryParam.preorderCode" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="会员id"> <a-input v-model="queryParam.memberId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="预定手机号"> <a-input v-model="queryParam.mobile" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="规格id"> <a-input v-model="queryParam.skuId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="确认规格"> <a-input v-model="queryParam.confirmSku" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="确认数量"> <a-input v-model="queryParam.confirmNum" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="确认价格"> <a-input v-model="queryParam.confirmPrice" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="总额"> <a-input v-model="queryParam.amount" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="到货时间"> <a-input v-model="queryParam.arriveTime" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -80,8 +80,9 @@
         <span slot="action" slot-scope="text, record">
           <template>
             <a @click="handleEdit(record)">编辑</a>
-            <!-- <a-divider type="vertical" />
-            <a @click="handleSub(record)">订阅报警</a> -->
+            <a-divider type="vertical" />
+            <a @click="handleGoSend(record)">配货</a>
+            <!-- <a @click="handleSub(record)">订阅报警</a> -->
           </template>
         </span>
       </s-table>
@@ -94,6 +95,15 @@
         @cancel="handleCancel"
         @ok="handleOk"
       />
+      <go-send-form
+        ref="goSend"
+        :visible="goSend"
+        :goSend="goSend"
+        :loading="confirmLoading"
+        :model="mdl"
+        @cancel="handleCancel"
+        @ok="goodsSend"
+      />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -102,8 +112,10 @@
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
 import { newPreorder, editPreorder, preorderList } from '@/api/preorder'
+import { preorderGoSend } from '@/api/mkOrder'
 
 import CreateForm from './modules/CreateForm'
+import GoSendForm from './modules/GoSendForm'
 import { formateDate } from '@/utils/dateUtil'
 
 const statusMap = {
@@ -122,11 +134,13 @@ export default {
   components: {
     STable,
     Ellipsis,
-    CreateForm
+    CreateForm,
+    GoSendForm
   },
   data () {
     return {
       // create model
+      goSend: false,
       visible: false,
       confirmLoading: false,
       mdl: null,
@@ -153,19 +167,14 @@ export default {
           width: 60
         },
         {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
-        },
-        {
           title: '预定单号',
           dataIndex: 'preorderCode',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '会员id',
-          dataIndex: 'memberId',
+          title: '会员',
+          dataIndex: 'memberName',
           width: 120,
           resizable: 'true'
         },
@@ -176,14 +185,14 @@ export default {
           resizable: 'true'
         },
         {
-          title: '商品id',
-          dataIndex: 'goodsId',
+          title: '商品',
+          dataIndex: 'goodsName',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '规格id',
-          dataIndex: 'skuId',
+          title: '规格',
+          dataIndex: 'skuName',
           width: 120,
           resizable: 'true'
         },
@@ -278,9 +287,16 @@ export default {
     handleAdd () {
       this.mdl = null
       this.visible = true
+      this.goSend = false
     },
     handleEdit (record) {
       this.visible = true
+      this.goSend = false
+      this.mdl = { ...record }
+    },
+    handleGoSend (record) {
+      this.visible = false
+      this.goSend = true
       this.mdl = { ...record }
     },
     handleOk () {
@@ -293,6 +309,7 @@ export default {
             editPreorder(values)
             .then(res => {
               this.visible = false
+              this.goSend = false
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
@@ -306,6 +323,7 @@ export default {
             newPreorder(values)
             .then(res => {
               this.visible = false
+              this.goSend = false
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
@@ -320,8 +338,34 @@ export default {
         }
       })
     },
+    goodsSend () {
+      const form = this.$refs.goSend.form
+      this.confirmLoading = true
+      form.validateFields((errors, values) => {
+        if (!errors) {
+          if (values.id > 0) {
+            // 配货 e.g.
+            preorderGoSend(values)
+            .then(res => {
+              this.visible = false
+              this.goSend = false
+              this.confirmLoading = false
+              // 重置表单数据
+              form.resetFields()
+              // 刷新表格
+              this.$refs.table.refresh()
+
+              this.$message.info('配货成功')
+            })
+          }
+        } else {
+          this.confirmLoading = false
+        }
+      })
+    },
     handleCancel () {
       this.visible = false
+      this.goSend = false
 
       const form = this.$refs.createModal.form
       form.resetFields() // 清理表单数据（可不做）

@@ -23,9 +23,9 @@ import './global.less' // global style
 import 'jquery/dist/jquery.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap/dist/css/bootstrap.css'
-import 'summernote'
-import 'summernote/dist/lang/summernote-zh-CN'
-import 'summernote/dist/summernote.css'
+// import 'summernote'
+// import 'summernote/dist/lang/summernote-zh-CN'
+// import 'summernote/dist/summernote.css'
 
 Vue.config.productionTip = false
 
