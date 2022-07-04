@@ -568,6 +568,8 @@ export default {
             this.dealWithData8(value)
             } else if (value && value.length === 9) {
             this.dealWithData9(value)
+            } else {
+              console.log('not rfid detected')
             }
             setTimeout(() => {
 
