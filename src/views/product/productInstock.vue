@@ -113,11 +113,17 @@
         </a-descriptions>
         <a-divider style="margin: 16px 0" />
         <a-descriptions title="重量" size="small" :col="1">
-          <a-descriptions-item label=""><a-input id="weighti" v-model="weight" ></a-input></a-descriptions-item>
+          <a-descriptions-item label="">
+            <span style="font-size:30px;" class="classp1">{{ this.weight }}</span>
+            <a-input id="weighti" v-model="weight" ></a-input>
+          </a-descriptions-item>
         </a-descriptions>
         <a-divider style="margin: 16px 0" />
         <a-descriptions title="轨道编号" size="small" :col="2">
-          <a-descriptions-item label=""><a-input id="orbitCode" v-model="orbitCode" ></a-input></a-descriptions-item>
+          <a-descriptions-item label="">
+            <span style="font-size:30px;" class="classp2">{{ this.orbitCode }}</span>
+            <a-input id="orbitCode" v-model="orbitCode" ></a-input>
+          </a-descriptions-item>
         </a-descriptions>
         <a-divider style="margin: 16px 0" />
         <a-button type="primary" @click="handleAdd()">提交</a-button>
@@ -127,11 +133,11 @@
         <a-button type="primary" @click="getRfid()">rfid</a-button>
         <a-divider style="margin: 16px 0" />
 
-        <span id="userno" style="display: flex;font-size:5px;color:red">------fdddddddddd-----</span>
-        轨道信息：<span class="classp2">{{ this.orbitCode }}</span> 重量信息：
+        <span id="userno" style="display: flex;font-size:5px;color:red"></span>
+        轨道信息：重量信息：
         <div style="display: flex;justify-content: space-between;align-items:center;margin-top:5%;">
           <div class="divButtonMax">
-            <span class="classp" style="display:inline;font-size:20px">净重: </span><span class="classp1">{{ this.weight }}</span>
+            <span class="classp" style="display:inline;font-size:20px">净重: </span>
           </div>
         </div>
       </a-card>
@@ -559,7 +565,7 @@ export default {
             writer.releaseLock()
             break
             }
-            console.log('rf value:' + value)
+            // console.log('rf value:' + value)
             if (value === 0x01) {
               continue
             }
@@ -573,7 +579,7 @@ export default {
             }
             setTimeout(() => {
 
-            }, 500)
+            }, 100)
           }
           } catch (error) {
           // Handle non-fatal read error.
