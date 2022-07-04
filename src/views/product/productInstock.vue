@@ -571,9 +571,13 @@ export default {
             }
             if (value && value.length === 8) {
             /** * TODO: deal with the data value ***/
-            this.dealWithData8(value)
+              if (value[0] == 0x01) {
+                this.dealWithData9(value)
+              } else {
+                this.dealWithData8(value)
+              }
             } else if (value && value.length === 9) {
-            this.dealWithData9(value)
+              this.dealWithData9(value)
             } else {
               console.log('not rfid detected')
             }
