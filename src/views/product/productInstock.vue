@@ -565,13 +565,13 @@ export default {
             writer.releaseLock()
             break
             }
-            // console.log('rf value:' + value)
+            console.log('::' + value)
             if (value === 0x01) {
               continue
             }
             if (value && value.length === 8) {
             /** * TODO: deal with the data value ***/
-              if (value[0] == 0x01) {
+              if (value[0] === 0x01) {
                 this.dealWithData9(value)
               } else {
                 this.dealWithData8(value)
