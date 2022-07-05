@@ -258,7 +258,6 @@ export default {
         // const requestParameters = Object.assign({}, parameter, this.queryParam)
         return getEntryApply(this.queryParam)
           .then(res => {
-            console.log(res)
             this.info = res.data.entryApply
             this.info.createTime = formateDate(new Date(this.info.createTime), 'yyyy-MM-dd')
             this.info.arriveDate = formateDate(new Date(this.info.arriveDate), 'yyyy-MM-dd')
@@ -726,4 +725,7 @@ export default {
       text-align: left;
     }
   }
+.table-striped {
+  background-color: #fafafa;
+}
 </style>

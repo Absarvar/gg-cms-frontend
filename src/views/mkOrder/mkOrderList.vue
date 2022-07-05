@@ -89,6 +89,10 @@
             <a @click="handleEdit(record)">查看</a>
             <a-divider type="vertical" />
             <a @click="handleDetail(record)">明细</a>
+            <a-divider type="vertical" />
+            <router-link :to="{path: '/trade-center/ground-manage/productOutStock', query: {'orderId':record.id, 'applyId':record.applyId, 'consumerNo':consumerNo }}">
+              出库
+            </router-link>
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
           </template>
@@ -114,7 +118,7 @@ import { newMkOrder, editMkOrder, mkOrderList } from '@/api/mkOrder'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
-import { getPageQuery } from '@/utils/util'
+// import { getPageQuery } from '@/utils/util'
 
 const statusMap = {
   0: {
@@ -140,6 +144,7 @@ export default {
   },
   data () {
     return {
+      consumerNo: 'c6037',
       // create model
       visible: false,
       confirmLoading: false,
@@ -150,12 +155,12 @@ export default {
       queryParam: {},
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
-        const urlParam = getPageQuery()
-        if (urlParam.status > 0) {
-         this.queryParam.status = urlParam.status
-        } else {
-          this.queryParam.status = null
-        }
+        // const urlParam = getPageQuery()
+        // if (urlParam.status > 0) {
+        //  this.queryParam.status = urlParam.status
+        // } else {
+        //   this.queryParam.status = null
+        // }
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
         return mkOrderList(requestParameters)
@@ -317,6 +322,24 @@ export default {
   },
   created () {
 
+  },
+  watch: {
+    '$route': {
+      immediate: true, // true首次加载执行，默认false
+      handler () {
+        // console.log('单个属性监听')
+        // console.log(this.$route.name)
+        if (this.$route.name === 'orderOutStock') {
+          this.queryParam.status = 10
+        } else if (this.$route.name === 'gs-bill-list') {
+          this.queryParam.status = 10
+        }
+        if (this.$refs.table) {
+          this.$refs.table.refresh()
+        }
+      }
+
+    }
   },
   computed: {
     rowSelection () {

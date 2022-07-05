@@ -32,7 +32,7 @@
           <div class="text">状态</div>
           <div class="heading">
             <template v-if="info.status === 1">
-              待出库
+              待入库
             </template>
 
           </div>
@@ -103,35 +103,42 @@
 
     <a-card style="margin-top: 24px" :bordered="false" title="现场信息">
       <a-card type="inner" title="轨道信息" style="width:300px;float:left;">
-        <a-descriptions title="价格" size="small">
+        <!-- <a-descriptions title="价格" size="small">
           <a-descriptions-item label="一级">
             <a-input v-model="price" ></a-input>
           </a-descriptions-item>
-          <!-- <a-descriptions-item label="二级">
-            <a-input :value="price" ></a-input>
-          </a-descriptions-item> -->
-        </a-descriptions>
-        <a-divider style="margin: 16px 0" />
+        </a-descriptions> -->
+        <!-- <a-divider style="margin: 16px 0" />
         <a-descriptions title="重量" size="small" :col="1">
-          <a-descriptions-item label=""><a-input id="weighti" v-model="weight" ></a-input></a-descriptions-item>
+          <a-descriptions-item label="">
+            <span style="font-size:30px;" class="classp1">{{ this.weight }}</span>
+            <a-input id="weighti" v-model="weight" ></a-input>
+          </a-descriptions-item>
         </a-descriptions>
-        <a-divider style="margin: 16px 0" />
+        <a-divider style="margin: 16px 0" /> -->
         <a-descriptions title="轨道编号" size="small" :col="2">
-          <a-descriptions-item label=""><a-input id="orbitCode" v-model="orbitCode" ></a-input></a-descriptions-item>
+          <a-descriptions-item label="">
+            <span style="font-size:30px;" class="classp2" id="orbitCodeLabel" >{{ this.orbitCode }}</span>
+
+            <a-input id="orbitCode" v-model="orbitCode" ></a-input>
+          </a-descriptions-item>
         </a-descriptions>
         <a-divider style="margin: 16px 0" />
-        <a-button type="primary" @click="handleOutStock()">提交出库</a-button>
+        <a-button type="primary" @click="handleCommit()">提交</a-button>
+        <!-- <a-button type="primary" @click="startWx()">ws</a-button> -->
         <a-divider style="margin: 16px 0" />
-        <a-button type="primary" @click="serialPort()">电子秤</a-button>
+        <!-- <a-button type="primary" @click="serialPort()">电子秤</a-button> -->
         <a-divider style="margin: 16px 0" />
-        <a-button type="primary" @click="getRfid()">rfid</a-button>
+        <!-- <a-button type="primary" @click="getRfid()">rfid</a-button> -->
         <a-divider style="margin: 16px 0" />
 
-        <span id="userno" style="display: flex;font-size:5px;color:red">------fdddddddddd-----</span>
-        轨道信息：<span class="classp2">{{ this.orbitCode }}</span> 重量信息：
+        <span id="userno" style="display: flex;font-size:5px;color:red"></span>
+        轨道信息：
+        <span style="font-size:30px;" id="message"></span>
+        重量信息：
         <div style="display: flex;justify-content: space-between;align-items:center;margin-top:5%;">
           <div class="divButtonMax">
-            <span class="classp" style="display:inline;font-size:20px">净重: </span><span class="classp1">{{ this.weight }}</span>
+            <span class="classp" style="display:inline;font-size:20px">净重: </span>
           </div>
         </div>
       </a-card>
@@ -145,67 +152,18 @@
           :columns="columns"
           :data="loadData"
           :showPagination="false"
-          pageSize="100"
+          :pageSize="productPageSize"
           :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
         >
           <span slot="createTime" slot-scope="text">
             {{ text | formateDate }}
           </span>
-          <span slot="action" slot-scope="text, record">
-            <template>
-              <a @click="handleDelete(record)">删除</a>
-            </template>
+          <span slot="status" slot-scope="text">
+            <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
           </span>
         </s-table>
       </a-card>
     </a-card>
-
-    <!-- 操作 -->
-    <!-- <a-card
-      style="margin-top: 24px"
-      :bordered="false"
-      :tabList="operationTabList"
-      :activeTabKey="operationActiveTabKey"
-      @tabChange="(key) => {this.operationActiveTabKey = key}"
-    >
-
-      <a-table
-        v-if="operationActiveTabKey === '1'"
-        :columns="columns"
-        :data="loadData"
-        :pagination="false"
-      >
-        <template
-          slot="status"
-          slot-scope="status">
-          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
-        </template>
-      </a-table>
-      <a-table
-        v-if="operationActiveTabKey === '2'"
-        :columns="operationColumns"
-        :dataSource="operation2"
-        :pagination="false"
-      >
-        <template
-          slot="status"
-          slot-scope="status">
-          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
-        </template>
-      </a-table>
-      <a-table
-        v-if="operationActiveTabKey === '3'"
-        :columns="operationColumns"
-        :dataSource="operation3"
-        :pagination="false"
-      >
-        <template
-          slot="status"
-          slot-scope="status">
-          <a-badge :status="status | statusTypeFilter" :text="status | statusFilter"/>
-        </template>
-      </a-table>
-    </a-card> -->
 
   </page-header-wrapper>
 </template>
@@ -213,11 +171,31 @@
 <script>
 import { baseMixin } from '@/store/app-mixin'
 
-import { getEntryApply } from '@/api/entryApply'
+import { outStockSingleP, getMkOrder } from '@/api/mkOrder'
 import { getPageQuery } from '@/utils/util'
 import { formateDate } from '@/utils/dateUtil'
-import { productList, deleteProduct, outStock } from '@/api/product'
+import { productList } from '@/api/product'
 import { STable } from '@/components'
+import { GG_WS_PREFIX } from '@/config/common.config'
+
+const statusMap = {
+  1: {
+    status: 'default',
+    text: '已入库'
+  },
+  13: {
+    status: 'processing',
+    text: '已下单'
+  },
+  15: {
+    status: 'processing',
+    text: '已支付'
+  },
+  20: {
+    status: 'success',
+    text: '已出库'
+  }
+}
 
  const Uint8ArrayToString = (fileData) => {
     var dataString = ''
@@ -239,21 +217,25 @@ export default {
         const urlParam = getPageQuery()
         if (urlParam !== undefined) {
           Object.assign(this.queryParam, urlParam)
+          this.consumerNo = urlParam.consumerNo
+          this.orderId = urlParam.orderId
+          this.queryParam.id = this.orderId
         //  this.queryParam = urlParam
         }
+        this.startWx()
         // const requestParameters = Object.assign({}, parameter, this.queryParam)
-        return getEntryApply(this.queryParam)
+        return getMkOrder(this.queryParam)
           .then(res => {
+            console.log('-------order info')
             console.log(res)
-            this.info = res.data.entryApply
-            this.info.createTime = formateDate(new Date(this.info.createTime), 'yyyy-MM-dd')
-            this.info.arriveDate = formateDate(new Date(this.info.arriveDate), 'yyyy-MM-dd')
-            // return res.data
           })
     })
   },
   data () {
     return {
+      consumerNo: 'c6068',
+      orderId: 0,
+      productPageSize: 100,
       keepReading: true,
       entryApplyId: 0,
       orbitCode: 0,
@@ -278,6 +260,7 @@ export default {
           Object.assign(this.queryParam, urlParam)
         //  this.queryParam = urlParam
         }
+        this.queryParam.applyId = urlParam.id
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         return productList(requestParameters)
           .then(res => {
@@ -289,33 +272,33 @@ export default {
         {
           title: '轨道编号',
           dataIndex: 'orbitCode',
-          width: 100,
+          width: 80,
           resizable: 'true'
         },
         {
           title: '重量',
           dataIndex: 'weight',
-          width: 100,
+          width: 60,
+          resizable: 'true'
+        },
+        {
+          title: '状态',
+          dataIndex: 'status',
+          width: 80,
+          scopedSlots: { customRender: 'status' },
           resizable: 'true'
         },
         {
           title: '价格',
           dataIndex: 'price',
-          width: 100,
+          width: 80,
           resizable: 'true'
         },
         {
           title: '入库时间',
           scopedSlots: { customRender: 'createTime' },
-          width: 180,
+          width: 160,
           dataIndex: 'createTime'
-        },
-        {
-          key: 'action',
-          title: '操作',
-          dataIndex: 'action',
-          width: '100px',
-          scopedSlots: { customRender: 'action' }
         }
       ],
 
@@ -358,6 +341,12 @@ export default {
     }
   },
   filters: {
+    statusFilter (type) {
+      return statusMap[type].text
+    },
+    statusTypeFilter (type) {
+      return statusMap[type].status
+    },
     formateDate (time) {
       const date = new Date(time)
       return formateDate(date, 'yyyy-MM-dd hh:mm:ss')
@@ -396,19 +385,11 @@ export default {
     handleTabChange (key) {
       this.tabActiveKey = key
     },
-    handleDelete (record) {
-      deleteProduct({ id: record.id }).then(res => {
-        this.$refs.table.refresh()
-      })
-    },
-    handleOutStock () {
-      this.product.orbitCode = this.orbitCode
-      this.product.weight = this.weight
-      this.product.level = this.rank
-      this.product.price = this.price
-      this.product.goodsId = this.info.goodsId
-      this.product.applyId = this.info.id
-      outStock(this.product).then(res => {
+    handleCommit () {
+      var orbitCode = document.getElementById('orbitCode').value
+      this.product.orbitCode = orbitCode
+      this.product.orderId = this.orderId
+      outStockSingleP(this.product).then(res => {
         this.$refs.table.refresh()
       })
     },
@@ -527,86 +508,145 @@ export default {
 
 				await port.close()
 			},
-    async getRfid () {
-				const port = await navigator.serial.requestPort()
-        await port.open({ baudRate: 115200 }) // set baud rate
-        // var keepReading = true
-        const reader = port.readable.getReader()
-        const writer = port.writable.getWriter()
+    // async getRfid () {
+		// 		const port = await navigator.serial.requestPort()
+    //     await port.open({ baudRate: 115200 }) // set baud rate
+    //     // var keepReading = true
+    //     const reader = port.readable.getReader()
+    //     const writer = port.writable.getWriter()
 
-        // const tagExistCmd = new Uint8Array([0x01, 0x03, 0x60, 0x08, 0x00, 0x01, 0xC8, 0x1B])
-          const tagCmd = new Uint8Array([0x01, 0x03, 0x00, 0x00, 0x00, 0x02, 0x0B, 0xC4])
+    //     // const tagExistCmd = new Uint8Array([0x01, 0x03, 0x60, 0x08, 0x00, 0x01, 0xC8, 0x1B])
+    //       const tagCmd = new Uint8Array([0x01, 0x03, 0x00, 0x00, 0x00, 0x02, 0x0B, 0xC4])
 
-        // set how to write to device intervally
-        const writeInt = setInterval(async () => {
-          const commandframe = tagCmd
-          await writer.write(commandframe)
-        }, 1000) // send a frame every 3000ms
+    //     // set how to write to device intervally
+    //     const writeInt = setInterval(async () => {
+    //       const commandframe = tagCmd
+    //       await writer.write(commandframe)
+    //     }, 1000) // send a frame every 3000ms
 
-          // const textDecoder = new TextDecoderStream()
-          // const readableStreamClosed = port.readable.pipeTo(textDecoder.writable)
-          // const reader = textDecoder.readable.getReader()
-        console.log('rf loop start')
-        while (port.readable && this.keepReading) {
-          try {
-          while (true) {
-            const { value, done } = await reader.read()
-            if (done) {
-            // Allow the serial port to be closed later.
-            reader.releaseLock()
-            // Allow the serial port to be closed later.
-            writer.releaseLock()
-            break
-            }
-            console.log('rf value:' + value)
-            if (value === 0x01) {
-              continue
-            }
-            if (value && value.length === 8) {
-            /** * TODO: deal with the data value ***/
-            this.dealWithData8(value)
-            } else if (value && value.length === 9) {
-            this.dealWithData9(value)
-            }
-            setTimeout(() => {
+    //       // const textDecoder = new TextDecoderStream()
+    //       // const readableStreamClosed = port.readable.pipeTo(textDecoder.writable)
+    //       // const reader = textDecoder.readable.getReader()
+    //     console.log('rf loop start')
+    //     while (port.readable && this.keepReading) {
+    //       try {
+    //       while (true) {
+    //         const { value, done } = await reader.read()
+    //         if (done) {
+    //         // Allow the serial port to be closed later.
+    //         reader.releaseLock()
+    //         // Allow the serial port to be closed later.
+    //         writer.releaseLock()
+    //         break
+    //         }
+    //         console.log('::' + value)
+    //         if (value === 0x01) {
+    //           continue
+    //         }
+    //         if (value && value.length === 8) {
+    //         /** * TODO: deal with the data value ***/
+    //           if (value[0] === 0x01) {
+    //             this.dealWithData9(value)
+    //           } else {
+    //             this.dealWithData8(value)
+    //           }
+    //         } else if (value && value.length === 9) {
+    //           this.dealWithData9(value)
+    //         } else {
+    //           console.log('not rfid detected')
+    //         }
+    //         setTimeout(() => {
 
-            }, 500)
-          }
-          } catch (error) {
-          // Handle non-fatal read error.
-          console.error(error)
-          } finally {
-            console.log(port.readable, this.keepReading)
-          }
+    //         }, 100)
+    //       }
+    //       } catch (error) {
+    //       // Handle non-fatal read error.
+    //       console.error(error)
+    //       } finally {
+    //         console.log(port.readable, this.keepReading)
+    //       }
+    //     }
+    //     clearInterval(writeInt)
+    //     await port.close()
+    //     console.log('port closed')
+    //   },
+    //   dealWithData8 (value) {
+    //     console.log('dealWithData8' + value)
+
+    //     const v1 = String.fromCharCode(value[2])
+    //     const v2 = String.fromCharCode(value[3])
+    //     const v3 = String.fromCharCode(value[4])
+    //     const v4 = String.fromCharCode(value[5])
+    //     const rfid = v1 + v2 + v3 + v4
+    //     console.log(rfid)
+    //     this.orbitCode = rfid
+    //     document.getElementById('orbitCode').value = (rfid)
+    //   },
+    //   dealWithData9 (value) {
+    //     console.log('dealWithData9' + value)
+
+    //     const v1 = String.fromCharCode(value[3])
+    //     const v2 = String.fromCharCode(value[4])
+    //     const v3 = String.fromCharCode(value[5])
+    //     const v4 = String.fromCharCode(value[6])
+    //     const rfid = v1 + v2 + v3 + v4
+    //     console.log(rfid)
+    //     this.orbitCode = rfid
+    //     document.getElementById('orbitCode').value = (rfid)
+    //   },
+
+    startWx () {
+      var websocket = null
+
+    // 判断当前浏览器是否支持WebSocket
+    if ('WebSocket' in window) {
+        websocket = new WebSocket(GG_WS_PREFIX + '/websocket/' + this.consumerNo)
+    } else {
+        alert('Not support websocket')
+    }
+
+    // 连接发生错误的回调方法
+    websocket.onerror = function () {
+        document.getElementById('message').innerHTML = ('发生错误')
+    }
+
+    // 连接成功建立的回调方法
+    websocket.onopen = function (event) {
+        document.getElementById('message').innerHTML = ('建立连接')
+    }
+
+    // 接收到消息的回调方法
+    websocket.onmessage = function (event) {
+		console.log(event.data)
+        document.getElementById('message').innerHTML = (event.data)
+        var res = JSON.parse(event.data)
+
+        if (res && res.data) {
+          document.getElementById('orbitCode').value = (res.data)
+          document.getElementById('orbitCodeLabel').innerHTML = (res.data)
         }
-        clearInterval(writeInt)
-        await port.close()
-        console.log('port closed')
-      },
-      dealWithData8 (value) {
-        console.log('dealWithData8' + value)
+    }
 
-        const v1 = String.fromCharCode(value[2])
-        const v2 = String.fromCharCode(value[3])
-        const v3 = String.fromCharCode(value[4])
-        const v4 = String.fromCharCode(value[5])
-        const rfid = v1 + v2 + v3 + v4
-        console.log(rfid)
-        this.orbitCode = rfid
-        document.getElementById('orbitCode').value = (rfid)
-      },
-      dealWithData9 (value) {
-        console.log('dealWithData9' + value)
+    // 连接关闭的回调方法
+    websocket.onclose = function () {
+        document.getElementById('message').innerHTML = ('关闭连接')
+    }
 
-        const v1 = String.fromCharCode(value[3])
-        const v2 = String.fromCharCode(value[4])
-        const v3 = String.fromCharCode(value[5])
-        const v4 = String.fromCharCode(value[6])
-        const rfid = v1 + v2 + v3 + v4
-        console.log(rfid)
-        this.orbitCode = rfid
-        document.getElementById('orbitCode').value = (rfid)
-      }
+    // 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function () {
+		alert('已关闭连接')
+        websocket.close()
+    }
+
+    // 关闭连接
+    // function closeWebSocket () {
+		// alert('已关闭连接')
+    //     websocket.close()
+    // }
+    },
+    setMessageInnerHTML (innerHTML) {
+        document.getElementById('message').innerHTML += innerHTML + '<br/>'
+    }
   }
 }
 </script>
@@ -650,4 +690,8 @@ export default {
       text-align: left;
     }
   }
+
+.table-striped {
+  background-color: #fafafa;
+}
 </style>

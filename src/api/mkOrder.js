@@ -8,7 +8,8 @@ const mkOrderApi = {
   deleteMkOrder: GG_URL_PREFIX + '/mkOrder/delete',
   editMkOrder: GG_URL_PREFIX + '/mkOrder/edit',
   saleDataList: GG_URL_PREFIX + '/mkOrder/saleDataList',
-  preorderGoSend: GG_URL_PREFIX + '/mkOrder/preorderGoSend'
+  preorderGoSend: GG_URL_PREFIX + '/mkOrder/preorderGoSend',
+  outStockSingleP: GG_URL_PREFIX + '/mkOrder/outStockSingleP'
 }
 
 export function newMkOrder (parameter) {
@@ -61,6 +62,14 @@ export function saleDataList (parameter) {
 export function preorderGoSend (parameter) {
   return request({
     url: mkOrderApi.preorderGoSend,
+    method: 'post',
+    params: parameter
+  })
+}
+
+export function outStockSingleP (parameter) {
+  return request({
+    url: mkOrderApi.outStockSingleP,
     method: 'post',
     params: parameter
   })
