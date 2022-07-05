@@ -121,12 +121,14 @@
         <a-divider style="margin: 16px 0" />
         <a-descriptions title="轨道编号" size="small" :col="2">
           <a-descriptions-item label="">
-            <span style="font-size:30px;" class="classp2">{{ this.orbitCode }}</span>
+            <span style="font-size:30px;" class="classp2" id="orbitCodeLabel" >{{ this.orbitCode }}</span>
+
             <a-input id="orbitCode" v-model="orbitCode" ></a-input>
           </a-descriptions-item>
         </a-descriptions>
         <a-divider style="margin: 16px 0" />
         <a-button type="primary" @click="handleAdd()">提交</a-button>
+        <a-button type="primary" @click="startWx()">ws</a-button>
         <a-divider style="margin: 16px 0" />
         <a-button type="primary" @click="serialPort()">电子秤</a-button>
         <a-divider style="margin: 16px 0" />
@@ -134,7 +136,9 @@
         <a-divider style="margin: 16px 0" />
 
         <span id="userno" style="display: flex;font-size:5px;color:red"></span>
-        轨道信息：重量信息：
+        轨道信息：
+        <span style="font-size:30px;" id="message"></span>
+        重量信息：
         <div style="display: flex;justify-content: space-between;align-items:center;margin-top:5%;">
           <div class="divButtonMax">
             <span class="classp" style="display:inline;font-size:20px">净重: </span>
@@ -619,7 +623,60 @@ export default {
         console.log(rfid)
         this.orbitCode = rfid
         document.getElementById('orbitCode').value = (rfid)
-      }
+      },
+
+    startWx () {
+      var websocket = null
+
+    // 判断当前浏览器是否支持WebSocket
+    if ('WebSocket' in window) {
+        websocket = new WebSocket('ws://localhost:8080/cms-api/websocket/c1037')
+    } else {
+        alert('Not support websocket')
+    }
+
+    // 连接发生错误的回调方法
+    websocket.onerror = function () {
+        document.getElementById('message').innerHTML = ('发生错误')
+    }
+
+    // 连接成功建立的回调方法
+    websocket.onopen = function (event) {
+        document.getElementById('message').innerHTML = ('建立连接')
+    }
+
+    // 接收到消息的回调方法
+    websocket.onmessage = function (event) {
+		console.log(event.data)
+        document.getElementById('message').innerHTML = (event.data)
+        var res = JSON.parse(event.data)
+
+        if (res && res.data) {
+          document.getElementById('orbitCode').value = (res.data)
+          document.getElementById('orbitCodeLabel').innerHTML = (res.data)
+        }
+    }
+
+    // 连接关闭的回调方法
+    websocket.onclose = function () {
+        document.getElementById('message').innerHTML = ('关闭连接')
+    }
+
+    // 监听窗口关闭事件，当窗口关闭时，主动去关闭websocket连接，防止连接还没断开就关闭窗口，server端会抛异常。
+    window.onbeforeunload = function () {
+		alert('已关闭连接')
+        websocket.close()
+    }
+
+    // 关闭连接
+    // function closeWebSocket () {
+		// alert('已关闭连接')
+    //     websocket.close()
+    // }
+    },
+    setMessageInnerHTML (innerHTML) {
+        document.getElementById('message').innerHTML += innerHTML + '<br/>'
+    }
   }
 }
 </script>
