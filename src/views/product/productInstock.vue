@@ -228,6 +228,7 @@ import { getPageQuery } from '@/utils/util'
 import { formateDate } from '@/utils/dateUtil'
 import { productList, deleteProduct, newProduct } from '@/api/product'
 import { STable } from '@/components'
+import { GG_WS_PREFIX } from '@/config/common.config'
 
  const Uint8ArrayToString = (fileData) => {
     var dataString = ''
@@ -630,7 +631,7 @@ export default {
 
     // 判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
-        websocket = new WebSocket('ws://localhost:8080/cms-api/websocket/c1037')
+        websocket = new WebSocket(GG_WS_PREFIX + '/websocket/c1037')
     } else {
         alert('Not support websocket')
     }
