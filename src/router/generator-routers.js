@@ -106,7 +106,7 @@ const constantRouterComponents = {
                                   // orderOutStock
                                   OrderOutStock: () => import('@/views/mkOrder/mkOrderList'),
                                   // hotMeatInstock
-                                  HotMeatInstock: () => import('@/views/entryApply/entryApplyList'),
+                                  HotMeatInstock: () => import('@/views/entryApply/entryInStock'),
                                   // GsBillList
                                   GsBillList: () => import('@/views/mkOrder/mkOrderList'),
 

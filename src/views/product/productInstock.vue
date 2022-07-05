@@ -128,11 +128,11 @@
         </a-descriptions>
         <a-divider style="margin: 16px 0" />
         <a-button type="primary" @click="handleAdd()">提交</a-button>
-        <a-button type="primary" @click="startWx()">ws</a-button>
+        <!-- <a-button type="primary" @click="startWx()">ws</a-button> -->
         <a-divider style="margin: 16px 0" />
         <a-button type="primary" @click="serialPort()">电子秤</a-button>
         <a-divider style="margin: 16px 0" />
-        <a-button type="primary" @click="getRfid()">rfid</a-button>
+        <!-- <a-button type="primary" @click="getRfid()">rfid</a-button> -->
         <a-divider style="margin: 16px 0" />
 
         <span id="userno" style="display: flex;font-size:5px;color:red"></span>
@@ -155,7 +155,7 @@
           :columns="columns"
           :data="loadData"
           :showPagination="false"
-          pageSize="100"
+          :pageSize="productPageSize"
           :row-class-name="(_record, index) => (index % 2 === 1 ? 'table-striped' : null)"
         >
           <span slot="createTime" slot-scope="text">
@@ -250,8 +250,11 @@ export default {
         const urlParam = getPageQuery()
         if (urlParam !== undefined) {
           Object.assign(this.queryParam, urlParam)
+          this.consumerNo = urlParam.consumerNo
+          console.log(this.consumerNo)
         //  this.queryParam = urlParam
         }
+        this.startWx()
         // const requestParameters = Object.assign({}, parameter, this.queryParam)
         return getEntryApply(this.queryParam)
           .then(res => {
@@ -265,6 +268,8 @@ export default {
   },
   data () {
     return {
+      consumerNo: 'c1037',
+      productPageSize: 100,
       keepReading: true,
       entryApplyId: 0,
       orbitCode: 0,
@@ -539,99 +544,99 @@ export default {
 
 				await port.close()
 			},
-    async getRfid () {
-				const port = await navigator.serial.requestPort()
-        await port.open({ baudRate: 115200 }) // set baud rate
-        // var keepReading = true
-        const reader = port.readable.getReader()
-        const writer = port.writable.getWriter()
+    // async getRfid () {
+		// 		const port = await navigator.serial.requestPort()
+    //     await port.open({ baudRate: 115200 }) // set baud rate
+    //     // var keepReading = true
+    //     const reader = port.readable.getReader()
+    //     const writer = port.writable.getWriter()
 
-        // const tagExistCmd = new Uint8Array([0x01, 0x03, 0x60, 0x08, 0x00, 0x01, 0xC8, 0x1B])
-          const tagCmd = new Uint8Array([0x01, 0x03, 0x00, 0x00, 0x00, 0x02, 0x0B, 0xC4])
+    //     // const tagExistCmd = new Uint8Array([0x01, 0x03, 0x60, 0x08, 0x00, 0x01, 0xC8, 0x1B])
+    //       const tagCmd = new Uint8Array([0x01, 0x03, 0x00, 0x00, 0x00, 0x02, 0x0B, 0xC4])
 
-        // set how to write to device intervally
-        const writeInt = setInterval(async () => {
-          const commandframe = tagCmd
-          await writer.write(commandframe)
-        }, 1000) // send a frame every 3000ms
+    //     // set how to write to device intervally
+    //     const writeInt = setInterval(async () => {
+    //       const commandframe = tagCmd
+    //       await writer.write(commandframe)
+    //     }, 1000) // send a frame every 3000ms
 
-          // const textDecoder = new TextDecoderStream()
-          // const readableStreamClosed = port.readable.pipeTo(textDecoder.writable)
-          // const reader = textDecoder.readable.getReader()
-        console.log('rf loop start')
-        while (port.readable && this.keepReading) {
-          try {
-          while (true) {
-            const { value, done } = await reader.read()
-            if (done) {
-            // Allow the serial port to be closed later.
-            reader.releaseLock()
-            // Allow the serial port to be closed later.
-            writer.releaseLock()
-            break
-            }
-            console.log('::' + value)
-            if (value === 0x01) {
-              continue
-            }
-            if (value && value.length === 8) {
-            /** * TODO: deal with the data value ***/
-              if (value[0] === 0x01) {
-                this.dealWithData9(value)
-              } else {
-                this.dealWithData8(value)
-              }
-            } else if (value && value.length === 9) {
-              this.dealWithData9(value)
-            } else {
-              console.log('not rfid detected')
-            }
-            setTimeout(() => {
+    //       // const textDecoder = new TextDecoderStream()
+    //       // const readableStreamClosed = port.readable.pipeTo(textDecoder.writable)
+    //       // const reader = textDecoder.readable.getReader()
+    //     console.log('rf loop start')
+    //     while (port.readable && this.keepReading) {
+    //       try {
+    //       while (true) {
+    //         const { value, done } = await reader.read()
+    //         if (done) {
+    //         // Allow the serial port to be closed later.
+    //         reader.releaseLock()
+    //         // Allow the serial port to be closed later.
+    //         writer.releaseLock()
+    //         break
+    //         }
+    //         console.log('::' + value)
+    //         if (value === 0x01) {
+    //           continue
+    //         }
+    //         if (value && value.length === 8) {
+    //         /** * TODO: deal with the data value ***/
+    //           if (value[0] === 0x01) {
+    //             this.dealWithData9(value)
+    //           } else {
+    //             this.dealWithData8(value)
+    //           }
+    //         } else if (value && value.length === 9) {
+    //           this.dealWithData9(value)
+    //         } else {
+    //           console.log('not rfid detected')
+    //         }
+    //         setTimeout(() => {
 
-            }, 100)
-          }
-          } catch (error) {
-          // Handle non-fatal read error.
-          console.error(error)
-          } finally {
-            console.log(port.readable, this.keepReading)
-          }
-        }
-        clearInterval(writeInt)
-        await port.close()
-        console.log('port closed')
-      },
-      dealWithData8 (value) {
-        console.log('dealWithData8' + value)
+    //         }, 100)
+    //       }
+    //       } catch (error) {
+    //       // Handle non-fatal read error.
+    //       console.error(error)
+    //       } finally {
+    //         console.log(port.readable, this.keepReading)
+    //       }
+    //     }
+    //     clearInterval(writeInt)
+    //     await port.close()
+    //     console.log('port closed')
+    //   },
+    //   dealWithData8 (value) {
+    //     console.log('dealWithData8' + value)
 
-        const v1 = String.fromCharCode(value[2])
-        const v2 = String.fromCharCode(value[3])
-        const v3 = String.fromCharCode(value[4])
-        const v4 = String.fromCharCode(value[5])
-        const rfid = v1 + v2 + v3 + v4
-        console.log(rfid)
-        this.orbitCode = rfid
-        document.getElementById('orbitCode').value = (rfid)
-      },
-      dealWithData9 (value) {
-        console.log('dealWithData9' + value)
+    //     const v1 = String.fromCharCode(value[2])
+    //     const v2 = String.fromCharCode(value[3])
+    //     const v3 = String.fromCharCode(value[4])
+    //     const v4 = String.fromCharCode(value[5])
+    //     const rfid = v1 + v2 + v3 + v4
+    //     console.log(rfid)
+    //     this.orbitCode = rfid
+    //     document.getElementById('orbitCode').value = (rfid)
+    //   },
+    //   dealWithData9 (value) {
+    //     console.log('dealWithData9' + value)
 
-        const v1 = String.fromCharCode(value[3])
-        const v2 = String.fromCharCode(value[4])
-        const v3 = String.fromCharCode(value[5])
-        const v4 = String.fromCharCode(value[6])
-        const rfid = v1 + v2 + v3 + v4
-        console.log(rfid)
-        this.orbitCode = rfid
-        document.getElementById('orbitCode').value = (rfid)
-      },
+    //     const v1 = String.fromCharCode(value[3])
+    //     const v2 = String.fromCharCode(value[4])
+    //     const v3 = String.fromCharCode(value[5])
+    //     const v4 = String.fromCharCode(value[6])
+    //     const rfid = v1 + v2 + v3 + v4
+    //     console.log(rfid)
+    //     this.orbitCode = rfid
+    //     document.getElementById('orbitCode').value = (rfid)
+    //   },
 
     startWx () {
       var websocket = null
 
     // 判断当前浏览器是否支持WebSocket
     if ('WebSocket' in window) {
-        websocket = new WebSocket(GG_WS_PREFIX + '/websocket/c1037')
+        websocket = new WebSocket(GG_WS_PREFIX + '/websocket/' + this.consumerNo)
     } else {
         alert('Not support websocket')
     }

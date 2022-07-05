@@ -110,7 +110,7 @@
             <!-- <template v-if="queryParam.op==='instock'"> -->
             <template v-if="roleType===97 || roleType===1">
               <a-divider type="vertical" />
-              <router-link :to="{path: '/trade-center/ground-manage/productInstock', query: {'id':record.id }}">
+              <router-link :to="{path: '/trade-center/ground-manage/productInstock', query: {'id':record.id, 'consumerNo':consumerNo }}">
                 理货入库
               </router-link>
             </template>
@@ -169,6 +169,7 @@ export default {
   },
   data () {
     return {
+      consumerNo: 'c1037',
       roleType: storage.get('roleType'),
       // create model
       visible: false,
@@ -417,6 +418,22 @@ export default {
         }
         // console.log(this.queryParam)
       })
+  },
+  watch: {
+    '$route': {
+      immediate: true, // true首次加载执行，默认false
+      handler () {
+        if (this.$route.name === 'hotMeatInstock') {
+          this.consumerNo = 'c2038'
+        } else if (this.$route.name === 'enterRecheck-list') {
+          this.consumerNo = 'c1037'
+        }
+        if (this.$refs.table) {
+          this.$refs.table.refresh()
+        }
+      }
+
+    }
   },
   computed: {
     rowSelection () {

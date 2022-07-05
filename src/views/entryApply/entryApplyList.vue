@@ -428,6 +428,8 @@ export default {
           this.$refs.table.refresh()
         } else if (this.$route.name === 'entryApply-list') {
           this.queryParam.status = null
+        } else if (this.$route.name === 'hotMeatInstock') {
+          this.queryParam.status = 3
         }
         if (this.$refs.table) {
           this.$refs.table.refresh()
