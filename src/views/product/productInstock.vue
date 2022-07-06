@@ -418,7 +418,8 @@ export default {
       })
     },
     handleAdd () {
-      this.product.orbitCode = this.orbitCode
+      var orbitCode = document.getElementById('orbitCode').value
+      this.product.orbitCode = orbitCode
       this.product.weight = this.weight
       this.product.level = this.rank
       this.product.price = this.price
@@ -658,6 +659,7 @@ export default {
 
         if (res && res.data) {
           document.getElementById('orbitCode').value = (res.data)
+          this.orbitCode = res.data
           document.getElementById('orbitCodeLabel').innerHTML = (res.data)
         }
     }
