@@ -19,29 +19,13 @@
         >
           <a-input v-decorator="['id', {rules:[{required: false, message: ''}]}]" />
         </a-form-item>
-        <a-form-item label="名称"><a-input v-decorator="['name', {rules:[{required: true, message: '请输入名称'}]}]" /></a-form-item>
+        <!-- <a-form-item label="名称"><a-input v-decorator="['name', {rules:[{required: true, message: '请输入名称'}]}]" /></a-form-item> -->
         <a-form-item label="轨道编号"><a-input v-decorator="['orbitCode', {rules:[{required: true, message: '请输入轨道编号'}]}]" /></a-form-item>
         <a-form-item label="等级"><a-input v-decorator="['level', {rules:[{required: true, message: '请输入等级'}]}]" /></a-form-item>
         <a-form-item label="重量"><a-input v-decorator="['weight', {rules:[{required: true, message: '请输入重量'}]}]" /></a-form-item>
         <a-form-item label="实际价格"><a-input v-decorator="['price', {rules:[{required: true, message: '请输入实际价格'}]}]" /></a-form-item>
         <a-form-item label="入库价格"><a-input v-decorator="['priceT', {rules:[{required: true, message: '请输入入库价格'}]}]" /></a-form-item>
-        <a-form-item label="出库时间"><a-input v-decorator="['outstockTime', {rules:[{required: true, message: '请输入出库时间'}]}]" /></a-form-item>
-        <a-form-item label="所属订单id"><a-input v-decorator="['orderId', {rules:[{required: true, message: '请输入所属订单id'}]}]" /></a-form-item>
-        <a-form-item label="商品id"><a-input v-decorator="['goodsId', {rules:[{required: true, message: '请输入商品id'}]}]" /></a-form-item>
-        <a-form-item label="入场id"><a-input v-decorator="['applyId', {rules:[{required: true, message: '请输入入场id'}]}]" /></a-form-item>
-
-        <a-form-item
-          label="状态"
-        >
-          <a-space>
-            <a-select
-              ref="select"
-              style="width: 120px"
-              v-decorator="['status', {rules:[{required: true, message: '请选择状态'}]}]"
-              :options="options2"
-            ></a-select>
-          </a-space>
-        </a-form-item>
+        <!-- <a-form-item label="出库时间"><a-input v-decorator="['outstockTime', {rules:[{required: true, message: '请输入出库时间'}]}]" /></a-form-item> -->
       </a-form>
     </a-spin>
   </a-modal>

@@ -14,16 +14,16 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="名称"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="轨道编号"> <a-input v-model="queryParam.orbitCode" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="等级"> <a-input v-model="queryParam.level" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="重量"> <a-input v-model="queryParam.weight" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="实际价格"> <a-input v-model="queryParam.price" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="入库价格"> <a-input v-model="queryParam.priceT" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="出库时间"> <a-input v-model="queryParam.outstockTime" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="所属订单id"> <a-input v-model="queryParam.orderId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="入场id"> <a-input v-model="queryParam.applyId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="名称"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="轨道编号"> <a-input v-model="queryParam.orbitCode" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="等级"> <a-input v-model="queryParam.level" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="重量"> <a-input v-model="queryParam.weight" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="实际价格"> <a-input v-model="queryParam.price" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="入库价格"> <a-input v-model="queryParam.priceT" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="出库时间"> <a-input v-model="queryParam.outstockTime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="所属订单id"> <a-input v-model="queryParam.orderId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="入场id"> <a-input v-model="queryParam.applyId" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -40,19 +40,18 @@
         </a-form>
       </div>
 
-      <div class="table-operator">
+      <!-- <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
         </a-dropdown>
-      </div>
+      </div> -->
 
       <s-table
         ref="table"
@@ -72,7 +71,7 @@
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
-        <span slot="addtime" slot-scope="text">
+        <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
         </span>
 
@@ -106,13 +105,21 @@ import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
 
 const statusMap = {
-  0: {
-    status: 'default',
-    text: '禁用中'
-  },
   1: {
+    status: 'default',
+    text: '已入库'
+  },
+  13: {
     status: 'processing',
-    text: '启用中'
+    text: '已下单'
+  },
+  15: {
+    status: 'processing',
+    text: '已支付'
+  },
+  20: {
+    status: 'success',
+    text: '已出库'
   }
 }
 
@@ -151,72 +158,83 @@ export default {
           scopedSlots: { customRender: 'serial' },
           width: 60
         },
+        // {
+        //   title: 'id',
+        //   dataIndex: 'id',
+        //   width: 60
+        // },
         {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
+          title: '供应商名称',
+          dataIndex: 'supplierName',
+          width: 120,
+          resizable: 'true'
         },
         {
-          title: '名称',
-          dataIndex: 'name',
+          title: '屠宰单位',
+          dataIndex: 'butcherEntName',
           width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '养殖单位',
+          dataIndex: 'farmEntName',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '进场批次号',
+          dataIndex: 'batchNo',
+          width: 90,
           resizable: 'true'
         },
         {
           title: '轨道编号',
           dataIndex: 'orbitCode',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
-          title: '等级',
-          dataIndex: 'level',
-          width: 120,
+          title: '商品名称',
+          dataIndex: 'goodsName',
+          width: 90,
           resizable: 'true'
         },
         {
-          title: '重量',
+          title: '商品单位',
+          dataIndex: 'goodsUnit',
+          width: 90,
+          resizable: 'true'
+        },
+        {
+          title: '重量(kg)',
           dataIndex: 'weight',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
           title: '实际价格',
           dataIndex: 'price',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
           title: '入库价格',
           dataIndex: 'priceT',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
-          title: '出库时间',
-          dataIndex: 'outstockTime',
-          width: 120,
+          title: '等级',
+          dataIndex: 'level',
+          width: 60,
           resizable: 'true'
         },
-        {
-          title: '所属订单id',
-          dataIndex: 'orderId',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '商品id',
-          dataIndex: 'goodsId',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '入场id',
-          dataIndex: 'applyId',
-          width: 120,
-          resizable: 'true'
-        },
-
+        // {
+        //   title: '出库时间',
+        //   dataIndex: 'outstockTime',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
           title: '状态',
           scopedSlots: { customRender: 'status' },
@@ -224,10 +242,10 @@ export default {
           dataIndex: 'status'
         },
         {
-          title: '创建时间',
-          scopedSlots: { customRender: 'addtime' },
+          title: '入库时间',
+          scopedSlots: { customRender: 'createTime' },
           width: 200,
-          dataIndex: 'addtime'
+          dataIndex: 'createTime'
         },
         {
           key: 'action',

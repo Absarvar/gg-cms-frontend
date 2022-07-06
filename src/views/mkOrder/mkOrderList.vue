@@ -123,15 +123,19 @@ import { formateDate } from '@/utils/dateUtil'
 const statusMap = {
   0: {
     status: 'default',
-    text: ''
+    text: '未支付'
   },
-  1: {
+  5: {
+    status: 'processing',
+    text: '未支付'
+  },
+  10: {
     status: 'processing',
     text: '已支付'
   },
-  2: {
-    status: 'processing',
-    text: '已完成'
+  15: {
+    status: 'success',
+    text: '已出库'
   }
 }
 
@@ -184,7 +188,37 @@ export default {
         // },
         {
           title: '订单号',
-          dataIndex: 'outTradeNo',
+          dataIndex: 'orderCode',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '商品名称',
+          dataIndex: 'goodsName',
+          width: 90,
+          resizable: 'true'
+        },
+        {
+          title: '屠宰单位',
+          dataIndex: 'butcherEntName',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '养殖单位',
+          dataIndex: 'farmEntName',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '进场批次号',
+          dataIndex: 'batchNoStr',
+          width: 150,
+          resizable: 'true'
+        },
+        {
+          title: '预定单号',
+          dataIndex: 'preorderCode',
           width: 120,
           resizable: 'true'
         },
@@ -197,13 +231,13 @@ export default {
         {
           title: '总重量',
           dataIndex: 'weight',
-          width: 60,
+          width: 80,
           resizable: 'true'
         },
         {
           title: '总数量',
           dataIndex: 'num',
-          width: 60,
+          width: 80,
           resizable: 'true'
         },
         {
@@ -233,7 +267,7 @@ export default {
         {
           title: '联系人',
           dataIndex: 'linkMan',
-          width: 60,
+          width: 80,
           resizable: 'true'
         },
         // {
@@ -294,7 +328,7 @@ export default {
         {
           title: '订单日期',
           scopedSlots: { customRender: 'createTime' },
-          width: 200,
+          width: 160,
           dataIndex: 'createTime'
         },
         {
