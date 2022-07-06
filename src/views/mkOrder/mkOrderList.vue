@@ -367,7 +367,10 @@ export default {
           this.queryParam.status = 10
         } else if (this.$route.name === 'gs-bill-list') {
           this.queryParam.status = 10
+        } else if (this.$route.name === 'outStock-list') {
+          this.queryParam.status = 15
         }
+
         if (this.$refs.table) {
           this.$refs.table.refresh()
         }

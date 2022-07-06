@@ -151,36 +151,36 @@ export default {
           dataIndex: 'id',
           width: 60
         },
-        {
-          title: '父类ID',
-          dataIndex: 'parentId',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '父类ID',
+        //   dataIndex: 'parentId',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
           title: '类别名称',
           dataIndex: 'name',
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '类别级数',
-          dataIndex: 'level',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '类别级数',
+        //   dataIndex: 'level',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
           title: '单位',
           dataIndex: 'unit',
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '排序ID',
-          dataIndex: 'orderId',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '排序ID',
+        //   dataIndex: 'orderId',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
 
         {
           title: '状态',

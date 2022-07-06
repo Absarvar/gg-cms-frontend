@@ -7,26 +7,25 @@
   >
     <template v-slot:content>
       <a-descriptions size="small" :column="isMobile ? 1 : 2">
-        <a-descriptions-item label="申报人">{{ info.memberName }}</a-descriptions-item>
-        <a-descriptions-item label="车牌号">{{ info.plateNo }} </a-descriptions-item>
-        <a-descriptions-item label="到达日期">{{ info.enterTime }}</a-descriptions-item>
-        <a-descriptions-item label="司机">{{ info.carrier }}</a-descriptions-item>
-        <a-descriptions-item label="申报日期">{{ info.createTime }}</a-descriptions-item>
-        <a-descriptions-item label="司机电话">{{ info.carrierMobile }}</a-descriptions-item>
+        <a-descriptions-item label="联系人">{{ info.linkMan }}</a-descriptions-item>
+        <a-descriptions-item label="会员名称">{{ info.buyer }}</a-descriptions-item>
+        <a-descriptions-item label="联系电话">{{ info.linkMobile }}</a-descriptions-item>
+        <a-descriptions-item label="订单时间">{{ info.createTime }}</a-descriptions-item>
+        <a-descriptions-item label="地址">{{ info.address }}</a-descriptions-item>
       </a-descriptions>
     </template>
 
     <!-- actions -->
-    <template v-slot:extra>
+    <!-- <template v-slot:extra>
       <a-button-group style="margin-right: 4px;">
         <a-button>操作</a-button>
         <a-button>操作</a-button>
         <a-button><a-icon type="ellipsis"/></a-button>
       </a-button-group>
       <a-button type="primary" >主操作</a-button>
-    </template>
+    </template> -->
 
-    <template v-slot:extraContent>
+    <!-- <template v-slot:extraContent>
       <a-row class="status-list">
         <a-col :xs="12" :sm="12">
           <div class="text">状态</div>
@@ -37,68 +36,38 @@
 
           </div>
         </a-col>
-        <a-col :xs="12" :sm="12">
-          <div class="text">申报数量</div>
-          <div class="heading">{{ info.number }}</div>
-        </a-col>
       </a-row>
-    </template>
+    </template> -->
 
     <a-card style="margin-top: 24px" :bordered="false">
-      <!-- <div class="no-data"><a-icon type="frown-o"/>暂无数据</div> -->
       <template>
         <a-row>
-          <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
+          <!-- <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
             <a-card type="inner" title="商品名称" style="width:200px; text-align:center;">
               <a-descriptions :title="info.goodsId" size="small">
               </a-descriptions>
             </a-card>
-          </a-col>
+          </a-col> -->
           <a-col :xs="{ span: 3, offset: 3 }" :lg="{ span: 2, offset: 3 }">
             <a-card type="inner" title="总数量" style="width:100px; text-align:center;">
-              <a-descriptions :title="info.num" size="small">
+              <a-descriptions :title="instockedNum" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
           <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
-            <a-card type="inner" title="已入库" style="width:100px; text-align:center;">
-              <a-descriptions :title="info.num" size="small">
+            <a-card type="inner" title="已出库" style="width:100px; text-align:center;">
+              <a-descriptions :title="outstockedNum" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
           <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
             <a-card type="inner" title="剩余" style="width:100px; text-align:center;">
-              <a-descriptions :title="info.num" size="small">
+              <a-descriptions :title="instockedNum-outstockedNum" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
-          <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
-            <a-card type="inner" title="已理公斤数" style="width:200px; text-align:center;">
-              <a-descriptions :title="info.instockWeight" size="small">
-              </a-descriptions>
-            </a-card>
-          </a-col>
-          <!-- <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
-            <a-card type="inner" title="商品名称" style="width:120px; text-align:center;">
-              <a-descriptions :title="info.animalspecies" size="small">
-              </a-descriptions>
-            </a-card>
-          </a-col> -->
-          <!-- <a-col :xs="{ span: 11, offset: 1 }" :lg="{ span: 6, offset: 2 }" :style="{height: '350px', 'background-color':'grey', 'text-align':'center'}">
-            Col
-          </a-col>
-          <a-col :xs="{ span: 5, offset: 1 }" :lg="{ span: 6, offset: 2 }" :style="{height: '350px', 'background-color':'grey', 'text-align':'center'}">
-            Col
-          </a-col> -->
         </a-row>
-
       </template>
-
-      <!-- <a-card type="inner" title="总数量" style="width:100px; text-align:center;">
-        <a-descriptions :title="info.number" size="small">
-        </a-descriptions>
-      </a-card> -->
-
     </a-card>
 
     <a-card style="margin-top: 24px" :bordered="false" title="现场信息">
@@ -177,25 +146,7 @@ import { formateDate } from '@/utils/dateUtil'
 import { productList } from '@/api/product'
 import { STable } from '@/components'
 import { GG_WS_PREFIX } from '@/config/common.config'
-
-const statusMap = {
-  1: {
-    status: 'default',
-    text: '已入库'
-  },
-  13: {
-    status: 'processing',
-    text: '已下单'
-  },
-  15: {
-    status: 'processing',
-    text: '已支付'
-  },
-  20: {
-    status: 'success',
-    text: '已出库'
-  }
-}
+import { ProductStatus, ProductStatusMap } from '@/config/status.config'
 
  const Uint8ArrayToString = (fileData) => {
     var dataString = ''
@@ -226,13 +177,14 @@ export default {
         // const requestParameters = Object.assign({}, parameter, this.queryParam)
         return getMkOrder(this.queryParam)
           .then(res => {
-            console.log('-------order info')
-            console.log(res)
+            this.info = res.data.mkOrder
           })
     })
   },
   data () {
     return {
+      instockedNum: 0,
+      outstockedNum: 0,
       consumerNo: 'c6068',
       orderId: 0,
       productPageSize: 100,
@@ -264,7 +216,15 @@ export default {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         return productList(requestParameters)
           .then(res => {
-            console.log(res)
+            this.instockedNum = res.data.total
+            var outNum = 0
+            for (var k = 0; k < res.data.data.length; k++) {
+              if (res.data.data[k].status === ProductStatus.OUT_STOCK) {
+                outNum++
+              }
+            }
+            this.outstockedNum = outNum
+
             return res.data
           })
       },
@@ -342,10 +302,10 @@ export default {
   },
   filters: {
     statusFilter (type) {
-      return statusMap[type].text
+      return ProductStatusMap[type].text
     },
     statusTypeFilter (type) {
-      return statusMap[type].status
+      return ProductStatusMap[type].status
     },
     formateDate (time) {
       const date = new Date(time)
@@ -391,6 +351,11 @@ export default {
       this.product.orderId = this.orderId
       outStockSingleP(this.product).then(res => {
         this.$refs.table.refresh()
+        if (res.success === true) {
+          this.$message.info('出库成功')
+        } else {
+          this.$message.info('出库失败！' + res.msg)
+        }
       })
     },
     // 串口设备

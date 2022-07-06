@@ -103,25 +103,7 @@ import { newProduct, editProduct, productList } from '@/api/product'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
-
-const statusMap = {
-  1: {
-    status: 'default',
-    text: '已入库'
-  },
-  13: {
-    status: 'processing',
-    text: '已下单'
-  },
-  15: {
-    status: 'processing',
-    text: '已支付'
-  },
-  20: {
-    status: 'success',
-    text: '已出库'
-  }
-}
+import { ProductStatusMap } from '@/config/status.config'
 
 export default {
   name: 'TableList',
@@ -259,10 +241,10 @@ export default {
   },
   filters: {
     statusFilter (type) {
-      return statusMap[type].text
+      return ProductStatusMap[type].text
     },
     statusTypeFilter (type) {
-      return statusMap[type].status
+      return ProductStatusMap[type].status
     },
     formateDate (time) {
       const date = new Date(time)

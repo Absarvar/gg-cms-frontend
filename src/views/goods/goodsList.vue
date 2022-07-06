@@ -158,12 +158,12 @@ export default {
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '类别id',
-          dataIndex: 'cateId',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '类别id',
+        //   dataIndex: 'cateId',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
           title: '单位',
           dataIndex: 'unit',

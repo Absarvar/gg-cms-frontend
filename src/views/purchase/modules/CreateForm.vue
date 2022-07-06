@@ -64,7 +64,7 @@
         <a-form-item label="商品id"><a-input v-decorator="['goodsId', {rules:[{required: true, message: '请输入商品id'}]}]" /></a-form-item>
         <a-form-item label="数量"><a-input v-decorator="['num', {rules:[{required: true, message: '请输入数量'}]}]" /></a-form-item>
         <a-form-item label="规格"><a-input v-decorator="['sku', {rules:[{required: true, message: '请输入规格'}]}]" /></a-form-item>
-        <a-form-item label="价格"><a-input v-decorator="['price', {rules:[{required: true, message: '请输入价格'}]}]" /></a-form-item>
+        <a-form-item label="价格"><a-input @change="onChangePrice" v-decorator="['price', {rules:[{required: true, message: '请输入价格'}]}]" /></a-form-item>
         <a-form-item label="总费用"><a-input v-decorator="['amount', {rules:[{required: true, message: '请输入总费用'}]}]" /></a-form-item>
         <a-form-item label="制单人"><a-input v-decorator="['operator', {rules:[{required: true, message: '请输入制单人'}]}]" /></a-form-item>
         <a-form-item label="预计到货时间"><a-input v-decorator="['planArrive', {rules:[{required: true, message: '请输入预计到货时间'}]}]" /></a-form-item>

@@ -6,7 +6,8 @@ const skuApi = {
   skuList: GG_URL_PREFIX + '/sku/list',
   getSku: GG_URL_PREFIX + '/sku/get',
   deleteSku: GG_URL_PREFIX + '/sku/delete',
-  editSku: GG_URL_PREFIX + '/sku/edit'
+  editSku: GG_URL_PREFIX + '/sku/edit',
+  listAll: GG_URL_PREFIX + '/sku/listAll'
 }
 
 export function newSku (parameter) {
@@ -45,5 +46,13 @@ export function deleteSku () {
   return request({
     url: skuApi.deleteSku,
     method: 'get'
+  })
+}
+
+export function skuListAll (parameter) {
+  return request({
+    url: skuApi.listAll,
+    method: 'get',
+    params: parameter
   })
 }

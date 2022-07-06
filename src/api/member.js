@@ -6,7 +6,8 @@ const memberApi = {
   memberList: GG_URL_PREFIX + '/member/list',
   getMember: GG_URL_PREFIX + '/member/get',
   deleteMember: GG_URL_PREFIX + '/member/delete',
-  editMember: GG_URL_PREFIX + '/member/edit'
+  editMember: GG_URL_PREFIX + '/member/edit',
+  memberListAll: GG_URL_PREFIX + '/member/listAll'
 }
 
 export function newMember (parameter) {
@@ -45,5 +46,13 @@ export function deleteMember () {
   return request({
     url: memberApi.deleteMember,
     method: 'get'
+  })
+}
+
+export function memberListAll (parameter) {
+  return request({
+    url: memberApi.memberListAll,
+    method: 'get',
+    params: parameter
   })
 }

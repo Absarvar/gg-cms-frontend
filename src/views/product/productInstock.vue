@@ -31,7 +31,7 @@
         <a-col :xs="12" :sm="12">
           <div class="text">状态</div>
           <div class="heading">
-            <template v-if="info.status === 1">
+            <template v-if="info.status === 3">
               待入库
             </template>
 
@@ -39,7 +39,7 @@
         </a-col>
         <a-col :xs="12" :sm="12">
           <div class="text">申报数量</div>
-          <div class="heading">{{ info.number }}</div>
+          <div class="heading">{{ info.num }}</div>
         </a-col>
       </a-row>
     </template>
@@ -50,7 +50,7 @@
         <a-row>
           <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
             <a-card type="inner" title="商品名称" style="width:200px; text-align:center;">
-              <a-descriptions :title="info.goodsId" size="small">
+              <a-descriptions :title="info.goodsName" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
@@ -62,19 +62,19 @@
           </a-col>
           <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
             <a-card type="inner" title="已入库" style="width:100px; text-align:center;">
-              <a-descriptions :title="info.num" size="small">
+              <a-descriptions :title="instockedNum" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
           <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
             <a-card type="inner" title="剩余" style="width:100px; text-align:center;">
-              <a-descriptions :title="info.num" size="small">
+              <a-descriptions :title="info.num-instockedNum" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
           <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
             <a-card type="inner" title="已理公斤数" style="width:200px; text-align:center;">
-              <a-descriptions :title="info.instockWeight" size="small">
+              <a-descriptions :title="instockedWeight" size="small">
               </a-descriptions>
             </a-card>
           </a-col>
@@ -258,6 +258,7 @@ export default {
         // const requestParameters = Object.assign({}, parameter, this.queryParam)
         return getEntryApply(this.queryParam)
           .then(res => {
+            this.batchProNum = res.data.entryApply.num
             this.info = res.data.entryApply
             this.info.createTime = formateDate(new Date(this.info.createTime), 'yyyy-MM-dd')
             this.info.arriveDate = formateDate(new Date(this.info.arriveDate), 'yyyy-MM-dd')
@@ -267,6 +268,9 @@ export default {
   },
   data () {
     return {
+      batchProNum: 0,
+      instockedNum: 0,
+      instockedWeight: 0.0,
       consumerNo: 'c1037',
       productPageSize: 100,
       keepReading: true,
@@ -297,7 +301,12 @@ export default {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         return productList(requestParameters)
           .then(res => {
-            console.log(res)
+            this.instockedNum = res.data.total
+            var weight = 0.0
+            for (var k = 0; k < res.data.data.length; k++) {
+              weight += res.data.data[k].weight
+            }
+            this.instockedWeight = weight.toFixed(1)
             return res.data
           })
       },
