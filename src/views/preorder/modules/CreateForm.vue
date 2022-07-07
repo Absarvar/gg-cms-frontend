@@ -19,7 +19,7 @@
         >
           <a-input v-decorator="['id', {rules:[{required: false, message: ''}]}]" />
         </a-form-item>
-
+        <a-form-item hidden label="预定单号"><a-input v-decorator="['preorderCode', {}]" /></a-form-item>
         <a-form-item
           label="会员"
         >
@@ -71,20 +71,31 @@
         <a-form-item label="确认数量"><a-input v-decorator="['confirmNum', {rules:[{required: true, message: '请输入确认数量'}]}]" /></a-form-item>
         <a-form-item label="确认价格"><a-input @change="onChangePrice" v-decorator="['confirmPrice', {rules:[{required: true, message: '请输入确认价格'}]}]" /></a-form-item>
         <a-form-item label="总额"><a-input v-decorator="['amount', {rules:[{required: true, message: '请输入总额'}]}]" /></a-form-item>
-        <a-form-item label="到货时间"><a-input v-decorator="['arriveTime', {rules:[{required: true, message: '请输入到货时间'}]}]" /></a-form-item>
 
-        <a-form-item
-          label="状态"
-        >
-          <a-space>
-            <a-select
-              ref="select"
-              style="width: 150px"
-              v-decorator="['status', {rules:[{required: true, message: '请选择状态'}]}]"
-              :options="options2"
-            ></a-select>
-          </a-space>
+        <a-form-item label="到货时间">
+          <a-date-picker
+            v-model="arriveTimeDefault"
+            @change="onChangeTime"/>
         </a-form-item>
+        <a-form-item label="到货时间" hidden>
+          <a-input v-decorator="['arriveTime', {}]" />
+        </a-form-item>
+
+        <template v-if="model!==null">
+          <a-form-item
+            label="状态"
+          >
+            <a-space>
+              <a-select
+                ref="select"
+                style="width: 150px"
+                v-decorator="['status', {initialValue:1, rules:[{required: true, message: '请选择状态'}]}]"
+                :options="options2"
+              ></a-select>
+            </a-space>
+          </a-form-item>
+        </template>
+
       </a-form>
     </a-spin>
   </a-modal>
@@ -92,7 +103,9 @@
 
 <script>
 import pick from 'lodash.pick'
-import { goodsOptions, skuOptions, memberOptions } from '@/api/commonData'
+import { goodsOptions, skuOptions, memberOptions, preorderStatusOptions } from '@/api/commonData'
+import { formateDate } from '@/utils/dateUtil'
+import moment from 'moment'
 
 // 表单字段
 const fields = ['id', 'preorderCode', 'memberId', 'mobile', 'goodsId', 'skuId', 'num', 'confirmSku', 'confirmNum', 'confirmPrice', 'amount', 'arriveTime', 'status']
@@ -124,21 +137,29 @@ export default {
       }
     }
     return {
+      arriveTimeDefault: '',
       skuList: [],
       goodsList: [],
       memberList: [],
       fo: {},
       form: this.$form.createForm(this),
-      options2: [{
-        value: 0,
-        label: '禁用'
-      }, {
-        value: 1,
-        label: '启用'
-      }]
+      options2: preorderStatusOptions()
     }
   },
   methods: {
+
+    setDefaultVal () {
+      // 设置默认值
+      const date = new Date()
+      const todayStr = formateDate(date, 'yyyy-MM-dd')
+      const dateFormat = 'YYYY-MM-DD'
+      const todayjs = moment(todayStr, dateFormat)
+      this.form.setFieldsValue({ 'arriveTime': date * 1 })
+      this.arriveTimeDefault = todayjs
+    },
+    onChangeTime (date, dateString) {
+      this.form.setFieldsValue({ 'arriveTime': date.unix() * 1000 })
+    },
     onChangePrice (e) {
       const number = Number(this.form.getFieldValue('confirmNum'))
       const specification = Number(this.form.getFieldValue('confirmSku'))
@@ -149,6 +170,7 @@ export default {
 
   },
   created () {
+    this.setDefaultVal()
     if (this.model !== null) {
       this.fo = this.model
     }
@@ -162,6 +184,7 @@ export default {
     // 当 model 发生改变时，为表单设置值
     this.$watch('model', () => {
       this.model && this.form.setFieldsValue(pick(this.model, fields))
+      this.setDefaultVal()
       if (this.model !== null) {
         this.fo = this.model
       }

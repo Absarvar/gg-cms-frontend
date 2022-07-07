@@ -54,8 +54,9 @@
           <a-menu slot="overlay">
             <!-- <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item> -->
             <!-- lock | unlock -->
-            <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
+            <!-- <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item> -->
           </a-menu>
+          <a-button type="primary" @click="batchPrint()">合并打印</a-button>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
@@ -89,10 +90,12 @@
             <a @click="handleEdit(record)">查看</a>
             <a-divider type="vertical" />
             <a @click="handleDetail(record)">明细</a>
-            <a-divider type="vertical" />
-            <router-link :to="{path: '/trade-center/ground-manage/productOutStock', query: {'orderId':record.id, 'applyId':record.applyId, 'consumerNo':consumerNo }}">
-              出库
-            </router-link>
+            <template v-if="$route.name === 'orderOutStock'">
+              <a-divider type="vertical" />
+              <router-link :to="{path: '/trade-center/ground-manage/productOutStock', query: {'orderId':record.id, 'applyId':record.applyId, 'consumerNo':consumerNo }}">
+                出库
+              </router-link>
+            </template>
             <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
           </template>
@@ -102,11 +105,25 @@
       <create-form
         ref="createModal"
         :visible="visible"
+        :isDetail="isDetail"
         :loading="confirmLoading"
+        :isBatch="isBatch"
         :model="mdl"
         @cancel="handleCancel"
         @ok="handleOk"
       />
+
+      <detail
+        ref="Detail"
+        :visible="isDetail"
+        :isDetail="isDetail"
+        :loading="confirmLoading"
+        :isBatch="isBatch"
+        :model="mdl"
+        @cancel="handleCancel"
+        @ok="handleOk"
+      />
+
     </a-card>
   </page-header-wrapper>
 </template>
@@ -117,40 +134,26 @@ import { STable, Ellipsis } from '@/components'
 import { newMkOrder, editMkOrder, mkOrderList } from '@/api/mkOrder'
 
 import CreateForm from './modules/CreateForm'
+import Detail from './modules/Detail'
 import { formateDate } from '@/utils/dateUtil'
+import { OrderStatusMap } from '@/config/status.config'
 // import { getPageQuery } from '@/utils/util'
-
-const statusMap = {
-  0: {
-    status: 'default',
-    text: '未支付'
-  },
-  5: {
-    status: 'processing',
-    text: '未支付'
-  },
-  10: {
-    status: 'processing',
-    text: '已支付'
-  },
-  15: {
-    status: 'success',
-    text: '已出库'
-  }
-}
 
 export default {
   name: 'TableList',
   components: {
     STable,
     Ellipsis,
-    CreateForm
+    CreateForm,
+    Detail
   },
   data () {
     return {
       consumerNo: 'c6037',
       // create model
+      isBatch: false,
       visible: false,
+      isDetail: false,
       confirmLoading: false,
       mdl: null,
       // 高级搜索 展开/关闭
@@ -166,9 +169,12 @@ export default {
         //   this.queryParam.status = null
         // }
         const requestParameters = Object.assign({}, parameter, this.queryParam)
-        console.log('loadData request parameters:', requestParameters)
         return mkOrderList(requestParameters)
           .then(res => {
+            for (var order in res.data.data) {
+              const date = new Date(res.data.data[order].createTime)
+              res.data.data[order].createTime = formateDate(date, 'yyyy-MM-dd hh:mm:ss')
+            }
             return res.data
           })
       },
@@ -216,12 +222,12 @@ export default {
           width: 150,
           resizable: 'true'
         },
-        {
-          title: '预定单号',
-          dataIndex: 'preorderCode',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '预定单号',
+        //   dataIndex: 'preorderCode',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
           title: '总金额',
           dataIndex: 'amount',
@@ -336,7 +342,7 @@ export default {
           title: '操作',
           dataIndex: 'action',
           fixed: 'right',
-          width: '150px',
+          width: '120px',
           scopedSlots: { customRender: 'action' }
         }
       ]
@@ -344,10 +350,10 @@ export default {
   },
   filters: {
     statusFilter (type) {
-      return statusMap[type].text
+      return OrderStatusMap[type].text
     },
     statusTypeFilter (type) {
-      return statusMap[type].status
+      return OrderStatusMap[type].status
     },
     formateDate (time) {
       const date = new Date(time)
@@ -392,16 +398,34 @@ export default {
       this.queryParam.endTime = dateStr[1]
     },
     handleAdd () {
+      this.isBatch = false
       this.mdl = null
       this.visible = true
+      this.isDetail = false
     },
     handleEdit (record) {
+      this.isBatch = false
       this.visible = true
+      this.isDetail = false
       this.mdl = { ...record }
+    },
+    handleDetail (record) {
+      this.isBatch = false
+      this.visible = false
+      this.isDetail = true
+      this.mdl = { ...record }
+    },
+    batchPrint () {
+      const datas = this.selectedRows
+      this.visible = true
+      this.isDetail = false
+      this.isBatch = true
+      this.mdl = { ...datas }
     },
     handleOk () {
       const form = this.$refs.createModal.form
       this.confirmLoading = true
+      this.isBatch = false
       form.validateFields((errors, values) => {
         if (!errors) {
           if (values.id > 0) {
@@ -409,6 +433,7 @@ export default {
             editMkOrder(values)
             .then(res => {
               this.visible = false
+              this.isDetail = false
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
@@ -422,6 +447,7 @@ export default {
             newMkOrder(values)
             .then(res => {
               this.visible = false
+              this.isDetail = false
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
@@ -438,6 +464,7 @@ export default {
     },
     handleCancel () {
       this.visible = false
+      this.isDetail = false
 
       const form = this.$refs.createModal.form
       form.resetFields() // 清理表单数据（可不做）

@@ -47,3 +47,57 @@ export const OrderStatus = {
     APPLYING_WITHDRAW: -8,
     WITHDRAW: -10
 }
+
+export const OrderStatusMap = {
+  0: {
+    status: 'default',
+    text: '未支付'
+  },
+  2: {
+    status: 'default',
+    text: '历史单'
+  },
+  3: {
+    status: 'default',
+    text: '历史单'
+  },
+  5: {
+    status: 'processing',
+    text: '未支付'
+  },
+  10: {
+    status: 'processing',
+    text: '已支付'
+  },
+  15: {
+    status: 'success',
+    text: '已出库'
+  }
+}
+
+export const PreorderStatus = {
+  DISABLED: -1,
+  NOT_CONFIRMED: 1,
+  BALANCE_NOT_ENOUGH: 2,
+  CONFIRMED: 4,
+  GOODS_SENT: 5
+}
+
+export const PreorderStatusMap = {
+  1: {
+    status: 'default',
+    text: '未确认'
+  },
+  2: {
+    status: 'processing',
+    text: '余额不足'
+  },
+  4: {
+    status: 'processing',
+    text: '已确认'
+  },
+  5: {
+    status: 'success',
+    text: '已配货'
+  }
+}

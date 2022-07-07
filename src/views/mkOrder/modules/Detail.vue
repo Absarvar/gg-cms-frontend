@@ -16,21 +16,21 @@
 </style>
 <template>
   <a-modal
-    title="送货单"
+    title="送货明细"
     :width="1240"
-    :visible="visible"
+    :visible="isDetail"
     :confirmLoading="loading"
     @ok="() => { $emit('ok') }"
     @cancel="() => { $emit('cancel') }"
   >
     <a-spin :spinning="loading">
-      <a-button type="primary" @click="dayin()" >打印</a-button>
+      <a-button type="primary" @click="dayin()">打印</a-button>
 
       <div class="text-center" id="div_print" style="width:800px;">
         <table class="mx-auto table table-bordered table-hover heavy_border t2print" style="width:800px;margin-top: 0px;">
           <tbody>
             <tr>
-              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border: solid white !important;" colspan="9"><h4><b>{{ fo.supplier }}送货单</b></h4></td>
+              <td scope="col" style="text-align:center;border-width:0px;border-color:#000000;border: solid white !important;" colspan="9"><h4><b>{{ fo.supplier }}送货明细</b></h4></td>
             </tr>
             <tr>
               <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;" colspan="3">订单编号：{{ fo.orderCode }}</td>
@@ -43,60 +43,46 @@
               <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;border-right: solid white !important;" colspan="3">联系电话：{{ fo.linkMobile }}</td>
             </tr>
             <tr>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:120px;" >产品编码</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="3">总数量：{{ fo.num }}{{ fo.goodsUnit }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="3">总重量：{{ fo.weight }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;border-right: solid white !important;" colspan="3">总金额：{{ fo.amount }}</td>
+            </tr>
+            <tr>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:120px;" >轨道编号</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" >产品名称</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:80px;" >产品规格</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:80px;" >订货重量（kg）</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;" >重量（kg）</td>
 
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;">到货重量（kg）</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:80px;">辅单位</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:80px;">数量</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;">单价（元）</td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">金额（元）</td>
+              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:100px;">总价（元）</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">备注</td>
 
             </tr>
 
-            <template v-if="!isBatch">
-              <tr >
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">{{ fo.goodsCode }}</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">{{ fo.goodsName }}</th>
+            <!-- <template v-if="isBatch"> -->
+            <template v-for="(order,index) in productList">
+
+              <tr :key="index">
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">{{ order.orbitCode }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">{{ order.goodsName }}</th>
                 <th style="border-width:2px;border-color:#000000;text-align:center;">{{ fo.sku }}</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"></th>
+                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ order.weight }}</th>
 
-                <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ fo.weight }}</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.num }}{{ fo.goodsUnit }}</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.preorderPrice }}</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.amount }}</th>
+                <!-- <th style="border-width:2px;border-color:#000000;text-align:center">1{{ fo.goodsUnit }}</th> -->
+                <th style="border-width:2px;border-color:#000000;text-align:center">1</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.price }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.price*order.weight }}</th>
                 <th style="border-width:2px;border-color:#000000;text-align:center"></th>
-
               </tr>
             </template>
-
-            <template v-if="isBatch">
-              <template v-for="(order,index) in foList">
-
-                <tr :key="index">
-                  <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">{{ order.goodsCode }}</th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center;width:100px;">{{ order.goodsName }}</th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center;">{{ order.sku }}</th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;"></th>
-
-                  <th style="border-width:2px;border-color:#000000;text-align:center;width:60px;">{{ order.weight }}</th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.num }}{{ order.goodsUnit }}</th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.preorderPrice }}</th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center">{{ fo.amount }}</th>
-                  <th style="border-width:2px;border-color:#000000;text-align:center"></th>
-
-                </tr>
-              </template>
-            </template>
+            <!-- </template> -->
 
             <tr>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;height: 35px;" ></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
@@ -107,7 +93,6 @@
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" ></td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;"></td>
@@ -125,14 +110,12 @@
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;">签收日期：</td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
             </tr>
             <tr>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" ></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" ></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" ></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;" ></td>
-              <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
               <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;border: solid white !important;"></td>
@@ -198,13 +181,14 @@
 <script>
 import pick from 'lodash.pick'
 import $ from 'jquery'
+import { productList } from '@/api/product'
 
 // 表单字段
 const fields = ['id', 'orderid', 'totalamount', 'totalweight', 'ordertime', 'paytime', 'transactionid', 'outtradeno', 'addtime', 'address', 'name', 'factoryid', 'logisticianid', 'sid', 'ischecked', 'stockstatus', 'type', 'shoppingid', 'num', 'devicecode', 'gyname', 'status']
 
 export default {
   props: {
-    visible: {
+    isDetail: {
       type: Boolean,
       required: true
     },
@@ -217,10 +201,6 @@ export default {
       default: () => null
     },
     isBatch: {
-      type: Boolean,
-      required: true
-    },
-    isDetail: {
       type: Boolean,
       required: true
     }
@@ -239,6 +219,9 @@ export default {
     return {
       fo: {},
       foList: [],
+      instockedNum: 0,
+      instockedWeight: 0,
+      productList: [],
       form: this.$form.createForm(this),
       options2: [{
         value: 0,
@@ -257,6 +240,7 @@ export default {
       this.foList = this.model
       this.fo = this.foList[0]
     }
+        this.loadProductList()
 
     // 防止表单未注册
     fields.forEach(v => this.form.getFieldDecorator(v))
@@ -266,16 +250,31 @@ export default {
       this.model && this.form.setFieldsValue(pick(this.model, fields))
       if (this.model !== null) {
         this.fo = this.model
-        console.log(this.isBatch)
+        this.loadProductList()
       }
 
       if (this.model !== null && this.isBatch) {
         this.foList = this.model
         this.fo = this.foList[0]
+        this.loadProductList()
       }
     })
   },
   methods: {
+    loadProductList () {
+      console.log(this.fo)
+      productList({ 'orderId': this.fo.id, 'pageSize': 200 })
+      .then(res => {
+        this.instockedNum = res.data.total
+        var weight = 0.0
+        for (var k = 0; k < res.data.data.length; k++) {
+          weight += res.data.data[k].weight
+        }
+        this.instockedWeight = weight.toFixed(1)
+        this.productList = res.data.data
+        return res.data
+      })
+    },
     dayin () {
       $('td').addClass('tdLine')
       $('table').addClass('tableLine')

@@ -2,6 +2,7 @@
 import { goodsListAll } from '@/api/goods'
 import { skuListAll } from '@/api/sku'
 import { memberListAll } from '@/api/member'
+import { PreorderStatusMap } from '@/config/status.config'
 
 export function goodsOptions () {
   var list = []
@@ -30,5 +31,13 @@ export function memberOptions () {
       list.push({ label: res.data[i]['name'], value: res.data[i]['id'] })
     }
   })
+  return list
+}
+
+export function preorderStatusOptions () {
+  var list = []
+  for (var i in PreorderStatusMap) {
+      list.push({ label: PreorderStatusMap[i].text, value: Number(i) })
+    }
   return list
 }

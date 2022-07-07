@@ -80,8 +80,10 @@
         <span slot="action" slot-scope="text, record">
           <template>
             <a @click="handleEdit(record)">编辑</a>
-            <a-divider type="vertical" />
-            <a @click="handleGoSend(record)">配货</a>
+            <template v-if="record.status===PreorderStatus.CONFIRMED">
+              <a-divider type="vertical" />
+              <a @click="handleGoSend(record)">配货</a>
+            </template>
             <!-- <a @click="handleSub(record)">订阅报警</a> -->
           </template>
         </span>
@@ -117,17 +119,8 @@ import { preorderGoSend } from '@/api/mkOrder'
 import CreateForm from './modules/CreateForm'
 import GoSendForm from './modules/GoSendForm'
 import { formateDate } from '@/utils/dateUtil'
-
-const statusMap = {
-  0: {
-    status: 'default',
-    text: '禁用中'
-  },
-  1: {
-    status: 'processing',
-    text: '启用中'
-  }
-}
+import { PreorderStatus, PreorderStatusMap } from '@/config/status.config'
+// import { preorderStatusOptions } from '@/api/commonData'
 
 export default {
   name: 'TableList',
@@ -139,6 +132,7 @@ export default {
   },
   data () {
     return {
+      PreorderStatus: PreorderStatus,
       // create model
       goSend: false,
       visible: false,
@@ -169,7 +163,7 @@ export default {
         {
           title: '预定单号',
           dataIndex: 'preorderCode',
-          width: 120,
+          width: 110,
           resizable: 'true'
         },
         {
@@ -258,10 +252,10 @@ export default {
   },
   filters: {
     statusFilter (type) {
-      return statusMap[type].text
+      return PreorderStatusMap[type].text
     },
     statusTypeFilter (type) {
-      return statusMap[type].status
+      return PreorderStatusMap[type].status
     },
     formateDate (time) {
       const date = new Date(time)
@@ -269,7 +263,8 @@ export default {
     }
   },
   created () {
-
+    this.PreorderStatus = PreorderStatus
+    console.log(PreorderStatusMap)
   },
   computed: {
     rowSelection () {
@@ -315,8 +310,11 @@ export default {
               form.resetFields()
               // 刷新表格
               this.$refs.table.refresh()
-
-              this.$message.info('修改成功')
+              if (res.success === true) {
+                this.$message.info('确认成功')
+              } else {
+                this.$message.info('确认失败，' + res.msg)
+              }
             })
           } else {
             // 新增

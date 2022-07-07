@@ -252,7 +252,7 @@ export default {
     }
   },
   created () {
-
+    // console.log(ProductStatusMap)
   },
   computed: {
     rowSelection () {

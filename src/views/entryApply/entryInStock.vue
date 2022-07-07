@@ -247,7 +247,7 @@ export default {
         {
           title: '申报公司',
           dataIndex: 'memberName',
-          width: 120,
+          width: 150,
           resizable: 'true'
         },
         {
