@@ -375,6 +375,8 @@ export default {
           this.queryParam.status = 10
         } else if (this.$route.name === 'outStock-list') {
           this.queryParam.status = 15
+        } else if (this.$route.name === 'mkOrder-list') {
+          this.queryParam.status = null
         }
 
         if (this.$refs.table) {

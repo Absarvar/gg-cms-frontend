@@ -38,12 +38,21 @@
               <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;border-left: solid white !important;font-size: 8px;" colspan="3">送货地址：{{ fo.address }}</td>
             </tr>
             <tr>
-              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="3">购货客户：{{ fo.buyer }}</td>
-              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="3">联系人：{{ fo.linkMan }}</td>
-              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;border-right: solid white !important;" colspan="3">联系电话：{{ fo.linkMobile }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;" colspan="3">购货客户：{{ fo.buyer }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;" colspan="3">联系人：{{ fo.linkMan }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border: solid white !important;border-right: solid white !important;" colspan="3">联系电话：{{ fo.linkMobile }}</td>
             </tr>
             <tr>
-              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="3">总数量：{{ fo.num }}{{ fo.goodsUnit }}</td>
+              <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="3">
+                总数量：
+                <template v-if="fo.goodsUnit==='边'">
+                  {{ fo.num/2 }}头
+                </template>
+                <template v-if="fo.goodsUnit!=='边'">
+                  {{ fo.num }}{{ fo.goodsUnit }}
+                </template>
+
+              </td>
               <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;" colspan="3">总重量：{{ fo.weight }}</td>
               <td scope="col" style="text-align:left;border-width:0px;border-color:#000000;border-left: solid white !important;border-right: solid white !important;" colspan="3">总金额：{{ fo.amount }}</td>
             </tr>

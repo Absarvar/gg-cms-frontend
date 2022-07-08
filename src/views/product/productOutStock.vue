@@ -102,14 +102,8 @@
         <a-divider style="margin: 16px 0" />
 
         <span id="userno" style="display: flex;font-size:5px;color:red"></span>
-        轨道信息：
+        连接信息：
         <span style="font-size:30px;" id="message"></span>
-        重量信息：
-        <div style="display: flex;justify-content: space-between;align-items:center;margin-top:5%;">
-          <div class="divButtonMax">
-            <span class="classp" style="display:inline;font-size:20px">净重: </span>
-          </div>
-        </div>
       </a-card>
 
       <a-card type="inner" title="入库日志" style="width:700px;float:right;">

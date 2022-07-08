@@ -31,12 +31,27 @@
               <a-select
                 defaultActiveFirst
                 ref="select"
-                style="width: 120px"
+                style="width: 150px"
                 v-decorator="['goodsId', {initialValue:1, rules:[{required: true, message: '请选择商品名称'}]}]"
                 :options="goodsList"
               ></a-select>
             </a-space>
           </a-form-item>
+
+          <a-form-item
+            label="单位"
+          >
+            <a-space>
+              <a-select
+                defaultActiveFirst
+                ref="select"
+                style="width: 150px"
+                v-decorator="['unit', {initialValue:1, rules:[{required: true, message: '请选择单位'}]}]"
+                :options="goodsUnitOptions"
+              ></a-select>
+            </a-space>
+          </a-form-item>
+
           <!-- <a-form-item label="商品id"><a-input v-decorator="['goodsId', {rules:[{required: true, message: '请输入商品id'}]}]" /></a-form-item> -->
           <a-form-item label="商品数量"><a-input v-decorator="['num', {rules:[{required: true, message: '请输入商品数量'}]}]" /></a-form-item>
           <a-form-item label="总重量"><a-input v-decorator="['weight', {rules:[{required: true, message: '请输入总重量'}]}]" /></a-form-item>
@@ -70,10 +85,10 @@
             </a-space>
           </a-form-item>
           <!-- <a-form-item label="养殖场ID"><a-input v-decorator="['farmId', {rules:[{required: true, message: '请输入养殖场ID'}]}]" /></a-form-item> -->
-          <a-form-item label="用途"><a-input v-decorator="['usage', {rules:[{required: true, message: '请输入用途'}]}]" /></a-form-item>
+          <a-form-item label="用途"><a-input v-decorator="['usage', {initialValue:'批发', rules:[{required: true, message: '请输入用途'}]}]" /></a-form-item>
           <a-form-item label="承运人"><a-input v-decorator="['carrier', {rules:[{required: true, message: '请输入承运人'}]}]" /></a-form-item>
           <a-form-item label="承运人手机"><a-input v-decorator="['carrierMobile', {rules:[{required: true, message: '请输入承运人手机'}]}]" /></a-form-item>
-          <a-form-item label="运输方式"><a-input v-decorator="['transportation', {rules:[{required: true, message: '请输入运输方式'}]}]" /></a-form-item>
+          <a-form-item label="运输方式"><a-input v-decorator="['transportation', {initialValue:'陆运', rules:[{required: true, message: '请输入运输方式'}]}]" /></a-form-item>
           <a-form-item label="车牌号"><a-input v-decorator="['plateNo', {rules:[{required: true, message: '请输入车牌号'}]}]" /></a-form-item>
 
           <a-form-item
@@ -113,6 +128,15 @@
             </a-upload>
 
             <a-input disabled v-decorator="['quarantineTicket', {rules:[{required: true, message: '请输入屠宰票证'}]}]" />
+          </a-form-item>
+
+          <a-form-item label="到货时间">
+            <a-date-picker
+              v-model="arriveTimeDefault"
+              @change="onChangeTime"/>
+          </a-form-item>
+          <a-form-item label="到货时间" hidden>
+            <a-input v-decorator="['arriveTime', {}]" />
           </a-form-item>
 
           <a-form-item label="地磅初读"><a-input v-decorator="['checkLoad', {rules:[{required: false, message: '请输入地磅初读'}]}]" /></a-form-item>
@@ -360,9 +384,12 @@ import pick from 'lodash.pick'
 import { uploadHeaders, uploadUrl, handleUploadInfo } from '@/utils/util'
 import { goodsListAll } from '@/api/goods'
 import { sourceEntList } from '@/api/butcherEnt'
+import { goodsUnitOptions } from '@/api/commonData'
+import { formateDate } from '@/utils/dateUtil'
+import moment from 'moment'
 
 // 表单字段
-const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'num', 'weight', 'butcherId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'acceptorId', 'enterTime', 'status']
+const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'num', 'weight', 'butcherId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'arriveTime', 'acceptorId', 'enterTime', 'status']
 
 export default {
   props: {
@@ -395,6 +422,8 @@ export default {
       }
     }
     return {
+      arriveTimeDefault: '',
+      goodsUnitOptions: [],
       roleType: storage.get('roleType'),
       ddStyle: { width: '500px', height: '600px' },
       daddTimeDefault: '',
@@ -430,6 +459,19 @@ export default {
     }
   },
   methods: {
+
+    setDefaultVal () {
+      // 设置默认值
+      const date = new Date()
+      const todayStr = formateDate(date, 'yyyy-MM-dd')
+      const dateFormat = 'YYYY-MM-DD'
+      const todayjs = moment(todayStr, dateFormat)
+      this.form.setFieldsValue({ 'arriveTime': date * 1 })
+      this.arriveTimeDefault = todayjs
+    },
+    onChangeTime (date, dateString) {
+      this.form.setFieldsValue({ 'arriveTime': date.unix() * 1000 })
+    },
     uploadFarmTicket (info) {
       var fileName = info.file.response.data.url
       // console.log(fileName)
@@ -443,6 +485,8 @@ export default {
     }
   },
   created () {
+    this.goodsUnitOptions = goodsUnitOptions()
+    this.setDefaultVal()
     this.$nextTick(() => {
       goodsListAll('').then(res => {
         // console.log(res.data[0])

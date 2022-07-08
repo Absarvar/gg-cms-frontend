@@ -111,6 +111,8 @@ const constantRouterComponents = {
                                   GsBillList: () => import('@/views/mkOrder/mkOrderList'),
                                   // productInstock
                                   ProductOutStock: () => import('@/views/product/productOutStock'),
+                                  // GoodsUnitList
+                                  GoodsUnitList: () => import('@/views/goodsUnit/goodsUnitList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

@@ -52,6 +52,20 @@
         </a-form-item>
 
         <a-form-item
+          label="单位"
+        >
+          <a-space>
+            <a-select
+              defaultActiveFirst
+              ref="select"
+              style="width: 250px"
+              v-decorator="['unit', {initialValue:1, rules:[{required: true, message: '请选择单位'}]}]"
+              :options="goodsUnitOption"
+            ></a-select>
+          </a-space>
+        </a-form-item>
+
+        <a-form-item
           label="规格"
         >
           <a-space>
@@ -67,10 +81,13 @@
         <!-- <a-form-item label="商品id"><a-input v-decorator="['goodsId', {rules:[{required: true, message: '请输入商品id'}]}]" /></a-form-item> -->
         <!-- <a-form-item label="规格id"><a-input v-decorator="['skuId', {rules:[{required: true, message: '请输入规格id'}]}]" /></a-form-item> -->
         <a-form-item label="数量"><a-input v-decorator="['num', {rules:[{required: true, message: '请输入数量'}]}]" /></a-form-item>
-        <a-form-item label="确认规格"><a-input v-decorator="['confirmSku', {rules:[{required: true, message: '请输入确认规格'}]}]" /></a-form-item>
-        <a-form-item label="确认数量"><a-input v-decorator="['confirmNum', {rules:[{required: true, message: '请输入确认数量'}]}]" /></a-form-item>
-        <a-form-item label="确认价格"><a-input @change="onChangePrice" v-decorator="['confirmPrice', {rules:[{required: true, message: '请输入确认价格'}]}]" /></a-form-item>
-        <a-form-item label="总额"><a-input v-decorator="['amount', {rules:[{required: true, message: '请输入总额'}]}]" /></a-form-item>
+
+        <template v-if="model!==null">
+          <a-form-item label="确认规格"><a-input v-decorator="['confirmSku', {rules:[{required: true, message: '请输入确认规格'}]}]" /></a-form-item>
+          <a-form-item label="确认数量"><a-input v-decorator="['confirmNum', {rules:[{required: true, message: '请输入确认数量'}]}]" /></a-form-item>
+          <a-form-item label="确认价格"><a-input @change="onChangePrice" v-decorator="['confirmPrice', {rules:[{required: true, message: '请输入确认价格'}]}]" /></a-form-item>
+          <a-form-item label="总额"><a-input v-decorator="['amount', {rules:[{required: true, message: '请输入总额'}]}]" /></a-form-item>
+        </template>
 
         <a-form-item label="到货时间">
           <a-date-picker
@@ -103,7 +120,7 @@
 
 <script>
 import pick from 'lodash.pick'
-import { goodsOptions, skuOptions, memberOptions, preorderStatusOptions } from '@/api/commonData'
+import { goodsOptions, skuOptions, memberOptions, preorderStatusOptions, goodsUnitOptions } from '@/api/commonData'
 import { formateDate } from '@/utils/dateUtil'
 import moment from 'moment'
 
@@ -137,6 +154,7 @@ export default {
       }
     }
     return {
+      goodsUnitOption: [],
       arriveTimeDefault: '',
       skuList: [],
       goodsList: [],
@@ -177,6 +195,7 @@ export default {
     this.goodsList = goodsOptions()
     this.skuList = skuOptions()
     this.memberList = memberOptions()
+    this.goodsUnitOption = goodsUnitOptions()
 
     // 防止表单未注册
     fields.forEach(v => this.form.getFieldDecorator(v))
