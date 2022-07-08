@@ -58,8 +58,8 @@
             <a-select
               defaultActiveFirst
               ref="select"
-              style="width: 250px"
-              v-decorator="['unit', {initialValue:1, rules:[{required: true, message: '请选择单位'}]}]"
+              style="width: 150px"
+              v-decorator="['unit', {initialValue:'头', rules:[{required: true, message: '请选择单位'}]}]"
               :options="goodsUnitOption"
             ></a-select>
           </a-space>
@@ -125,7 +125,7 @@ import { formateDate } from '@/utils/dateUtil'
 import moment from 'moment'
 
 // 表单字段
-const fields = ['id', 'preorderCode', 'memberId', 'mobile', 'goodsId', 'skuId', 'num', 'confirmSku', 'confirmNum', 'confirmPrice', 'amount', 'arriveTime', 'status']
+const fields = ['id', 'preorderCode', 'memberId', 'mobile', 'goodsId', 'unit', 'skuId', 'num', 'confirmSku', 'confirmNum', 'confirmPrice', 'amount', 'arriveTime', 'status']
 
 export default {
   props: {
@@ -168,7 +168,11 @@ export default {
 
     setDefaultVal () {
       // 设置默认值
-      const date = new Date()
+      var date = new Date()
+      if (this.model != null) {
+        console.log(this.model.arriveTime)
+        date = new Date(this.model.arriveTime)
+      }
       const todayStr = formateDate(date, 'yyyy-MM-dd')
       const dateFormat = 'YYYY-MM-DD'
       const todayjs = moment(todayStr, dateFormat)
@@ -206,6 +210,12 @@ export default {
       this.setDefaultVal()
       if (this.model !== null) {
         this.fo = this.model
+
+        var haddDate = new Date(this.model.arriveTime)
+        const arriveTime = formateDate(haddDate, 'yyyy-MM-dd')
+        const dateFormat = 'YYYY-MM-DD'
+        const arriveTimeStrmm = moment(arriveTime, dateFormat)
+        this.arriveTimeDefault = arriveTimeStrmm
       }
     })
   }

@@ -92,7 +92,7 @@ export default {
     }
     return {
       selectedNum: 0,
-      ddStyle: { width: '500px', height: '600px' },
+      ddStyle: { width: '500px', height: '400px' },
       fo: {},
       daddTimeDefault: '',
       haddTimeDefault: '',

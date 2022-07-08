@@ -46,7 +46,7 @@
                 defaultActiveFirst
                 ref="select"
                 style="width: 150px"
-                v-decorator="['unit', {initialValue:1, rules:[{required: true, message: '请选择单位'}]}]"
+                v-decorator="['unit', {initialValue:'头', rules:[{required: true, message: '请选择单位'}]}]"
                 :options="goodsUnitOptions"
               ></a-select>
             </a-space>
@@ -389,7 +389,7 @@ import { formateDate } from '@/utils/dateUtil'
 import moment from 'moment'
 
 // 表单字段
-const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'num', 'weight', 'butcherId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'arriveTime', 'acceptorId', 'enterTime', 'status']
+const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'unit', 'num', 'weight', 'butcherId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'arriveTime', 'acceptorId', 'enterTime', 'status']
 
 export default {
   props: {
@@ -522,6 +522,12 @@ export default {
       this.model && this.form.setFieldsValue(pick(this.model, fields))
       if (this.model !== null) {
         this.fo = this.model
+
+        var haddDate = new Date(this.model.arriveTime)
+        const arriveTime = formateDate(haddDate, 'yyyy-MM-dd')
+        const dateFormat = 'YYYY-MM-DD'
+        const arriveTimeStrmm = moment(arriveTime, dateFormat)
+        this.arriveTimeDefault = arriveTimeStrmm
       }
     })
   }

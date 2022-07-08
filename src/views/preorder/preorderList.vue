@@ -77,6 +77,10 @@
           {{ text | formateDate }}
         </span>
 
+        <span slot="arriveTime" slot-scope="text">
+          {{ text | formateDay }}
+        </span>
+
         <span slot="action" slot-scope="text, record">
           <template>
             <a @click="handleEdit(record)">编辑</a>
@@ -185,6 +189,12 @@ export default {
           resizable: 'true'
         },
         {
+          title: '单位',
+          dataIndex: 'unit',
+          width: 60,
+          resizable: 'true'
+        },
+        {
           title: '规格',
           dataIndex: 'skuName',
           width: 120,
@@ -223,6 +233,7 @@ export default {
         {
           title: '到货时间',
           dataIndex: 'arriveTime',
+          scopedSlots: { customRender: 'arriveTime' },
           width: 120,
           resizable: 'true'
         },
@@ -260,6 +271,10 @@ export default {
     formateDate (time) {
       const date = new Date(time)
       return formateDate(date, 'yyyy-MM-dd hh:mm')
+    },
+    formateDay (time) {
+      const date = new Date(time)
+      return formateDate(date, 'yyyy-MM-dd')
     }
   },
   created () {

@@ -81,6 +81,9 @@
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
+        <span slot="arriveTime" slot-scope="text">
+          {{ text | formateDay }}
+        </span>
         <span slot="enterTime" slot-scope="text">
           {{ text | formateDate }}
         </span>
@@ -283,11 +286,17 @@ export default {
         {
           title: '商品数量',
           dataIndex: 'num',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
-          title: '总重量',
+          title: '单位',
+          dataIndex: 'unit',
+          width: 60,
+          resizable: 'true'
+        },
+        {
+          title: '总重量(kg)',
           dataIndex: 'weight',
           width: 120,
           resizable: 'true'
@@ -355,6 +364,13 @@ export default {
           resizable: 'true'
         },
         {
+          title: '到达时间',
+          scopedSlots: { customRender: 'arriveTime' },
+          dataIndex: 'arriveTime',
+          width: 120,
+          resizable: 'true'
+        },
+        {
           title: '入场时间',
           scopedSlots: { customRender: 'enterTime' },
           dataIndex: 'enterTime',
@@ -365,7 +381,7 @@ export default {
         {
           title: '创建时间',
           scopedSlots: { customRender: 'createTime' },
-          width: 200,
+          width: 120,
           dataIndex: 'createTime'
         },
         {
@@ -403,6 +419,10 @@ export default {
     formateDate (time) {
       const date = new Date(time)
       return formateDate(date, 'yyyy-MM-dd hh:mm')
+    },
+    formateDay (time) {
+      const date = new Date(time)
+      return formateDate(date, 'yyyy-MM-dd')
     }
   },
   created () {

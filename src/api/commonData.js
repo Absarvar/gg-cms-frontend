@@ -47,7 +47,7 @@ export function goodsUnitOptions () {
   var list = []
   goodsUnitList({ 'goodsId': 0 }).then(res => {
   for (var i = 0; i < res.data.data.length; i++) {
-      list.push({ label: res.data.data[i]['name'], value: res.data.data[i]['id'] })
+      list.push({ label: res.data.data[i]['name'], value: res.data.data[i]['name'] })
     }
   })
   return list
