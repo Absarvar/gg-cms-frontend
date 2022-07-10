@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import { GG_URL_PREFIX } from '@/config/common.config'
+import { download } from '@/utils/util'
 
 export const sellTicketApi = {
   newSellTicket: GG_URL_PREFIX + '/sellTicket/newSellTicket',
@@ -7,6 +8,7 @@ export const sellTicketApi = {
   getSellTicket: GG_URL_PREFIX + '/sellTicket/get',
   deleteSellTicket: GG_URL_PREFIX + '/sellTicket/delete',
   editSellTicket: GG_URL_PREFIX + '/sellTicket/edit',
+  sellTicketListExport: GG_URL_PREFIX + '/sellTicket/export',
   importSellTicket: GG_URL_PREFIX + '/sellTicket/import'
 }
 
@@ -54,5 +56,16 @@ export function importSellTicket (parameter) {
     url: sellTicketApi.importSellTicket,
     method: 'post',
     params: parameter
+  })
+}
+
+export function sellTicketListExport (parameter) {
+  return request({
+    url: sellTicketApi.sellTicketListExport,
+    method: 'get',
+    params: parameter,
+    responseType: 'blob'
+  }).then(response => {
+    download(response) // then直接下载，方法在下边
   })
 }

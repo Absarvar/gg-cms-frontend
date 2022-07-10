@@ -52,6 +52,20 @@
             </a-space>
           </a-form-item>
 
+          <a-form-item
+            label="申报会员"
+          >
+            <a-space>
+              <a-select
+                defaultActiveFirst
+                ref="select"
+                style="width: 300px"
+                v-decorator="['memberId', {initialValue:623, rules:[{required: true, message: '请选择申报会员'}]}]"
+                :options="memberOptions"
+              ></a-select>
+            </a-space>
+          </a-form-item>
+
           <!-- <a-form-item label="商品id"><a-input v-decorator="['goodsId', {rules:[{required: true, message: '请输入商品id'}]}]" /></a-form-item> -->
           <a-form-item label="商品数量"><a-input v-decorator="['num', {rules:[{required: true, message: '请输入商品数量'}]}]" /></a-form-item>
           <a-form-item label="总重量"><a-input v-decorator="['weight', {rules:[{required: true, message: '请输入总重量'}]}]" /></a-form-item>
@@ -104,7 +118,7 @@
             </a-space>
           </a-form-item>
           <!-- <a-form-item label="是否已消毒"><a-input v-decorator="['disinfect', {rules:[{required: true, message: '请输入是否已消毒'}]}]" /></a-form-item> -->
-          <a-form-item label="养殖票证">
+          <a-form-item label="上传动物AB">
             <a-upload
               name="file"
               :multiple="true"
@@ -115,8 +129,8 @@
               <a-button> <a-icon type="upload" /> 上传 </a-button>
             </a-upload>
 
-            <a-input disabled v-decorator="['farmTicket', {rules:[{required: true, message: '请输入养殖票证'}]}]" /></a-form-item>
-          <a-form-item label="屠宰票证">
+            <a-input disabled v-decorator="['farmTicket', {rules:[{required: false, message: '请上传动物AB'}]}]" /></a-form-item>
+          <a-form-item label="上传产品票证">
             <a-upload
               name="file"
               :multiple="true"
@@ -127,7 +141,7 @@
               <a-button> <a-icon type="upload" /> 上传 </a-button>
             </a-upload>
 
-            <a-input disabled v-decorator="['quarantineTicket', {rules:[{required: true, message: '请输入屠宰票证'}]}]" />
+            <a-input disabled v-decorator="['quarantineTicket', {rules:[{required: false, message: '请上传产品票证'}]}]" />
           </a-form-item>
 
           <a-form-item label="到货时间">
@@ -240,7 +254,7 @@
             </a-space>
           </a-form-item>
           <!-- <a-form-item label="是否已消毒"><a-input v-decorator="['disinfect', {rules:[{required: true, message: '请输入是否已消毒'}]}]" /></a-form-item> -->
-          <a-form-item label="养殖票证">
+          <a-form-item label="上传动物AB">
             <a-upload
               name="file"
               :multiple="true"
@@ -251,8 +265,8 @@
               <a-button> <a-icon type="upload" /> 上传 </a-button>
             </a-upload>
 
-            <a-input disabled v-decorator="['farmTicket', {rules:[{required: true, message: '请输入养殖票证'}]}]" /></a-form-item>
-          <a-form-item label="屠宰票证">
+            <a-input disabled v-decorator="['farmTicket', {rules:[{required: false, message: '请上传动物AB'}]}]" /></a-form-item>
+          <a-form-item label="上传产品票证">
             <a-upload
               name="file"
               :multiple="true"
@@ -263,7 +277,16 @@
               <a-button> <a-icon type="upload" /> 上传 </a-button>
             </a-upload>
 
-            <a-input disabled v-decorator="['quarantineTicket', {rules:[{required: true, message: '请输入屠宰票证'}]}]" />
+            <a-input disabled v-decorator="['quarantineTicket', {rules:[{required: false, message: '请上传产品票证'}]}]" />
+          </a-form-item>
+
+          <a-form-item label="到货时间">
+            <a-date-picker
+              v-model="arriveTimeDefault"
+              @change="onChangeTime"/>
+          </a-form-item>
+          <a-form-item label="到货时间" hidden>
+            <a-input v-decorator="['arriveTime', {}]" />
           </a-form-item>
 
         </a-form>
@@ -363,12 +386,12 @@
             </a-space>
           </a-form-item>
           <!-- <a-form-item label="是否已消毒"><a-input disabled v-decorator="['disinfect', {rules:[{required: true, message: '请输入是否已消毒'}]}]" /></a-form-item> -->
-          <a-form-item label="养殖票证">
+          <a-form-item label="上传动物AB">
 
-            <a-input disabled v-decorator="['farmTicket', {rules:[{required: true, message: '请输入养殖票证'}]}]" /></a-form-item>
-          <a-form-item label="屠宰票证">
+            <a-input disabled v-decorator="['farmTicket', {rules:[{required: false, message: '请上传动物AB'}]}]" /></a-form-item>
+          <a-form-item label="上传产品票证">
 
-            <a-input disabled v-decorator="['quarantineTicket', {rules:[{required: true, message: '请输入屠宰票证'}]}]" />
+            <a-input disabled v-decorator="['quarantineTicket', {rules:[{required: false, message: '请上传产品票证'}]}]" />
           </a-form-item>
 
         </a-form>
@@ -384,12 +407,12 @@ import pick from 'lodash.pick'
 import { uploadHeaders, uploadUrl, handleUploadInfo } from '@/utils/util'
 import { goodsListAll } from '@/api/goods'
 import { sourceEntList } from '@/api/butcherEnt'
-import { goodsUnitOptions } from '@/api/commonData'
+import { goodsUnitOptions, memberOptions } from '@/api/commonData'
 import { formateDate } from '@/utils/dateUtil'
 import moment from 'moment'
 
 // 表单字段
-const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'unit', 'num', 'weight', 'butcherId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'arriveTime', 'acceptorId', 'enterTime', 'status']
+const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'unit', 'num', 'weight', 'butcherId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'arriveTime', 'acceptorId', 'status']
 
 export default {
   props: {
@@ -422,8 +445,9 @@ export default {
       }
     }
     return {
+      memberOptions: memberOptions(),
       arriveTimeDefault: '',
-      goodsUnitOptions: [],
+      goodsUnitOptions: goodsUnitOptions(),
       roleType: storage.get('roleType'),
       ddStyle: { width: '500px', height: '600px' },
       daddTimeDefault: '',
@@ -485,7 +509,6 @@ export default {
     }
   },
   created () {
-    this.goodsUnitOptions = goodsUnitOptions()
     this.setDefaultVal()
     this.$nextTick(() => {
       goodsListAll('').then(res => {
@@ -519,7 +542,9 @@ export default {
 
     // 当 model 发生改变时，为表单设置值
     this.$watch('model', () => {
+      // 顺序不能乱
       this.model && this.form.setFieldsValue(pick(this.model, fields))
+    this.setDefaultVal()
       if (this.model !== null) {
         this.fo = this.model
 

@@ -1,5 +1,6 @@
 import request from '@/utils/request'
 import { GG_URL_PREFIX } from '@/config/common.config'
+import { download } from '@/utils/util'
 
 const productApi = {
   newProduct: GG_URL_PREFIX + '/product/newProduct',
@@ -9,6 +10,7 @@ const productApi = {
   editProduct: GG_URL_PREFIX + '/product/edit',
   frozenStock: GG_URL_PREFIX + '/product/frozenStock',
   outStock: GG_URL_PREFIX + '/product/outStock',
+  pdProductListExport: GG_URL_PREFIX + '/product/export',
   productListTree: GG_URL_PREFIX + '/product/listTree'
 }
 
@@ -73,5 +75,16 @@ export function productListTree (parameter) {
     url: productApi.productListTree,
     method: 'get',
     params: parameter
+  })
+}
+
+export function pdProductListExport (parameter) {
+  return request({
+    url: productApi.pdProductListExport,
+    method: 'get',
+    params: parameter,
+    responseType: 'blob'
+  }).then(response => {
+    download(response) // then直接下载，方法在下边
   })
 }

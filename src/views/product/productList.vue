@@ -40,8 +40,9 @@
         </a-form>
       </div>
 
-      <!-- <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+      <div class="table-operator">
+        <a-button type="primary" @click="dataExport">导出 </a-button>
+        <!--<a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
@@ -50,8 +51,8 @@
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
-        </a-dropdown>
-      </div> -->
+        </a-dropdown> -->
+      </div>
 
       <s-table
         ref="table"
@@ -99,7 +100,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newProduct, editProduct, productList } from '@/api/product'
+import { newProduct, editProduct, productList, pdProductListExport } from '@/api/product'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -336,6 +337,16 @@ export default {
       this.queryParam = {
         date: moment(new Date())
       }
+    },
+    dataExport () {
+      var parameter
+      if (this.$route.query.applyId > 0) {
+        this.queryParam.applyId = this.$route.query.applyId
+      } else {
+        this.queryParam.applyId = null
+      }
+      const requestParameters = Object.assign({}, parameter, this.queryParam)
+      pdProductListExport(requestParameters)
     }
   }
 }

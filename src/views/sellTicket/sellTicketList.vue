@@ -56,6 +56,7 @@
           <a-divider type="vertical" />
           <a type="primary" href="http://cdn.ggmstc.com/common/%E4%BF%A1%E6%81%AF%E4%B8%8A%E4%BC%A0%E6%A8%A1%E6%9D%BF-%E5%88%86%E9%94%80%E7%A5%A8%E4%B8%93%E7%94%A8.xls">模板下载</a>
           <a-divider type="vertical" />
+          <a-button type="primary" @click="dataExport">导出 </a-button>
           &nbsp;
         </template>
 
@@ -133,7 +134,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newSellTicket, editSellTicket, sellTicketList, sellTicketApi } from '@/api/sellTicket'
+import { newSellTicket, editSellTicket, sellTicketList, sellTicketApi, sellTicketListExport } from '@/api/sellTicket'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -457,6 +458,10 @@ export default {
       this.queryParam = {
         date: moment(new Date())
       }
+    },
+    dataExport () {
+      const requestParameters = Object.assign({}, this.queryParam)
+      sellTicketListExport(requestParameters)
     },
     batchPrint () {
       const nowTime = getNowTime()
