@@ -104,13 +104,27 @@
     <a-card style="margin-top: 24px" :bordered="false" title="现场信息">
       <a-card type="inner" title="轨道信息" style="width:300px;float:left;">
         <a-descriptions title="价格" size="small">
-          <a-descriptions-item label="一级">
-            <a-input v-model="price" ></a-input>
-          </a-descriptions-item>
+          <!-- <a-descriptions-item label="一级1">
+            <a-input prefix="￥" v-model="price" ></a-input>
+          </a-descriptions-item> -->
           <!-- <a-descriptions-item label="二级">
             <a-input :value="price" ></a-input>
           </a-descriptions-item> -->
         </a-descriptions>
+        <a-radio-group @change="onChange">
+          <a-radio :style="radioStyle" :value="1">
+            一级
+            <a-input prefix="￥" id="price1" v-model="price1" :style="{ width: 30, marginLeft: 10 }" />
+          </a-radio>
+          <a-radio :style="radioStyle" :value="2">
+            二级
+            <a-input prefix="￥" id="price2" v-model="price2" :style="{ width: 30, marginLeft: 10 }" />
+          </a-radio>
+          <a-radio :style="radioStyle" :value="3">
+            三级
+            <a-input prefix="￥" id="price3" v-model="price3" :style="{ width: 30, marginLeft: 10 }" />
+          </a-radio>
+        </a-radio-group>
         <a-divider style="margin: 16px 0" />
         <a-descriptions title="重量" size="small" :col="1">
           <a-descriptions-item label="">
@@ -130,8 +144,8 @@
         <a-button type="primary" @click="handleAdd()">提交</a-button>
         <!-- <a-button type="primary" @click="startWx()">ws</a-button> -->
         <a-divider style="margin: 16px 0" />
-        <a-button type="primary" @click="serialPort()">电子秤</a-button>
-        <a-divider style="margin: 16px 0" />
+        <!-- <a-button type="primary" @click="serialPort()">电子秤</a-button>
+        <a-divider style="margin: 16px 0" /> -->
         <!-- <a-button type="primary" @click="getRfid()">rfid</a-button> -->
         <a-divider style="margin: 16px 0" />
 
@@ -261,6 +275,16 @@ export default {
   },
   data () {
     return {
+      formerOrbitCode: 0,
+      price1: 0.0,
+      price2: 0.0,
+      price3: 0.0,
+      radioStyle: {
+        display: 'block',
+        height: '30px',
+        lineHeight: '30px',
+        width: '120px'
+      },
       batchProNum: 0,
       instockedNum: 0,
       instockedWeight: 0.0,
@@ -270,7 +294,7 @@ export default {
       entryApplyId: 0,
       orbitCode: 0,
       weight: 0,
-      rank: 1,
+      level: 1,
       price: 0,
       product: { },
       info: {},
@@ -294,7 +318,9 @@ export default {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         return productList(requestParameters)
           .then(res => {
-            this.instockedNum = res.data.total
+            if (res.data.total) {
+              this.instockedNum = res.data.total
+            }
             var weight = 0.0
             for (var k = 0; k < res.data.data.length; k++) {
               weight += res.data.data[k].weight
@@ -382,6 +408,18 @@ export default {
     }
   },
   methods: {
+    onChange (e) {
+      this.level = e.target.value
+    },
+    // onChangePrice1 (e) {
+    //     this.price1 = e.srcElement.value
+    // },
+    // onChangePrice2 (e) {
+    //     this.price2 = e.srcElement.value
+    // },
+    // onChangePrice3 (e) {
+    //     this.price3 = e.srcElement.value
+    // },
       serial: async () => {
         console.log('serial')
       // 浏览器支持serial
@@ -421,14 +459,36 @@ export default {
     },
     handleAdd () {
       var orbitCode = document.getElementById('orbitCode').value
+      if (orbitCode === this.formerOrbitCode) {
+        this.$message.error('入库失败:轨道编号重复！')
+        return
+      }
       this.product.orbitCode = orbitCode
       this.product.weight = this.weight
-      this.product.level = this.rank
+      this.product.level = this.level
       this.product.price = this.price
       this.product.goodsId = this.info.goodsId
       this.product.applyId = this.info.id
+
+      switch (this.level) {
+        case 2:
+          this.product.price = this.price2
+          break
+        case 3:
+          this.product.price = this.price3
+          break
+        default:
+          this.product.price = this.price1
+          break
+      }
       newProduct(this.product).then(res => {
-        this.$refs.table.refresh()
+        if (res.success === true) {
+          this.formerOrbitCode = this.product.orbitCode
+          this.$message.info('入库成功')
+          this.$refs.table.refresh()
+        } else {
+          this.$message.error('入库失败:' + res.msg)
+        }
       })
     },
     // 串口设备
