@@ -92,17 +92,23 @@
         </span>
 
         <span slot="farmTicket" slot-scope="text">
-          <a :href="'http://cdn.ggmstc.com/'+text" target="_blank">查看</a>
+          <a :href="'https://mkt.ggmstc.com/static/'+text" target="_blank">查看</a>
         </span>
 
         <span slot="quarantineTicket" slot-scope="text">
-          <a :href="'http://cdn.ggmstc.com/'+text" target="_blank">查看</a>
+          <a :href="'https://mkt.ggmstc.com/static/'+text" target="_blank">查看</a>
         </span>
 
         <span slot="deleteAction" slot-scope="text, record">
           <template v-if="roleType===1 || (roleType===99)">
             <a @click="handleDelete(record)">删除</a>
           </template>
+        </span>
+
+        <span slot="checkInstock" slot-scope="text, record">
+          <router-link :to="{path: '/trade-center/ground-manage/product-list', query: {'batchNo':record.batchNo }}">
+            查看记录
+          </router-link>
         </span>
 
         <span slot="action" slot-scope="text, record">
@@ -328,33 +334,40 @@ export default {
         {
           title: '养殖票证',
           dataIndex: 'farmTicket',
-          width: 120,
+          width: 90,
           resizable: 'true',
           scopedSlots: { customRender: 'farmTicket' }
         },
         {
           title: '屠宰票证',
           dataIndex: 'quarantineTicket',
-          width: 120,
+          width: 90,
           resizable: 'true',
           scopedSlots: { customRender: 'quarantineTicket' }
         },
         {
+          title: '入库记录',
+          dataIndex: 'checkInstock',
+          width: 90,
+          resizable: 'true',
+          scopedSlots: { customRender: 'checkInstock' }
+        },
+        {
           title: '地磅初读',
           dataIndex: 'checkLoad',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
           title: '地磅复读',
           dataIndex: 'recheckLoad',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
           title: '地磅重量',
           dataIndex: 'load',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {

@@ -87,11 +87,11 @@
         </span>
 
         <span slot="farmTicket" slot-scope="text">
-          <a :href="'http://cdn.ggmstc.com/'+text" target="_blank">查看</a>
+          <a :href="'https://mkt.ggmstc.com/static/'+text" target="_blank">查看</a>
         </span>
 
         <span slot="quarantineTicket" slot-scope="text">
-          <a :href="'http://cdn.ggmstc.com/'+text" target="_blank">查看</a>
+          <a :href="'https://mkt.ggmstc.com/static/'+text" target="_blank">查看</a>
         </span>
 
         <span slot="deleteAction" slot-scope="text, record">

@@ -13,16 +13,12 @@
                 />
               </a-form-item>
             </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="进场批次号"> <a-input v-model="queryParam.batchNo" placeholder=""/> </a-form-item> </a-col>
             <template v-if="advanced">
               <a-col :md="8" :sm="24"> <a-form-item label="名称"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="轨道编号"> <a-input v-model="queryParam.orbitCode" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="等级"> <a-input v-model="queryParam.level" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="重量"> <a-input v-model="queryParam.weight" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="实际价格"> <a-input v-model="queryParam.price" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="入库价格"> <a-input v-model="queryParam.priceT" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="出库时间"> <a-input v-model="queryParam.outstockTime" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="所属订单id"> <a-input v-model="queryParam.orderId" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="入场id"> <a-input v-model="queryParam.applyId" placeholder=""/> </a-form-item> </a-col>
 
             </template>
@@ -253,6 +249,11 @@ export default {
     }
   },
   created () {
+      if (this.$route.query.batchNo && this.$route.query.batchNo !== '') {
+        this.queryParam.batchNo = this.$route.query.batchNo
+      } else {
+        this.queryParam.batchNo = null
+      }
     // console.log(ProductStatusMap)
   },
   computed: {

@@ -54,7 +54,7 @@
         <template>
           <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
           <a-divider type="vertical" />
-          <a type="primary" href="http://cdn.ggmstc.com/common/%E4%BF%A1%E6%81%AF%E4%B8%8A%E4%BC%A0%E6%A8%A1%E6%9D%BF-%E5%88%86%E9%94%80%E7%A5%A8%E4%B8%93%E7%94%A8.xls">模板下载</a>
+          <a type="primary" href="https://mkt.ggmstc.com/static/common/%E4%BF%A1%E6%81%AF%E4%B8%8A%E4%BC%A0%E6%A8%A1%E6%9D%BF-%E5%88%86%E9%94%80%E7%A5%A8%E4%B8%93%E7%94%A8.xls">模板下载</a>
           <a-divider type="vertical" />
           <a-button type="primary" @click="dataExport">导出 </a-button>
           &nbsp;
