@@ -44,8 +44,10 @@
       </div>
 
       <div class="table-operator">
-        <template v-if="roleType===1 || (roleType===99)">
-          <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        <template v-if="this.$route.name === 'entryApply-list'">
+          <template v-if="roleType===1 || (roleType===99)">
+            <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+          </template>
         </template>
         <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">

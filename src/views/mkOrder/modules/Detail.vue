@@ -81,7 +81,7 @@
                 <!-- <th style="border-width:2px;border-color:#000000;text-align:center">1{{ fo.goodsUnit }}</th> -->
                 <th style="border-width:2px;border-color:#000000;text-align:center">1</th>
                 <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.price }}</th>
-                <th style="border-width:2px;border-color:#000000;text-align:center">{{ order.price*order.weight }}</th>
+                <th style="border-width:2px;border-color:#000000;text-align:center">{{ Number(order.price*order.weight).toFixed(2) }}</th>
                 <th style="border-width:2px;border-color:#000000;text-align:center"></th>
               </tr>
             </template>

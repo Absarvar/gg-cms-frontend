@@ -22,7 +22,37 @@
             <a-input v-decorator="['id', {rules:[{required: false, message: ''}]}]" />
           </a-form-item>
           <a-form-item label="批次号"><a-input disabled v-decorator="['batchNo', {rules:[{required: false, message: '请输入批次号'}]}]" /></a-form-item>
+
+          <a-form-item
+            label="申报会员"
+          >
+            <a-space>
+              <a-select
+                defaultActiveFirst
+                ref="select"
+                style="width: 300px"
+                v-decorator="['memberId', {initialValue:623, rules:[{required: true, message: '请选择申报会员'}]}]"
+                :options="memberOptions"
+              ></a-select>
+            </a-space>
+          </a-form-item>
+
           <a-form-item label="检疫证号"><a-input v-decorator="['quarantineNo', {rules:[{required: true, message: '请输入检疫证号'}]}]" /></a-form-item>
+
+          <a-form-item
+            label="商品分类"
+          >
+            <a-space>
+              <a-select
+                defaultActiveFirst
+                ref="select"
+                style="width: 150px"
+                @change="changeCate"
+                v-decorator="['categoryId', {initialValue:2, rules:[{required: true, message: '请选择商品分类'}]}]"
+                :options="categoryOptions"
+              ></a-select>
+            </a-space>
+          </a-form-item>
 
           <a-form-item
             label="商品名称"
@@ -32,7 +62,7 @@
                 defaultActiveFirst
                 ref="select"
                 style="width: 150px"
-                v-decorator="['goodsId', {initialValue:1, rules:[{required: true, message: '请选择商品名称'}]}]"
+                v-decorator="['goodsId', {initialValue:'请选择', rules:[{required: true, message: '请选择商品名称'}]}]"
                 :options="goodsList"
               ></a-select>
             </a-space>
@@ -46,22 +76,8 @@
                 defaultActiveFirst
                 ref="select"
                 style="width: 150px"
-                v-decorator="['unit', {initialValue:'头', rules:[{required: true, message: '请选择单位'}]}]"
+                v-decorator="['unit', {initialValue:'边', rules:[{required: true, message: '请选择单位'}]}]"
                 :options="goodsUnitOptions"
-              ></a-select>
-            </a-space>
-          </a-form-item>
-
-          <a-form-item
-            label="申报会员"
-          >
-            <a-space>
-              <a-select
-                defaultActiveFirst
-                ref="select"
-                style="width: 300px"
-                v-decorator="['memberId', {initialValue:623, rules:[{required: true, message: '请选择申报会员'}]}]"
-                :options="memberOptions"
               ></a-select>
             </a-space>
           </a-form-item>
@@ -153,21 +169,23 @@
             <a-input v-decorator="['arriveTime', {}]" />
           </a-form-item>
 
-          <a-form-item label="地磅初读"><a-input v-decorator="['checkLoad', {rules:[{required: false, message: '请输入地磅初读'}]}]" /></a-form-item>
-          <a-form-item label="地磅复读"><a-input v-decorator="['recheckLoad', {rules:[{required: false, message: '请输入地磅复读'}]}]" /></a-form-item>
-          <a-form-item label="地磅重量"><a-input v-decorator="['load', {rules:[{required: false, message: '请输入地磅重量'}]}]" /></a-form-item>
-          <a-form-item
-            label="状态"
-          >
-            <a-space>
-              <a-select
-                ref="select"
-                style="width: 120px"
-                v-decorator="['status', {initialValue:1,rules:[{required: true, message: '请选择状态'}]}]"
-                :options="options2"
-              ></a-select>
-            </a-space>
-          </a-form-item>
+          <template v-if="this.$route.name !== 'entryApply-list'">
+            <a-form-item label="地磅初读"><a-input v-decorator="['checkLoad', {rules:[{required: false, message: '请输入地磅初读'}]}]" /></a-form-item>
+            <a-form-item label="地磅复读"><a-input v-decorator="['recheckLoad', {rules:[{required: false, message: '请输入地磅复读'}]}]" /></a-form-item>
+            <a-form-item label="地磅重量"><a-input v-decorator="['load', {rules:[{required: false, message: '请输入地磅重量'}]}]" /></a-form-item>
+            <a-form-item
+              label="状态"
+            >
+              <a-space>
+                <a-select
+                  ref="select"
+                  style="width: 120px"
+                  v-decorator="['status', {initialValue:1,rules:[{required: true, message: '请选择状态'}]}]"
+                  :options="options2"
+                ></a-select>
+              </a-space>
+            </a-form-item>
+          </template>
 
         </a-form>
       </template>
@@ -188,6 +206,20 @@
           </a-form-item>
           <a-form-item label="批次号"><a-input disabled v-decorator="['batchNo', {rules:[{required: false, message: '请输入批次号'}]}]" /></a-form-item>
           <a-form-item label="检疫证号"><a-input v-decorator="['quarantineNo', {rules:[{required: true, message: '请输入检疫证号'}]}]" /></a-form-item>
+
+          <a-form-item
+            label="商品分类"
+          >
+            <a-space>
+              <a-select
+                defaultActiveFirst
+                ref="select"
+                style="width: 150px"
+                v-decorator="['categoryId', {initialValue:2, rules:[{required: true, message: '请选择商品分类'}]}]"
+                :options="categoryOptions"
+              ></a-select>
+            </a-space>
+          </a-form-item>
 
           <a-form-item
             label="商品名称"
@@ -407,7 +439,7 @@ import pick from 'lodash.pick'
 import { uploadHeaders, uploadUrl, handleUploadInfo } from '@/utils/util'
 import { goodsListAll } from '@/api/goods'
 import { sourceEntList } from '@/api/butcherEnt'
-import { goodsUnitOptions, memberOptions } from '@/api/commonData'
+import { goodsUnitOptions, memberOptions, categoryOptions, goodsOptions } from '@/api/commonData'
 import { formateDate } from '@/utils/dateUtil'
 import moment from 'moment'
 
@@ -445,6 +477,7 @@ export default {
       }
     }
     return {
+      categoryOptions: categoryOptions(),
       memberOptions: memberOptions(),
       arriveTimeDefault: '',
       goodsUnitOptions: goodsUnitOptions(),
@@ -506,6 +539,10 @@ export default {
       var fileName = info.file.response.data.url
       this.form.setFieldsValue({ quarantineTicket: fileName })
       return handleUploadInfo(info)
+    },
+    changeCate (e) {
+      this.goodsList = goodsOptions(e)
+      console.log(this.goodsList)
     }
   },
   created () {

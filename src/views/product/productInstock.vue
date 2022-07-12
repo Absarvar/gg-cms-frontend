@@ -144,8 +144,8 @@
         <a-button type="primary" @click="handleAdd()">提交</a-button>
         <!-- <a-button type="primary" @click="startWx()">ws</a-button> -->
         <a-divider style="margin: 16px 0" />
-        <!-- <a-button type="primary" @click="serialPort()">电子秤</a-button>
-        <a-divider style="margin: 16px 0" /> -->
+        <a-button type="primary" @click="serialPort()">电子秤</a-button>
+        <a-divider style="margin: 16px 0" />
         <!-- <a-button type="primary" @click="getRfid()">rfid</a-button> -->
         <a-divider style="margin: 16px 0" />
 

@@ -10,7 +10,6 @@
   >
 
     <a-spin :spinning="loading">
-      <span style="float:left;font-size:20px;">已选择：{{ this.selectedNum }}</span>
       <a-form :form="form" v-bind="formLayout">
         <a-form-item label="请选择配货商品">
           <a-tree-select
@@ -21,6 +20,11 @@
             search-placeholder="请选择配货商品"
           />
         </a-form-item>
+
+        <a-form-item label="已选择：">
+          <span style="float:left;font-size:20px;">{{ this.selectedNum }}</span>
+        </a-form-item>
+
         <a-form-item
           label="id"
           hidden
@@ -92,7 +96,7 @@ export default {
     }
     return {
       selectedNum: 0,
-      ddStyle: { width: '500px', height: '400px' },
+      ddStyle: { width: '500px', position: 'absolute' },
       fo: {},
       daddTimeDefault: '',
       haddTimeDefault: '',
