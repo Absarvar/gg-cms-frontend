@@ -20,12 +20,20 @@ import './core/lazy_use' // use lazy load components
 import './permission' // permission control
 import './utils/filter' // global filter
 import './global.less' // global style
+import './utils/utils.less' // global style
 import 'jquery/dist/jquery.js'
 import 'bootstrap/dist/js/bootstrap.min.js'
 import 'bootstrap/dist/css/bootstrap.css'
+import { message } from 'ant-design-vue'
 // import 'summernote'
 // import 'summernote/dist/lang/summernote-zh-CN'
 // import 'summernote/dist/summernote.css'
+
+message.config({
+  duration: 3,
+  top: '150px',
+  maxCount: 5
+})
 
 Vue.config.productionTip = false
 

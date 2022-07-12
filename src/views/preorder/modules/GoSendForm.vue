@@ -11,19 +11,6 @@
 
     <a-spin :spinning="loading">
       <a-form :form="form" v-bind="formLayout">
-        <a-form-item label="请选择配货商品">
-          <a-tree-select
-            v-model="value"
-            :dropdownStyle="ddStyle"
-            :tree-data="treeData"
-            tree-checkable
-            search-placeholder="请选择配货商品"
-          />
-        </a-form-item>
-
-        <a-form-item label="已选择：">
-          <span style="float:left;font-size:20px;">{{ this.selectedNum }}</span>
-        </a-form-item>
 
         <a-form-item
           label="id"
@@ -44,6 +31,25 @@
         <a-form-item label="会员名称"><a-input disabled v-decorator="['memberName', {rules:[{required: true, message: '请输入会员id'}]}]" /></a-form-item>
         <a-form-item label="预定手机号"><a-input disabled v-decorator="['mobile', {rules:[{required: true, message: '请输入预定手机号'}]}]" /></a-form-item>
         <a-form-item label="商品名称"><a-input disabled v-decorator="['goodsName', {rules:[{required: true, message: '请输入商品id'}]}]" /></a-form-item>
+
+        <a-form-item label="请选择配货商品">
+          <a-tree-select
+            v-model="value"
+            :dropdownStyle="ddStyle"
+            :tree-data="treeData"
+            tree-checkable
+            search-placeholder="请选择配货商品"
+            :getPopupContainer="
+              triggerNode => {
+                return triggerNode.parentNode || document.body;
+              }"
+          />
+        </a-form-item>
+
+        <a-form-item label="已选择：">
+          <span style="float:left;font-size:20px;">{{ this.selectedNum }}</span>
+        </a-form-item>
+
         <a-form-item label="规格"><a-input disabled v-decorator="['skuName', {rules:[{required: true, message: '请输入规格id'}]}]" /></a-form-item>
         <a-form-item label="数量"><a-input disabled v-decorator="['num', {rules:[{required: true, message: '请输入数量'}]}]" /></a-form-item>
         <a-form-item label="确认规格"><a-input disabled v-decorator="['confirmSku', {rules:[{required: true, message: '请输入确认规格'}]}]" /></a-form-item>
@@ -96,7 +102,7 @@ export default {
     }
     return {
       selectedNum: 0,
-      ddStyle: { width: '500px', position: 'absolute' },
+      ddStyle: { maxHeight: '300px', overflow: 'auto' },
       fo: {},
       daddTimeDefault: '',
       haddTimeDefault: '',
