@@ -43,6 +43,8 @@
 
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        <a-divider type="vertical" />
+        <a-button type="primary" @click="dataExport">导出 </a-button>
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
@@ -117,7 +119,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newPreorder, editPreorder, preorderList } from '@/api/preorder'
+import { newPreorder, editPreorder, preorderList, preorderListExport } from '@/api/preorder'
 import { preorderGoSend } from '@/api/mkOrder'
 
 import CreateForm from './modules/CreateForm'
@@ -173,19 +175,31 @@ export default {
         {
           title: '会员',
           dataIndex: 'memberName',
-          width: 120,
+          width: 130,
           resizable: 'true'
         },
         {
           title: '预定手机号',
           dataIndex: 'mobile',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
           title: '商品',
           dataIndex: 'goodsName',
-          width: 120,
+          width: 90,
+          resizable: 'true'
+        },
+        {
+          title: '规格',
+          dataIndex: 'skuName',
+          width: 90,
+          resizable: 'true'
+        },
+        {
+          title: '数量',
+          dataIndex: 'num',
+          width: 60,
           resizable: 'true'
         },
         {
@@ -195,53 +209,41 @@ export default {
           resizable: 'true'
         },
         {
-          title: '规格',
-          dataIndex: 'skuName',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '数量',
-          dataIndex: 'num',
-          width: 120,
-          resizable: 'true'
-        },
-        {
           title: '确认规格',
           dataIndex: 'confirmSku',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
           title: '确认数量',
           dataIndex: 'confirmNum',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
           title: '确认价格',
           dataIndex: 'confirmPrice',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
           title: '总额',
           dataIndex: 'amount',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
           title: '到货时间',
           dataIndex: 'arriveTime',
           scopedSlots: { customRender: 'arriveTime' },
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
 
         {
           title: '状态',
           scopedSlots: { customRender: 'status' },
-          width: 100,
+          width: 90,
           dataIndex: 'status'
         },
         {
@@ -401,6 +403,10 @@ export default {
       this.queryParam = {
         date: moment(new Date())
       }
+    },
+    dataExport () {
+      const requestParameters = Object.assign({}, this.queryParam)
+      preorderListExport(requestParameters)
     }
   }
 }

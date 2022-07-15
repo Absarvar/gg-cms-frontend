@@ -14,14 +14,14 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="姓名"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="手机"> <a-input v-model="queryParam.mobile" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="终端代码"> <a-input v-model="queryParam.terminalCode" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="类型，0-商户，1-终端，2-源头"> <a-input v-model="queryParam.type" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="余额"> <a-input v-model="queryParam.amount" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="冻结余额"> <a-input v-model="queryParam.frozenAmount" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="身份证正面"> <a-input v-model="queryParam.idCardFront" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="身份证反面"> <a-input v-model="queryParam.idCardBack" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="姓名"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="手机"> <a-input v-model="queryParam.mobile" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="终端代码"> <a-input v-model="queryParam.terminalCode" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="类型，0-商户，1-终端，2-源头"> <a-input v-model="queryParam.type" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="余额"> <a-input v-model="queryParam.amount" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="冻结余额"> <a-input v-model="queryParam.frozenAmount" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="身份证正面"> <a-input v-model="queryParam.idCardFront" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="身份证反面"> <a-input v-model="queryParam.idCardBack" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -39,17 +39,18 @@
       </div>
 
       <div class="table-operator">
-        <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
-        <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
+        <template v-if="this.$route.name === 'member-review'">
+          <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+        </template>
+        <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
-        </a-dropdown>
+        </a-dropdown> -->
       </div>
 
       <s-table
@@ -72,6 +73,21 @@
         </span>
         <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
+        </span>
+
+        <span slot="type" slot-scope="text">
+          <a-tag color="orange" >{{ text | memberTypeFilter }}</a-tag>
+        </span>
+
+        <span slot="idCardFront" slot-scope="text">
+          <template v-if="text!==''">
+            <a :href="'https://mkt.ggmstc.com/static/'+text" target="_blank">查看</a>
+          </template>
+        </span>
+        <span slot="idCardBack" slot-scope="text">
+          <template v-if="text!==''">
+            <a :href="'https://mkt.ggmstc.com/static/'+text" target="_blank">查看</a>
+          </template>
         </span>
 
         <span slot="action" slot-scope="text, record">
@@ -102,6 +118,8 @@ import { newMember, editMember, memberList } from '@/api/member'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
+import { memberTypeOptions } from '@/api/commonData'
+import { MemberTypeMap, MEMBER_TYPE } from '@/config/status.config'
 
 const statusMap = {
   0: {
@@ -123,6 +141,7 @@ export default {
   },
   data () {
     return {
+      memberTypeOptions: memberTypeOptions(),
       // create model
       visible: false,
       confirmLoading: false,
@@ -147,66 +166,69 @@ export default {
           key: 'serial',
           title: '#',
           scopedSlots: { customRender: 'serial' },
-          width: 60
+          width: 25
         },
+        // {
+        //   title: 'id',
+        //   dataIndex: 'id',
+        //   width: 55
+        // },
         {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
-        },
-        {
-          title: '姓名',
+          title: '名称',
           dataIndex: 'name',
-          width: 120,
+          width: 90,
           resizable: 'true'
         },
         {
           title: '手机',
           dataIndex: 'mobile',
-          width: 120,
+          width: 70,
           resizable: 'true'
         },
         {
           title: '终端代码',
           dataIndex: 'terminalCode',
-          width: 120,
+          width: 55,
           resizable: 'true'
         },
         {
-          title: '类型，0-商户，1-终端，2-源头',
+          title: '类型',
           dataIndex: 'type',
-          width: 120,
+          scopedSlots: { customRender: 'type' },
+          width: 45,
           resizable: 'true'
         },
         {
           title: '余额',
           dataIndex: 'amount',
-          width: 120,
+          width: 50,
           resizable: 'true'
         },
         {
           title: '冻结余额',
           dataIndex: 'frozenAmount',
-          width: 120,
+          width: 55,
           resizable: 'true'
         },
         {
           title: '身份证正面',
           dataIndex: 'idCardFront',
-          width: 120,
+          scopedSlots: { customRender: 'idCardFront' },
+          width: 65,
           resizable: 'true'
         },
         {
           title: '身份证反面',
           dataIndex: 'idCardBack',
-          width: 120,
+          scopedSlots: { customRender: 'idCardBack' },
+          width: 65,
           resizable: 'true'
         },
 
         {
           title: '状态',
           scopedSlots: { customRender: 'status' },
-          width: 100,
+          width: 55,
           dataIndex: 'status'
         },
         {
@@ -233,6 +255,9 @@ export default {
     statusTypeFilter (type) {
       return statusMap[type].status
     },
+    memberTypeFilter (type) {
+      return MemberTypeMap[type].text
+    },
     formateDate (time) {
       const date = new Date(time)
       return formateDate(date, 'yyyy-MM-dd hh:mm')
@@ -240,6 +265,38 @@ export default {
   },
   created () {
 
+  },
+  watch: {
+    '$route': {
+      immediate: true, // true首次加载执行，默认false
+      handler () {
+        // console.log('单个属性监听')
+        // console.log(this.$route.name)
+        if (this.$route.name === 'member-review') {
+          this.queryParam.status = 0
+          this.queryParam.type = null
+        } else if (this.$route.name === 'supplier-member') {
+          this.queryParam.status = 1
+          this.queryParam.type = MEMBER_TYPE.SUPPLIER
+        } else if (this.$route.name === 'merchant-member') {
+          this.queryParam.status = 1
+          this.queryParam.type = MEMBER_TYPE.MERCHANT
+        } else if (this.$route.name === 'outside-merchant-member') {
+          this.queryParam.status = 1
+          this.queryParam.type = MEMBER_TYPE.OUTSIDE_MERCHANT
+        } else if (this.$route.name === 'source-member') {
+          this.queryParam.status = 1
+          this.queryParam.type = MEMBER_TYPE.SOURCE
+        } else if (this.$route.name === 'terminal-member') {
+          this.queryParam.status = 1
+          this.queryParam.type = MEMBER_TYPE.TERMINAL
+        }
+        if (this.$refs.table) {
+          this.$refs.table.refresh()
+        }
+      }
+
+    }
   },
   computed: {
     rowSelection () {

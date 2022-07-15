@@ -101,3 +101,34 @@ export const PreorderStatusMap = {
     text: '已配货'
   }
 }
+
+export const MEMBER_TYPE = {
+  SUPPLIER: 1,
+  MERCHANT: 2,
+  OUTSIDE_MERCHANT: 3,
+  SOURCE: 4,
+  TERMINAL: 5
+}
+
+export const MemberTypeMap = {
+  1: {
+    status: 'processing',
+    text: '供应商'
+  },
+  2: {
+    status: 'processing',
+    text: '商户'
+  },
+  3: {
+    status: 'processing',
+    text: '挂靠商户'
+  },
+  4: {
+    status: 'processing',
+    text: '源头'
+  },
+  5: {
+    status: 'processing',
+    text: '终端'
+  }
+}

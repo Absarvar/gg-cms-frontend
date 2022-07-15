@@ -2,7 +2,7 @@
 import { goodsListAll } from '@/api/goods'
 import { skuListAll } from '@/api/sku'
 import { memberListAll } from '@/api/member'
-import { PreorderStatusMap } from '@/config/status.config'
+import { PreorderStatusMap, MemberTypeMap } from '@/config/status.config'
 import { goodsUnitList } from '@/api/goodsUnit'
 import { sourceEntList } from '@/api/butcherEnt'
 import { categoryList } from '@/api/category'
@@ -87,5 +87,13 @@ export function categoryOptions () {
       list.push({ label: res.data.data[i]['name'], value: res.data.data[i]['id'] })
     }
   })
+  return list
+}
+
+export function memberTypeOptions () {
+  var list = []
+  for (var i in MemberTypeMap) {
+      list.push({ label: MemberTypeMap[i].text, value: Number(i) })
+    }
   return list
 }
