@@ -290,6 +290,9 @@ export default {
         } else if (this.$route.name === 'terminal-member') {
           this.queryParam.status = 1
           this.queryParam.type = MEMBER_TYPE.TERMINAL
+        } else if (this.$route.name === 'member-list') {
+          this.queryParam.status = null
+          this.queryParam.type = null
         }
         if (this.$refs.table) {
           this.$refs.table.refresh()

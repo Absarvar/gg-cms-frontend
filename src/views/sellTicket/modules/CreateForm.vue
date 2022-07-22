@@ -209,7 +209,7 @@ win.document.write(`
               <div style="margin-left:0px;" align="left" >
                 <div style="margin-top:20px;padding-left:80px;padding-top:15px;"> ` + this.model.fxNo + `</div>
               </div>
-              <div style="float:right;margin-top:-70px;"> <img width="70px" height="80px" src="https://sy.ggmstc.com/szszdistfile/8c7ea05c-8b80-4190-a527-79126c6073f1.jpg"></div>
+              <div style="float:right;margin-top:-70px;"> </div>
               <!-- <div style="float:right;margin-right:0px;margin-top:30px;font-size: 8px;">&nbsp; &nbsp; &nbsp; &nbsp;{{ this.nowTime }}</div> -->
             </div>
       <table 

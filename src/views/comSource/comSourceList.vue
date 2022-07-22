@@ -220,12 +220,12 @@ export default {
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '公司简介',
-          dataIndex: 'companyprofile',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '公司简介',
+        //   dataIndex: 'companyprofile',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
           title: '添加时间',
           dataIndex: 'addtime',

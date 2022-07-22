@@ -14,11 +14,11 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="流向"> <a-input v-model="queryParam.flowdirection" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="会员名称"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="添加时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="会员id"> <a-input v-model="queryParam.outletsid" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="终端代码"> <a-input v-model="queryParam.terminalcode" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="流向"> <a-input v-model="queryParam.flowdirection" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="会员名称"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="添加时间"> <a-input v-model="queryParam.addtime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="会员id"> <a-input v-model="queryParam.outletsid" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="终端代码"> <a-input v-model="queryParam.terminalcode" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -146,11 +146,11 @@ export default {
           scopedSlots: { customRender: 'serial' },
           width: 60
         },
-        {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
-        },
+        // {
+        //   title: 'id',
+        //   dataIndex: 'id',
+        //   width: 60
+        // },
         {
           title: '流向',
           dataIndex: 'flowdirection',
@@ -163,37 +163,37 @@ export default {
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '添加时间',
-          dataIndex: 'addtime',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '会员id',
-          dataIndex: 'outletsid',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '终端代码',
-          dataIndex: 'terminalcode',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '添加时间',
+        //   dataIndex: 'addtime',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '会员id',
+        //   dataIndex: 'outletsid',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '终端代码',
+        //   dataIndex: 'terminalcode',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
 
-        {
-          title: '状态',
-          scopedSlots: { customRender: 'status' },
-          width: 100,
-          dataIndex: 'status'
-        },
-        {
-          title: '创建时间',
-          scopedSlots: { customRender: 'createTime' },
-          width: 200,
-          dataIndex: 'createTime'
-        },
+        // {
+        //   title: '状态',
+        //   scopedSlots: { customRender: 'status' },
+        //   width: 100,
+        //   dataIndex: 'status'
+        // },
+        // {
+        //   title: '创建时间',
+        //   scopedSlots: { customRender: 'createTime' },
+        //   width: 200,
+        //   dataIndex: 'createTime'
+        // },
         {
           key: 'action',
           title: '操作',
