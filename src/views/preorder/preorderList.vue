@@ -78,6 +78,9 @@
         <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
         </span>
+        <span slot="prepayRate" slot-scope="text">
+          {{ text+'%' }}
+        </span>
 
         <span slot="arriveTime" slot-scope="text">
           {{ text | formateDay }}
@@ -85,9 +88,11 @@
 
         <span slot="action" slot-scope="text, record">
           <template>
-            <a @click="handleEdit(record)">编辑</a>
-            <template v-if="record.status===PreorderStatus.CONFIRMED">
+            <template v-if="record.status<PreorderStatus.CONFIRMED">
+              <a @click="handleEdit(record)">编辑</a>
               <a-divider type="vertical" />
+            </template>
+            <template v-if="record.status===PreorderStatus.CONFIRMED">
               <a @click="handleGoSend(record)">配货</a>
             </template>
             <!-- <a @click="handleSub(record)">订阅报警</a> -->
@@ -169,7 +174,7 @@ export default {
         {
           title: '预定单号',
           dataIndex: 'preorderCode',
-          width: 110,
+          width: 100,
           resizable: 'true'
         },
         {
@@ -181,7 +186,14 @@ export default {
         {
           title: '预定手机号',
           dataIndex: 'mobile',
-          width: 90,
+          width: 100,
+          resizable: 'true'
+        },
+        {
+          title: '预付比例',
+          dataIndex: 'prepayRate',
+          scopedSlots: { customRender: 'prepayRate' },
+          width: 80,
           resizable: 'true'
         },
         {
@@ -243,7 +255,8 @@ export default {
         {
           title: '状态',
           scopedSlots: { customRender: 'status' },
-          width: 90,
+          fixed: 'right',
+          width: 110,
           dataIndex: 'status'
         },
         {
@@ -257,7 +270,7 @@ export default {
           title: '操作',
           dataIndex: 'action',
           fixed: 'right',
-          width: '150px',
+          width: '120px',
           scopedSlots: { customRender: 'action' }
         }
       ]
@@ -344,8 +357,7 @@ export default {
               form.resetFields()
               // 刷新表格
               this.$refs.table.refresh()
-
-              this.$message.info('新增成功')
+              if (res.success) { this.$message.info('新增成功') }
             })
           }
         } else {
@@ -367,10 +379,13 @@ export default {
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
-              // 刷新表格
-              this.$refs.table.refresh()
-
-              this.$message.info('配货成功')
+              if (res.success) {
+                this.$message.info('配货成功')
+                // 刷新表格
+                this.$refs.table.refresh()
+              } else {
+                this.$message.info('配货失败' + res.msg)
+              }
             })
           }
         } else {

@@ -23,8 +23,11 @@
         <a-form-item label="手机"><a-input v-decorator="['mobile', {rules:[{required: true, message: '请输入手机'}]}]" /></a-form-item>
         <a-form-item label="终端代码"><a-input v-decorator="['terminalCode', {rules:[{required: true, message: '请输入终端代码'}]}]" /></a-form-item>
         <a-form-item label="类型，0-商户，1-终端，2-源头"><a-input v-decorator="['type', {rules:[{required: true, message: '请输入类型，0-商户，1-终端，2-源头'}]}]" /></a-form-item>
-        <a-form-item label="余额"><a-input v-decorator="['amount', {rules:[{required: true, message: '请输入余额'}]}]" /></a-form-item>
-        <a-form-item label="冻结余额"><a-input v-decorator="['frozenAmount', {rules:[{required: true, message: '请输入冻结余额'}]}]" /></a-form-item>
+
+        <template v-if="this.$route.name === 'recharge-manual'">
+          <a-form-item label="余额"><a-input v-decorator="['amount', {rules:[{required: true, message: '请输入余额'}]}]" /></a-form-item>
+        </template>
+        <a-form-item label="冻结余额"><a-input disabled v-decorator="['frozenAmount', {rules:[{required: true, message: '请输入冻结余额'}]}]" /></a-form-item>
         <a-form-item label="身份证正面"><a-input v-decorator="['idCardFront', {rules:[{required: true, message: '请输入身份证正面'}]}]" /></a-form-item>
         <a-form-item label="身份证反面"><a-input v-decorator="['idCardBack', {rules:[{required: true, message: '请输入身份证反面'}]}]" /></a-form-item>
 

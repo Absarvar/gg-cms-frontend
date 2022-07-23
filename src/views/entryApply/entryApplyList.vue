@@ -77,7 +77,7 @@
         </span>
 
         <span slot="plateNo" slot-scope="text">
-          <a-tag style="width:80px;height:25px;font-size: 15px;text-align: center;vertical-align: center;" color="blue" >{{ text }}</a-tag>
+          <a-tag style="height:25px;font-size: 15px;text-align: center;vertical-align: center;" color="blue" >{{ text }}</a-tag>
         </span>
 
         <span slot="status" slot-scope="text">
