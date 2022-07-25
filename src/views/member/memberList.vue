@@ -42,6 +42,7 @@
         <template v-if="this.$route.name === 'member-review'">
           <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
         </template>
+
         <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
@@ -91,11 +92,14 @@
         </span>
 
         <span slot="action" slot-scope="text, record">
-          <template>
+          <template v-if="routeName !== 'recharge-manual'">
             <a @click="handleEdit(record)">编辑</a>
-            <!-- <a-divider type="vertical" />
-            <a @click="handleSub(record)">订阅报警</a> -->
           </template>
+          <template v-if="routeName === 'recharge-manual'">
+            <a @click="handleEdit(record)">充值</a>
+          </template>
+          <!-- <a-divider type="vertical" />
+            <a @click="handleSub(record)">订阅报警</a> -->
         </span>
       </s-table>
 
@@ -141,6 +145,7 @@ export default {
   },
   data () {
     return {
+      routeName: this.$route.name,
       memberTypeOptions: memberTypeOptions(),
       // create model
       visible: false,
@@ -264,12 +269,13 @@ export default {
     }
   },
   created () {
-
+    console.log(this.$route.name)
   },
   watch: {
     '$route': {
       immediate: true, // true首次加载执行，默认false
       handler () {
+        this.routeName = this.$route.name
         // console.log('单个属性监听')
         // console.log(this.$route.name)
         if (this.$route.name === 'member-review') {
@@ -290,6 +296,9 @@ export default {
         } else if (this.$route.name === 'terminal-member') {
           this.queryParam.status = 1
           this.queryParam.type = MEMBER_TYPE.TERMINAL
+        } else if (this.$route.name === 'member-list') {
+          this.queryParam.status = null
+          this.queryParam.type = null
         }
         if (this.$refs.table) {
           this.$refs.table.refresh()

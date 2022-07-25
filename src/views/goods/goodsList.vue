@@ -148,44 +148,45 @@ export default {
           width: 60
         },
         {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
+          title: '商品编码',
+          dataIndex: 'code',
+          width: 80,
+          resizable: 'true'
         },
         {
           title: '商品名称',
           dataIndex: 'name',
-          width: 120,
+          width: 80,
           resizable: 'true'
         },
         // {
         //   title: '类别id',
         //   dataIndex: 'cateId',
-        //   width: 120,
+        //   width: 80,
         //   resizable: 'true'
         // },
         {
           title: '单位',
           dataIndex: 'unit',
-          width: 120,
+          width: 80,
           resizable: 'true'
         },
         {
           title: '销售单位',
           dataIndex: 'sellUnit',
-          width: 120,
+          width: 80,
           resizable: 'true'
         },
         {
           title: '备注',
           dataIndex: 'remark',
-          width: 120,
+          width: 80,
           resizable: 'true'
         },
         {
           title: '图片',
           dataIndex: 'picUrl',
-          width: 120,
+          width: 80,
           resizable: 'true'
         },
 

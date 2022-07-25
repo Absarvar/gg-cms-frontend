@@ -2,7 +2,7 @@
 import { goodsListAll } from '@/api/goods'
 import { skuListAll } from '@/api/sku'
 import { memberListAll } from '@/api/member'
-import { PreorderStatusMap, MemberTypeMap } from '@/config/status.config'
+import { PreorderStatusMap, MemberTypeMap, PreorderStatus } from '@/config/status.config'
 import { goodsUnitList } from '@/api/goodsUnit'
 import { sourceEntList } from '@/api/butcherEnt'
 import { categoryList } from '@/api/category'
@@ -31,14 +31,31 @@ export function skuOptions () {
   return list
 }
 
+var memberIdMap
+
 export function memberOptions () {
   var list = []
+  var map = {}
   memberListAll('').then(res => {
   for (var i = 0; i < res.data.length; i++) {
       list.push({ label: res.data[i]['name'], value: res.data[i]['id'] })
+      map[res.data[i]['id']] = res.data[i]['mobile']
     }
+  if (memberIdMap === undefined) {
+    memberIdMap = map
+  }
   })
   return list
+}
+
+export function memberMobileMap () {
+  var map = {}
+  memberListAll('').then(res => {
+  for (var i = 0; i < res.data.length; i++) {
+      map[res.data[i]['id']] = res.data[i]['mobile']
+    }
+  })
+  return map
 }
 
 export function sourceOptions () {
@@ -65,7 +82,8 @@ export function sourceOptions () {
 export function preorderStatusOptions () {
   var list = []
   for (var i in PreorderStatusMap) {
-      list.push({ label: PreorderStatusMap[i].text, value: Number(i) })
+    // 下拉框去掉已配货的选项
+      if (i !== PreorderStatus.GOODS_SENT + '') { list.push({ label: PreorderStatusMap[i].text, value: Number(i) }) }
     }
   return list
 }

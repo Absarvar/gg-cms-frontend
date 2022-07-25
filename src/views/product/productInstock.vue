@@ -8,7 +8,9 @@
     <template v-slot:content>
       <a-descriptions size="small" :column="isMobile ? 1 : 2">
         <a-descriptions-item label="申报人">{{ info.memberName }}</a-descriptions-item>
-        <a-descriptions-item label="车牌号">{{ info.plateNo }} </a-descriptions-item>
+        <a-descriptions-item label="车牌号">
+          <a-tag style="height:28px;font-size: 25px;text-align: center;vertical-align: center;" color="blue" >{{ info.plateNo }}</a-tag>
+        </a-descriptions-item>
         <a-descriptions-item label="到达日期">{{ info.enterTime }}</a-descriptions-item>
         <a-descriptions-item label="司机">{{ info.carrier }}</a-descriptions-item>
         <a-descriptions-item label="申报日期">{{ info.createTime }}</a-descriptions-item>
@@ -144,7 +146,7 @@
         <a-button type="primary" @click="handleAdd()">提交</a-button>
         <!-- <a-button type="primary" @click="startWx()">ws</a-button> -->
         <a-divider style="margin: 16px 0" />
-        <a-button type="primary" @click="serialPort()">电子秤</a-button>
+        <a-button type="primary" @click="serialPort()">连接电子秤</a-button>
         <a-divider style="margin: 16px 0" />
         <!-- <a-button type="primary" @click="getRfid()">rfid</a-button> -->
         <a-divider style="margin: 16px 0" />

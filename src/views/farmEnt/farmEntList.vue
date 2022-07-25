@@ -14,19 +14,19 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="名称"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="地址"> <a-input v-model="queryParam.address" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="信用代码"> <a-input v-model="queryParam.creditCode" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="场地人数"> <a-input v-model="queryParam.peopleNum" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="联系人"> <a-input v-model="queryParam.linkman" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="联系人手机"> <a-input v-model="queryParam.linkmanMobile" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="屠宰类型"> <a-input v-model="queryParam.farmType" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="屠宰量（头/天）"> <a-input v-model="queryParam.farmNum" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="场地面积"> <a-input v-model="queryParam.farmArea" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="动物检疫合格证号"> <a-input v-model="queryParam.aniQuarantineNo" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="屠宰场备案号"> <a-input v-model="queryParam.farmBackupNo" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="营业执照"> <a-input v-model="queryParam.businessLicense" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="相关认证"> <a-input v-model="queryParam.relatedLicense" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="名称"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="地址"> <a-input v-model="queryParam.address" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="信用代码"> <a-input v-model="queryParam.creditCode" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="场地人数"> <a-input v-model="queryParam.peopleNum" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="联系人"> <a-input v-model="queryParam.linkman" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="联系人手机"> <a-input v-model="queryParam.linkmanMobile" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰类型"> <a-input v-model="queryParam.farmType" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰量（头/天）"> <a-input v-model="queryParam.farmNum" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="场地面积"> <a-input v-model="queryParam.farmArea" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="动物检疫合格证号"> <a-input v-model="queryParam.aniQuarantineNo" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰场备案号"> <a-input v-model="queryParam.farmBackupNo" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="营业执照"> <a-input v-model="queryParam.businessLicense" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="相关认证"> <a-input v-model="queryParam.relatedLicense" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -75,8 +75,13 @@
         <span slot="status" slot-scope="text">
           <a-badge :status="text | statusTypeFilter" :text="text | statusFilter" />
         </span>
-        <span slot="addtime" slot-scope="text">
+        <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
+        </span>
+        <span slot="businessLicense" slot-scope="text">
+          <template v-if="text!==''">
+            <a :href="'https://mkt.ggmstc.com/static/'+text" target="_blank">查看</a>
+          </template>
         </span>
 
         <span slot="action" slot-scope="text, record">
@@ -197,19 +202,19 @@ export default {
         },
         {
           title: '屠宰类型',
-          dataIndex: 'farmType',
-          width: 120,
+          dataIndex: 'type',
+          width: 80,
           resizable: 'true'
         },
         {
           title: '屠宰量（头/天）',
-          dataIndex: 'farmNum',
+          dataIndex: 'num',
           width: 120,
           resizable: 'true'
         },
         {
           title: '场地面积',
-          dataIndex: 'farmArea',
+          dataIndex: 'area',
           width: 120,
           resizable: 'true'
         },
@@ -221,13 +226,14 @@ export default {
         },
         {
           title: '屠宰场备案号',
-          dataIndex: 'farmBackupNo',
+          dataIndex: 'backupNo',
           width: 120,
           resizable: 'true'
         },
         {
           title: '营业执照',
           dataIndex: 'businessLicense',
+          scopedSlots: { customRender: 'businessLicense' },
           width: 120,
           resizable: 'true'
         },
@@ -246,9 +252,9 @@ export default {
         },
         {
           title: '创建时间',
-          scopedSlots: { customRender: 'addtime' },
+          scopedSlots: { customRender: 'createTime' },
           width: 200,
-          dataIndex: 'addtime'
+          dataIndex: 'createTime'
         },
         {
           key: 'action',

@@ -28,14 +28,17 @@
               defaultActiveFirst
               ref="select"
               style="width: 250px"
-              v-decorator="['memberId', {initialValue:624, rules:[{required: true, message: '请选择会员'}]}]"
+              v-decorator="['memberId', { rules:[{required: true, message: '请选择会员'}]}]"
+              placeholder="请选择会员"
               :options="memberList"
+              @select="selectMember"
             ></a-select>
           </a-space>
         </a-form-item>
 
         <!-- <a-form-item label="会员id"><a-input v-decorator="['memberId', {rules:[{required: true, message: '请输入会员id'}]}]" /></a-form-item> -->
         <a-form-item label="预定手机号"><a-input v-decorator="['mobile', {rules:[{required: true, message: '请输入预定手机号'}]}]" /></a-form-item>
+        <a-form-item label="预付款百分比"><a-input suffix="%" v-decorator="['prepayRate', {rules:[{required: true, message: '请输入预付款百分比'}]}]" /></a-form-item>
 
         <a-form-item
           label="商品名称"
@@ -106,7 +109,7 @@
               <a-select
                 ref="select"
                 style="width: 150px"
-                v-decorator="['status', {initialValue:1, rules:[{required: true, message: '请选择状态'}]}]"
+                v-decorator="['status', {initialValue:4, rules:[{required: true, message: '请选择状态'}]}]"
                 :options="options2"
               ></a-select>
             </a-space>
@@ -120,12 +123,12 @@
 
 <script>
 import pick from 'lodash.pick'
-import { goodsOptions, skuOptions, memberOptions, preorderStatusOptions, goodsUnitOptions } from '@/api/commonData'
+import { goodsOptions, skuOptions, memberOptions, memberMobileMap, preorderStatusOptions, goodsUnitOptions } from '@/api/commonData'
 import { formateDate } from '@/utils/dateUtil'
 import moment from 'moment'
 
 // 表单字段
-const fields = ['id', 'preorderCode', 'memberId', 'mobile', 'goodsId', 'unit', 'skuId', 'num', 'confirmSku', 'confirmNum', 'confirmPrice', 'amount', 'arriveTime', 'status']
+const fields = ['id', 'preorderCode', 'prepayRate', 'memberId', 'mobile', 'goodsId', 'unit', 'skuId', 'num', 'confirmSku', 'confirmNum', 'confirmPrice', 'amount', 'arriveTime', 'status']
 
 export default {
   props: {
@@ -158,14 +161,18 @@ export default {
       arriveTimeDefault: '',
       skuList: [],
       goodsList: [],
-      memberList: [],
+      memberList: memberOptions(),
+      memberMMap: memberMobileMap(),
       fo: {},
       form: this.$form.createForm(this),
       options2: preorderStatusOptions()
     }
   },
   methods: {
-
+    selectMember (e) {
+      var mobile = this.memberMMap[e]
+      this.form.setFieldsValue({ 'mobile': mobile })
+    },
     setDefaultVal () {
       // 设置默认值
       var date = new Date()
@@ -198,7 +205,6 @@ export default {
     }
     this.goodsList = goodsOptions()
     this.skuList = skuOptions()
-    this.memberList = memberOptions()
     this.goodsUnitOption = goodsUnitOptions()
 
     // 防止表单未注册

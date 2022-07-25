@@ -178,18 +178,18 @@ export default {
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '账号类型1肉类商户2终端用户',
-          dataIndex: 'accounttype',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '身份类型1餐饮类2商超类3团餐类4学校类5机构类6综合配送-完成7市场类-完成8分割配送-完成',
-          dataIndex: 'identitytype',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '账号类型1肉类商户2终端用户',
+        //   dataIndex: 'accounttype',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '身份类型1餐饮类2商超类3团餐类4学校类5机构类6综合配送-完成7市场类-完成8分割配送-完成',
+        //   dataIndex: 'identitytype',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
           title: '法人',
           dataIndex: 'legalperson',
@@ -226,12 +226,12 @@ export default {
           width: 120,
           resizable: 'true'
         },
-        {
-          title: '公司简介',
-          dataIndex: 'companyprofile',
-          width: 120,
-          resizable: 'true'
-        },
+        // {
+        //   title: '公司简介',
+        //   dataIndex: 'companyprofile',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
         {
           title: '添加时间',
           dataIndex: 'addtime',
