@@ -21,7 +21,7 @@
               <tr>
                 <td scope="col" style="text-align:center;vertical-align:middle;vertical-align:middle;border-width:2px;border-color:#000000; width:100px;">入场批次
                 </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;width:170px;" align="center">
-                  <!-- <a-form-item align="center" style="margin-bottom:0px"><a-input v-decorator="['mobilizationbatch']" /></a-form-item> -->
+                  <!-- <a-form-item align="center" style="margin-bottom:0px"><a-input v-decorator="['batchNo']" /></a-form-item> -->
                   <a-form-item align="center" style="margin-bottom:0px">
                     <template>
                       <a-auto-complete
@@ -47,9 +47,9 @@
               </tr>
               <tr>
                 <td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;">采样基数
-                </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;"><a-form-item align="center" style="margin-bottom:0px"><a-input v-decorator="['quantity']" /></a-form-item>
+                </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;"><a-form-item align="center" style="margin-bottom:0px"><a-input v-decorator="['weight']" /></a-form-item>
                 </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;">检疫证号
-                </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;"><a-form-item align="center" style="margin-bottom:0px;"><a-input style="width:150px;" v-decorator="['certificateno']" /></a-form-item>
+                </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;"><a-form-item align="center" style="margin-bottom:0px;"><a-input style="width:150px;" v-decorator="['quarantineNo']" /></a-form-item>
                 </td>
               </tr>
               <tr>
@@ -62,7 +62,7 @@
                 <td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;">采样时间
                 </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;"><a-form-item align="center" style="margin-bottom:0px"><a-input v-decorator="['sampleTime']" /></a-form-item>
                 </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;">商品名称
-                </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;"><a-form-item align="center" style="margin-bottom:0px;"><a-input style="width:150px;" v-decorator="['animalspecies']" /></a-form-item>
+                </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;"><a-form-item align="center" style="margin-bottom:0px;"><a-input style="width:150px;" v-decorator="['goodsName']" /></a-form-item>
                 </td></tr>
               <tr>
                 <td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;vertical-align:middle" rowspan="4">感官检测
@@ -282,8 +282,28 @@
                 </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;">检测时间
                 </td><td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;"><a-form-item align="center" style="margin-bottom:0px"><a-input v-decorator="['testTime']" /></a-form-item>
                 </td></tr>
-              <a-form-item align="center" style="margin-bottom:0px;"><a-input style="display:none;" v-decorator="['orderID']" /></a-form-item>
-              <a-form-item align="center" style="margin-bottom:0px;"><a-input style="display:none;" v-decorator="['mobilizationbatch']" /></a-form-item>
+
+              <tr>
+                <td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;">检测报告
+                </td>
+                <td scope="col" style="text-align:center;vertical-align:middle;border-width:2px;border-color:#000000;" colspan="3">
+                  <a-form-item label="">
+                    <a-upload
+                      name="file"
+                      :multiple="true"
+                      :action="uploadUrl.ticket"
+                      :headers="uploadHeaders"
+                      @change="uploadReport"
+                    >
+                      <a-button> <a-icon type="upload" /> 上传 </a-button>
+                    </a-upload>
+
+                    <a-input disabled v-decorator="['detectionresult', {rules:[{required: false, message: '请上传产品票证'}]}]" />
+                  </a-form-item>
+                </td>
+              </tr>
+              <a-form-item align="center" style="margin-bottom:0px;"><a-input style="display:none;" v-decorator="['applyId']" /></a-form-item>
+              <a-form-item align="center" style="margin-bottom:0px;"><a-input style="display:none;" v-decorator="['batchNo']" /></a-form-item>
             </tbody>
           </table>
         </div>
@@ -307,10 +327,11 @@
 
 <script>
 import pick from 'lodash.pick'
-import { enterApplyList } from '@/api/enterApply'
+import { entryApplyList } from '@/api/entryApply'
+import { uploadHeaders, uploadUrl, handleUploadInfo } from '@/utils/util'
 
 // 表单字段
-const fields = ['id', 'mobilizationbatch', 'ids', 'tradename', 'suppliername', 'sensoryindexq', 'sensoryindexs', 'sensoryindext', 'chemicaindexes', 'chemicaindexesdy', 'microorganism', 'coliformgroup', 'nfectiousdisease', 'clenbuterol', 'clenbuterold', 'clenbuterolk', 'drugresidues', 'drugresiduesl', 'drugresiduesf', 'drugresiduesn', 'drugresiduesy', 'detectionresult', 'testTime']
+const fields = ['id', 'batchNo', 'ids', 'tradename', 'suppliername', 'sensoryindexq', 'sensoryindexs', 'sensoryindext', 'chemicaindexes', 'chemicaindexesdy', 'microorganism', 'coliformgroup', 'nfectiousdisease', 'clenbuterol', 'clenbuterold', 'clenbuterolk', 'drugresidues', 'drugresiduesl', 'drugresiduesf', 'drugresiduesn', 'drugresiduesy', 'detectionresult', 'testTime']
 
 export default {
   props: {
@@ -343,6 +364,8 @@ export default {
       }
     }
     return {
+      uploadHeaders: uploadHeaders,
+      uploadUrl: uploadUrl,
       dataSource: [],
       enterList: [],
       result: [],
@@ -374,26 +397,35 @@ export default {
     })
   },
   methods: {
+    uploadReport (info) {
+      var fileName = info.file.response.data.url
+      // console.log(fileName)
+      this.form.setFieldsValue({ detectionresult: fileName })
+      return handleUploadInfo(info)
+    },
     handleSearch (value) {
-      const requestParameters = { 'pinjie': value }
-      enterApplyList(requestParameters).then(res => {
+      const requestParameters = { 'batchNo': value }
+      entryApplyList(requestParameters).then(res => {
             // console.log(res.data.data)
             const pcList = []
             if (res.data != null && res.data.data != null) {
               for (let index = 0; index < res.data.data.length; index++) {
                 const element = res.data.data[index]
-                pcList.push(element['pinjie'])
+                pcList.push(element['batchNo'])
               }
             }
             this.dataSource = pcList
           })
     },
     onSelect (value) {
-      const requestParameters = { 'pinjie': value }
-      enterApplyList(requestParameters).then(res => {
+      const requestParameters = { 'batchNo': value }
+      entryApplyList(requestParameters).then(res => {
             if (res.data != null && res.data.data != null) {
               const pcDetail = res.data.data[0]
-              this.form.setFieldsValue(pick(pcDetail, ['quantity', 'applierEntName', 'certificateno', 'animalspecies', 'orderID', 'mobilizationbatch']))
+              this.form.setFieldsValue(pick(pcDetail, ['weight', 'applierEntName', 'quarantineNo', 'goodsName', 'applyId', 'batchNo']))
+              this.form.setFieldsValue({
+                'applierEntName': pcDetail.memberName,
+                'applyId': pcDetail.id })
             }
           })
     }

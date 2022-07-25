@@ -59,7 +59,6 @@
           <a-button type="primary" @click="dataExport">导出 </a-button>
           &nbsp;
         </template>
-
         <a-upload
           name="file"
           :multiple="true"
@@ -69,6 +68,24 @@
         >
           <a-button> <a-icon type="upload" /> 导入 </a-button>
         </a-upload>
+
+        <template>
+          <a-divider type="horizontal" />
+          已开票重量查询：
+          <a-auto-complete
+            :data-source="dataSource"
+            style="width: 250px"
+            placeholder=""
+            v-decorator="['pcID']"
+            @search="handleSearch"
+          >
+            <template slot="dataSource">
+              <a-select-option v-for="email in dataSource" :key="email">
+                {{ email }}
+              </a-select-option>
+            </template>
+          </a-auto-complete>
+        </template>
 
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
 
@@ -134,7 +151,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newSellTicket, editSellTicket, sellTicketList, sellTicketApi, sellTicketListExport } from '@/api/sellTicket'
+import { newSellTicket, editSellTicket, sellTicketList, sellTicketApi, sellTicketListExport, sellTicketRemainList } from '@/api/sellTicket'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -160,6 +177,7 @@ export default {
   },
   data () {
     return {
+      dataSource: [],
       importHeaders: uploadHeaders,
       importUrl: {
         url: sellTicketApi.importSellTicket
@@ -370,6 +388,21 @@ export default {
     }
   },
   methods: {
+    handleSearch (value) {
+      const requestParameters = { 'batchNo': value }
+      sellTicketRemainList(requestParameters).then(res => {
+            // console.log(res.data.data)
+            const pcList = []
+            if (res.data != null && res.success) {
+              for (let index = 0; index < res.data.length; index++) {
+                const element = res.data[index]
+                pcList.push(element['batchNo'] + ':' + element['weight'] + 'kg')
+                // pcList.push({ batchNo: element['batchNo'], weight: element['weight'] })
+              }
+            }
+            this.dataSource = pcList
+          })
+    },
     handleChange (info) {
       console.log(info)
       if (info.file.status !== 'uploading') {

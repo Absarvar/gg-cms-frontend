@@ -172,25 +172,20 @@ export default {
           width: 60
         },
         {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
-        },
-        {
           title: '进场批次号',
-          dataIndex: 'pinjie',
+          dataIndex: 'batchNo',
           width: 100,
           resizable: 'true'
         },
         {
           title: '检疫证号',
-          dataIndex: 'certificateno',
+          dataIndex: 'quarantineNo',
           width: 120,
           resizable: 'true'
         },
         {
           title: '商品名称相关',
-          dataIndex: 'tradename',
+          dataIndex: 'goodsName',
           width: 100,
           resizable: 'true'
         },

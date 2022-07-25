@@ -19,16 +19,16 @@
             <tbody>
               <tr>
                 <td scope="col" style="text-align:center;border-width:2px;border-color:#000000; width:100px;">入场批次
-                </td><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:170px;" align="center">{{ fo.mobilizationbatch }}
+                </td><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:170px;" align="center">{{ fo.batchNo }}
                 </td><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:180px;">受检单位
                 </td><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;width:300px;">{{ fo.applierEntName }}
                 </td>
               </tr>
               <tr>
                 <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">采样基数
-                </td><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">{{ fo.quantity }}
+                </td><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">{{ fo.weight }}
                 </td><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">检疫证号
-                </td><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">{{ fo.certificateno }}
+                </td><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">{{ fo.quarantineNo }}
                 </td>
               </tr>
               <tr>
@@ -348,7 +348,7 @@
 import pick from 'lodash.pick'
 
 // 表单字段
-const fields = ['id', 'mobilizationbatch', 'ids', 'tradename', 'suppliername', 'sensoryindexq', 'sensoryindexs', 'sensoryindext', 'chemicaindexes', 'chemicaindexesdy', 'microorganism', 'coliformgroup', 'nfectiousdisease', 'clenbuterol', 'clenbuterold', 'clenbuterolk', 'drugresidues', 'drugresiduesl', 'drugresiduesf', 'drugresiduesn', 'drugresiduesy', 'detectionresult', 'testTime']
+const fields = ['id', 'batchNo', 'ids', 'tradename', 'suppliername', 'sensoryindexq', 'sensoryindexs', 'sensoryindext', 'chemicaindexes', 'chemicaindexesdy', 'microorganism', 'coliformgroup', 'nfectiousdisease', 'clenbuterol', 'clenbuterold', 'clenbuterolk', 'drugresidues', 'drugresiduesl', 'drugresiduesf', 'drugresiduesn', 'drugresiduesy', 'detectionresult', 'testTime']
 
 export default {
   props: {

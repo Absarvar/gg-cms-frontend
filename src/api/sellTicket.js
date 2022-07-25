@@ -9,7 +9,8 @@ export const sellTicketApi = {
   deleteSellTicket: GG_URL_PREFIX + '/sellTicket/delete',
   editSellTicket: GG_URL_PREFIX + '/sellTicket/edit',
   sellTicketListExport: GG_URL_PREFIX + '/sellTicket/export',
-  importSellTicket: GG_URL_PREFIX + '/sellTicket/import'
+  importSellTicket: GG_URL_PREFIX + '/sellTicket/import',
+  sellTicketRemainList: GG_URL_PREFIX + '/sellTicket/getRemainTicketWeight'
 }
 
 export function newSellTicket (parameter) {
@@ -67,5 +68,13 @@ export function sellTicketListExport (parameter) {
     responseType: 'blob'
   }).then(response => {
     download(response) // then直接下载，方法在下边
+  })
+}
+
+export function sellTicketRemainList (parameter) {
+  return request({
+    url: sellTicketApi.sellTicketRemainList,
+    method: 'get',
+    params: parameter
   })
 }
