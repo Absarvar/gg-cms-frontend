@@ -113,6 +113,10 @@ const constantRouterComponents = {
                                   ProductOutStock: () => import('@/views/product/productOutStock'),
                                   // GoodsUnitList
                                   GoodsUnitList: () => import('@/views/goodsUnit/goodsUnitList'),
+                                  // tempMonitor
+  TempMonitorList: () => import('@/views/tempMonitor/tempMonitorList'),
+  // goodsCode
+  GoodsCodeList: () => import('@/views/goodsCode/goodsCodeList'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

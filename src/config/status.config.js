@@ -132,3 +132,14 @@ export const MemberTypeMap = {
     text: '终端'
   }
 }
+
+export const MainTypeMap = {
+  1: {
+    status: 'processing',
+    text: '交'
+  },
+  2: {
+    status: 'processing',
+    text: '普'
+  }
+}

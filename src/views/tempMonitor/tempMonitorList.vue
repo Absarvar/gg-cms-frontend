@@ -14,12 +14,28 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-              <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="类别id"> <a-input v-model="queryParam.cateId" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="单位"> <a-input v-model="queryParam.unit" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="销售单位"> <a-input v-model="queryParam.sellUnit" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.remark" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="图片"> <a-input v-model="queryParam.picUrl" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="批次号"> <a-input v-model="queryParam.batchNo" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰场名称"> <a-input v-model="queryParam.butcherEntName" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="批次"> <a-input v-model="queryParam.batch" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="车牌号"> <a-input v-model="queryParam.plateNo" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品"> <a-input v-model="queryParam.goodsName" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰时间"> <a-input v-model="queryParam.butcherTime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="屠宰水温"> <a-input v-model="queryParam.butcherWaterTemp" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="凉水池"> <a-input v-model="queryParam.coolPool" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="入库时间"> <a-input v-model="queryParam.instockTime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="入库温度"> <a-input v-model="queryParam.instockTemp" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="预冷库温度"> <a-input v-model="queryParam.precoldTemp" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="出库时间"> <a-input v-model="queryParam.outstockTime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="出库温度"> <a-input v-model="queryParam.outstockTemp" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="始发车厢温度"> <a-input v-model="queryParam.takeOffTemp" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="出发时间"> <a-input v-model="queryParam.takeOffTime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="途中车厢温度"> <a-input v-model="queryParam.onWayTemp" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="途中中心温度"> <a-input v-model="queryParam.onWayCenterTemp" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="到达供广时间"> <a-input v-model="queryParam.arriveTime" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="到场车厢温度"> <a-input v-model="queryParam.arriveTemp" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="到场中心温度"> <a-input v-model="queryParam.arriveCenterTemp" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="操作员"> <a-input v-model="queryParam.operatorId" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -38,14 +54,15 @@
 
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
-        <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
+        <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
+            <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
-        </a-dropdown>
+        </a-dropdown> -->
         <a-upload
           name="file"
           :multiple="true"
@@ -103,7 +120,7 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newGoods, editGoods, goodsList, goodsApi } from '@/api/goods'
+import { newTempMonitor, editTempMonitor, tempMonitorList, tempMonitorApi } from '@/api/tempMonitor'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -131,7 +148,7 @@ export default {
     return {
       importHeaders: uploadHeaders,
       importUrl: {
-        url: goodsApi.importGoods
+        url: tempMonitorApi.importTempMonitor
       },
       // create model
       visible: false,
@@ -145,7 +162,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return goodsList(requestParameters)
+        return tempMonitorList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -160,45 +177,140 @@ export default {
           width: 60
         },
         {
-          title: '商品编码',
-          dataIndex: 'code',
-          width: 80,
+          title: 'id',
+          dataIndex: 'id',
+          width: 60
+        },
+        {
+          title: '批次号',
+          dataIndex: 'batchNo',
+          width: 120,
           resizable: 'true'
         },
         {
-          title: '商品名称',
-          dataIndex: 'name',
-          width: 80,
-          resizable: 'true'
-        },
-        // {
-        //   title: '类别id',
-        //   dataIndex: 'cateId',
-        //   width: 80,
-        //   resizable: 'true'
-        // },
-        {
-          title: '单位',
-          dataIndex: 'unit',
-          width: 80,
+          title: '屠宰场名称',
+          dataIndex: 'butcherEntName',
+          width: 120,
           resizable: 'true'
         },
         {
-          title: '销售单位',
-          dataIndex: 'sellUnit',
-          width: 80,
+          title: '批次',
+          dataIndex: 'batch',
+          width: 120,
           resizable: 'true'
         },
         {
-          title: '备注',
-          dataIndex: 'remark',
-          width: 80,
+          title: '车牌号',
+          dataIndex: 'plateNo',
+          width: 120,
           resizable: 'true'
         },
         {
-          title: '图片',
-          dataIndex: 'picUrl',
-          width: 80,
+          title: '商品',
+          dataIndex: 'goodsName',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '数量',
+          dataIndex: 'num',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '屠宰时间',
+          dataIndex: 'butcherTime',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '屠宰水温',
+          dataIndex: 'butcherWaterTemp',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '凉水池',
+          dataIndex: 'coolPool',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '入库时间',
+          dataIndex: 'instockTime',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '入库温度',
+          dataIndex: 'instockTemp',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '预冷库温度',
+          dataIndex: 'precoldTemp',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '出库时间',
+          dataIndex: 'outstockTime',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '出库温度',
+          dataIndex: 'outstockTemp',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '始发车厢温度',
+          dataIndex: 'takeOffTemp',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '出发时间',
+          dataIndex: 'takeOffTime',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '途中车厢温度',
+          dataIndex: 'onWayTemp',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '途中中心温度',
+          dataIndex: 'onWayCenterTemp',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '到达供广时间',
+          dataIndex: 'arriveTime',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '到场车厢温度',
+          dataIndex: 'arriveTemp',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '到场中心温度',
+          dataIndex: 'arriveCenterTemp',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '操作员',
+          dataIndex: 'operatorId',
+          width: 120,
           resizable: 'true'
         },
 
@@ -218,6 +330,7 @@ export default {
           key: 'action',
           title: '操作',
           dataIndex: 'action',
+          fixed: 'right',
           width: '150px',
           scopedSlots: { customRender: 'action' }
         }
@@ -267,7 +380,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editGoods(values)
+            editTempMonitor(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -280,7 +393,7 @@ export default {
             })
           } else {
             // 新增
-            newGoods(values)
+            newTempMonitor(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -296,22 +409,6 @@ export default {
           this.confirmLoading = false
         }
       })
-    },
-    handleChange (info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList)
-      }
-      if (info.file.status === 'done') {
-        if (info.file.response.success === true) {
-          this.$message.success(`${info.file.name} 导入成功！`)
-          // 刷新表格
-          this.$refs.table.refresh(true)
-        } else {
-          this.$message.error(`${info.file.name} 导入失败.原因：${info.file.response.msg}`)
-        }
-      } else if (info.file.status === 'error') {
-        this.$message.error(`${info.file.name} 文件上传失败.`)
-      }
     },
     handleCancel () {
       this.visible = false
@@ -332,6 +429,22 @@ export default {
     },
     toggleAdvanced () {
       this.advanced = !this.advanced
+    },
+    handleChange (info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList)
+      }
+      if (info.file.status === 'done') {
+        if (info.file.response.success === true) {
+          this.$message.success(`${info.file.name} 导入成功！`)
+          // 刷新表格
+          this.$refs.table.refresh(true)
+        } else {
+          this.$message.error(`${info.file.name} 导入失败.原因：${info.file.response.msg}`)
+        }
+      } else if (info.file.status === 'error') {
+        this.$message.error(`${info.file.name} 文件上传失败.`)
+      }
     },
     resetSearchForm () {
       this.queryParam = {

@@ -1,13 +1,14 @@
 import request from '@/utils/request'
 import { GG_URL_PREFIX } from '@/config/common.config'
 
-const goodsApi = {
+export const goodsApi = {
   newGoods: GG_URL_PREFIX + '/goods/newGoods',
   goodsList: GG_URL_PREFIX + '/goods/list',
   getGoods: GG_URL_PREFIX + '/goods/get',
   deleteGoods: GG_URL_PREFIX + '/goods/delete',
   editGoods: GG_URL_PREFIX + '/goods/edit',
-  goodsListAll: GG_URL_PREFIX + '/goods/listAll'
+  goodsListAll: GG_URL_PREFIX + '/goods/listAll',
+  importGoods: GG_URL_PREFIX + '/goods/import'
 }
 
 export function newGoods (parameter) {

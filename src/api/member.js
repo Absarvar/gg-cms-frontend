@@ -7,7 +7,8 @@ const memberApi = {
   getMember: GG_URL_PREFIX + '/member/get',
   deleteMember: GG_URL_PREFIX + '/member/delete',
   editMember: GG_URL_PREFIX + '/member/edit',
-  memberListAll: GG_URL_PREFIX + '/member/listAll'
+  memberListAll: GG_URL_PREFIX + '/member/listAll',
+  recharge: GG_URL_PREFIX + '/member/recharge'
 }
 
 export function newMember (parameter) {
@@ -53,6 +54,14 @@ export function memberListAll (parameter) {
   return request({
     url: memberApi.memberListAll,
     method: 'get',
+    params: parameter
+  })
+}
+
+export function recharge (parameter) {
+  return request({
+    url: memberApi.recharge,
+    method: 'post',
     params: parameter
   })
 }

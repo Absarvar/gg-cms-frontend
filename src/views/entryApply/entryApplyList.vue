@@ -47,6 +47,8 @@
         <template v-if="this.$route.name === 'entryApply-list'">
           <template v-if="roleType===1 || (roleType===99)">
             <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
+
+            <a-button type="primary" @click="dataExport">导出 </a-button>
           </template>
         </template>
         <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
@@ -148,7 +150,7 @@
 import storage from 'store'
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newEntryApply, editEntryApply, entryApplyList, deleteEntryApply } from '@/api/entryApply'
+import { newEntryApply, editEntryApply, entryApplyList, deleteEntryApply, entryApplyListExport } from '@/api/entryApply'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
@@ -225,6 +227,12 @@ export default {
           resizable: 'true'
         },
         {
+          title: '商品',
+          dataIndex: 'goodsName',
+          width: 120,
+          resizable: 'true'
+        },
+        {
           title: '屠宰场',
           dataIndex: 'butcherName',
           width: 120,
@@ -243,6 +251,12 @@ export default {
           resizable: 'true'
         },
         {
+          title: '申报公司',
+          dataIndex: 'memberName',
+          width: 150,
+          resizable: 'true'
+        },
+        {
           title: '申报人',
           dataIndex: 'memberLegal',
           width: 80,
@@ -255,10 +269,11 @@ export default {
           resizable: 'true'
         },
         {
-          title: '申报公司',
-          dataIndex: 'memberName',
-          width: 150,
-          resizable: 'true'
+          title: '车牌号',
+          dataIndex: 'plateNo',
+          width: 120,
+          resizable: 'true',
+          scopedSlots: { customRender: 'plateNo' }
         },
         {
           title: '承运人',
@@ -273,21 +288,8 @@ export default {
           resizable: 'true'
         },
         {
-          title: '车牌号',
-          dataIndex: 'plateNo',
-          width: 120,
-          resizable: 'true',
-          scopedSlots: { customRender: 'plateNo' }
-        },
-        {
           title: '检疫证号',
           dataIndex: 'quarantineNo',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '商品',
-          dataIndex: 'goodsName',
           width: 120,
           resizable: 'true'
         },
@@ -565,6 +567,10 @@ export default {
       this.queryParam = {
         date: moment(new Date())
       }
+    },
+    dataExport () {
+      const requestParameters = Object.assign({}, this.queryParam)
+      entryApplyListExport(requestParameters)
     }
   }
 }

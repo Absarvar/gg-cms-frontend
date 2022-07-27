@@ -15,11 +15,12 @@
             </a-col>
             <template v-if="advanced">
               <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.name" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="类别id"> <a-input v-model="queryParam.cateId" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="单位"> <a-input v-model="queryParam.unit" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="销售单位"> <a-input v-model="queryParam.sellUnit" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="备注"> <a-input v-model="queryParam.remark" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="图片"> <a-input v-model="queryParam.picUrl" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品编码"> <a-input v-model="queryParam.code" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="物种，猪：1"> <a-input v-model="queryParam.species" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="二级分类（胴体、分割、副产品）"> <a-input v-model="queryParam.cutType" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="鲜级，毛猪0，热鲜1，冷鲜2，中温3"> <a-input v-model="queryParam.fresh" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="等级，无等级为0"> <a-input v-model="queryParam.level" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="序号"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -41,20 +42,13 @@
         <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
+            <!-- lock | unlock -->
+            <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
         </a-dropdown>
-        <a-upload
-          name="file"
-          :multiple="true"
-          :action="importUrl.url"
-          :headers="importHeaders"
-          @change="handleChange"
-        >
-          <a-button> <a-icon type="upload" /> 导入 </a-button>
-        </a-upload>
       </div>
 
       <s-table
@@ -103,11 +97,10 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newGoods, editGoods, goodsList, goodsApi } from '@/api/goods'
+import { newGoodsCode, editGoodsCode, goodsCodeList } from '@/api/goodsCode'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
-import { uploadHeaders } from '@/utils/util'
 
 const statusMap = {
   0: {
@@ -129,10 +122,6 @@ export default {
   },
   data () {
     return {
-      importHeaders: uploadHeaders,
-      importUrl: {
-        url: goodsApi.importGoods
-      },
       // create model
       visible: false,
       confirmLoading: false,
@@ -145,7 +134,7 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         console.log('loadData request parameters:', requestParameters)
-        return goodsList(requestParameters)
+        return goodsCodeList(requestParameters)
           .then(res => {
             return res.data
           })
@@ -160,64 +149,57 @@ export default {
           width: 60
         },
         {
-          title: '商品编码',
-          dataIndex: 'code',
-          width: 80,
-          resizable: 'true'
+          title: 'id',
+          dataIndex: 'id',
+          width: 60
         },
         {
           title: '商品名称',
           dataIndex: 'name',
-          width: 80,
-          resizable: 'true'
-        },
-        // {
-        //   title: '类别id',
-        //   dataIndex: 'cateId',
-        //   width: 80,
-        //   resizable: 'true'
-        // },
-        {
-          title: '单位',
-          dataIndex: 'unit',
-          width: 80,
+          width: 120,
           resizable: 'true'
         },
         {
-          title: '销售单位',
-          dataIndex: 'sellUnit',
-          width: 80,
+          title: '商品编码',
+          dataIndex: 'code',
+          width: 120,
           resizable: 'true'
         },
         {
-          title: '备注',
-          dataIndex: 'remark',
-          width: 80,
+          title: '物种，猪：1',
+          dataIndex: 'species',
+          width: 120,
           resizable: 'true'
         },
         {
-          title: '图片',
-          dataIndex: 'picUrl',
-          width: 80,
+          title: '二级分类（胴体、分割、副产品）',
+          dataIndex: 'cutType',
+          width: 120,
           resizable: 'true'
         },
-
         {
-          title: '状态',
-          scopedSlots: { customRender: 'status' },
-          width: 100,
-          dataIndex: 'status'
+          title: '鲜级，毛猪0，热鲜1，冷鲜2，中温3',
+          dataIndex: 'fresh',
+          width: 120,
+          resizable: 'true'
         },
         {
-          title: '创建时间',
-          scopedSlots: { customRender: 'createTime' },
-          width: 200,
-          dataIndex: 'createTime'
+          title: '等级，无等级为0',
+          dataIndex: 'level',
+          width: 120,
+          resizable: 'true'
+        },
+        {
+          title: '序号',
+          dataIndex: 'num',
+          width: 120,
+          resizable: 'true'
         },
         {
           key: 'action',
           title: '操作',
           dataIndex: 'action',
+          fixed: 'right',
           width: '150px',
           scopedSlots: { customRender: 'action' }
         }
@@ -267,7 +249,7 @@ export default {
         if (!errors) {
           if (values.id > 0) {
             // 修改 e.g.
-            editGoods(values)
+            editGoodsCode(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -280,7 +262,7 @@ export default {
             })
           } else {
             // 新增
-            newGoods(values)
+            newGoodsCode(values)
             .then(res => {
               this.visible = false
               this.confirmLoading = false
@@ -296,22 +278,6 @@ export default {
           this.confirmLoading = false
         }
       })
-    },
-    handleChange (info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList)
-      }
-      if (info.file.status === 'done') {
-        if (info.file.response.success === true) {
-          this.$message.success(`${info.file.name} 导入成功！`)
-          // 刷新表格
-          this.$refs.table.refresh(true)
-        } else {
-          this.$message.error(`${info.file.name} 导入失败.原因：${info.file.response.msg}`)
-        }
-      } else if (info.file.status === 'error') {
-        this.$message.error(`${info.file.name} 文件上传失败.`)
-      }
     },
     handleCancel () {
       this.visible = false

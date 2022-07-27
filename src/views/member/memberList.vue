@@ -80,6 +80,15 @@
           <a-tag color="orange" >{{ text | memberTypeFilter }}</a-tag>
         </span>
 
+        <span slot="main" slot-scope="text">
+          <template v-if="text===1">
+            <a-tag color="green" >{{ text | mainTypeFilter }}</a-tag>
+          </template>
+          <template v-if="text===2">
+            <a-tag color="orange" >{{ text | mainTypeFilter }}</a-tag>
+          </template>
+        </span>
+
         <span slot="idCardFront" slot-scope="text">
           <template v-if="text!==''">
             <a :href="'https://mkt.ggmstc.com/static/'+text" target="_blank">查看</a>
@@ -96,7 +105,7 @@
             <a @click="handleEdit(record)">编辑</a>
           </template>
           <template v-if="routeName === 'recharge-manual'">
-            <a @click="handleEdit(record)">充值</a>
+            <a @click="handleRecharge(record)">充值</a>
           </template>
           <!-- <a-divider type="vertical" />
             <a @click="handleSub(record)">订阅报警</a> -->
@@ -111,6 +120,15 @@
         @cancel="handleCancel"
         @ok="handleOk"
       />
+      <recharge-form
+        ref="rechargeModal"
+        :visible="isRecharge"
+        :isRecharge="isRecharge"
+        :loading="confirmLoading"
+        :model="mdl"
+        @cancel="handleCancel"
+        @ok="handleRechargeResult"
+      />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -118,12 +136,13 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newMember, editMember, memberList } from '@/api/member'
+import { newMember, editMember, memberList, recharge } from '@/api/member'
 
 import CreateForm from './modules/CreateForm'
+import RechargeForm from './modules/RechargeForm'
 import { formateDate } from '@/utils/dateUtil'
 import { memberTypeOptions } from '@/api/commonData'
-import { MemberTypeMap, MEMBER_TYPE } from '@/config/status.config'
+import { MemberTypeMap, MEMBER_TYPE, MainTypeMap } from '@/config/status.config'
 
 const statusMap = {
   0: {
@@ -141,7 +160,8 @@ export default {
   components: {
     STable,
     Ellipsis,
-    CreateForm
+    CreateForm,
+    RechargeForm
   },
   data () {
     return {
@@ -149,6 +169,7 @@ export default {
       memberTypeOptions: memberTypeOptions(),
       // create model
       visible: false,
+      isRecharge: false,
       confirmLoading: false,
       mdl: null,
       // 高级搜索 展开/关闭
@@ -178,6 +199,13 @@ export default {
         //   dataIndex: 'id',
         //   width: 55
         // },
+        {
+          title: '账号属性',
+          dataIndex: 'main',
+          scopedSlots: { customRender: 'main' },
+          width: 55,
+          resizable: 'true'
+        },
         {
           title: '名称',
           dataIndex: 'name',
@@ -263,6 +291,9 @@ export default {
     memberTypeFilter (type) {
       return MemberTypeMap[type].text
     },
+    mainTypeFilter (type) {
+      return MainTypeMap[type].text
+    },
     formateDate (time) {
       const date = new Date(time)
       return formateDate(date, 'yyyy-MM-dd hh:mm')
@@ -323,10 +354,39 @@ export default {
     handleAdd () {
       this.mdl = null
       this.visible = true
+      this.isRecharge = false
     },
     handleEdit (record) {
       this.visible = true
+      this.isRecharge = false
       this.mdl = { ...record }
+    },
+    handleRecharge (record) {
+      this.visible = false
+      this.isRecharge = true
+      this.mdl = { ...record }
+    },
+    handleRechargeResult (record) {
+      const form = this.$refs.rechargeModal.form
+      this.confirmLoading = true
+      form.validateFields((errors, values) => {
+        if (!errors) {
+          if (values.id > 0) {
+            // 修改 e.g.
+            recharge(values)
+            .then(res => {
+              this.visible = false
+              this.isRecharge = false
+              this.confirmLoading = false
+              // 重置表单数据
+              form.resetFields()
+              // 刷新表格
+              this.$refs.table.refresh()
+              if (res.success) { this.$message.info('充值成功') } else { this.$message.info('充值失败') }
+            })
+          }
+}
+})
     },
     handleOk () {
       const form = this.$refs.createModal.form
@@ -338,6 +398,7 @@ export default {
             editMember(values)
             .then(res => {
               this.visible = false
+              this.isRecharge = false
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
@@ -351,6 +412,7 @@ export default {
             newMember(values)
             .then(res => {
               this.visible = false
+              this.isRecharge = false
               this.confirmLoading = false
               // 重置表单数据
               form.resetFields()
@@ -367,6 +429,7 @@ export default {
     },
     handleCancel () {
       this.visible = false
+      this.isRecharge = false
 
       const form = this.$refs.createModal.form
       form.resetFields() // 清理表单数据（可不做）

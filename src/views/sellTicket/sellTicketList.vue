@@ -404,13 +404,14 @@ export default {
           })
     },
     handleChange (info) {
-      console.log(info)
       if (info.file.status !== 'uploading') {
         console.log(info.file, info.fileList)
       }
       if (info.file.status === 'done') {
         if (info.file.response.success === true) {
           this.$message.success(`${info.file.name} 导入成功！`)
+          // 刷新表格
+          this.$refs.table.refresh(true)
         } else {
           this.$message.error(`${info.file.name} 导入失败.原因：${info.file.response.msg}`)
         }
