@@ -45,7 +45,8 @@ const constantRouterComponents = {
   EnterApplyList: () => import('@/views/enterApply/enterApplyList?status=0&statusok=0'),
   // EnterRegList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=0'),
   // EnterRecheckList: () => import('@/views/enterApply/enterApplyList?status=1&statusok=1'),
-  PrepareInstockList: () => import('@/views/entryApply/entryInStock'),
+  // 理货入库列表
+  // PrepareInstockList: () => import('@/views/entryApply/entryInStock'),
 
       // sampleTest
         SampleTestList: () => import('@/views/sampleTest/sampleTestList'),
@@ -106,7 +107,8 @@ const constantRouterComponents = {
                                   // orderOutStock
                                   OrderOutStock: () => import('@/views/mkOrder/mkOrderList'),
                                   // hotMeatInstock
-                                  HotMeatInstock: () => import('@/views/entryApply/entryInStock'),
+  // 理货入库列表
+                                  // HotMeatInstock: () => import('@/views/entryApply/entryInStock'),
                                   // GsBillList
                                   GsBillList: () => import('@/views/mkOrder/mkOrderList'),
                                   // productInstock
@@ -117,6 +119,8 @@ const constantRouterComponents = {
   TempMonitorList: () => import('@/views/tempMonitor/tempMonitorList'),
   // goodsCode
   GoodsCodeList: () => import('@/views/goodsCode/goodsCodeList'),
+                                // cutTypeInstock
+                                CutTypeInstock: () => import('@/views/product/cutTypeInstock'),
 
   // form
   BasicForm: () => import('@/views/form/basicForm'),

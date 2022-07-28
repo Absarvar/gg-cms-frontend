@@ -1,5 +1,5 @@
 
-import { goodsListAll } from '@/api/goods'
+import { goodsListAll, specGoodsList } from '@/api/goods'
 import { skuListAll } from '@/api/sku'
 import { memberListAll } from '@/api/member'
 import { PreorderStatusMap, MemberTypeMap, PreorderStatus } from '@/config/status.config'
@@ -113,5 +113,15 @@ export function memberTypeOptions () {
   for (var i in MemberTypeMap) {
       list.push({ label: MemberTypeMap[i].text, value: Number(i) })
     }
+  return list
+}
+
+export function specGoodsOptions () {
+  var list = []
+  specGoodsList('').then(res => {
+  for (var i = 0; i < res.data.data.length; i++) {
+      list.push({ label: res.data.data[i]['name'], value: res.data.data[i]['id'] })
+    }
+  })
   return list
 }

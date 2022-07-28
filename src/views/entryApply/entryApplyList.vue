@@ -117,7 +117,7 @@
 
         <span slot="action" slot-scope="text, record">
           <template>
-            <template v-if="roleType<99 || (roleType===99)">
+            <template v-if="(roleType<99 || (roleType===99)) && ($route.name!=='hotMeatInstock' && $route.name!=='enterRecheck-list')">
               <a @click="handleEdit(record)">编辑</a>
             </template>
             <!-- <a-divider type="vertical" />
@@ -129,6 +129,17 @@
                 理货入库
               </router-link>
             </template> -->
+
+            <template v-if="record.goodsInstockType ==1 && (roleType===97 || roleType===1) && ($route.name==='hotMeatInstock' || $route.name==='enterRecheck-list')">
+              <router-link :to="{path: '/trade-center/ground-manage/productInstock', query: {'id':record.id, 'consumerNo':consumerNo }}">
+                理货入库
+              </router-link>
+            </template>
+            <template v-if="record.goodsInstockType==2">
+              <router-link :to="{path: '/trade-center/ground-manage/cutTypeInstock', query: {'id':record.id, 'consumerNo':consumerNo }}">
+                散货入库
+              </router-link>
+            </template>
           </template>
         </span>
       </s-table>
@@ -224,6 +235,12 @@ export default {
           title: '批次号',
           dataIndex: 'batchNo',
           width: 115,
+          resizable: 'true'
+        },
+        {
+          title: '商品分类',
+          dataIndex: 'goodsCateName',
+          width: 95,
           resizable: 'true'
         },
         {
@@ -467,6 +484,14 @@ export default {
           this.queryParam.status = null
         } else if (this.$route.name === 'hotMeatInstock') {
           this.queryParam.status = 3
+        } else if (this.$route.name === 'enterRecheck-list') {
+          this.queryParam.status = 3
+        }
+        // 入库页面
+        if (this.$route.name === 'hotMeatInstock') {
+          this.consumerNo = 'c2038'
+        } else if (this.$route.name === 'enterRecheck-list') {
+          this.consumerNo = 'c1037'
         }
         if (this.$refs.table) {
           this.$refs.table.refresh()

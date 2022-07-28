@@ -173,19 +173,20 @@
             <a-form-item label="地磅初读"><a-input v-decorator="['checkLoad', {rules:[{required: false, message: '请输入地磅初读'}]}]" /></a-form-item>
             <a-form-item label="地磅复读"><a-input v-decorator="['recheckLoad', {rules:[{required: false, message: '请输入地磅复读'}]}]" /></a-form-item>
             <a-form-item label="地磅重量"><a-input v-decorator="['load', {rules:[{required: false, message: '请输入地磅重量'}]}]" /></a-form-item>
-            <a-form-item
-              label="状态"
-            >
-              <a-space>
-                <a-select
-                  ref="select"
-                  style="width: 120px"
-                  v-decorator="['status', {initialValue:1,rules:[{required: true, message: '请选择状态'}]}]"
-                  :options="options2"
-                ></a-select>
-              </a-space>
-            </a-form-item>
+
           </template>
+          <a-form-item
+            label="状态"
+          >
+            <a-space>
+              <a-select
+                ref="select"
+                style="width: 120px"
+                v-decorator="['status', {initialValue:1,rules:[{required: true, message: '请选择状态'}]}]"
+                :options="options2"
+              ></a-select>
+            </a-space>
+          </a-form-item>
 
         </a-form>
       </template>

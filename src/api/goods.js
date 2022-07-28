@@ -8,7 +8,8 @@ export const goodsApi = {
   deleteGoods: GG_URL_PREFIX + '/goods/delete',
   editGoods: GG_URL_PREFIX + '/goods/edit',
   goodsListAll: GG_URL_PREFIX + '/goods/listAll',
-  importGoods: GG_URL_PREFIX + '/goods/import'
+  importGoods: GG_URL_PREFIX + '/goods/import',
+  specGoodsList: GG_URL_PREFIX + '/goods/listSpec'
 }
 
 export function newGoods (parameter) {
@@ -53,6 +54,14 @@ export function deleteGoods () {
 export function goodsListAll (parameter) {
   return request({
     url: goodsApi.goodsListAll,
+    method: 'get',
+    params: parameter
+  })
+}
+
+export function specGoodsList (parameter) {
+  return request({
+    url: goodsApi.specGoodsList,
     method: 'get',
     params: parameter
   })
