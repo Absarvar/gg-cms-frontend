@@ -90,6 +90,14 @@
         <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
         </span>
+        <span slot="testId" slot-scope="text">
+          <template v-if="text && text>0">
+            <a-tag style="" color="green" >已检测</a-tag>
+          </template>
+          <template v-else>
+            <a-tag style="" color="orange" >未检测</a-tag>
+          </template>
+        </span>
 
         <span slot="action" slot-scope="text, record">
           <template>
@@ -172,119 +180,186 @@ export default {
           width: 60
         },
         {
-          title: '进场批次号',
+          title: '批次号',
           dataIndex: 'batchNo',
-          width: 100,
+          width: 115,
           resizable: 'true'
         },
         {
-          title: '检疫证号',
-          dataIndex: 'quarantineNo',
+          title: '检测状态',
+          dataIndex: 'testId',
+          scopedSlots: { customRender: 'testId' },
+          width: 65,
+          resizable: 'true'
+        },
+        {
+          title: '供应商',
+          dataIndex: 'memberName',
+          width: 150,
+          resizable: 'true'
+        },
+        {
+          title: '商品',
+          dataIndex: 'goodsName',
+          width: 90,
+          resizable: 'true'
+        },
+        {
+          title: '屠宰场',
+          dataIndex: 'butcherName',
+          width: 120,
+          resizable: 'true'
+        },
+        // {
+        //   title: '屠宰场联系人',
+        //   dataIndex: 'butcherLinkman',
+        //   width: 80,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '屠宰场电话',
+        //   dataIndex: 'butcherLinkmanMobile',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        {
+          title: '养殖场',
+          dataIndex: 'farmName',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '商品名称相关',
-          dataIndex: 'goodsName',
-          width: 100,
+          title: '申报数量',
+          dataIndex: 'num',
+          width: 80,
           resizable: 'true'
         },
         {
-          title: '气味',
-          dataIndex: 'sensoryindexq',
-          width: 100,
+          title: '单位',
+          dataIndex: 'unit',
+          width: 80,
           resizable: 'true'
         },
         {
-          title: '色泽',
-          dataIndex: 'sensoryindexs',
-          width: 100,
+          title: '申报重量(kg)',
+          dataIndex: 'weight',
+          width: 80,
           resizable: 'true'
         },
-        {
-          title: '弹性',
-          dataIndex: 'sensoryindext',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '水分',
-          dataIndex: 'chemicaindexes',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '挥发性盐基氮',
-          dataIndex: 'chemicaindexesdy',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '病害肉特征物',
-          dataIndex: 'microorganism',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '四环素',
-          dataIndex: 'coliformgroup',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '非洲猪瘟',
-          dataIndex: 'nfectiousdisease',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '盐酸克伦特罗',
-          dataIndex: 'clenbuterol',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '沙丁胺醇',
-          dataIndex: 'clenbuterold',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '莱多克巴安',
-          dataIndex: 'clenbuterolk',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '磺胺类',
-          dataIndex: 'drugresidues',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '氯霉素',
-          dataIndex: 'drugresiduesl',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: 'ID',
-          dataIndex: 'drugresiduesf',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: '氟喹诺酮类',
-          dataIndex: 'drugresiduesn',
-          width: 100,
-          resizable: 'true'
-        },
-        {
-          title: 'ID',
-          dataIndex: 'drugresiduesy',
-          width: 100,
-          resizable: 'true'
-        },
+        // {
+        //   title: '进场批次号',
+        //   dataIndex: 'batchNo',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '检疫证号',
+        //   dataIndex: 'quarantineNo',
+        //   width: 120,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '商品名称相关',
+        //   dataIndex: 'goodsName',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '气味',
+        //   dataIndex: 'sensoryindexq',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '色泽',
+        //   dataIndex: 'sensoryindexs',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '弹性',
+        //   dataIndex: 'sensoryindext',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '水分',
+        //   dataIndex: 'chemicaindexes',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '挥发性盐基氮',
+        //   dataIndex: 'chemicaindexesdy',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '病害肉特征物',
+        //   dataIndex: 'microorganism',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '四环素',
+        //   dataIndex: 'coliformgroup',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '非洲猪瘟',
+        //   dataIndex: 'nfectiousdisease',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '盐酸克伦特罗',
+        //   dataIndex: 'clenbuterol',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '沙丁胺醇',
+        //   dataIndex: 'clenbuterold',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '莱多克巴安',
+        //   dataIndex: 'clenbuterolk',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '磺胺类',
+        //   dataIndex: 'drugresidues',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '氯霉素',
+        //   dataIndex: 'drugresiduesl',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: 'ID',
+        //   dataIndex: 'drugresiduesf',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: '氟喹诺酮类',
+        //   dataIndex: 'drugresiduesn',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
+        // {
+        //   title: 'ID',
+        //   dataIndex: 'drugresiduesy',
+        //   width: 100,
+        //   resizable: 'true'
+        // },
         {
           title: '检测结果',
           dataIndex: 'detectionresult',

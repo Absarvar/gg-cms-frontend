@@ -9,22 +9,21 @@
                 <a-range-picker
                   style="width: 400px"
                   format="YYYY-MM-DD"
+                  v-model="dateRange"
                   @change="timeChange"
                 />
               </a-form-item>
             </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="批次号"> <a-input v-model="queryParam.batchNo" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="检疫证号"> <a-input v-model="queryParam.quarantineNo" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="申报公司"> <a-input v-model="queryParam.memberName" placeholder=""/> </a-form-item> </a-col>
+            <a-col :md="8" :sm="24"> <a-form-item label="商品名称"> <a-input v-model="queryParam.goodsName" placeholder=""/> </a-form-item> </a-col>
+
             <template v-if="advanced">
-              <a-col :md="8" :sm="24"> <a-form-item label="批次号"> <a-input v-model="queryParam.batchNo" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="检疫证号"> <a-input v-model="queryParam.quarantineNo" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="屠宰场ID"> <a-input v-model="queryParam.butcherId" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="养殖场ID"> <a-input v-model="queryParam.farmId" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="用途"> <a-input v-model="queryParam.usage" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="承运人"> <a-input v-model="queryParam.carrier" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="承运人手机"> <a-input v-model="queryParam.carrierMobile" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="运输方式"> <a-input v-model="queryParam.transportation" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="车牌号"> <a-input v-model="queryParam.plateNo" placeholder=""/> </a-form-item> </a-col>
-              <a-col :md="8" :sm="24"> <a-form-item label="申报用户id"> <a-input v-model="queryParam.memberId" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="审核人"> <a-input v-model="queryParam.acceptorId" placeholder=""/> </a-form-item> </a-col>
               <a-col :md="8" :sm="24"> <a-form-item label="入场时间"> <a-input v-model="queryParam.enterTime" placeholder=""/> </a-form-item> </a-col>
 
@@ -117,7 +116,7 @@
 
         <span slot="action" slot-scope="text, record">
           <template>
-            <template v-if="(roleType<99 || (roleType===99)) && ($route.name!=='hotMeatInstock' && $route.name!=='enterRecheck-list')">
+            <template v-if="(roleType<99 || (roleType===99)) && ($route.name!=='hotMeatInstock' && $route.name!=='enterRecheck-list' && $route.name!=='cut-type-apply')">
               <a @click="handleEdit(record)">编辑</a>
             </template>
             <!-- <a-divider type="vertical" />
@@ -130,12 +129,12 @@
               </router-link>
             </template> -->
 
-            <template v-if="record.goodsInstockType ==1 && (roleType===97 || roleType===1) && ($route.name==='hotMeatInstock' || $route.name==='enterRecheck-list')">
+            <template v-if="(roleType===97 || roleType===1) && ($route.name==='hotMeatInstock' || $route.name==='enterRecheck-list')">
               <router-link :to="{path: '/trade-center/ground-manage/productInstock', query: {'id':record.id, 'consumerNo':consumerNo }}">
                 理货入库
               </router-link>
             </template>
-            <template v-if="record.goodsInstockType==2">
+            <template v-if="$route.name==='cut-type-apply'">
               <router-link :to="{path: '/trade-center/ground-manage/cutTypeInstock', query: {'id':record.id, 'consumerNo':consumerNo }}">
                 散货入库
               </router-link>
@@ -195,6 +194,7 @@ export default {
   },
   data () {
     return {
+      dateRange: [],
       roleType: storage.get('roleType'),
       // create model
       visible: false,
@@ -434,7 +434,7 @@ export default {
         },
         {
           key: 'action',
-          title: '操作',
+          title: '操作1',
           fixed: 'right',
           dataIndex: 'action',
           width: '150px',
@@ -460,6 +460,15 @@ export default {
     }
   },
   created () {
+      // 设置默认值
+      const date = new Date()
+      const todayStr = formateDate(date, 'yyyy-MM-dd')
+      this.queryParam.startTime = todayStr
+      this.queryParam.endTime = todayStr
+      const dateFormat = 'YYYY-MM-DD'
+      const todayjs = moment(todayStr, dateFormat)
+      this.dateRange[0] = todayjs
+      this.dateRange[1] = todayjs
       //   const urlParam = getPageQuery()
       // this.$nextTick(() => {
       //   console.log(this.$route.name)
@@ -479,12 +488,13 @@ export default {
           this.queryParam.status = 3
         } else if (this.$route.name === 'register-entry') {
           this.queryParam.status = 2
-          this.$refs.table.refresh()
         } else if (this.$route.name === 'entryApply-list') {
           this.queryParam.status = null
         } else if (this.$route.name === 'hotMeatInstock') {
           this.queryParam.status = 3
         } else if (this.$route.name === 'enterRecheck-list') {
+          this.queryParam.status = 3
+        } else if (this.$route.name === 'cut-type-apply') {
           this.queryParam.status = 3
         }
         // 入库页面
@@ -510,6 +520,7 @@ export default {
   },
   methods: {
     timeChange (date, dateStr) {
+      console.log(this.dateRange)
       this.queryParam.startTime = dateStr[0]
       this.queryParam.endTime = dateStr[1]
     },

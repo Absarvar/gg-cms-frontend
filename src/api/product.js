@@ -11,7 +11,8 @@ const productApi = {
   frozenStock: GG_URL_PREFIX + '/product/frozenStock',
   outStock: GG_URL_PREFIX + '/product/outStock',
   pdProductListExport: GG_URL_PREFIX + '/product/export',
-  productListTree: GG_URL_PREFIX + '/product/listTree'
+  productListTree: GG_URL_PREFIX + '/product/listTree',
+  getNewOrbitCode: GG_URL_PREFIX + '/product/getNewOrbitCode'
 }
 
 export function newProduct (parameter) {
@@ -86,5 +87,13 @@ export function pdProductListExport (parameter) {
     responseType: 'blob'
   }).then(response => {
     download(response) // then直接下载，方法在下边
+  })
+}
+
+export function getNewOrbitCode (parameter) {
+  return request({
+    url: productApi.getNewOrbitCode,
+    method: 'get',
+    params: parameter
   })
 }

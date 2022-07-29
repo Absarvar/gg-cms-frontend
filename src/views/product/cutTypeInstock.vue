@@ -126,10 +126,10 @@
           <a-form-item label="价格">
             <a-input id="price" v-model="price" />
           </a-form-item>
-          <a-form-item label="框数量">
+          <a-form-item label="数量">
             <a-input id="num" v-model="num" />
           </a-form-item>
-          <a-form-item label="框毛重">
+          <a-form-item label="皮重">
             <a-input id="weightFur" v-model="weightFur" />
           </a-form-item>
           <!-- <a-descriptions-item label="一级1">
@@ -141,12 +141,27 @@
         </a-descriptions>
 
         <a-divider style="margin: 16px 0" />
-        <a-descriptions title="毛重" size="small" :col="1">
-          <a-descriptions-item label="">
+        <a-descriptions title="重量信息" size="small" :col="1">
+          <!-- <a-descriptions-item label="">
             <span style="font-size:30px;" class="classp1">{{ this.weight }}</span>
             <a-input id="weighti" v-model="weight" ></a-input>
-          </a-descriptions-item>
+          </a-descriptions-item> -->
         </a-descriptions>
+        <a-row>
+          <a-col :xs="{ span: 3, offset: 1 }" :lg="{ span: 2, offset: 1 }">
+            <a-card type="inner" title="毛重" style="width:100px; text-align:center;">
+              <a-descriptions :title="this.weight" size="small">
+              </a-descriptions>
+            </a-card>
+          </a-col>
+          <a-col :xs="{ span: 4, offset: 3 }" :lg="{ span: 6, offset: 8 }">
+            <a-card type="inner" title="净重" style="width:100px; text-align:center;">
+              <a-descriptions :title="this.actWeight" size="small">
+              </a-descriptions>
+            </a-card>
+          </a-col>
+        </a-row>
+        <a-input id="weighti" v-model="weight" ></a-input>
         <a-divider style="margin: 16px 0" />
         <a-descriptions title="框编号" size="small" :col="2">
           <a-descriptions-item label="">
@@ -188,6 +203,10 @@
 
           <span slot="orbitCode" slot-scope="text">
             <a-tag style="height:25px;font-size: 15px;text-align: center;vertical-align: center;" color="orange" >{{ text }}</a-tag>
+          </span>
+
+          <span slot="actWeight" slot-scope="record">
+            {{ ((record.weightFur*record.num)) }}
           </span>
 
           <span slot="action" slot-scope="text, record">
@@ -255,7 +274,7 @@ import { baseMixin } from '@/store/app-mixin'
 import { getEntryApply } from '@/api/entryApply'
 import { getPageQuery } from '@/utils/util'
 import { formateDate } from '@/utils/dateUtil'
-import { productList, deleteProduct, newProduct } from '@/api/product'
+import { productList, deleteProduct, newProduct, getNewOrbitCode } from '@/api/product'
 import { specGoodsOptions } from '@/api/commonData'
 import { STable } from '@/components'
 import { GG_WS_PREFIX } from '@/config/common.config'
@@ -276,7 +295,7 @@ export default {
   mixins: [baseMixin],
 
   created () {
-    console.log(this.specGoodsOptions)
+    getNewOrbitCode().then(res => { this.orbitCode = res.data.orbitCode })
     this.$nextTick(() => {
         const urlParam = getPageQuery()
         if (urlParam !== undefined) {
@@ -296,9 +315,14 @@ export default {
             // return res.data
           })
     })
+    // 当 model 发生改变时，为表单设置值
+    this.$watch('weight', () => {
+      this.actWeight = this.weight - (this.num * this.weightFur)
+    })
   },
   data () {
     return {
+      actWeight: '0',
       goodsId: 0,
       specGoodsOptions: specGoodsOptions(),
       formerOrbitCode: 0,
@@ -319,7 +343,7 @@ export default {
       keepReading: true,
       entryApplyId: 0,
       orbitCode: 0,
-      weight: 0,
+      weight: '0',
       weightFur: 0,
       num: 0,
       level: 1,
@@ -359,6 +383,12 @@ export default {
       },
       columns: [
         {
+          title: '品名',
+          dataIndex: 'goodsName',
+          width: 65,
+          resizable: 'true'
+        },
+        {
           title: '框编号',
           dataIndex: 'orbitCode',
           width: 75,
@@ -372,16 +402,23 @@ export default {
           resizable: 'true'
         },
         {
-          title: '框重',
+          title: '皮重',
           dataIndex: 'weightFur',
           width: 65,
           resizable: 'true'
         },
         {
-          title: '重量',
+          title: '毛重',
           dataIndex: 'weight',
           width: 75,
           resizable: 'true'
+        },
+        {
+          title: '净重',
+          dataIndex: 'actWeight',
+          width: 75,
+          resizable: 'true',
+          scopedSlots: { customRender: 'actWeight' }
         },
         {
           title: '价格',
@@ -392,7 +429,7 @@ export default {
         {
           title: '入库时间',
           scopedSlots: { customRender: 'createTime' },
-          width: 180,
+          width: 130,
           dataIndex: 'createTime'
         },
         {
@@ -529,6 +566,7 @@ export default {
         if (res.success === true) {
           this.formerOrbitCode = this.product.orbitCode
           this.$message.info('入库成功')
+          getNewOrbitCode().then(res => { this.orbitCode = res.data.orbitCode })
           this.$refs.table.refresh()
         } else {
           this.$message.error('入库失败:' + res.msg)

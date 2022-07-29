@@ -314,6 +314,14 @@
 
                 </td></tr>
 
+              <tr><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">检测报告
+                  </td>
+                <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;" colspan="3">
+                  <template v-if="fo.detectionresult">
+                    <a :href="'https://mkt.ggmstc.com/static/'+fo.detectionresult" target="_blank">查看</a>
+                  </template>
+                </td></tr>
+
               <tr>
                 <td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">检测人
                 </td><td scope="col" style="text-align:center;border-width:2px;border-color:#000000;">

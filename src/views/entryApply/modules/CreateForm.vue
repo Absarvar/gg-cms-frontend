@@ -9,6 +9,7 @@
   >
     <a-spin :spinning="loading">
 
+      <!-- // 平台管理员新增编辑 -->
       <template v-if="roleType===1">
         <a-form :form="form" v-bind="formLayout">
           <!-- 检查是否有 id 并且大于0，大于0是修改。其他是新增，新增不显示主键ID -->
@@ -120,6 +121,7 @@
           <a-form-item label="承运人手机"><a-input v-decorator="['carrierMobile', {rules:[{required: true, message: '请输入承运人手机'}]}]" /></a-form-item>
           <a-form-item label="运输方式"><a-input v-decorator="['transportation', {initialValue:'陆运', rules:[{required: true, message: '请输入运输方式'}]}]" /></a-form-item>
           <a-form-item label="车牌号"><a-input v-decorator="['plateNo', {rules:[{required: true, message: '请输入车牌号'}]}]" /></a-form-item>
+          <a-form-item label="备注"><a-input v-decorator="['remark', {rules:[{required: false, message: '请输入备注'}]}]" /></a-form-item>
 
           <a-form-item
             label="是否已消毒"
@@ -273,6 +275,7 @@
           <a-form-item label="承运人手机"><a-input v-decorator="['carrierMobile', {rules:[{required: true, message: '请输入承运人手机'}]}]" /></a-form-item>
           <a-form-item label="运输方式"><a-input v-decorator="['transportation', {rules:[{required: true, message: '请输入运输方式'}]}]" /></a-form-item>
           <a-form-item label="车牌号"><a-input v-decorator="['plateNo', {rules:[{required: true, message: '请输入车牌号'}]}]" /></a-form-item>
+          <a-form-item label="备注"><a-input v-decorator="['remark', {rules:[{required: false, message: '请输入备注'}]}]" /></a-form-item>
 
           <a-form-item
             label="是否已消毒"
@@ -445,7 +448,7 @@ import { formateDate } from '@/utils/dateUtil'
 import moment from 'moment'
 
 // 表单字段
-const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'unit', 'num', 'weight', 'butcherId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'arriveTime', 'acceptorId', 'status']
+const fields = ['id', 'batchNo', 'quarantineNo', 'goodsId', 'unit', 'num', 'weight', 'butcherId', 'farmId', 'usage', 'carrier', 'carrierMobile', 'transportation', 'plateNo', 'disinfect', 'farmTicket', 'quarantineTicket', 'checkLoad', 'recheckLoad', 'load', 'memberId', 'arriveTime', 'acceptorId', 'status', 'remark']
 
 export default {
   props: {
