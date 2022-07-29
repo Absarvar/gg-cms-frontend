@@ -205,8 +205,8 @@
             <a-tag style="height:25px;font-size: 15px;text-align: center;vertical-align: center;" color="orange" >{{ text }}</a-tag>
           </span>
 
-          <span slot="actWeight" slot-scope="record">
-            {{ ((record.weightFur*record.num)) }}
+          <span slot="actWeight" slot-scope="text">
+            {{ text }}
           </span>
 
           <span slot="action" slot-scope="text, record">
