@@ -1,12 +1,13 @@
 import request from '@/utils/request'
 import { GG_URL_PREFIX } from '@/config/common.config'
 
-const purchaseApi = {
+export const purchaseApi = {
   newPurchase: GG_URL_PREFIX + '/purchase/newPurchase',
   purchaseList: GG_URL_PREFIX + '/purchase/list',
   getPurchase: GG_URL_PREFIX + '/purchase/get',
   deletePurchase: GG_URL_PREFIX + '/purchase/delete',
-  editPurchase: GG_URL_PREFIX + '/purchase/edit'
+  editPurchase: GG_URL_PREFIX + '/purchase/edit',
+  importPurchase: GG_URL_PREFIX + '/purchase/import'
 }
 
 export function newPurchase (parameter) {
@@ -45,5 +46,13 @@ export function deletePurchase () {
   return request({
     url: purchaseApi.deletePurchase,
     method: 'get'
+  })
+}
+
+export function importPurchase (parameter) {
+  return request({
+    url: purchaseApi.importPurchase,
+    method: 'post',
+    params: parameter
   })
 }

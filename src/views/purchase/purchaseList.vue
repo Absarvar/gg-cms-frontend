@@ -14,16 +14,16 @@
               </a-form-item>
             </a-col>
             <template v-if="advanced">
-            <a-col :md="8" :sm="24"> <a-form-item label="源头id"> <a-input v-model="queryParam.sourceId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="规格"> <a-input v-model="queryParam.sku" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="价格"> <a-input v-model="queryParam.price" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="总费用"> <a-input v-model="queryParam.amount" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="制单人"> <a-input v-model="queryParam.operator" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="预计到货时间"> <a-input v-model="queryParam.planArrive" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="订货日期"> <a-input v-model="queryParam.orderDate" placeholder=""/> </a-form-item> </a-col>
-            <a-col :md="8" :sm="24"> <a-form-item label="回货日期"> <a-input v-model="queryParam.backDate" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="源头id"> <a-input v-model="queryParam.sourceId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="商品id"> <a-input v-model="queryParam.goodsId" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="数量"> <a-input v-model="queryParam.num" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="规格"> <a-input v-model="queryParam.sku" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="价格"> <a-input v-model="queryParam.price" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="总费用"> <a-input v-model="queryParam.amount" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="制单人"> <a-input v-model="queryParam.operator" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="预计到货时间"> <a-input v-model="queryParam.planArrive" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="订货日期"> <a-input v-model="queryParam.orderDate" placeholder=""/> </a-form-item> </a-col>
+              <a-col :md="8" :sm="24"> <a-form-item label="回货日期"> <a-input v-model="queryParam.backDate" placeholder=""/> </a-form-item> </a-col>
 
             </template>
             <a-col :md="!advanced && 8 || 24" :sm="24">
@@ -42,16 +42,24 @@
 
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
-        <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
+        <!-- <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
           <a-menu slot="overlay">
             <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
             <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
           </a-menu>
           <a-button style="margin-left: 8px">
             批量操作 <a-icon type="down" />
           </a-button>
-        </a-dropdown>
+        </a-dropdown> -->
+        <a-upload
+          name="file"
+          :multiple="true"
+          :action="importUrl.url"
+          :headers="importHeaders"
+          @change="handleChange"
+        >
+          <a-button> <a-icon type="upload" /> 导入 </a-button>
+        </a-upload>
       </div>
 
       <s-table
@@ -74,6 +82,12 @@
         </span>
         <span slot="createTime" slot-scope="text">
           {{ text | formateDate }}
+        </span>
+        <span slot="backDate" slot-scope="text">
+          {{ text | formateDay }}
+        </span>
+        <span slot="orderDate" slot-scope="text">
+          {{ text | formateDay }}
         </span>
 
         <span slot="action" slot-scope="text, record">
@@ -100,10 +114,11 @@
 <script>
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { newPurchase, editPurchase, purchaseList } from '@/api/purchase'
+import { newPurchase, editPurchase, purchaseList, purchaseApi } from '@/api/purchase'
 
 import CreateForm from './modules/CreateForm'
 import { formateDate } from '@/utils/dateUtil'
+import { uploadHeaders } from '@/utils/util'
 
 const statusMap = {
   0: {
@@ -125,6 +140,10 @@ export default {
   },
   data () {
     return {
+      importHeaders: uploadHeaders,
+      importUrl: {
+        url: purchaseApi.importPurchase
+      },
       // create model
       visible: false,
       confirmLoading: false,
@@ -152,43 +171,57 @@ export default {
           width: 60
         },
         {
-          title: 'id',
-          dataIndex: 'id',
-          width: 60
-        },
-        {
-          title: '源头id',
-          dataIndex: 'sourceId',
+          title: '回货日期',
+          dataIndex: 'backDate',
+          scopedSlots: { customRender: 'backDate' },
           width: 120,
           resizable: 'true'
         },
         {
-          title: '商品id',
-          dataIndex: 'goodsId',
+          title: '供应商名称',
+          dataIndex: 'sourceName',
           width: 120,
           resizable: 'true'
         },
         {
-          title: '数量',
-          dataIndex: 'num',
-          width: 120,
+          title: '商品',
+          dataIndex: 'goodsName',
+          width: 90,
           resizable: 'true'
         },
         {
           title: '规格',
           dataIndex: 'sku',
-          width: 120,
+          width: 80,
           resizable: 'true'
         },
         {
-          title: '价格',
+          title: '数量',
+          dataIndex: 'num',
+          width: 70,
+          resizable: 'true'
+        },
+        {
+          title: '实际收货重量（kg）',
+          dataIndex: 'actWeight',
+          width: 150,
+          resizable: 'true'
+        },
+        {
+          title: '单价',
           dataIndex: 'price',
-          width: 120,
+          width: 80,
           resizable: 'true'
         },
         {
-          title: '总费用',
+          title: '总金额',
           dataIndex: 'amount',
+          width: 80,
+          resizable: 'true'
+        },
+        {
+          title: '运费',
+          dataIndex: 'deliveryFee',
           width: 120,
           resizable: 'true'
         },
@@ -207,12 +240,7 @@ export default {
         {
           title: '订货日期',
           dataIndex: 'orderDate',
-          width: 120,
-          resizable: 'true'
-        },
-        {
-          title: '回货日期',
-          dataIndex: 'backDate',
+          scopedSlots: { customRender: 'orderDate' },
           width: 120,
           resizable: 'true'
         },
@@ -250,6 +278,10 @@ export default {
     formateDate (time) {
       const date = new Date(time)
       return formateDate(date, 'yyyy-MM-dd hh:mm')
+    },
+    formateDay (time) {
+      const date = new Date(time)
+      return formateDate(date, 'yyyy-MM-dd')
     }
   },
   created () {
